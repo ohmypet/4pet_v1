@@ -1,0 +1,21 @@
+name: t_core
+description: t_core module
+
+environment:
+  sdk: '>=2.2.2 <3.0.0'
+
+dependencies:
+  equatable: 0.5.0
+  shared_preferences: 0.5.3+4
+  dio: 3.0.3
+  json_annotation: 3.0.0  
+  firebase_remote_config: 0.2.0+7
+  firebase_analytics: 5.0.2
+  path_provider: 1.2.0
+
+dev_dependencies:  
+  flutter_test:
+    sdk: flutter
+  mockito: ^4.0.0
+  test: ^1.3.0
+  json_serializable: ^3.2.2

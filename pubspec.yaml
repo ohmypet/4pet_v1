@@ -1,0 +1,62 @@
+name: flutter_template
+description: A new project template with Flutter.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  equatable: 0.5.1
+  cupertino_icons: 0.1.2
+  flutter_bloc: 0.21.0
+  firebase_core: 0.4.0+9
+  firebase_crashlytics: 0.1.0+3
+
+
+  ddi: any
+  t_core:
+    path: t_core
+
+dependency_overrides:
+  ddi:
+    path: packages/di
+
+dev_dependencies:
+  flutter_driver:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.7.2+1
+  json_serializable: ^2.0.0
+  pedantic: ^1.8.0+1
+
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/launcher_icons/app_icon.jpeg"
+  build_runner: ^1.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/audios/
+    - assets/fonts/
+    - assets/icons/
+    - assets/images/
+    - assets/videos/
+  fonts:
+    - family: Harmonia
+      fonts:
+        - asset: assets/fonts/harmonia/HarmoniaSansProCyr-Black.ttf
+          weight: 900
+        - asset: assets/fonts/harmonia/HarmoniaSansProCyr-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/harmonia/HarmoniaSansProCyr-SemiBd.ttf
+          weight: 600
+        - asset: assets/fonts/harmonia/HarmoniaSansProCyr-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/harmonia/HarmoniaSansProCyr-Italic.ttf
+          style: italic
