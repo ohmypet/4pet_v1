@@ -9,7 +9,7 @@ part 'image.dart';
 part 'post.dart';
 part 'pet.dart';
 part 'review.dart';
-part 'commnet.dart';
+part 'comment.dart';
 part 'tag.dart';
 
 void _addValueToMap(String key, dynamic value, Map<String, dynamic> map) {

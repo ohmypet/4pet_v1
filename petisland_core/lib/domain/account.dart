@@ -7,6 +7,23 @@ class Account with BaseModel {
   String status;
   Map<String, dynamic> settings;
 
+  Account({
+    String id,
+    Account createBy,
+    DateTime createAt,
+    DateTime updateAt,
+    this.username,
+    this.email,
+    this.role,
+    this.status,
+    this.settings,
+  }) {
+    this.id = id;
+    this.createAt = createAt;
+    this.createBy = createBy;
+    this.updateAt = updateAt;
+  }
+
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = super.toJson();

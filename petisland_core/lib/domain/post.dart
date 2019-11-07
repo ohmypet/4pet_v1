@@ -46,7 +46,7 @@ class Post with BaseModel {
     _addValueToMap('description', description, map);
     _addValueToMap('location', location, map);
     _addValueToMap('price', price, map);
-    _addValueToMap('due_date', dueDate, map);
+    _addValueToMap('due_date', dueDate?.toIso8601String(), map);
     _addValueToMap('settings', settings, map);
     _addValueToMap('status', status, map);
     _addValueToMap('account', account?.toJson(), map);
