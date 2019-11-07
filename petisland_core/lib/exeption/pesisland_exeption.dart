@@ -1,13 +1,13 @@
-import 'package:flutter/foundation.dart';
+part of petisland_core.exception;
 
 @immutable
-class TExeption implements Exception {
+class PetExeption implements Exception {
   final String message;
   final String stackTrace;
 
-  const TExeption([this.message, this.stackTrace]);
+  const PetExeption([this.message, this.stackTrace]);
 
-  TExeption.fromException(dynamic ex)
+  PetExeption.fromException(dynamic ex)
       : message = ex.message,
         stackTrace = ex.stackTrace;
 

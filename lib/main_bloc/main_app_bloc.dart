@@ -1,12 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter_template/main.dart';
+import 'package:flutter_template/petisland.dart';
 
 ///------------------------------------------------
 /// `Event` for main app
 ///------------------------------------------------
 abstract class MainAppEvent extends Equatable {
-  MainAppEvent([List<dynamic> props = const <dynamic>[]])
-      : super(<dynamic>[props]);
+  MainAppEvent([List<dynamic> props = const <dynamic>[]]) : super(<dynamic>[props]);
 
   @override
   String toString() => 'MainAppEvent';
@@ -26,8 +27,7 @@ class CompletedInitMainAppEvent extends MainAppEvent {
 /// State for main app
 ///------------------------------------------------
 abstract class MainAppState extends Equatable {
-  MainAppState([List<dynamic> props = const <dynamic>[]])
-      : super(<dynamic>[props]);
+  MainAppState([List<dynamic> props = const <dynamic>[]]) : super(<dynamic>[props]);
 
   @override
   String toString() => 'MainAppState';
@@ -49,13 +49,20 @@ class CompletedInitMainAppState extends MainAppState {
 
 class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
   @override
-  MainAppState get initialState => InitMainAppState();
+  MainAppState get initialState {
+    Log.debug('ahihi MainAppBloc');
+    this.dispatch(InitMainAppEvent());
+    return InitMainAppState();
+  }
 
   @override
   Stream<MainAppState> mapEventToState(MainAppEvent event) async* {
     switch (event.runtimeType) {
       case InitMainAppEvent:
+        Log.debug('ahihi mapEventToState');
+
         yield InitMainAppState();
+        initAsync(this);
         break;
       case CompletedInitMainAppEvent:
         yield CompletedInitMainAppState();

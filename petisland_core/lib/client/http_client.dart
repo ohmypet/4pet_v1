@@ -1,9 +1,4 @@
-import 'dart:async';
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:t_core/t_core.dart';
+part of petisland_core.client;
 
 @immutable
 class HttpClient {
@@ -11,25 +6,20 @@ class HttpClient {
 
   HttpClient.init(Dio dio) : _dio = dio;
 
-  static Map<String, dynamic> _getParams(Map<String, dynamic> params) =>
-      params ?? <String, dynamic>{};
+  static Map<String, dynamic> _getParams(Map<String, dynamic> params) => params ?? <String, dynamic>{};
 
   static Options _getOptions(Options options) =>
       options is Options ? options : Options(responseType: ResponseType.plain);
 
-  Future<T> get<T>(String path,
-      {Map<String, dynamic> params, Options options}) {
+  Future<T> get<T>(String path, {Map<String, dynamic> params, Options options}) {
     return _dio
-        .get<T>(path,
-            queryParameters: _getParams(params), options: _getOptions(options))
+        .get<T>(path, queryParameters: _getParams(params), options: _getOptions(options))
         .then(_handleResult)
         .catchError((dynamic e) => _handleError(path, e));
   }
 
   Future<T> post<T>(String path, dynamic body,
-      {Map<String, dynamic> params,
-      ProgressCallback onSendProgress,
-      Options options}) {
+      {Map<String, dynamic> params, ProgressCallback onSendProgress, Options options}) {
     return _dio
         .post<T>(path,
             data: body,
@@ -75,7 +65,7 @@ class HttpClient {
       if (e.response != null && e.response.data != null) {
         Map<String, dynamic> jsonEx = json.decode(e.response.data);
 
-        throw TApiExecption.fromJson(jsonEx['error']);
+        throw PetApiExecption.fromJson(jsonEx['error']);
       } else {
         // throw XedAPIException.from(e);
       }

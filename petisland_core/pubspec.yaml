@@ -1,5 +1,5 @@
-name: t_core
-description: t_core module
+name: petisland_core
+description: pet_core module
 
 environment:
   sdk: '>=2.2.2 <3.0.0'

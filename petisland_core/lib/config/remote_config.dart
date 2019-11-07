@@ -1,3 +1,5 @@
+part of petisland_core.config;
+
 class RemoteConfig {
   Map<String, dynamic> defaultValue;
 

@@ -14,10 +14,9 @@ dependencies:
   firebase_core: 0.4.0+9
   firebase_crashlytics: 0.1.0+3
 
-
   ddi: any
-  t_core:
-    path: t_core
+  petisland_core:
+    path: petisland_core
 
 dependency_overrides:
   ddi:
@@ -31,7 +30,6 @@ dev_dependencies:
   flutter_launcher_icons: ^0.7.2+1
   json_serializable: ^2.0.0
   pedantic: ^1.8.0+1
-
 
 flutter_icons:
   android: "launcher_icon"

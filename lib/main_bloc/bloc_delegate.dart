@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:t_core/t_core.dart';
+import 'package:petisland_core/petisland_core.dart';
 
 class TBlocDelegate extends BlocDelegate {
   @override

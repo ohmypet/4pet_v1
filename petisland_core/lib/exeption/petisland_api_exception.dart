@@ -1,14 +1,12 @@
-import 'package:flutter/cupertino.dart';
-import 'package:t_core/exeption/t_exeption.dart';
+part of petisland_core.exception;
 
 @immutable
-class TApiExecption extends TExeption {
+class PetApiExecption extends PetExeption {
   final String reason;
 
-  const TApiExecption({String message, this.reason, String stackStrace})
-      : super(message, stackStrace);
+  const PetApiExecption({String message, this.reason, String stackStrace}) : super(message, stackStrace);
 
-  TApiExecption.fromJson(Map<String, dynamic> json)
+  PetApiExecption.fromJson(Map<String, dynamic> json)
       : reason = json['reason'],
         super(json['message']);
 

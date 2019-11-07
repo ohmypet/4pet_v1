@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:t_core/t_core.dart';
+import 'package:flutter_template/petisland.dart';
 
 abstract class TStatefulWidget extends StatefulWidget {
   const TStatefulWidget({Key key}) : super(key: key);

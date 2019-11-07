@@ -1,5 +1,4 @@
-import 'package:firebase_remote_config/firebase_remote_config.dart' as frc;
-import 'package:t_core/t_core.dart';
+part of petisland_core.config;
 
 class FireBaseRemoteConfig extends RemoteConfig {
   frc.RemoteConfig _conf;
@@ -13,8 +12,7 @@ class FireBaseRemoteConfig extends RemoteConfig {
         ..fetch(expiration: Duration(hours: 1))
         ..activateFetched()
         ..addListener(() {
-          getAll().forEach((String key, dynamic value) =>
-              Log.debug('Key: $key, value: $value'));
+          getAll().forEach((String key, dynamic value) => Log.debug('Key: $key, value: $value'));
         });
     }).catchError((dynamic ex) {
       Log.error('Fail to fetch config from firebase: $ex');

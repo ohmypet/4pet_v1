@@ -1,6 +1,12 @@
 // import 'package:firebase_remote_config/firebase_remote_config.dart' as firebase;
-import 'package:t_core/config/firebase_config.dart';
-import 'package:t_core/config/remote_config.dart';
+library petisland_core.config;
+
+import 'package:firebase_remote_config/firebase_remote_config.dart' as frc;
+
+import '../util/log.dart';
+
+part 'firebase_config.dart';
+part 'remote_config.dart';
 
 enum Mode { Debug, Production }
 
@@ -19,7 +25,8 @@ class Config {
     if (Mode.Debug == mode) {
       _config = RemoteConfig(_debug);
     } else {
-      _config = await FireBaseRemoteConfig(_production)..init();
+      _config = await FireBaseRemoteConfig(_production)
+        ..init();
     }
   }
 
