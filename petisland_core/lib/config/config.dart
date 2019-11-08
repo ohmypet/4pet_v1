@@ -12,11 +12,11 @@ enum Mode { Debug, Production }
 
 class Config {
   static const Map<String, dynamic> _debug = <String, dynamic>{
-    'api_host': 'https://reqres.in',
+    'api_host': 'https://petisland.herokuapp.com',
   };
 
   static const Map<String, dynamic> _production = <String, dynamic>{
-    'api_host': 'https://reqres.in',
+    'api_host': 'https://petisland.herokuapp.com',
   };
 
   static RemoteConfig _config;

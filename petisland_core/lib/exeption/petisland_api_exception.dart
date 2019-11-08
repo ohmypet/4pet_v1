@@ -1,23 +1,14 @@
 part of petisland_core.exception;
 
-@immutable
 class PetApiExecption extends PetExeption {
-  final String reason;
+  int statusCode;
+  String error;
 
-  const PetApiExecption({String message, this.reason, String stackStrace}) : super(message, stackStrace);
+  PetApiExecption({this.statusCode, this.error, String message}) : super(message);
 
-  PetApiExecption.fromJson(Map<String, dynamic> json)
-      : reason = json['reason'],
-        super(json['message']);
-
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'message': message,
-      'reason': reason,
-      'stackTrace': stackTrace,
-    };
+  PetApiExecption.fromJson(Map<String, dynamic> json) {
+    statusCode = json['statusCode'];
+    error = json['error'];
+    message = json['message'];
   }
-
-  @override
-  String toString() => 'TApiExecption:: $message, $reason, $stackTrace';
 }
