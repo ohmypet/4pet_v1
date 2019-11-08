@@ -17,6 +17,13 @@ class Review extends BaseModel {
     this.stars,
   }) : super(id, createAt, updateAt, createBy);
 
+  Review.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    message = json['message'];
+    likes = json['likes'];
+    stars = json['stars'];
+    images = _parseImages(json['images']);
+  }
+
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = super.toJson();

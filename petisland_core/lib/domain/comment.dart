@@ -17,6 +17,13 @@ class Comment extends BaseModel {
     this.account,
   }) : super(id, createAt, updateAt, createBy);
 
+  Comment.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    message = json['message'];
+    likes = json['likes'];
+    account = json['account'];
+    images = _parseImages(json['images']);
+  }
+
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = super.toJson();

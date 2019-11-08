@@ -25,6 +25,17 @@ class User extends BaseModel {
     this.settings,
   }) : super(id, createAt, updateAt, createBy);
 
+  User.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    account = json['account'] != null ? Account.fromJson(json['account']) : null;
+    address = json['address'];
+    avatar = json['avatar'] != null ? Image.fromJson(json['avatar']) : null;
+    phoneNumber = json['phoneNumber'];
+    bio = json['bio'];
+    dob = _parseDateTime(json['dob']);
+    name = json['name'];
+    settings = json['settings'];
+  }
+
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = super.toJson();

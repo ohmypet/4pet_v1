@@ -5,5 +5,5 @@ abstract class AccountService {
 
   Future<Account> register(String email, String code, String username, String password);
 
-  Future<LoginSession> login(String email, String password);
+  Future<LoginData> login(String email, String password);
 }

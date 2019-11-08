@@ -13,6 +13,11 @@ class Tag extends BaseModel {
     this.description,
   }) : super(id, createAt, updateAt, createBy);
 
+  Tag.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    title = json['title'];
+    description = json['description'];
+  }
+
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = super.toJson();

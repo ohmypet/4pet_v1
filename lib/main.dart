@@ -8,6 +8,7 @@ import 'package:flutter_template/petisland.dart';
 import 'package:petisland_core/petisland_core.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   final MainAppBloc bloc = MainAppBloc();
 
   Log.debug('this is main');

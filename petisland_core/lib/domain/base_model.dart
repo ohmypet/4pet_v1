@@ -8,6 +8,7 @@ abstract class BaseModel {
 
   BaseModel(this.id, this.createAt, this.updateAt, this.createBy);
 
+  @mustCallSuper
   BaseModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     createAt = json['create_at'];

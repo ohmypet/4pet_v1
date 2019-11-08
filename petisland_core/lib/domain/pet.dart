@@ -13,6 +13,11 @@ class Pet extends BaseModel {
     DateTime updateAt,
   }) : super(id, createAt, updateAt, createBy);
 
+  Pet.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    type = json['type'];
+    info = json['info'];
+  }
+
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = super.toJson();

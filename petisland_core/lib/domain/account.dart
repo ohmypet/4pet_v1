@@ -19,8 +19,12 @@ class Account extends BaseModel {
     this.settings,
   }) : super(id, createAt, updateAt, createBy);
 
-  factory Account.fromJson(Map<String, dynamic> json) {
-    return Account(createAt: json['']);
+  Account.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    username = json['username'];
+    email = json['email'];
+    role = json['role'];
+    status = json['status'];
+    settings = json['settings'];
   }
 
   @override

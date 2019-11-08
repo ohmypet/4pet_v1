@@ -34,6 +34,21 @@ class Post extends BaseModel {
     this.likes,
   }) : super(id, createAt, updateAt, createBy);
 
+  Post.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    title = json['title'];
+    description = json['description'];
+    location = json['location'];
+    price = json['price'];
+    dueDate = _parseDateTime(json['dueDate']);
+    settings = json['settings'];
+    status = json['status'];
+    account = json['account'] != null ? Account.fromJson(json['account']) : null;
+    pet = json['pet'] != null ? Pet.fromJson(json['pet']) : null;
+    images = _parseImages(json['images']);
+    tags = _parseTags(json['tags']);
+    likes = json['likes'];
+  }
+
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = super.toJson();
