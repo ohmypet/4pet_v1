@@ -1,6 +1,6 @@
 part of petisland_core.domain;
 
-class Image with BaseModel {
+class Image extends BaseModel {
   String url;
   String publicId;
 
@@ -11,12 +11,7 @@ class Image with BaseModel {
     DateTime updateAt,
     this.url,
     this.publicId,
-  }) {
-    this.id = id;
-    this.createAt = createAt;
-    this.createBy = createBy;
-    this.updateAt = updateAt;
-  }
+  }) : super(id, createAt, updateAt, createBy);
 
   @override
   Map<String, dynamic> toJson() {

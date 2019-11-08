@@ -1,6 +1,6 @@
 part of petisland_core.domain;
 
-class Post with BaseModel {
+class Post extends BaseModel {
   String title;
   String description;
   String location;
@@ -32,12 +32,7 @@ class Post with BaseModel {
     this.images = const <Image>[],
     this.tags = const <Tag>[],
     this.likes,
-  }) {
-    this.id = id;
-    this.createAt = createAt;
-    this.createBy = createBy;
-    this.updateAt = updateAt;
-  }
+  }) : super(id, createAt, updateAt, createBy);
 
   @override
   Map<String, dynamic> toJson() {

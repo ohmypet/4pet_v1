@@ -1,6 +1,6 @@
 part of petisland_core.domain;
 
-class Review with BaseModel {
+class Review extends BaseModel {
   String message;
   List<Image> images;
   int stars;
@@ -15,12 +15,7 @@ class Review with BaseModel {
     this.images,
     this.likes,
     this.stars,
-  }) {
-    this.id = id;
-    this.createAt = createAt;
-    this.createBy = createBy;
-    this.updateAt = updateAt;
-  }
+  }) : super(id, createAt, updateAt, createBy);
 
   @override
   Map<String, dynamic> toJson() {

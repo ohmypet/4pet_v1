@@ -53,7 +53,7 @@ class HttpClient {
     } else {
       final String body = response.data;
       final Map<String, dynamic> map = json.decode(body);
-      throw PetApiExecption.fromJson(map);
+      throw PetApiException.fromJson(map);
     }
     // return Future<T>.value(json.decode(body));
   }
@@ -62,8 +62,8 @@ class HttpClient {
     if (ex is DioError) {
       _handleDioError(path, ex);
 
-      throw PetExeption.fromException(ex);
-    } else if (ex is PetApiExecption) {
+      throw PetException.fromException(ex);
+    } else if (ex is PetApiException) {
       throw ex;
     }
   }

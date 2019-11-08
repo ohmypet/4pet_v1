@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/export.dart';
 
-/// Fonsize default is **14**
+/// Font size default is **14**
 ///
 /// **Back** is a color default
 abstract class TTextStyles extends TextStyle {
-  /// Fonsize default is **14**
+  /// Font size default is **14**
   ///
   /// **Back** is a color default
   factory TTextStyles.normal({double fontSize, Color color}) => _TTextStyle(
@@ -14,7 +14,7 @@ abstract class TTextStyles extends TextStyle {
         fontWeight: FontWeight.normal,
       );
 
-  /// Fonsize default is **14**
+  /// Font size default is **14**
   ///
   /// **Back** is a color default
   factory TTextStyles.light({double fontSize, Color color}) => _TTextStyle(
@@ -23,7 +23,7 @@ abstract class TTextStyles extends TextStyle {
         fontWeight: FontWeight.w400,
       );
 
-  /// Fonsize default is **14**
+  /// Font size default is **14**
   ///
   /// **Back** is a color default
   factory TTextStyles.medium({double fontSize, Color color}) => _TTextStyle(
@@ -32,7 +32,7 @@ abstract class TTextStyles extends TextStyle {
         fontWeight: FontWeight.w500,
       );
 
-  /// Fonsize default is **14**
+  /// Font size default is **14**
   ///
   /// **Back** is a color default
   factory TTextStyles.semi({double fontSize, Color color}) => _TTextStyle(
@@ -41,7 +41,7 @@ abstract class TTextStyles extends TextStyle {
         fontWeight: FontWeight.w600,
       );
 
-  /// Fonsize default is **14**
+  /// Font size default is **14**
   ///
   /// **Back** is a color default
   factory TTextStyles.bold({double fontSize, Color color}) => _TTextStyle(
@@ -50,7 +50,7 @@ abstract class TTextStyles extends TextStyle {
         fontWeight: FontWeight.w800,
       );
 
-  /// Fonsize default is **14**
+  /// Font size default is **14**
   ///
   /// **Back** is a color default
   factory TTextStyles.black({double fontSize, Color color}) => _TTextStyle(

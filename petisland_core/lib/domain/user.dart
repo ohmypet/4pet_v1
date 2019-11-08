@@ -1,6 +1,6 @@
 part of petisland_core.domain;
 
-class User with BaseModel {
+class User extends BaseModel {
   String name;
   String phoneNumber;
   Map<String, dynamic> address;
@@ -23,12 +23,7 @@ class User with BaseModel {
     this.dob,
     this.name,
     this.settings,
-  }) {
-    this.id = id;
-    this.createAt = createAt;
-    this.createBy = createBy;
-    this.updateAt = updateAt;
-  }
+  }) : super(id, createAt, updateAt, createBy);
 
   @override
   Map<String, dynamic> toJson() {

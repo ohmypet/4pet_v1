@@ -1,12 +1,12 @@
 part of petisland_core.exception;
 
-class PetExeption implements Exception {
+class PetException implements Exception {
   String message;
   String stackTrace;
 
-  PetExeption([this.message, this.stackTrace]);
+  PetException([this.message, this.stackTrace]);
 
-  PetExeption.fromException(dynamic ex)
+  PetException.fromException(dynamic ex)
       : message = ex.message,
         stackTrace = ex.stackTrace;
 
