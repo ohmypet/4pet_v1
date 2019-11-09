@@ -9,6 +9,7 @@ abstract class AccountService {
 }
 
 class AccountServiceImpl extends AccountService {
+  @protected
   final AccountReposity reposity;
 
   AccountServiceImpl(this.reposity);

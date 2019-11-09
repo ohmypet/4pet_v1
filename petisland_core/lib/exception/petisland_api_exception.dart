@@ -1,6 +1,8 @@
 part of petisland_core.exception;
 
 class PetApiException extends PetException {
+  static const int no_auth = 401;
+
   int statusCode;
   String error;
 
