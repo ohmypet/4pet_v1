@@ -17,4 +17,12 @@ class LoginData extends BaseModel {
     token = json['token'];
     account = json['account'] != null ? Account.fromJson(json['account']) : null;
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> map = super.toJson();
+    _addValueToMap('token', token, map);
+    _addValueToMap('account', account?.toJson(), map);
+    return map;
+  }
 }

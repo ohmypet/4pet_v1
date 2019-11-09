@@ -5,7 +5,7 @@ abstract class AccountService {
 
   Future<Account> register(String email, String code, String username, String password);
 
-  Future<LoginData> login(String email, String password);
+  Future<LoginData> login(String username, String password);
 }
 
 class AccountServiceImpl extends AccountService {
@@ -15,8 +15,8 @@ class AccountServiceImpl extends AccountService {
   AccountServiceImpl(this.reposity);
 
   @override
-  Future<LoginData> login(String email, String password) {
-    return reposity.login(email, password);
+  Future<LoginData> login(String username, String password) {
+    return reposity.login(username, password);
   }
 
   @override
@@ -26,6 +26,6 @@ class AccountServiceImpl extends AccountService {
 
   @override
   Future<Account> requireCode(String email) {
-    return requireCode(email);
+    return reposity.requireCode(email);
   }
 }

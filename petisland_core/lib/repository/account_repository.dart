@@ -5,7 +5,7 @@ abstract class AccountReposity {
 
   Future<Account> register(String email, String code, String username, String password);
 
-  Future<LoginData> login(String email, String password);
+  Future<LoginData> login(String username, String password);
 }
 
 class AccountReposityImpl extends AccountReposity {
@@ -15,9 +15,9 @@ class AccountReposityImpl extends AccountReposity {
   AccountReposityImpl(this.client);
 
   @override
-  Future<LoginData> login(String email, String password) {
+  Future<LoginData> login(String username, String password) {
     final Map<String, dynamic> body = <String, dynamic>{
-      'email': email,
+      'username': username,
       'password': password,
     };
     return client.post('/api/account/login', body).then((Map<String, dynamic> json) => LoginData.fromJson(json));

@@ -2,6 +2,7 @@ part of petisland_core.exception;
 
 class PetApiException extends PetException {
   static const int no_auth = 401;
+  static const int code_time_out = 408;
 
   int statusCode;
   String error;

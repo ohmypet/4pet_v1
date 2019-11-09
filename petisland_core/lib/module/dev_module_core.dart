@@ -10,7 +10,7 @@ class DevModuleCore extends AbstractModule {
     bind(LocalStorageService).to(await _buildLocalService());
     bind(normal_client).to(_buildClient());
     bind(api_client).to(_buildApiClient());
-    // bind(AccountService).to(_buildAccountService);
+    bind(AccountService).to(_buildAccountService());
   }
 
   Future<LocalStorageService> _buildLocalService() async {
@@ -57,5 +57,11 @@ class DevModuleCore extends AbstractModule {
       throw PetApiException(statusCode: PetApiException.no_auth);
     }
     return options;
+  }
+
+  AccountService _buildAccountService() {
+    final HttpClient client = get<HttpClient>(normal_client);
+    final AccountReposity reposity = AccountReposityImpl(client);
+    return AccountServiceImpl(reposity);
   }
 }

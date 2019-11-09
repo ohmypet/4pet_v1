@@ -11,5 +11,5 @@ class PetException implements Exception {
         stackTrace = ex.stackTrace;
 
   @override
-  String toString() => 'Error:: $message $stackTrace';
+  String toString() => '$runtimeType:: $message $stackTrace';
 }
