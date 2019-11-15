@@ -4,8 +4,8 @@ Awesome mobile app for PetIsland.
 
 *PetIsland is a social network that helps connect pet lovers, currently only available in Vietnam 🇻🇳*
 
-![cat](./images/cat.gif)
-![dog](./images/dog.gif)
+<span><img height=200 src="images/cat.gif" alt="cat" /><span/>
+<span><img height=200 src="images/dog.gif" alt="dog" /><span/>
 
 ## Quick start
 
