@@ -48,27 +48,37 @@ class HttpClient {
   FutureOr<Map<String, dynamic>> _handleResult<T>(Response<dynamic> response) async {
     if (response.statusCode == HttpStatus.ok) {
       final String body = response.data;
+
       final Map<String, dynamic> map = json.decode(body);
       return map;
     } else {
-      final String body = response.data;
-      final Map<String, dynamic> map = json.decode(body);
-      throw PetApiExecption.fromJson(map);
+      throw _getApiException(response);
     }
     // return Future<T>.value(json.decode(body));
   }
 
-  void _handleError(String path, Exception ex) {
-    if (ex is DioError) {
-      _handleDioError(path, ex);
-
-      throw PetExeption.fromException(ex);
-    } else if (ex is PetApiExecption) {
-      throw ex;
+  PetApiException _getApiException(Response<dynamic> response) {
+    final String body = response?.data;
+    if (body != null) {
+      final Map<String, dynamic> map = json.decode(body);
+      return PetApiException.fromJson(map);
+    } else {
+      return null;
     }
   }
 
-  void _handleDioError(String path, DioError ex) {
-    Log.error(ex);
+  void _handleError(String path, Exception ex) {
+    if (ex is PetApiException) {
+      throw ex;
+    } else if (ex is DioError) {
+      throw _handleDioError(path, ex);
+    } else
+      throw ex;
+  }
+
+  Exception _handleDioError(String path, DioError ex) {
+    Log.error('path: $path ex: $ex');
+    final PetApiException error = _getApiException(ex.response) ?? PetException.fromException(ex);
+    throw error;
   }
 }

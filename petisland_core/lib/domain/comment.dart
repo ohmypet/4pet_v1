@@ -1,6 +1,6 @@
 part of petisland_core.domain;
 
-class Comment with BaseModel {
+class Comment extends BaseModel {
   String message;
   List<Image> images;
   int likes;
@@ -15,11 +15,13 @@ class Comment with BaseModel {
     this.images,
     this.likes,
     this.account,
-  }) {
-    this.id = id;
-    this.createAt = createAt;
-    this.createBy = createBy;
-    this.updateAt = updateAt;
+  }) : super(id, createAt, updateAt, createBy);
+
+  Comment.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    message = json['message'];
+    likes = json['likes'];
+    account = json['account'];
+    images = _parseImages(json['images']);
   }
 
   @override

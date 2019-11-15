@@ -1,6 +1,6 @@
 part of petisland_core.domain;
 
-class User with BaseModel {
+class User extends BaseModel {
   String name;
   String phoneNumber;
   Map<String, dynamic> address;
@@ -23,11 +23,17 @@ class User with BaseModel {
     this.dob,
     this.name,
     this.settings,
-  }) {
-    this.id = id;
-    this.createAt = createAt;
-    this.createBy = createBy;
-    this.updateAt = updateAt;
+  }) : super(id, createAt, updateAt, createBy);
+
+  User.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    account = json['account'] != null ? Account.fromJson(json['account']) : null;
+    address = json['address'];
+    avatar = json['avatar'] != null ? Image.fromJson(json['avatar']) : null;
+    phoneNumber = json['phoneNumber'];
+    bio = json['bio'];
+    dob = _parseDateTime(json['dob']);
+    name = json['name'];
+    settings = json['settings'];
   }
 
   @override

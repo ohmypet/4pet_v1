@@ -1,6 +1,6 @@
 part of petisland_core.domain;
 
-class Account with BaseModel {
+class Account extends BaseModel {
   String username;
   String email;
   String role;
@@ -17,11 +17,14 @@ class Account with BaseModel {
     this.role,
     this.status,
     this.settings,
-  }) {
-    this.id = id;
-    this.createAt = createAt;
-    this.createBy = createBy;
-    this.updateAt = updateAt;
+  }) : super(id, createAt, updateAt, createBy);
+
+  Account.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    username = json['username'];
+    email = json['email'];
+    role = json['role'];
+    status = json['status'];
+    settings = json['settings'];
   }
 
   @override

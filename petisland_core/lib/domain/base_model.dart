@@ -6,6 +6,16 @@ abstract class BaseModel {
   DateTime updateAt;
   Account createBy;
 
+  BaseModel(this.id, this.createAt, this.updateAt, this.createBy);
+
+  @mustCallSuper
+  BaseModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    createAt = json['create_at'];
+    updateAt = json['update_at'];
+    createBy = json['create_by'] != null ? Account.fromJson(json['create_by']) : null;
+  }
+
   @mustCallSuper
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};

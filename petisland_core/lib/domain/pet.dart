@@ -1,6 +1,6 @@
 part of petisland_core.domain;
 
-class Pet with BaseModel {
+class Pet extends BaseModel {
   String type;
   Map<String, dynamic> info;
 
@@ -11,11 +11,11 @@ class Pet with BaseModel {
     Account createBy,
     DateTime createAt,
     DateTime updateAt,
-  }) {
-    this.id = id;
-    this.createAt = createAt;
-    this.createBy = createBy;
-    this.updateAt = updateAt;
+  }) : super(id, createAt, updateAt, createBy);
+
+  Pet.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    type = json['type'];
+    info = json['info'];
   }
 
   @override

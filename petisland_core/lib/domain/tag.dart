@@ -1,6 +1,6 @@
 part of petisland_core.domain;
 
-class Tag with BaseModel {
+class Tag extends BaseModel {
   String title;
   String description;
 
@@ -11,11 +11,11 @@ class Tag with BaseModel {
     DateTime updateAt,
     this.title,
     this.description,
-  }) {
-    this.id = id;
-    this.createAt = createAt;
-    this.createBy = createBy;
-    this.updateAt = updateAt;
+  }) : super(id, createAt, updateAt, createBy);
+
+  Tag.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    title = json['title'];
+    description = json['description'];
   }
 
   @override

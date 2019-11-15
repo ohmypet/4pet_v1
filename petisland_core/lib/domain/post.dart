@@ -1,6 +1,6 @@
 part of petisland_core.domain;
 
-class Post with BaseModel {
+class Post extends BaseModel {
   String title;
   String description;
   String location;
@@ -32,11 +32,21 @@ class Post with BaseModel {
     this.images = const <Image>[],
     this.tags = const <Tag>[],
     this.likes,
-  }) {
-    this.id = id;
-    this.createAt = createAt;
-    this.createBy = createBy;
-    this.updateAt = updateAt;
+  }) : super(id, createAt, updateAt, createBy);
+
+  Post.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    title = json['title'];
+    description = json['description'];
+    location = json['location'];
+    price = json['price'];
+    dueDate = _parseDateTime(json['dueDate']);
+    settings = json['settings'];
+    status = json['status'];
+    account = json['account'] != null ? Account.fromJson(json['account']) : null;
+    pet = json['pet'] != null ? Pet.fromJson(json['pet']) : null;
+    images = _parseImages(json['images']);
+    tags = _parseTags(json['tags']);
+    likes = json['likes'];
   }
 
   @override

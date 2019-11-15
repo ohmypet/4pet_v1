@@ -8,6 +8,7 @@ import 'package:flutter_template/petisland.dart';
 import 'package:petisland_core/petisland_core.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   final MainAppBloc bloc = MainAppBloc();
 
   Log.debug('this is main');
@@ -27,7 +28,7 @@ void initAsync(MainAppBloc bloc) async {
   Log.debug('this is initAsync');
   // await Future.delayed(const Duration(seconds: 5));
   final Mode mode = kReleaseMode ? Mode.Production : Mode.Debug;
-  final List<Module> modules = kReleaseMode ? <Module>[ProdModule()] : <Module>[DevModule()];
+  final List<Module> modules = kReleaseMode ? <Module>[ProdModule()] : <Module>[DevModuleCore()];
 
   Config.initAsync(mode)
       .then((_) => DI.initAsync(modules))
