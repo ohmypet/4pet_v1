@@ -1,6 +1,8 @@
 part of petisland.common.state;
 
 abstract class TStatelessWidget extends StatelessWidget {
+  const TStatelessWidget({Key key}) : super(key: key);
+
   Future<T> navigateToScreen<T>({
     @required BuildContext context,
     @required Widget screen,

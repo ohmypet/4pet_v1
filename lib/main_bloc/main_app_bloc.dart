@@ -1,70 +1,30 @@
 part of petisland.main_bloc;
 
 ///------------------------------------------------
-/// `Event` for main app
-///------------------------------------------------
-abstract class MainAppEvent extends Equatable {
-  MainAppEvent([List<dynamic> props = const <dynamic>[]])
-      : super(<dynamic>[props]);
-
-  @override
-  String toString() => 'MainAppEvent';
-}
-
-class InitMainAppEvent extends MainAppEvent {
-  @override
-  String toString() => 'InitMainAppEvent';
-}
-
-class CompletedInitMainAppEvent extends MainAppEvent {
-  @override
-  String toString() => 'CompletedInitMainAppEvent';
-}
-
-///------------------------------------------------
-/// State for main app
-///------------------------------------------------
-abstract class MainAppState extends Equatable {
-  MainAppState([List<dynamic> props = const <dynamic>[]])
-      : super(<dynamic>[props]);
-
-  @override
-  String toString() => 'MainAppState';
-}
-
-class InitMainAppState extends MainAppState {
-  @override
-  String toString() => 'InitMainAppState';
-}
-
-class CompletedInitMainAppState extends MainAppState {
-  @override
-  String toString() => 'CompletedInitMainAppState';
-}
-
-///------------------------------------------------
 /// Define bloc
 ///------------------------------------------------
 
 class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
+  // PetIslandTheme theme = PetIslandLightTheme();
+  ThemeMode themeMode = ThemeMode.light;
+
   @override
-  MainAppState get initialState {
-    Log.debug('ahihi MainAppBloc');
-    this.add(InitMainAppEvent());
-    return InitMainAppState();
-  }
+  MainAppState get initialState => CreatedAppState();
 
   @override
   Stream<MainAppState> mapEventToState(MainAppEvent event) async* {
     switch (event.runtimeType) {
-      // case InitMainAppEvent:
-      //   Log.debug('ahihi mapEventToState');
+      case DependenceLoadingEvent:
+        yield DependenceLoadingApp();
+        break;
 
-        // yield InitMainAppState();
-        // initAsync(this);
-        // break;
-      case CompletedInitMainAppEvent:
-        yield CompletedInitMainAppState();
+      case ThemeAppChangedEvent:
+        themeMode = themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+        yield ThemeAppChanged();
+        break;
+
+      case DependenceLoadedEvent:
+        yield ActiveApp();
         break;
       default:
     }

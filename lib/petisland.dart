@@ -6,5 +6,7 @@ export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:petisland_core/petisland_core.dart';
 
 export 'common/common.dart';
+export 'main_app/main_app.dart';
 export 'main_bloc/main_bloc.dart';
 export 'module/module.dart';
+export 'splash/splash_screen.dart';
