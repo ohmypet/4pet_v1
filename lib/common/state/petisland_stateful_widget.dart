@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_template/petisland.dart';
+part of petisland.common.state;
 
 abstract class TStatefulWidget extends StatefulWidget {
   const TStatefulWidget({Key key}) : super(key: key);

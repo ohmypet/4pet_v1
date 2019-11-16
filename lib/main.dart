@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/main_bloc/main_app_bloc.dart';
+import 'package:flutter_template/main_bloc/main_bloc.dart';
 import 'package:flutter_template/petisland.dart';
 import 'package:petisland_core/petisland_core.dart';
 
@@ -28,7 +28,8 @@ void initAsync(MainAppBloc bloc) async {
   Log.debug('this is initAsync');
   // await Future.delayed(const Duration(seconds: 5));
   final Mode mode = kReleaseMode ? Mode.Production : Mode.Debug;
-  final List<Module> modules = kReleaseMode ? <Module>[ProdModule()] : <Module>[DevModuleCore()];
+  final List<Module> modules =
+      kReleaseMode ? <Module>[ProdModule()] : <Module>[DevModuleCore()];
 
   Config.initAsync(mode)
       .then((_) => DI.initAsync(modules))

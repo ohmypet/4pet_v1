@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+part of petisland.common.state;
 
 abstract class TStatelessWidget extends StatelessWidget {
   Future<T> navigateToScreen<T>({

@@ -1,5 +1,4 @@
-import 'package:bloc/bloc.dart';
-import 'package:petisland_core/petisland_core.dart';
+part of petisland.main_bloc;
 
 class TBlocDelegate extends BlocDelegate {
   @override

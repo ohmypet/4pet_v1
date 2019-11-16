@@ -1,3 +1,3 @@
-import 'package:flutter_template/module/dev_module.dart';
+part of petisland.module;
 
 class ProdModule extends DevModule {}
