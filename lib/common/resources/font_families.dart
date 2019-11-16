@@ -1,3 +1,4 @@
+part of petisland.common.resources;
 abstract class FontFamilies {
   static const String harmonia = "HarmoniaSansProCyr";
   static const String round = "Round";

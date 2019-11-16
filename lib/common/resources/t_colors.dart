@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of petisland.common.resources;
 
 abstract class TColors {
   static const Color white = Colors.white;

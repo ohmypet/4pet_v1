@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_template/common/export.dart';
+part of petisland.common.resources;
 
 /// Font size default is **14**
 ///
