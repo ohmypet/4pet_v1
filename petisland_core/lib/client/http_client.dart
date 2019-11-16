@@ -7,20 +7,25 @@ class HttpClient {
 
   HttpClient.init(Dio dio) : dio = dio;
 
-  static Map<String, dynamic> _getParams(Map<String, dynamic> params) => params ?? <String, dynamic>{};
+  static Map<String, dynamic> _getParams(Map<String, dynamic> params) =>
+      params ?? <String, dynamic>{};
 
   static Options _getOptions(Options options) =>
       options is Options ? options : Options(responseType: ResponseType.plain);
 
-  Future<Map<String, dynamic>> get(String path, {Map<String, dynamic> params, Options options}) {
+  Future<Map<String, dynamic>> get(String path,
+      {Map<String, dynamic> params, Options options}) {
     return dio
-        .get<String>(path, queryParameters: _getParams(params), options: _getOptions(options))
+        .get<String>(path,
+            queryParameters: _getParams(params), options: _getOptions(options))
         .then((Response<String> response) => _handleResult(response))
         .catchError((dynamic e) => _handleError(path, e));
   }
 
   Future<Map<String, dynamic>> post(String path, dynamic body,
-      {Map<String, dynamic> params, ProgressCallback onSendProgress, Options options}) {
+      {Map<String, dynamic> params,
+      ProgressCallback onSendProgress,
+      Options options}) {
     return dio
         .post<String>(path,
             data: body,
@@ -31,7 +36,8 @@ class HttpClient {
         .catchError((dynamic e) => _handleError(path, e));
   }
 
-  Future<Map<String, dynamic>> put(String path, dynamic body, {Options options}) {
+  Future<Map<String, dynamic>> put(String path, dynamic body,
+      {Options options}) {
     return dio
         .put<String>(path, data: body, options: _getOptions(options))
         .then((Response<String> response) => _handleResult(response))
@@ -45,7 +51,8 @@ class HttpClient {
         .catchError((dynamic ex) => _handleError(path, ex));
   }
 
-  FutureOr<Map<String, dynamic>> _handleResult<T>(Response<dynamic> response) async {
+  FutureOr<Map<String, dynamic>> _handleResult<T>(
+      Response<dynamic> response) async {
     if (response.statusCode == HttpStatus.ok) {
       final String body = response.data;
 
@@ -78,7 +85,8 @@ class HttpClient {
 
   Exception _handleDioError(String path, DioError ex) {
     Log.error('path: $path ex: $ex');
-    final PetApiException error = _getApiException(ex.response) ?? PetException.fromException(ex);
+    final PetApiException error =
+        _getApiException(ex.response) ?? PetException.fromException(ex);
     throw error;
   }
 }

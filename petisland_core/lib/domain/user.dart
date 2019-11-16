@@ -26,7 +26,8 @@ class User extends BaseModel {
   }) : super(id, createAt, updateAt, createBy);
 
   User.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
-    account = json['account'] != null ? Account.fromJson(json['account']) : null;
+    account =
+        json['account'] != null ? Account.fromJson(json['account']) : null;
     address = json['address'];
     avatar = json['avatar'] != null ? Image.fromJson(json['avatar']) : null;
     phoneNumber = json['phoneNumber'];

@@ -7,7 +7,8 @@ class PetApiException extends PetException {
   int statusCode;
   String error;
 
-  PetApiException({this.statusCode, this.error, String message}) : super(message);
+  PetApiException({this.statusCode, this.error, String message})
+      : super(message);
 
   PetApiException.fromJson(Map<String, dynamic> json) {
     statusCode = json['statusCode'];
