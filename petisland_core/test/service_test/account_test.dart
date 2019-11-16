@@ -26,7 +26,8 @@ void main() async {
       final String username = 'meomeocf98';
       final String password = '123456';
       try {
-        final Account account = await service.register(email, code, username, password);
+        final Account account =
+            await service.register(email, code, username, password);
         expect(account, isNotNull);
         Log.debug(account.toJson());
       } catch (ex) {

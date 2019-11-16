@@ -15,7 +15,8 @@ class DevModuleCore extends AbstractModule {
 
   Future<LocalStorageService> _buildLocalService() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final LocalStorageRepository repository = LocalStorageRepositoryImpl(preferences);
+    final LocalStorageRepository repository =
+        LocalStorageRepositoryImpl(preferences);
     return LocalStorageServiceImpl(repository);
   }
 
@@ -24,7 +25,9 @@ class DevModuleCore extends AbstractModule {
       baseUrl: Config.getString("api_host"),
       connectTimeout: 15000,
       receiveTimeout: 10000,
-      headers: <String, dynamic>{HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded'},
+      headers: <String, dynamic>{
+        HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded'
+      },
     );
     Dio dio = Dio(baseOption);
     return HttpClient.init(dio);
@@ -35,7 +38,9 @@ class DevModuleCore extends AbstractModule {
       baseUrl: Config.getString("api_host"),
       connectTimeout: 15000,
       receiveTimeout: 10000,
-      headers: <String, dynamic>{HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded'},
+      headers: <String, dynamic>{
+        HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded'
+      },
     );
     Dio dio = Dio(baseOption);
     dio.interceptors.add(
@@ -49,7 +54,8 @@ class DevModuleCore extends AbstractModule {
   }
 
   RequestOptions _onRequest(RequestOptions options) {
-    final LocalStorageService service = DI.get<LocalStorageService>(LocalStorageService);
+    final LocalStorageService service =
+        DI.get<LocalStorageService>(LocalStorageService);
     final String token = service.getToken();
     if (token is String) {
       options.headers['x-access-token'] = token;

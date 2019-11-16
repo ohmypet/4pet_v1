@@ -42,7 +42,8 @@ class Post extends BaseModel {
     dueDate = _parseDateTime(json['dueDate']);
     settings = json['settings'];
     status = json['status'];
-    account = json['account'] != null ? Account.fromJson(json['account']) : null;
+    account =
+        json['account'] != null ? Account.fromJson(json['account']) : null;
     pet = json['pet'] != null ? Pet.fromJson(json['pet']) : null;
     images = _parseImages(json['images']);
     tags = _parseTags(json['tags']);

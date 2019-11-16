@@ -4,23 +4,14 @@ import 'package:meta/meta.dart';
 import 'package:petisland_core/util/log.dart';
 
 part 'account.dart';
-
 part 'base_model.dart';
-
 part 'comment.dart';
-
 part 'image.dart';
-
 part 'login_data.dart';
-
 part 'pet.dart';
-
 part 'post.dart';
-
 part 'review.dart';
-
 part 'tag.dart';
-
 part 'user.dart';
 
 void _addValueToMap(String key, dynamic value, Map<String, dynamic> map) {
@@ -37,7 +28,9 @@ List<Map<String, dynamic>> _imagesToJson(List<Image> images) {
 
 List<Image> _parseImages(List<Map<String, dynamic>> images) {
   images ??= <Map<String, dynamic>>[];
-  return images.map((Map<String, dynamic> item) => Image.fromJson(item)).toList();
+  return images
+      .map((Map<String, dynamic> item) => Image.fromJson(item))
+      .toList();
 }
 
 DateTime _parseDateTime(String time) {

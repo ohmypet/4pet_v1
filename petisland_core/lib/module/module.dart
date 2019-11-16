@@ -1,6 +1,5 @@
 library petisland_core.module;
 
-
 import 'dart:io';
 
 import 'package:ddi/di.dart';
