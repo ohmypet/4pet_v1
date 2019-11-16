@@ -8,6 +8,9 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
   // PetIslandTheme theme = PetIslandLightTheme();
   ThemeMode themeMode = ThemeMode.light;
 
+  final PetIslandTheme lightTheme = PetIslandLightTheme();
+  final PetIslandTheme dartTheme = PetIslandDarkTheme();
+
   @override
   MainAppState get initialState => CreatedAppState();
 

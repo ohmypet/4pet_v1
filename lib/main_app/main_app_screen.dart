@@ -8,8 +8,8 @@ class MainAppScreen extends TStatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: PetIslandLightTheme().getTheme(),
-      darkTheme: PetIslandDarkTheme().getTheme(),
+      theme: bloc.lightTheme.getTheme(),
+      darkTheme: bloc.dartTheme.getTheme(),
       themeMode: bloc.themeMode,
       navigatorObservers: <NavigatorObserver>[TNavigatorObserver()],
       routes: <String, WidgetBuilder>{
