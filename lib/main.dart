@@ -9,33 +9,27 @@ import 'package:petisland_core/petisland_core.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  final MainAppBloc bloc = MainAppBloc();
-
-  Log.debug('this is main');
-
   handleError();
+  final MainAppBloc bloc = MainAppBloc();
+  initAsync(bloc);
   runZoned(() {
     runApp(buildApp(bloc));
   }, onError: (dynamic ex, dynamic trace) {
     Crashlytics.instance.recordError(ex, trace);
   });
-  // Future.delayed(const Duration(seconds: 5)).then((_) {
-  //   bloc.dispatch(InitMainAppEvent());
-  // });
 }
 
 void initAsync(MainAppBloc bloc) async {
-  Log.debug('this is initAsync');
-  // await Future.delayed(const Duration(seconds: 5));
+  bloc.add(DependenceLoadingEvent());
   final Mode mode = kReleaseMode ? Mode.Production : Mode.Debug;
-  final List<Module> modules =
-      kReleaseMode ? <Module>[ProdModule()] : <Module>[DevModuleCore()];
+  final List<Module> modules = kReleaseMode
+      ? <Module>[ProdModule(), ProdModuleCore()]
+      : <Module>[DevModuleCore(), DevModule()];
 
   Config.initAsync(mode)
       .then((_) => DI.initAsync(modules))
       .catchError((dynamic ex) => Log.error(ex))
-      .whenComplete(() => bloc.add(CompletedInitMainAppEvent()));
-  // .then((_) => bloc.dispatch(CompletedInitMainAppEvent()));
+      .whenComplete(() => bloc.add(DependenceLoadedEvent()));
 }
 
 void handleError() {
@@ -49,60 +43,31 @@ void handleError() {
 }
 
 Widget buildApp(MainAppBloc bloc) {
-  final Widget child = blocBuilder(buildMainApp(), bloc);
-  return MaterialApp(
-    home: BlocProvider<MainAppBloc>(
-      builder: (_) => bloc,
-      child: child,
-    ),
+  final Widget screen = createMainScreen(bloc);
+  return BlocProvider<MainAppBloc>(
+    builder: (_) => bloc,
+    child: screen,
   );
 }
 
-Widget blocBuilder(Widget child, MainAppBloc bloc) {
+Widget createMainScreen(MainAppBloc bloc) {
   return BlocBuilder<MainAppBloc, MainAppState>(
     bloc: bloc,
     builder: (_, MainAppState state) {
-      Log.debug('bloc_Bulder $state');
       switch (state.runtimeType) {
-        case InitMainAppState:
-          return buildSplashScreen();
+        case CreatedAppState:
+        case DependenceLoadingApp:
+          return const SplashScreen();
           break;
-        case CompletedInitMainAppState:
-          return child;
+
+        case ThemeAppChanged:
+        case ActiveApp:
+          return MainAppScreen(bloc);
+
         default:
-          return child;
+          Log.debug("blocBuilder: $bloc");
+          return SizedBox();
       }
     },
-  );
-}
-
-Widget buildSplashScreen() {
-  return Scaffold(
-    backgroundColor: TColors.white,
-    body: Center(
-      child: Image.network('https://github.com/tvc12.png'),
-      // child: Text(
-      //   'Slash Screen',
-      //   style: TTextStyles.bold(
-      //     fontSize: 150,
-      //     color: TColors.green,
-      //   ),
-      // ),
-    ),
-  );
-}
-
-Widget buildMainApp() {
-  return Scaffold(
-    backgroundColor: TColors.white,
-    body: Center(
-      child: Text(
-        'Main Screen',
-        style: TTextStyles.bold(
-          fontSize: 150,
-          color: TColors.black,
-        ),
-      ),
-    ),
   );
 }
