@@ -50,7 +50,7 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
   @override
   MainAppState get initialState {
     Log.debug('ahihi MainAppBloc');
-    this.dispatch(InitMainAppEvent());
+    this.add(InitMainAppEvent());
     return InitMainAppState();
   }
 
