@@ -34,7 +34,7 @@ void initAsync(MainAppBloc bloc) async {
   Config.initAsync(mode)
       .then((_) => DI.initAsync(modules))
       .catchError((dynamic ex) => Log.error(ex))
-      .whenComplete(() => bloc.dispatch(CompletedInitMainAppEvent()));
+      .whenComplete(() => bloc.add(CompletedInitMainAppEvent()));
   // .then((_) => bloc.dispatch(CompletedInitMainAppEvent()));
 }
 
