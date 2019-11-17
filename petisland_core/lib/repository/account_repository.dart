@@ -3,10 +3,11 @@ part of petisland_core.repository;
 abstract class AccountReposity {
   Future<Account> requireCode(String email);
 
-  Future<Account> register(
-      String email, String code, String username, String password);
+  Future<Account> register(String email, String code, String username, String password);
 
   Future<LoginData> login(String username, String password);
+
+  Future<void> checkToken();
 }
 
 class AccountReposityImpl extends AccountReposity {
@@ -27,8 +28,7 @@ class AccountReposityImpl extends AccountReposity {
   }
 
   @override
-  Future<Account> register(
-      String email, String code, String username, String password) {
+  Future<Account> register(String email, String code, String username, String password) {
     final Map<String, dynamic> params = <String, dynamic>{
       'email': email,
       'code': code,
@@ -50,5 +50,10 @@ class AccountReposityImpl extends AccountReposity {
     return client
         .get('/api/account/require-code', params: params)
         .then((Map<String, dynamic> json) => Account.fromJson(json));
+  }
+
+  @override
+  Future<void> checkToken() {
+    return client.get('/apit/account/check-token');
   }
 }

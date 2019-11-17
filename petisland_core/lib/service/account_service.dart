@@ -3,10 +3,11 @@ part of petisland_core.service;
 abstract class AccountService {
   Future<Account> requireCode(String email);
 
-  Future<Account> register(
-      String email, String code, String username, String password);
+  Future<Account> register(String email, String code, String username, String password);
 
   Future<LoginData> login(String username, String password);
+
+  Future<void> checkToken();
 }
 
 class AccountServiceImpl extends AccountService {
@@ -21,13 +22,17 @@ class AccountServiceImpl extends AccountService {
   }
 
   @override
-  Future<Account> register(
-      String email, String code, String username, String password) {
+  Future<Account> register(String email, String code, String username, String password) {
     return reposity.register(email, code, username, password);
   }
 
   @override
   Future<Account> requireCode(String email) {
     return reposity.requireCode(email);
+  }
+
+  @override
+  Future<void> checkToken() {
+    return reposity.checkToken();
   }
 }
