@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/petisland.dart';
 import 'package:petisland_core/service/service.dart';
 
+import 'package:rxdart/rxdart.dart';
+
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
@@ -15,6 +17,13 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   AccountService accountService;
 
   bool isInit = false;
+
+  @override
+  Stream<AuthenticationState> transformEvents(Stream<AuthenticationEvent> events,
+      Stream<AuthenticationState> Function(AuthenticationEvent event) next) {
+    final Observable<AuthenticationEvent> eventsObservable = events;
+    return eventsObservable.debounceTime(const Duration(milliseconds: 500)).switchMap(next);
+  }
 
   void init() {
     isInit = true;

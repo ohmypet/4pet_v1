@@ -36,27 +36,36 @@ class _MainAppScreenState extends TState<MainAppScreen> {
   }
 
   Widget _buildMainApp() {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                bloc: authBloc,
-                builder: (_, AuthenticationState state) {
-                  return Text(state.toString());
-                },
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      bloc: authBloc,
+      builder: (_, AuthenticationState state) {
+        switch (state.runtimeType) {
+          case AuthenticationUninitialized:
+          case UnAuthenticating:
+            return const SplashScreen();
+            break;
+          case Unauthenticated:
+            return LoginScreen();
+
+          default:
+            return Scaffold(
+              appBar: AppBar(),
+              body: Container(
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      FlatButton(
+                        child: Text("Change Theme"),
+                        onPressed: _changeColor,
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              FlatButton(
-                child: Text("Change Theme"),
-                onPressed: _changeColor,
-              ),
-            ],
-          ),
-        ),
-      ),
+            );
+        }
+      },
     );
   }
 
