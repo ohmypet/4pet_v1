@@ -1,9 +1,26 @@
 part of petisland.main_app;
 
-class MainAppScreen extends TStatelessWidget {
+class MainAppScreen extends TStatefulWidget {
   static String name = "/";
   final MainAppBloc bloc;
   const MainAppScreen(this.bloc, {Key key}) : super(key: key);
+
+  @override
+  TState<MainAppScreen> createState() => _MainAppScreenState();
+}
+
+class _MainAppScreenState extends TState<MainAppScreen> {
+  MainAppBloc get bloc => widget.bloc;
+  final AuthenticationBloc authBloc = DI.get<AuthenticationBloc>(AuthenticationBloc);
+
+  void initState() {
+    super.initState();
+    if (!authBloc.isInit) {
+      authBloc
+        ..init()
+        ..add(AppStarted());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +40,20 @@ class MainAppScreen extends TStatelessWidget {
       appBar: AppBar(),
       body: Container(
         child: Center(
-          child: FlatButton(
-            child: Text("Change Theme"),
-            onPressed: _changeColor,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                bloc: authBloc,
+                builder: (_, AuthenticationState state) {
+                  return Text(state.toString());
+                },
+              ),
+              FlatButton(
+                child: Text("Change Theme"),
+                onPressed: _changeColor,
+              ),
+            ],
           ),
         ),
       ),

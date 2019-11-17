@@ -23,13 +23,13 @@ void initAsync(MainAppBloc bloc) async {
   bloc.add(DependenceLoadingEvent());
   final Mode mode = kReleaseMode ? Mode.Production : Mode.Debug;
   final List<Module> modules = kReleaseMode
-      ? <Module>[ProdModule(), ProdModuleCore()]
+      ? <Module>[ProdModuleCore(), ProdModule()]
       : <Module>[DevModuleCore(), DevModule()];
 
   Config.initAsync(mode)
       .then((_) => DI.initAsync(modules))
-      .catchError((dynamic ex) => Log.error(ex))
-      .whenComplete(() => bloc.add(DependenceLoadedEvent()));
+      .then((_) => bloc.add(DependenceLoadedEvent()))
+      .catchError((dynamic ex) => Log.error(ex));
 }
 
 void handleError() {
