@@ -25,6 +25,7 @@ class _MainAppScreenState extends TState<MainAppScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: TConstant.pet_island,
       theme: bloc.lightTheme.getTheme(),
       darkTheme: bloc.dartTheme.getTheme(),
       themeMode: bloc.themeMode,

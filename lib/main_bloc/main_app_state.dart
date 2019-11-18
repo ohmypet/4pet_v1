@@ -3,7 +3,7 @@ part of petisland.main_bloc;
 ///------------------------------------------------
 /// State for main app
 ///------------------------------------------------
-abstract class MainAppState {
+abstract class MainAppState extends BaseState {
   @override
   String toString() => '$runtimeType';
 }

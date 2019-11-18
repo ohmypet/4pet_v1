@@ -1,6 +1,6 @@
 part of petisland.authentication;
 
-abstract class AuthenticationState {
+abstract class AuthenticationState extends BaseState {
   @override
   String toString() => "$runtimeType";
 }
