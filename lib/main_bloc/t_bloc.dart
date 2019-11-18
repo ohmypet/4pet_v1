@@ -13,10 +13,10 @@ abstract class TBloc<Event extends BaseEvent, State extends BaseState>
 }
 
 abstract class BaseBloc<Event extends BaseEvent, State extends BaseState>
-    extends Bloc<BaseEvent, BaseState> {
-  Stream<BaseState> mapEventToState(BaseEvent event) {
-      Log.debug("event ${event.runtimeType}");
+    extends Bloc<Event, State> {
+  Stream<State> mapEventToState(Event event) {
     if (event is BaseErrorEvent) {
+      Log.debug("event ${event.runtimeType}");
       final Stream<BaseState> baseState = errorToState(event);
       return baseState;
     } else {
@@ -34,7 +34,7 @@ abstract class BaseBloc<Event extends BaseEvent, State extends BaseState>
   }
 
   @protected
-  void add(BaseEvent event) => super.add(event);
+  void add(Event event) => super.add(event);
 }
 
 @immutable
