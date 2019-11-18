@@ -15,3 +15,5 @@ class LoggingEvent extends LoginEvent {
   @override
   String toString() => "$runtimeType $username";
 }
+
+class LoginSucceedEvent extends LoginEvent {}

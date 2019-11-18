@@ -18,8 +18,8 @@ class MainAppBloc extends TBloc<MainAppEvent, MainAppState> {
   final Duration delayEvent = const Duration(milliseconds: 50);
 
   @override
-  Stream<MainAppState> errorToState(BaseErrorEvent event) {
-    return null;
+  Stream<BaseErrorState> errorToState(BaseErrorEvent event) async* {
+    yield BaseErrorState(event.message);
   }
 
   @override
@@ -39,5 +39,17 @@ class MainAppBloc extends TBloc<MainAppEvent, MainAppState> {
         break;
       default:
     }
+  }
+
+  void loadDependence() {
+    add(DependenceLoadingEvent());
+  }
+
+  void completeLoadDependence() {
+    add(DependenceLoadedEvent());
+  }
+
+  void changeTheme() {
+    add(ThemeAppChangedEvent());
   }
 }

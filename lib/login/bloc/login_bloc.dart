@@ -1,18 +1,22 @@
 part of petisland.login.bloc;
 
 class LoginBloc extends TBloc<LoginEvent, LoginState> {
-  final AccountService accountService = DI.get(AccountService);
+  @protected
+  static final AccountService accountService = DI.get<AccountService>(AccountService);
+
+  @protected
+  static final LocalStorageService storageService = DI.get(LocalStorageService);
 
   @override
-  LoginState get initialState => null;
+  LoginState get initialState => InitLoginState();
 
   @override
   final Duration delayEvent = const Duration(milliseconds: 50);
 
-  void _logging(LoginEvent event) {}
-
   @override
-  Stream<LoginState> errorToState(BaseErrorEvent event) async* {}
+  Stream<BaseErrorState> errorToState(BaseErrorEvent event) async* {
+    yield BaseErrorState(event.message);
+  }
 
   @override
   Stream<LoginState> eventToState(BaseEvent event) async* {
@@ -21,7 +25,32 @@ class LoginBloc extends TBloc<LoginEvent, LoginState> {
         yield LoggingState();
         _logging(event);
         break;
+      case LoginSucceedEvent:
+        yield LoginSucceed();
+        break;
       default:
     }
+  }
+
+  void _logging(LoggingEvent event) {
+    Log.debug("$runtimeType._logging $event");
+    accountService
+        .login(event.username, event.password)
+        .then(_handleLoginSuccess)
+        .catchError(_handleError);
+  }
+
+  void login(String username, String password) {
+    final LoginEvent event = LoggingEvent(username, password);
+    add(event);
+  }
+
+  FutureOr<void> _handleLoginSuccess(LoginData value) {
+    storageService.updateToken(value.token);
+    add(LoginSucceedEvent());
+  }
+
+  FutureOr<void> _handleError(dynamic error) {
+    notifyError(BaseErrorEvent("Login field"));
   }
 }

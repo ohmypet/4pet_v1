@@ -16,9 +16,7 @@ class _MainAppScreenState extends TState<MainAppScreen> {
   void initState() {
     super.initState();
     if (!authBloc.isInit) {
-      authBloc
-        ..init()
-        ..add(AppStarted());
+      authBloc.init();
     }
   }
 
@@ -71,6 +69,6 @@ class _MainAppScreenState extends TState<MainAppScreen> {
   }
 
   void _changeColor() {
-    bloc.add(ThemeAppChangedEvent());
+    bloc.changeTheme();
   }
 }

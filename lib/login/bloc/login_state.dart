@@ -5,6 +5,8 @@ abstract class LoginState extends BaseState {
   String toString() => "$runtimeType";
 }
 
+class InitLoginState extends LoginState {}
+
 class LoggingState extends LoginState {}
 
 class LoginFailed extends LoginState {}

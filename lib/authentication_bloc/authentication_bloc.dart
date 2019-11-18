@@ -20,6 +20,7 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
     isInit = true;
     accountService = DI.get(AccountService);
     storageService = DI.get(LocalStorageService);
+    add(AppStarted());
   }
 
   @override
@@ -45,8 +46,8 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
   final Duration delayEvent = const Duration(milliseconds: 500);
 
   @override
-  Stream<AuthenticationState> errorToState(BaseErrorEvent event) {
-    return null;
+  Stream<BaseErrorState> errorToState(BaseErrorEvent event) async* {
+    yield BaseErrorState(event.message);
   }
 
   @override

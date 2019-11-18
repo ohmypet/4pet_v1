@@ -13,16 +13,18 @@ abstract class TBloc<Event extends BaseEvent, State extends BaseState>
 }
 
 abstract class BaseBloc<Event extends BaseEvent, State extends BaseState>
-    extends Bloc<Event, State> {
-  Stream<State> mapEventToState(Event event) {
+    extends Bloc<BaseEvent, BaseState> {
+  Stream<BaseState> mapEventToState(BaseEvent event) {
+      Log.debug("event ${event.runtimeType}");
     if (event is BaseErrorEvent) {
-      return errorToState(event);
+      final Stream<BaseState> baseState = errorToState(event);
+      return baseState;
     } else {
       return eventToState(event);
     }
   }
 
-  Stream<State> errorToState(BaseErrorEvent event);
+  Stream<BaseErrorState> errorToState(BaseErrorEvent event);
 
   Stream<State> eventToState(BaseEvent event);
 
@@ -30,6 +32,9 @@ abstract class BaseBloc<Event extends BaseEvent, State extends BaseState>
     final BaseEvent baseEvent = event;
     add(baseEvent);
   }
+
+  @protected
+  void add(BaseEvent event) => super.add(event);
 }
 
 @immutable
@@ -47,17 +52,29 @@ abstract class BaseState {
 abstract class BaseErrorEvent extends BaseEvent {
   final String message;
 
-  BaseErrorEvent([this.message]);
+  factory BaseErrorEvent([String message]) => _BaseErrorEvent(message);
 
   @override
   String toString() => "$runtimeType $message";
 }
 
+class _BaseErrorEvent implements BaseErrorEvent {
+  final String message;
+
+  _BaseErrorEvent(this.message);
+}
+
 abstract class BaseErrorState extends BaseState {
   final String message;
 
-  BaseErrorState([this.message]);
+  factory BaseErrorState([String message]) => _BaseErrorState(message);
 
   @override
   String toString() => "$runtimeType $message";
+}
+
+class _BaseErrorState implements BaseErrorState {
+  final String message;
+
+  _BaseErrorState(this.message);
 }
