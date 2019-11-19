@@ -7,10 +7,11 @@ abstract class AccountReposity {
 
   Future<LoginData> login(String username, String password);
 
-  Future<void> checkToken();
+  Future<void> checkToken(String token);
 }
 
 class AccountReposityImpl extends AccountReposity {
+  static const String path = "/api/account";
   @protected
   final HttpClient client;
 
@@ -23,7 +24,7 @@ class AccountReposityImpl extends AccountReposity {
       'password': password,
     };
     return client
-        .post('/api/account/login', body)
+        .post('$path/login', body)
         .then((Map<String, dynamic> json) => LoginData.fromJson(json));
   }
 
@@ -38,7 +39,7 @@ class AccountReposityImpl extends AccountReposity {
       'password': password,
     };
     return client
-        .post('/api/account/register', body, params: params)
+        .post('$path/register', body, params: params)
         .then((Map<String, dynamic> json) => Account.fromJson(json));
   }
 
@@ -48,12 +49,13 @@ class AccountReposityImpl extends AccountReposity {
       'email': email,
     };
     return client
-        .get('/api/account/require-code', params: params)
+        .get('$path/require-code', params: params)
         .then((Map<String, dynamic> json) => Account.fromJson(json));
   }
 
   @override
-  Future<void> checkToken() {
-    return client.get('/apit/account/check-token');
+  Future<void> checkToken(String token) {
+    final Map<String, dynamic> headers = <String, dynamic>{'x-access-token': token};
+    return client.get('$path/check-token', options: Options(headers: headers));
   }
 }

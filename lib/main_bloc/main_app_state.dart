@@ -15,3 +15,7 @@ class DependenceLoadingApp extends MainAppState {}
 class ThemeAppChanged extends MainAppState {}
 
 class ActiveApp extends MainAppState {}
+
+class MainAppError extends BaseErrorState implements MainAppState {
+  MainAppError([String message]) : super(message);
+}

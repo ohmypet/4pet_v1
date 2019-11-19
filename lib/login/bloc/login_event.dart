@@ -17,3 +17,7 @@ class LoggingEvent extends LoginEvent {
 }
 
 class LoginSucceedEvent extends LoginEvent {}
+
+class LoginErrorEvent extends BaseErrorEvent implements LoginEvent {
+  LoginErrorEvent([String message]) : super(message);
+}

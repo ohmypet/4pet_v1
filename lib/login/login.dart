@@ -5,6 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/common/common.dart';
 import 'package:flutter_template/login/bloc/bloc.dart';
 import 'package:flutter_template/login/widget/widget.dart';
-import 'package:petisland_core/util/log.dart';
+import 'package:flutter_template/petisland.dart';
 
 part 'login_screen.dart';

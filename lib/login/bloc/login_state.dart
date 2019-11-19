@@ -9,6 +9,8 @@ class InitLoginState extends LoginState {}
 
 class LoggingState extends LoginState {}
 
-class LoginFailed extends LoginState {}
-
 class LoginSucceed extends LoginState {}
+
+class LoginError extends BaseErrorState implements LoginState {
+  LoginError([String message]) : super(message);
+}

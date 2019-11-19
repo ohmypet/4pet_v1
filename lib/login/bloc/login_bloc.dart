@@ -14,8 +14,8 @@ class LoginBloc extends TBloc<LoginEvent, LoginState> {
   final Duration delayEvent = const Duration(milliseconds: 50);
 
   @override
-  Stream<BaseErrorState> errorToState(BaseErrorEvent event) async* {
-    yield BaseErrorState(event.message);
+  Stream<LoginState> errorToState(BaseErrorEvent event) async* {
+    yield LoginError(event.message);
   }
 
   @override
@@ -33,7 +33,6 @@ class LoginBloc extends TBloc<LoginEvent, LoginState> {
   }
 
   void _logging(LoggingEvent event) {
-    Log.debug("$runtimeType._logging $event");
     accountService
         .login(event.username, event.password)
         .then(_handleLoginSuccess)
@@ -51,6 +50,6 @@ class LoginBloc extends TBloc<LoginEvent, LoginState> {
   }
 
   FutureOr<void> _handleError(dynamic error) {
-    notifyError(BaseErrorEvent("Login field"));
+    notifyError(LoginErrorEvent("Tên đăng nhập hoặc mật khẩu không hợp lệ"));
   }
 }

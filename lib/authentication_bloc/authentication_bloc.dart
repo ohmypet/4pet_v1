@@ -9,18 +9,16 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState> {
   @protected
-  LocalStorageService storageService;
+  static LocalStorageService storageService = DI.get(LocalStorageService);
 
   @protected
-  AccountService accountService;
+  static AccountService accountService = DI.get(AccountService);
 
   bool isInit = false;
 
   void init() {
     isInit = true;
-    accountService = DI.get(AccountService);
-    storageService = DI.get(LocalStorageService);
-    add(AppStarted());
+    reload();
   }
 
   @override
@@ -29,13 +27,17 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
   void _loadToken() {
     final String token = storageService.getToken();
     if (token is String) {
-      _tryLogin();
-    } else
-      add(LoggedOut());
+      _tryLogin(token);
+    } else {
+      logout();
+    }
   }
 
-  void _tryLogin() {
-    accountService.checkToken().then((_) => add(LoggedIn())).catchError((_) => add(LoggedOut()));
+  void _tryLogin(String token) {
+    accountService
+        .checkToken(token)
+        .then((_) => add(LoggedIn()))
+        .catchError((_) => add(LoggedOut()));
   }
 
   void _removeToken() {
@@ -43,11 +45,11 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
   }
 
   @override
-  final Duration delayEvent = const Duration(milliseconds: 500);
+  final Duration delayEvent = const Duration(milliseconds: 50);
 
   @override
-  Stream<BaseErrorState> errorToState(BaseErrorEvent event) async* {
-    yield BaseErrorState(event.message);
+  Stream<AuthenticationState> errorToState(BaseErrorEvent event) async* {
+    yield AuthenticatingError(event.message);
   }
 
   @override
@@ -57,8 +59,10 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
         yield AuthenticationUninitialized();
         _loadToken();
         break;
+
       case LoggedOut:
         yield UnAuthenticating();
+        await Future<void>.delayed(const Duration(milliseconds: 150));
         _removeToken();
         yield Unauthenticated();
         break;
@@ -68,5 +72,13 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
         break;
       default:
     }
+  }
+
+  void reload() {
+    add(AppStarted());
+  }
+
+  void logout() {
+    add(LoggedOut());
   }
 }

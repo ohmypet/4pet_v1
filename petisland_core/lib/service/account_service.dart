@@ -7,7 +7,7 @@ abstract class AccountService {
 
   Future<LoginData> login(String username, String password);
 
-  Future<void> checkToken();
+  Future<void> checkToken(String token);
 }
 
 class AccountServiceImpl extends AccountService {
@@ -32,7 +32,7 @@ class AccountServiceImpl extends AccountService {
   }
 
   @override
-  Future<void> checkToken() {
-    return reposity.checkToken();
+  Future<void> checkToken(String token) {
+    return reposity.checkToken(token);
   }
 }

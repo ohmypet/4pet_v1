@@ -44,31 +44,12 @@ class _MainAppScreenState extends TState<MainAppScreen> {
             return const SplashScreen();
             break;
           case Unauthenticated:
-            return LoginScreen();
+            return LoginScreen(authBloc);
 
           default:
-            return Scaffold(
-              appBar: AppBar(),
-              body: Container(
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      FlatButton(
-                        child: Text("Change Theme"),
-                        onPressed: _changeColor,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
+            return HomePageScreen(authBloc);
         }
       },
     );
-  }
-
-  void _changeColor() {
-    bloc.changeTheme();
   }
 }
