@@ -16,15 +16,14 @@ class _MainAppScreenState extends TState<MainAppScreen> {
   void initState() {
     super.initState();
     if (!authBloc.isInit) {
-      authBloc
-        ..init()
-        ..add(AppStarted());
+      authBloc.init();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: TConstants.pet_island,
       theme: bloc.lightTheme.getTheme(),
       darkTheme: bloc.dartTheme.getTheme(),
       themeMode: bloc.themeMode,
@@ -36,31 +35,21 @@ class _MainAppScreenState extends TState<MainAppScreen> {
   }
 
   Widget _buildMainApp() {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                bloc: authBloc,
-                builder: (_, AuthenticationState state) {
-                  return Text(state.toString());
-                },
-              ),
-              FlatButton(
-                child: Text("Change Theme"),
-                onPressed: _changeColor,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      bloc: authBloc,
+      builder: (_, AuthenticationState state) {
+        switch (state.runtimeType) {
+          case AuthenticationUninitialized:
+          case UnAuthenticating:
+            return const SplashScreen();
+            break;
+          case Unauthenticated:
+            return LoginScreen(authBloc);
 
-  void _changeColor() {
-    bloc.add(ThemeAppChangedEvent());
+          default:
+            return HomePageScreen(authBloc);
+        }
+      },
+    );
   }
 }

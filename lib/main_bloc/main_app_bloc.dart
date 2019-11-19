@@ -4,7 +4,7 @@ part of petisland.main_bloc;
 /// Define bloc
 ///------------------------------------------------
 
-class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
+class MainAppBloc extends TBloc<MainAppEvent, MainAppState> {
   // PetIslandTheme theme = PetIslandLightTheme();
   ThemeMode themeMode = ThemeMode.light;
 
@@ -15,7 +15,15 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
   MainAppState get initialState => CreatedAppState();
 
   @override
-  Stream<MainAppState> mapEventToState(MainAppEvent event) async* {
+  final Duration delayEvent = const Duration(milliseconds: 50);
+
+  @override
+  Stream<MainAppState> errorToState(BaseErrorEvent event) async* {
+    yield MainAppError(event.message);
+  }
+
+  @override
+  Stream<MainAppState> eventToState(BaseEvent event) async* {
     switch (event.runtimeType) {
       case DependenceLoadingEvent:
         yield DependenceLoadingApp();
@@ -31,5 +39,17 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
         break;
       default:
     }
+  }
+
+  void loadDependence() {
+    add(DependenceLoadingEvent());
+  }
+
+  void completeLoadDependence() {
+    add(DependenceLoadedEvent());
+  }
+
+  void changeTheme() {
+    add(ThemeAppChangedEvent());
   }
 }

@@ -20,7 +20,7 @@ void main() {
 }
 
 void initAsync(MainAppBloc bloc) async {
-  bloc.add(DependenceLoadingEvent());
+  bloc.loadDependence();
   final Mode mode = kReleaseMode ? Mode.Production : Mode.Debug;
   final List<Module> modules = kReleaseMode
       ? <Module>[ProdModuleCore(), ProdModule()]
@@ -28,7 +28,7 @@ void initAsync(MainAppBloc bloc) async {
 
   Config.initAsync(mode)
       .then((_) => DI.initAsync(modules))
-      .then((_) => bloc.add(DependenceLoadedEvent()))
+      .then((_) => bloc.completeLoadDependence())
       .catchError((dynamic ex) => Log.error(ex));
 }
 

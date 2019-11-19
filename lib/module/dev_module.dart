@@ -5,5 +5,6 @@ class DevModule extends AbstractModule {
   @override
   void init() async {
     bind(AuthenticationBloc).to(AuthenticationBloc());
+    bind(LoginBloc).to(LoginBloc());
   }
 }

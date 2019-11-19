@@ -1,5 +1,6 @@
 library petisland_core.repository;
 
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:petisland_core/client/client.dart';
 import 'package:petisland_core/domain/domain.dart';
