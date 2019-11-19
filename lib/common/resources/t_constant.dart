@@ -1,6 +1,6 @@
 part of petisland.common.resources;
 
-abstract class TConstant {
+abstract class TConstants {
   static const String pet_island = "Pet Island";
 
   static const String hint_username = "Tên đăng nhập";
@@ -8,4 +8,6 @@ abstract class TConstant {
   static const String hint_password = "Mật khẩu";
 
   static const String text_login = "ĐĂNG NHẬP";
+
+  static const String text_register = "Chưa có tài khoản? Đăng ký";
 }

@@ -15,6 +15,8 @@ class _LoginDetailWidgetState extends TState<LoginDetailWidget> {
   final FocusNode usernameFocusNode = FocusNode();
   final FocusNode passwordFocusNode = FocusNode();
 
+  ThemeData get theme => Theme.of(context);
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -27,21 +29,28 @@ class _LoginDetailWidgetState extends TState<LoginDetailWidget> {
             UserInputWidget(
               usernameController,
               focusNode: usernameFocusNode,
-              hintText: TConstant.hint_username,
+              hintText: TConstants.hint_username,
               icon: Icon(Icons.person, size: 22),
               onSubmit: _onUserNameSubmitted,
             ),
             UserInputWidget(
               passwordController,
               focusNode: passwordFocusNode,
-              hintText: TConstant.hint_password,
+              hintText: TConstants.hint_password,
               isObscureText: true,
               icon: Icon(Icons.vpn_key, size: 22),
               onSubmit: _onPasswordSubmitted,
             ),
             PetIslandButtonWidget(
-              text: TConstant.text_login,
+              text: TConstants.text_login,
               onTap: _onTapLogin,
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                TConstants.text_register,
+                style: theme.textTheme.body1.copyWith(color: theme.accentColor),
+              ),
             )
           ],
         ),
