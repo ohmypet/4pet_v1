@@ -2,6 +2,7 @@ library petisland.login.widget;
 
 import 'dart:ui';
 
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/common.dart';
 import 'package:flutter_template/login/bloc/bloc.dart';
