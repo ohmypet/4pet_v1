@@ -11,6 +11,8 @@ dependencies:
   firebase_remote_config: 0.2.0+7
   firebase_analytics: 5.0.2
   path_provider: 1.2.0
+  flutter_cache_manager: ^1.1.1
+
   ddi:
     path: ../packages/di
 
