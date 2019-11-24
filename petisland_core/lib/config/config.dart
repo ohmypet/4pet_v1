@@ -7,6 +7,7 @@ import '../util/log.dart';
 
 part 'firebase_config.dart';
 part 'remote_config.dart';
+part 'constant.dart';
 
 enum Mode { Debug, Production }
 
