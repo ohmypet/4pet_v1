@@ -12,6 +12,7 @@ abstract class DIKeys {
 class DevModuleCore extends AbstractModule {
   static const String normal_client = 'normal_client';
   static const String api_client = 'api_client';
+  static const String api_upload_image = 'api_upload_image';
 
   // static const String
   @override
@@ -19,8 +20,10 @@ class DevModuleCore extends AbstractModule {
     bind(LocalStorageService).to(await _buildLocalService());
     bind(normal_client).to(_buildClient());
     bind(api_client).to(_buildApiClient());
+    bind(api_upload_image).to(_buildClientUpload());
     bind(AccountService).to(_buildAccountService());
     bind(DIKeys.cache_image).to(await _buildCacheImage());
+    bind(ImageService).to(_buildImageService());
   }
 
   Future<LocalStorageService> _buildLocalService() async {
@@ -65,7 +68,7 @@ class DevModuleCore extends AbstractModule {
       connectTimeout: 15000,
       receiveTimeout: 10000,
       headers: <String, dynamic>{
-        HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded'
+        HttpHeaders.contentTypeHeader: Headers.formUrlEncodedContentType,
       },
     );
     Dio dio = Dio(baseOption);
@@ -78,7 +81,27 @@ class DevModuleCore extends AbstractModule {
       connectTimeout: 15000,
       receiveTimeout: 10000,
       headers: <String, dynamic>{
-        HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded'
+        HttpHeaders.contentTypeHeader: Headers.formUrlEncodedContentType,
+      },
+    );
+    Dio dio = Dio(baseOption);
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: _onRequest,
+        onError: (DioError ex) => ex,
+        onResponse: (Response<dynamic> reponse) => reponse,
+      ),
+    );
+    return HttpClient.init(dio);
+  }
+
+  HttpClient _buildClientUpload() {
+    final BaseOptions baseOption = BaseOptions(
+      baseUrl: Config.getString("api_host"),
+      connectTimeout: 35000,
+      receiveTimeout: 60000,
+      headers: <String, dynamic>{
+        HttpHeaders.contentTypeHeader: Headers.formUrlEncodedContentType,
       },
     );
     Dio dio = Dio(baseOption);
@@ -107,5 +130,11 @@ class DevModuleCore extends AbstractModule {
     final HttpClient client = get<HttpClient>(normal_client);
     final AccountReposity reposity = AccountReposityImpl(client);
     return AccountServiceImpl(reposity);
+  }
+
+  ImageService _buildImageService() {
+    final HttpClient client = get(api_upload_image);
+    final ImageRepository repository = ImageRepositoryImpl(client);
+    return ImageServiceImpl(repository);
   }
 }
