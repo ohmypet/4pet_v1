@@ -10,7 +10,7 @@ class Post extends BaseModel {
   String status;
   Account account;
   Pet pet;
-  List<Image> images;
+  List<PetImage> images;
   List<Tag> tags;
 
   int likes;
@@ -29,7 +29,7 @@ class Post extends BaseModel {
     this.status,
     this.account,
     this.pet,
-    this.images = const <Image>[],
+    this.images = const <PetImage>[],
     this.tags = const <Tag>[],
     this.likes,
   }) : super(id, createAt, updateAt, createBy);
@@ -45,7 +45,7 @@ class Post extends BaseModel {
     account =
         json['account'] != null ? Account.fromJson(json['account']) : null;
     pet = json['pet'] != null ? Pet.fromJson(json['pet']) : null;
-    images = _parseImages(json['images']);
+    images = parseImages(json['images']);
     tags = _parseTags(json['tags']);
     likes = json['likes'];
   }

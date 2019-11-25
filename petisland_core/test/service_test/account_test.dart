@@ -14,12 +14,12 @@ void main() async {
   await DI.initAsync(<Module>[DevModuleCore()]);
   final AccountService service = DI.get(AccountService);
   group('account test', () {
-    // test('with require-code', () async {
-    //   final String email = 'meomeocf98@gmail.com';
-    //   final Account account = await service.requireCode(email);
-    //   expect(account, isNotNull);
-    //   Log.debug(account.toJson());
-    // });
+    test('with require-code', () async {
+      final String email = 'meomeocf98@gmail.com';
+      final Account account = await service.requireCode(email);
+      expect(account, isNotNull);
+      Log.debug(account.toJson());
+    });
     test('with register', () async {
       final String email = 'meomeocf98@gmail.com';
       final String code = '5224';

@@ -8,7 +8,7 @@ class PetException implements Exception {
 
   PetException.fromException(dynamic ex)
       : message = ex.message,
-        stackTrace = ex.stackTrace;
+        stackTrace = ex is DioError ? ex.error : ex.stackTrace;
 
   @override
   String toString() => '$runtimeType:: $message $stackTrace';

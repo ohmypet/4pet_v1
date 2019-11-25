@@ -8,7 +8,7 @@ class User extends BaseModel {
   DateTime dob; // day of birth
   Map<String, dynamic> settings;
   Account account;
-  Image avatar;
+  PetImage avatar;
 
   User({
     String id,
@@ -29,7 +29,7 @@ class User extends BaseModel {
     account =
         json['account'] != null ? Account.fromJson(json['account']) : null;
     address = json['address'];
-    avatar = json['avatar'] != null ? Image.fromJson(json['avatar']) : null;
+    avatar = json['avatar'] != null ? PetImage.fromJson(json['avatar']) : null;
     phoneNumber = json['phoneNumber'];
     bio = json['bio'];
     dob = _parseDateTime(json['dob']);
