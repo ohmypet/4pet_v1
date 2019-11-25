@@ -15,7 +15,7 @@ class UserRepositoryImpl extends UserRepository {
   Future<User> createUser(User user) {
     final Map<String, dynamic> body = user.toJson();
     return client
-        .post('/api/user', body)
+        .post<Map<String, dynamic>>('/api/user', body)
         .then((Map<String, dynamic> json) => User.fromJson(json));
   }
 }

@@ -18,18 +18,18 @@ void _addValueToMap(String key, dynamic value, Map<String, dynamic> map) {
   if (value != null) map[key] = value;
 }
 
-List<Map<String, dynamic>> _imagesToJson(List<Image> images) {
+List<Map<String, dynamic>> _imagesToJson(List<PetImage> images) {
   if (images != null) {
-    return images.map((Image item) => item.toJson()).toList();
+    return images.map((PetImage item) => item.toJson()).toList();
   } else {
     return null;
   }
 }
 
-List<Image> _parseImages(List<Map<String, dynamic>> images) {
+List<PetImage> parseImages(List<Map<String, dynamic>> images) {
   images ??= <Map<String, dynamic>>[];
   return images
-      .map((Map<String, dynamic> item) => Image.fromJson(item))
+      .map((Map<String, dynamic> item) => PetImage.fromJson(item))
       .toList();
 }
 

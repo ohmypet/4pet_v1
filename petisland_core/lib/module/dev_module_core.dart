@@ -34,24 +34,29 @@ class DevModuleCore extends AbstractModule {
     return HttpFileFetcherResponse(null);
   }
 
-  Future<TCacheService> _buildCacheImage() async {
+  Future<BaseCacheManager> _buildCacheImage() async {
     final Duration conectTimeout = Duration(seconds: 15);
-    final Directory directory = await getTemporaryDirectory();
-    final FileFetcher httpFileFetcher = (String url, {Map<String, String> headers}) {
-      return http
-          .get(url)
-          .timeout(conectTimeout)
-          .then((http.Response reponse) => HttpFileFetcherResponse(reponse))
-          .catchError((dynamic ex) => _handleErrorCacheImage(ex, url));
-    };
+    try {
+      final Directory directory = await getTemporaryDirectory();
+      final FileFetcher httpFileFetcher = (String url, {Map<String, String> headers}) {
+        return http
+            .get(url)
+            .timeout(conectTimeout)
+            .then((http.Response reponse) => HttpFileFetcherResponse(reponse))
+            .catchError((dynamic ex) => _handleErrorCacheImage(ex, url));
+      };
 
-    return TCacheService(
-      _KeysCached.image_cache,
-      directory,
-      maxAgeCacheObject: Duration(days: 60),
-      maxNrOfCacheObjects: 500,
-      fileFetcher: httpFileFetcher,
-    );
+      return TCacheService(
+        _KeysCached.image_cache,
+        directory,
+        maxAgeCacheObject: Duration(days: 60),
+        maxNrOfCacheObjects: 500,
+        fileFetcher: httpFileFetcher,
+      );
+    } catch (ex) {
+      Log.error(ex);
+      return null;
+    }
   }
 
   HttpClient _buildClient() {

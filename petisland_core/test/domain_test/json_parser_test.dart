@@ -31,22 +31,22 @@ void main() {
           updateAt: DateTime.now(),
           settings: <String, dynamic>{'type': 'admin'},
         ),
-        images: <Image>[
-          Image(
+        images: <PetImage>[
+          PetImage(
               id: '123456789',
               createAt: DateTime.now(),
               updateAt: DateTime.now(),
               createBy: null,
               publicId: 'ahihi',
               url: 'https://meomeo.com'),
-          Image(
+          PetImage(
               id: '123456789',
               createAt: DateTime.now(),
               updateAt: DateTime.now(),
               createBy: null,
               publicId: 'ahihi',
               url: 'https://meomeo.com'),
-          Image(
+          PetImage(
               id: '123456789',
               createAt: DateTime.now(),
               updateAt: DateTime.now(),
@@ -119,7 +119,7 @@ void main() {
         name: 'Ahuhu',
         phoneNumber: '0966144938',
         settings: <String, dynamic>{'meow': 'meow meow'},
-        avatar: Image(
+        avatar: PetImage(
           id: '123456789',
           createAt: DateTime.now(),
           updateAt: DateTime.now(),

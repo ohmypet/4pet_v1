@@ -2,7 +2,7 @@ part of petisland_core.domain;
 
 class Review extends BaseModel {
   String message;
-  List<Image> images;
+  List<PetImage> images;
   int stars;
   int likes;
 
@@ -21,7 +21,7 @@ class Review extends BaseModel {
     message = json['message'];
     likes = json['likes'];
     stars = json['stars'];
-    images = _parseImages(json['images']);
+    images = parseImages(json['images']);
   }
 
   @override

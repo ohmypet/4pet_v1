@@ -1,10 +1,10 @@
 part of petisland_core.domain;
 
-class Image extends BaseModel {
+class PetImage extends BaseModel {
   String url;
   String publicId;
 
-  Image({
+  PetImage({
     String id,
     Account createBy,
     DateTime createAt,
@@ -13,7 +13,7 @@ class Image extends BaseModel {
     this.publicId,
   }) : super(id, createAt, updateAt, createBy);
 
-  Image.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+  PetImage.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     url = json['url'];
     publicId = json['public_id'];
   }
