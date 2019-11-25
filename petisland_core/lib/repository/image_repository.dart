@@ -11,13 +11,26 @@ class ImageRepositoryImpl extends ImageRepository {
 
   @override
   Future<List<PetImage>> upload(List<String> paths) {
-    final FormData formData = FormData.fromMap(<String, dynamic>{
-      'images': paths
-          .map((String path) => MultipartFile.fromFileSync(path, filename: basename(path)))
-          .toList()
-    });
+    final Iterable<MapEntry<String, MultipartFile>> files = paths.map(
+      (String path) => MapEntry<String, MultipartFile>(
+        'images',
+        MultipartFile.fromFileSync(
+          path,
+          filename: basename(path),
+        ),
+      ),
+    );
+    final FormData formData = FormData()..files.addAll(files);
+
     return client
         .post<List<dynamic>>("/api/image", formData)
-        .then((List<dynamic> images) => parseImages(images));
+        .then((List<dynamic> images) => _parseImages(images));
+  }
+
+  List<PetImage> _parseImages(List<dynamic> images) {
+    return images
+        .cast<Map<String, dynamic>>()
+        .map((Map<String, dynamic> json) => PetImage.fromJson(json))
+        .toList();
   }
 }
