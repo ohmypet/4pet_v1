@@ -13,10 +13,10 @@ class HttpClient {
   static Options _getOptions(Options options) =>
       options is Options ? options : Options(responseType: ResponseType.plain);
 
-  Future<Map<String, dynamic>> get(String path, {Map<String, dynamic> params, Options options}) {
+  Future<T> get<T>(String path, {Map<String, dynamic> params, Options options}) {
     return dio
         .get<String>(path, queryParameters: _getParams(params), options: _getOptions(options))
-        .then((Response<String> response) => _handleResult(response))
+        .then((Response<String> response) => _handleResult<T>(response))
         .catchError((dynamic e) => _handleError(path, e));
   }
 
