@@ -12,3 +12,4 @@ part 'account_repository.dart';
 part 'local_storage_repository.dart';
 part 'user_repository.dart';
 part 'image_repository.dart';
+part 'post_repository.dart';

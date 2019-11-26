@@ -24,6 +24,7 @@ class DevModuleCore extends AbstractModule {
     bind(AccountService).to(_buildAccountService());
     bind(DIKeys.cache_image).to(await _buildCacheImage());
     bind(ImageService).to(_buildImageService());
+    bind(PostService).to(_buildPostService());
   }
 
   Future<LocalStorageService> _buildLocalService() async {
@@ -136,5 +137,11 @@ class DevModuleCore extends AbstractModule {
     final HttpClient client = get(api_upload_image);
     final ImageRepository repository = ImageRepositoryImpl(client);
     return ImageServiceImpl(repository);
+  }
+
+  PostService _buildPostService() {
+    final HttpClient client = get<HttpClient>(api_client);
+    final PostRepository repository = PostRepositoryImpl(client);
+    return PostServiceImpl(repository);
   }
 }

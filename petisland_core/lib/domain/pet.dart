@@ -25,4 +25,12 @@ class Pet extends BaseModel {
     _addValueToMap('info', info, map);
     return map;
   }
+
+  Map<String, dynamic> toCreateJson() {
+    final Map<String, dynamic> map = <String, dynamic>{};
+    _addValueToMap('type', type, map);
+    _addValueToMap('info', info, map);
+
+    return map;
+  }
 }
