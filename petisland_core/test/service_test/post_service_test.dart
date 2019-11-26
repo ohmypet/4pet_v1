@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:petisland_core/petisland_core.dart';
-import 'package:petisland_core/util/petisland_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -37,7 +36,7 @@ void main() async {
       title: 'Ahihi',
       location: 'Dong nai',
       pet: Pet(
-        type: enumToString(PetType.Dog),
+        // type: enumToString(PetType.Dog),
       ),
     );
     try {
@@ -55,7 +54,7 @@ void main() async {
         title: 'Ahihi',
         location: 'Dong nai',
         pet: Pet(
-          type: enumToString(PetType.Dog),
+          // type: enumToString(PetType.Dog),
         ),
         description: "i'm supper man",
         images: <PetImage>[PetImage(id: idImage)]);
@@ -74,7 +73,7 @@ void main() async {
       title: 'Ahihi',
       location: 'Dong nai',
       pet: Pet(
-        type: enumToString(PetType.Dog),
+        // type: enumToString(PetType.Dog),
       ),
       description: "i'm supper man",
       tags: <Tag>[Tag(title: "Dog", description: "ahihi")],

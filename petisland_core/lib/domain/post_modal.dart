@@ -40,7 +40,7 @@ class PostModal {
     _addValueToMap('status', status, map);
     _addValueToMap('price', price ?? 0, map);
 
-    final List<Map<String, dynamic>> jsonImages = _imagesToJson(images);
+    final List<String> jsonImages = images.map((PetImage image) => image.id);
     _addValueToMap("images", jsonImages, map);
 
     final List<Map<String, dynamic>> jsonTags = _tagsToJson(tags);

@@ -60,7 +60,7 @@ void main() {
           updateAt: DateTime.now(),
           createBy: null,
           info: <String, dynamic>{},
-          type: 'dog',
+          // type: 'dog',
         ),
         tags: <Tag>[
           Tag(

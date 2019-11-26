@@ -16,6 +16,7 @@ part 'review.dart';
 part 'tag.dart';
 part 'user.dart';
 part 'post_modal.dart';
+part 'pet_category.dart';
 
 void _addValueToMap(String key, dynamic value, Map<String, dynamic> map) {
   if (value != null) map[key] = value;
