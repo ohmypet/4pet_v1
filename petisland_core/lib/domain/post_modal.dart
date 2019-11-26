@@ -20,7 +20,7 @@ class PostModal {
     this.description,
     List<Tag> tags = const <Tag>[],
     List<PetImage> images = const <PetImage>[],
-  }) : status = "New" {
+  }) : status = enumToString(PostStatus.New) {
     this.tags.addAll(tags);
     this.images.addAll(images);
   }
@@ -35,7 +35,7 @@ class PostModal {
     _addValueToMap('title', title, map);
     _addValueToMap('description', description, map);
     _addValueToMap('location', location, map);
-    _addValueToMap('dueDate', dueDate, map);
+    _addValueToMap('dueDate', dueDate.toIso8601String(), map);
     _addValueToMap('settings', settings, map);
     _addValueToMap('status', status, map);
     _addValueToMap('price', price ?? 0, map);

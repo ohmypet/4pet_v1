@@ -2,6 +2,8 @@ library petisland_core.domain;
 
 import 'package:meta/meta.dart';
 import 'package:petisland_core/util/log.dart';
+import 'package:flutter/foundation.dart';
+import 'package:petisland_core/util/petisland_constants.dart';
 
 part 'account.dart';
 part 'base_model.dart';

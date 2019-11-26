@@ -38,7 +38,7 @@ class Post extends BaseModel {
     title = json['title'];
     description = json['description'];
     location = json['location'];
-    price = json['price'];
+    price = double.tryParse(json['price']?.toString());
     dueDate = _parseDateTime(json['dueDate']);
     settings = json['settings'];
     status = json['status'];
