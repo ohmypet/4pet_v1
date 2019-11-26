@@ -25,6 +25,7 @@ class DevModuleCore extends AbstractModule {
     bind(DIKeys.cache_image).to(await _buildCacheImage());
     bind(ImageService).to(_buildImageService());
     bind(PostService).to(_buildPostService());
+    bind(PetCategoryService).to(_buildPetCategoryService());
   }
 
   Future<LocalStorageService> _buildLocalService() async {
@@ -143,5 +144,11 @@ class DevModuleCore extends AbstractModule {
     final HttpClient client = get<HttpClient>(api_client);
     final PostRepository repository = PostRepositoryImpl(client);
     return PostServiceImpl(repository);
+  }
+
+  PetCategoryService _buildPetCategoryService() {
+    final HttpClient client = get<HttpClient>(api_client);
+    final PetCategoryRepository repository = PetCategoryRepositoryImpl(client);
+    return PetCategoryServiceImpl(repository);
   }
 }
