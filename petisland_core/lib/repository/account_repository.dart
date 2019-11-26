@@ -49,7 +49,7 @@ class AccountReposityImpl extends AccountReposity {
       'email': email,
     };
     return client
-        .get('$path/require-code', params: params)
+        .get<Map<String, dynamic>>('$path/require-code', params: params)
         .then((Map<String, dynamic> json) => Account.fromJson(json));
   }
 
