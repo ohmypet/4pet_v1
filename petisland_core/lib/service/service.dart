@@ -1,4 +1,5 @@
 library petisland_core.service;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as path;
@@ -13,3 +14,4 @@ part 'local_storage_service.dart';
 part 'image_service.dart';
 part 'user_service.dart';
 part 'cache_service.dart';
+part 'post_service.dart';

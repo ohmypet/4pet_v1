@@ -20,9 +20,8 @@ class PetImage extends BaseModel {
 
   @override
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> map = super.toJson();
-    _addValueToMap('url', url, map);
-    _addValueToMap('public_id', publicId, map);
+    final Map<String, dynamic> map = super.toJson()..clear();
+    _addValueToMap('id', id, map);
     return map;
   }
 }

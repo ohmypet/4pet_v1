@@ -20,7 +20,8 @@ class Tag extends BaseModel {
 
   @override
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> map = super.toJson();
+    final Map<String, dynamic> map = super.toJson()..clear();
+    _addValueToMap('id', id, map);
     _addValueToMap('title', title, map);
     _addValueToMap('description', description, map);
     return map;
