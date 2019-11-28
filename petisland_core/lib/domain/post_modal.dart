@@ -4,7 +4,6 @@ class PostModal {
   String title;
   String description;
   String location;
-  DateTime dueDate = DateTime.now();
   Map<String, dynamic> settings = <String, dynamic>{};
   final String status;
   double price;
@@ -35,7 +34,6 @@ class PostModal {
     _addValueToMap('title', title, map);
     _addValueToMap('description', description, map);
     _addValueToMap('location', location, map);
-    _addValueToMap('dueDate', dueDate.toIso8601String(), map);
     _addValueToMap('settings', settings, map);
     _addValueToMap('status', status, map);
     _addValueToMap('price', price ?? 0, map);
