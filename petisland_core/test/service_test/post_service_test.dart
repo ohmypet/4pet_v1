@@ -1,35 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:petisland_core/petisland_core.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import 'configuration.dart';
 
 void main() async {
-  SharedPreferences.setMockInitialValues(<String, dynamic>{});
-  await Config.initAsync(Mode.Debug);
-  await DI.initAsync(<Module>[DevModuleCore()]);
-  final AccountService service = DI.get(AccountService);
+  await setupEnvironment();
   final PostService postService = DI.get(PostService);
-  final LocalStorageService storageService = DI.get(LocalStorageService);
   final ImageService imageService = DI.get(ImageService);
 
-  String idImage;
+  login();
 
-  test('with login', () async {
-    final String username = 'admin';
-    final String password = 'admin';
-    try {
-      final LoginData loginData = await service.login(username, password);
-      Log.debug(loginData.toJson());
-      expect(loginData, isNotNull);
-      expect(loginData.token, isNotNull);
-      expect(loginData.account, isNotNull);
-      expect(loginData.account.email, isNotNull);
-      expect(loginData.account.username, isNotNull);
-      await storageService.updateToken(loginData.token);
-    } catch (ex) {
-      Log.error(ex);
-      expect(ex, isNotNull);
-    }
-  });
+  String idImage;
 
   test('upload image', () async {
     final String path = 'assets/meow.jpeg';
