@@ -9,8 +9,9 @@ void main() async {
   final AccountService service = DI.get(AccountService);
   final PostService postService = DI.get(PostService);
   final LocalStorageService storageService = DI.get(LocalStorageService);
+  final ImageService imageService = DI.get(ImageService);
 
-  final String idImage = "d4aed98d-f7bd-47eb-b3bd-a0a7dd8f452d";
+  String idImage;
 
   test('with login', () async {
     final String username = 'admin';
@@ -30,14 +31,26 @@ void main() async {
     }
   });
 
+  test('upload image', () async {
+    final String path = 'assets/meow.jpeg';
+    try {
+      final List<PetImage> images = await imageService.upload(<String>[path, path]);
+
+      for (PetImage item in images) {
+        Log.debug(item.toJson());
+        idImage = item.id;
+      }
+    } catch (ex) {
+      Log.error(ex);
+    }
+  });
+
   test("Create post with empty image string", () async {
     final PostModal postModal = PostModal.create(
       price: 0.0,
       title: 'Ahihi',
       location: 'Dong nai',
-      pet: Pet(
-        // type: enumToString(PetType.Dog),
-      ),
+      pet: Pet(type: PetCategory(id: "35d15307-7136-45d5-bfb2-8e63bdc1e108")),
     );
     try {
       final Post post = await postService.create(postModal);
@@ -45,6 +58,7 @@ void main() async {
       Log.info(post.toJson());
     } catch (ex) {
       Log.error(ex);
+      assert(false);
     }
   });
 
@@ -53,9 +67,7 @@ void main() async {
         price: 10,
         title: 'Ahihi',
         location: 'Dong nai',
-        pet: Pet(
-          // type: enumToString(PetType.Dog),
-        ),
+        pet: Pet(type: PetCategory(id: "35d15307-7136-45d5-bfb2-8e63bdc1e108")),
         description: "i'm supper man",
         images: <PetImage>[PetImage(id: idImage)]);
     try {
@@ -64,6 +76,7 @@ void main() async {
       Log.info(post.toJson());
     } catch (ex) {
       Log.error(ex);
+      assert(false);
     }
   });
 
@@ -72,9 +85,7 @@ void main() async {
       price: 10,
       title: 'Ahihi',
       location: 'Dong nai',
-      pet: Pet(
-        // type: enumToString(PetType.Dog),
-      ),
+      pet: Pet(type: PetCategory(id: "35d15307-7136-45d5-bfb2-8e63bdc1e108")),
       description: "i'm supper man",
       tags: <Tag>[Tag(title: "Dog", description: "ahihi")],
       images: <PetImage>[PetImage(id: idImage)],
@@ -85,6 +96,7 @@ void main() async {
       Log.info(post.toJson());
     } catch (ex) {
       Log.error(ex);
+      assert(false);
     }
   });
 }
