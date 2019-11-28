@@ -11,6 +11,7 @@ void main() async {
   login();
 
   String idImage;
+  Post post;
 
   test('upload image', () async {
     final String path = 'assets/meow.jpeg';
@@ -82,6 +83,16 @@ void main() async {
       Log.info(post.toJson());
     } catch (ex) {
       Log.error(ex);
+      assert(false);
+    }
+  });
+
+  test("Like post", () async {
+    try {
+      final Post newPost = await postService.like(post.id);
+      expect(newPost, greaterThan(0));
+    } catch (e) {
+      Log.error(e);
       assert(false);
     }
   });
