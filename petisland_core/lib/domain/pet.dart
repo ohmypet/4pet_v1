@@ -1,7 +1,7 @@
 part of petisland_core.domain;
 
 class Pet extends BaseModel {
-  String type;
+  PetCategory type;
   Map<String, dynamic> info;
 
   Pet({
@@ -23,6 +23,14 @@ class Pet extends BaseModel {
     final Map<String, dynamic> map = super.toJson();
     _addValueToMap('type', type, map);
     _addValueToMap('info', info, map);
+    return map;
+  }
+
+  Map<String, dynamic> toCreateJson() {
+    final Map<String, dynamic> map = <String, dynamic>{};
+    _addValueToMap('category', type.id, map);
+    _addValueToMap('info', info, map);
+
     return map;
   }
 }

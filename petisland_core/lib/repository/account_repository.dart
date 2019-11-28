@@ -24,7 +24,7 @@ class AccountReposityImpl extends AccountReposity {
       'password': password,
     };
     return client
-        .post('$path/login', body)
+        .post<Map<String, dynamic>>('$path/login', body)
         .then((Map<String, dynamic> json) => LoginData.fromJson(json));
   }
 
@@ -39,7 +39,7 @@ class AccountReposityImpl extends AccountReposity {
       'password': password,
     };
     return client
-        .post('$path/register', body, params: params)
+        .post<Map<String, dynamic>>('$path/register', body, params: params)
         .then((Map<String, dynamic> json) => Account.fromJson(json));
   }
 
@@ -49,7 +49,7 @@ class AccountReposityImpl extends AccountReposity {
       'email': email,
     };
     return client
-        .get('$path/require-code', params: params)
+        .get<Map<String, dynamic>>('$path/require-code', params: params)
         .then((Map<String, dynamic> json) => Account.fromJson(json));
   }
 

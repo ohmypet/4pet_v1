@@ -13,50 +13,44 @@ class HttpClient {
   static Options _getOptions(Options options) =>
       options is Options ? options : Options(responseType: ResponseType.plain);
 
-  Future<Map<String, dynamic>> get(String path,
-      {Map<String, dynamic> params, Options options}) {
+  Future<T> get<T>(String path, {Map<String, dynamic> params, Options options}) {
     return dio
-        .get<String>(path,
-            queryParameters: _getParams(params), options: _getOptions(options))
-        .then((Response<String> response) => _handleResult(response))
+        .get<String>(path, queryParameters: _getParams(params), options: _getOptions(options))
+        .then((Response<String> response) => _handleResult<T>(response))
         .catchError((dynamic e) => _handleError(path, e));
   }
 
-  Future<Map<String, dynamic>> post(String path, dynamic body,
-      {Map<String, dynamic> params,
-      ProgressCallback onSendProgress,
-      Options options}) {
+  Future<T> post<T>(String path, dynamic body,
+      {Map<String, dynamic> params, ProgressCallback onSendProgress, Options options}) {
     return dio
         .post<String>(path,
             data: body,
             queryParameters: _getParams(params),
             onSendProgress: onSendProgress,
             options: _getOptions(options))
-        .then((Response<String> response) => _handleResult(response))
+        .then((Response<String> response) => _handleResult<T>(response))
         .catchError((dynamic e) => _handleError(path, e));
   }
 
-  Future<Map<String, dynamic>> put(String path, dynamic body,
-      {Options options}) {
+  Future<T> put<T>(String path, dynamic body, {Options options}) {
     return dio
         .put<String>(path, data: body, options: _getOptions(options))
-        .then((Response<String> response) => _handleResult(response))
+        .then((Response<String> response) => _handleResult<T>(response))
         .catchError((dynamic e) => _handleError(path, e));
   }
 
-  Future<Map<String, dynamic>> delete<T>(String path, {Options options}) {
+  Future<T> delete<T>(String path, {Options options}) {
     return dio
         .delete<String>(path, options: _getOptions(options))
-        .then((Response<String> response) => _handleResult(response))
+        .then((Response<String> response) => _handleResult<T>(response))
         .catchError((dynamic ex) => _handleError(path, ex));
   }
 
-  FutureOr<Map<String, dynamic>> _handleResult<T>(
-      Response<dynamic> response) async {
+  FutureOr<T> _handleResult<T>(Response<String> response) async {
     if (response.statusCode == HttpStatus.ok) {
       final String body = response.data;
 
-      final Map<String, dynamic> map = json.decode(body);
+      final T map = json.decode(body);
       return map;
     } else {
       throw _getApiException(response);
@@ -85,8 +79,7 @@ class HttpClient {
 
   Exception _handleDioError(String path, DioError ex) {
     Log.error('path: $path ex: $ex');
-    final PetApiException error =
-        _getApiException(ex.response) ?? PetException.fromException(ex);
+    final PetApiException error = _getApiException(ex.response) ?? PetException.fromException(ex);
     throw error;
   }
 }
