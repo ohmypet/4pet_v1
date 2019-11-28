@@ -1,17 +1,16 @@
 import 'package:ddi/di.dart';
-import 'package:petisland_core/config/config.dart';
 import 'package:petisland_core/domain/domain.dart';
 import 'package:petisland_core/module/module.dart';
 import 'package:petisland_core/petisland_core.dart';
 import 'package:petisland_core/service/service.dart';
 import 'package:petisland_core/util/log.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 
+import 'configuration.dart';
+
 void main() async {
-  SharedPreferences.setMockInitialValues(<String, dynamic>{});
-  await Config.initAsync(Mode.Debug);
-  await DI.initAsync(<Module>[DevModuleCore()]);
+  await setupEnvironment();
+
   final AccountService service = DI.get(AccountService);
   group('account test', () {
     test('with require-code', () async {
@@ -26,8 +25,7 @@ void main() async {
       final String username = 'meomeocf98';
       final String password = '123456';
       try {
-        final Account account =
-            await service.register(email, code, username, password);
+        final Account account = await service.register(email, code, username, password);
         expect(account, isNotNull);
         Log.debug(account.toJson());
       } catch (ex) {

@@ -19,6 +19,7 @@ class PetCategoryRepositoryImpl extends PetCategoryRepository {
   List<PetCategory> _parseToPetCategory(List<dynamic> categories) {
     return categories
         .cast<Map<String, dynamic>>()
-        .map((Map<String, dynamic> json) => PetCategory.fromJson(json));
+        .map((Map<String, dynamic> json) => PetCategory.fromJson(json))
+        .toList();
   }
 }
