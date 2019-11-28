@@ -6,6 +6,7 @@ abstract class TColors {
   static const Color black10 = Color.fromARGB(50, 43, 43, 43);
 
   static const Color green = Colors.green;
+  static const Color red = Colors.red;
   static const Color water_melon = Color.fromARGB(255, 252, 108, 133);
   static const Color water_melon_dark = Color.fromARGB(255, 197, 57, 88);
 
