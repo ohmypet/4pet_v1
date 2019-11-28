@@ -68,7 +68,12 @@ void main() async {
       location: 'Dong nai',
       pet: Pet(type: PetCategory(id: "35d15307-7136-45d5-bfb2-8e63bdc1e108")),
       description: "i'm supper man",
-      tags: <Tag>[Tag(title: "Dog", description: "ahihi")],
+      tags: <Tag>[
+        Tag(title: "dog", description: "ahihi"),
+        Tag(title: "dog white", description: "ahihi"),
+        Tag(title: "dog black", description: "ahihi"),
+        Tag(title: "dog red", description: "ahihi")
+      ],
       images: <PetImage>[PetImage(id: idImage)],
     );
     try {

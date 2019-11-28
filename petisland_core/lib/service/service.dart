@@ -16,3 +16,4 @@ part 'user_service.dart';
 part 'cache_service.dart';
 part 'post_service.dart';
 part 'pet_category_service.dart';
+part 'tag_service.dart';
