@@ -4,10 +4,10 @@ import 'package:test/test.dart';
 
 void main() {
   test("Test category to string", () {
-    CategoryEnum.values.forEach((CategoryEnum category) {
+    CategoryTypeEnum.values.forEach((CategoryTypeEnum category) {
       final String str = enumToString(category);
       Log.debug("Category $category -> $str");
-      expect(str, PetIslandConstants.categories[category.index]);
+      expect(str, PetIslandConstants.categoryTypes[category.index]);
     });
   });
 }
