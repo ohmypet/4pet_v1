@@ -21,7 +21,7 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future<Post> like(String id) {
     return client
-        .get<Map<String, dynamic>>("/api/post/$id/like")
+        .get<Map<String, dynamic>>("/api/post/$id/react")
         .then((Map<String, dynamic> json) => Post.fromJson(json));
   }
 }
