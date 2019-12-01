@@ -11,6 +11,7 @@ void main() async {
   login();
 
   String idImage;
+  Post currentPost;
 
   test('upload image', () async {
     final String path = 'assets/meow.jpeg';
@@ -68,15 +69,31 @@ void main() async {
       location: 'Dong nai',
       pet: Pet(type: PetCategory(id: "35d15307-7136-45d5-bfb2-8e63bdc1e108")),
       description: "i'm supper man",
-      tags: <Tag>[Tag(title: "Dog", description: "ahihi")],
+      tags: <Tag>[
+        Tag(title: "dog", description: "ahihi"),
+        Tag(title: "dog white", description: "ahihi"),
+        Tag(title: "dog black", description: "ahihi"),
+        Tag(title: "dog red", description: "ahihi")
+      ],
       images: <PetImage>[PetImage(id: idImage)],
     );
     try {
       final Post post = await postService.create(postModal);
-
+      currentPost = post;
       Log.info(post.toJson());
     } catch (ex) {
       Log.error(ex);
+      assert(false);
+    }
+  });
+
+  test("Like post", () async {
+    try {
+      final Post newPost = await postService.like(currentPost.id);
+      expect(newPost, isNotNull);
+      expect(newPost.likes, greaterThan(0));
+    } catch (e) {
+      Log.error(e);
       assert(false);
     }
   });

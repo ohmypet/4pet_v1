@@ -26,6 +26,7 @@ class DevModuleCore extends AbstractModule {
     bind(ImageService).to(_buildImageService());
     bind(PostService).to(_buildPostService());
     bind(PetCategoryService).to(_buildPetCategoryService());
+    bind(TagService).to(_buildTagService());
   }
 
   Future<LocalStorageService> _buildLocalService() async {
@@ -150,5 +151,11 @@ class DevModuleCore extends AbstractModule {
     final HttpClient client = get<HttpClient>(api_client);
     final PetCategoryRepository repository = PetCategoryRepositoryImpl(client);
     return PetCategoryServiceImpl(repository);
+  }
+
+  TagService _buildTagService() {
+    final HttpClient client = get<HttpClient>(api_client);
+    final TagRepository repository = TagRepositoryImpl(client);
+    return TagServiceImpl(repository);
   }
 }
