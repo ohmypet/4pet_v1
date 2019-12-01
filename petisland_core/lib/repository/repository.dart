@@ -14,3 +14,4 @@ part 'user_repository.dart';
 part 'image_repository.dart';
 part 'post_repository.dart';
 part 'pet_category_repository.dart';
+part 'tag_repository.dart';

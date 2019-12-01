@@ -2,6 +2,8 @@ part of petisland_core.repository;
 
 abstract class PostRepository {
   Future<Post> create(PostModal postModal);
+
+  Future<Post> like(String id);
 }
 
 class PostRepositoryImpl extends PostRepository {
@@ -13,6 +15,13 @@ class PostRepositoryImpl extends PostRepository {
   Future<Post> create(PostModal postModal) {
     return client
         .post<Map<String, dynamic>>('/api/post', postModal.toJson())
+        .then((Map<String, dynamic> json) => Post.fromJson(json));
+  }
+
+  @override
+  Future<Post> like(String id) {
+    return client
+        .get<Map<String, dynamic>>("/api/post/$id/react")
         .then((Map<String, dynamic> json) => Post.fromJson(json));
   }
 }
