@@ -10,6 +10,8 @@ class _CreatePostBodyState extends TState<PostEditBody> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController priceController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,15 @@ class _CreatePostBodyState extends TState<PostEditBody> {
               ),
               Flexible(
                 child: state is ExpandState
-                    ? SizedBox()
+                    ? Flex(
+                        mainAxisSize: MainAxisSize.min,
+                        direction: Axis.vertical,
+                        children: <Widget>[
+                          LocationPostInput(locationController),
+                          PhonePostInput(phoneController),
+                          ChungLoaiPostInput(phoneController),
+                        ],
+                      )
                     : ExpandWidget(postEditBloc),
               )
             ],

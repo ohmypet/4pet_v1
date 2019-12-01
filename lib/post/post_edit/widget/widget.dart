@@ -24,3 +24,9 @@ part 'desc_post_input.dart';
 part 'image_post_input.dart';
 
 part 'expand_widget.dart';
+
+part 'location_post_input.dart';
+
+part 'phone_post_input.dart';
+
+part 'chungloai_post_input.dart';
