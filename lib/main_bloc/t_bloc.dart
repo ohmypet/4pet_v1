@@ -1,7 +1,6 @@
 part of petisland.main_bloc;
 
-abstract class TBloc<Event extends BaseEvent, State extends BaseState>
-    extends BaseBloc<Event, State> {
+abstract class TBloc<Event extends BaseEvent, State extends BaseState> extends BaseBloc<Event, State> {
   @protected
   Duration get delayEvent;
 
@@ -15,8 +14,7 @@ abstract class TBloc<Event extends BaseEvent, State extends BaseState>
   void add(Event event) => super.add(event);
 }
 
-abstract class BaseBloc<Event extends BaseEvent, State extends BaseState>
-    extends Bloc<Event, State> {
+abstract class BaseBloc<Event extends BaseEvent, State extends BaseState> extends Bloc<Event, State> {
   Stream<State> mapEventToState(Event event) {
     if (event is BaseErrorEvent) {
       Log.debug("event ${event.runtimeType}");
