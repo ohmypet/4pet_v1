@@ -3,7 +3,7 @@ part of petisland.main_bloc;
 ///------------------------------------------------
 /// `Event` for main app
 ///------------------------------------------------
-abstract class MainAppEvent extends BaseEvent{
+abstract class MainAppEvent extends BaseEvent {
   @override
   String toString() => '$runtimeType';
 }

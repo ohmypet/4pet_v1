@@ -18,9 +18,6 @@ class TagRepositoryImpl extends TagRepository {
   }
 
   List<Tag> _parseTags(List<dynamic> tags) {
-    return tags
-        .cast<Map<String, dynamic>>()
-        .map((Map<String, dynamic> json) => Tag.fromJson(json))
-        .toList();
+    return tags.cast<Map<String, dynamic>>().map((Map<String, dynamic> json) => Tag.fromJson(json)).toList();
   }
 }
