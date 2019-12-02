@@ -31,28 +31,37 @@ void main() {
           updateAt: DateTime.now(),
           settings: <String, dynamic>{'type': 'admin'},
         ),
-        images: <PetImage>[
-          PetImage(
+        postImages: <PostImage>[
+          PostImage(
+            image: PetImage(
               id: '123456789',
               createAt: DateTime.now(),
               updateAt: DateTime.now(),
               createBy: null,
               publicId: 'ahihi',
-              url: 'https://meomeo.com'),
-          PetImage(
+              url: 'https://meomeo.com',
+            ),
+          ),
+          PostImage(
+            image: PetImage(
               id: '123456789',
               createAt: DateTime.now(),
               updateAt: DateTime.now(),
               createBy: null,
               publicId: 'ahihi',
-              url: 'https://meomeo.com'),
-          PetImage(
+              url: 'https://meomeo.com',
+            ),
+          ),
+          PostImage(
+            image: PetImage(
               id: '123456789',
               createAt: DateTime.now(),
               updateAt: DateTime.now(),
               createBy: null,
               publicId: 'ahihi',
-              url: 'https://meomeo.com')
+              url: 'https://meomeo.com',
+            ),
+          )
         ],
         pet: Pet(
           id: '1234',
@@ -62,19 +71,26 @@ void main() {
           info: <String, dynamic>{},
           // type: 'dog',
         ),
-        tags: <Tag>[
-          Tag(
+        postTags: <PostTag>[
+          PostTag(
             id: '1234',
-            title: 'dog',
-            description: 'Dog',
-            createAt: DateTime.now(),
-            updateAt: DateTime.now(),
-            createBy: null,
+            tag: Tag(
+              id: '1234',
+              title: 'dog',
+              description: 'Dog',
+              createAt: DateTime.now(),
+              updateAt: DateTime.now(),
+              createBy: null,
+            ),
           )
         ],
       );
-      final String stringJson = json.encode(post.toJson());
+      final Map<String, dynamic> map = post.toJson();
+      final Post duplicatePost = Post.fromJson(map);
+      final String stringJson = json.encode(map);
       expect(stringJson, isNotNull);
+      expect(duplicatePost, isNotNull);
+
       Log.debug(stringJson);
     });
   });

@@ -6,12 +6,13 @@ class Post extends BaseModel {
   String location;
   double price;
   DateTime dueDate;
-  Map<String, dynamic> settings;
   String status;
   Account account;
   Pet pet;
-  List<PetImage> images;
-  List<Tag> tags;
+
+  final Map<String, dynamic> settings = <String, dynamic>{};
+  final List<PostImage> postImages = <PostImage>[];
+  final List<PostTag> postTags = <PostTag>[];
 
   int likes;
 
@@ -25,14 +26,18 @@ class Post extends BaseModel {
     this.location,
     this.price = 0,
     this.dueDate,
-    this.settings = const <String, dynamic>{},
     this.status,
     this.account,
     this.pet,
-    this.images = const <PetImage>[],
-    this.tags = const <Tag>[],
     this.likes,
-  }) : super(id, createAt, updateAt, createBy);
+    Map<String, dynamic> settings,
+    List<PostImage> postImages,
+    List<PostTag> postTags,
+  }) : super(id, createAt, updateAt, createBy) {
+    if (settings?.isNotEmpty == true) this.settings.addAll(settings);
+    if (postImages?.isNotEmpty == true) this.postImages.addAll(postImages);
+    if (postTags?.isNotEmpty == true) this.postTags.addAll(postTags);
+  }
 
   Post.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     title = json['title'];
@@ -40,13 +45,12 @@ class Post extends BaseModel {
     location = json['location'];
     price = double.tryParse(json['price']?.toString());
     dueDate = _parseDateTime(json['dueDate']);
-    settings = json['settings'];
+    if (json['settings']?.isNotEmpty == true) settings.addAll(json['settings']);
     status = json['status'];
-    account =
-        json['account'] != null ? Account.fromJson(json['account']) : null;
+    account = json['account'] != null ? Account.fromJson(json['account']) : null;
     pet = json['pet'] != null ? Pet.fromJson(json['pet']) : null;
-    images = parseImages(json['images']);
-    tags = _parseTags(json['tags']);
+    postImages.addAll(_parsePostImages(json['images']));
+    postTags.addAll(_parsePostTags(json['tags']));
     likes = json['likes'];
   }
 
@@ -62,10 +66,36 @@ class Post extends BaseModel {
     _addValueToMap('status', status, map);
     _addValueToMap('account', account?.toJson(), map);
     _addValueToMap('pet', pet?.toJson(), map);
-    final List<Map<String, dynamic>> json = _imagesToJson(images);
+    final List<Map<String, dynamic>> json = _postImageToJson(postImages);
     _addValueToMap('images', json, map);
     _addValueToMap('likes', likes, map);
 
     return map;
+  }
+
+  List<PostImage> _parsePostImages(List<dynamic> items) {
+    if (items == null)
+      return <PostImage>[];
+    else {
+      return items
+          .cast<Map<String, dynamic>>()
+          .map((Map<String, dynamic> json) => PostImage.fromJson(json))
+          .toList();
+    }
+  }
+
+  List<PostTag> _parsePostTags(List<dynamic> items) {
+    if (items == null) {
+      return <PostTag>[];
+    } else {
+      return items
+          .cast<Map<String, dynamic>>()
+          .map((Map<String, dynamic> json) => PostTag.fromJson(json))
+          .toList();
+    }
+  }
+
+  List<Map<String, dynamic>> _postImageToJson(List<PostImage> postImages) {
+    return postImages.map((PostImage postImage) => postImage.toJson()).toList();
   }
 }
