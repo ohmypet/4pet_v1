@@ -4,6 +4,10 @@ class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
   List<String> imagesLocalPath = <String>[];
   String title = '';
   double price = -1;
+  String description = '';
+  String location = '';
+  String phoneNumber = '';
+  String chungLoai = "";
 
   @override
   Duration get delayEvent => const Duration(milliseconds: 0);

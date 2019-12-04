@@ -1,9 +1,9 @@
 part of petisland.post.post_edit.widget;
 
 class DescPostInput extends TStatelessWidget {
-  final TextEditingController descriptionController;
+  final PostEditBloc bloc;
 
-  DescPostInput(this.descriptionController);
+  DescPostInput(this.bloc);
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +24,11 @@ class DescPostInput extends TStatelessWidget {
               ),
             ),
             TextField(
-              controller: descriptionController,
               keyboardType: TextInputType.multiline,
               maxLines: null,
+              onChanged: (String text) {
+                bloc.description = text;
+              },
             )
           ],
         ),

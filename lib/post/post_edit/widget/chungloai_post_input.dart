@@ -1,9 +1,9 @@
 part of petisland.post.post_edit.widget;
 
 class ChungLoaiPostInput extends TStatelessWidget {
-  final TextEditingController chungLoaiController;
+  final PostEditBloc bloc;
 
-  ChungLoaiPostInput(this.chungLoaiController);
+  ChungLoaiPostInput(this.bloc);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,9 @@ class ChungLoaiPostInput extends TStatelessWidget {
               ),
             ),
             TextField(
-              controller: chungLoaiController,
+              onChanged: (String text) {
+                bloc.chungLoai = text;
+              },
             )
           ],
         ),

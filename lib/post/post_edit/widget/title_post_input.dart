@@ -2,9 +2,8 @@ part of petisland.post.post_edit.widget;
 
 class TitlePostInput extends TStatelessWidget {
   final PostEditBloc bloc;
-  final TextEditingController titleController;
 
-  TitlePostInput(this.bloc, this.titleController);
+  TitlePostInput(this.bloc);
 
   @override
   Widget build(BuildContext context) {

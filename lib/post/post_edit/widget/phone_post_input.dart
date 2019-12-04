@@ -1,9 +1,9 @@
 part of petisland.post.post_edit.widget;
 
 class PhonePostInput extends TStatelessWidget {
-  final TextEditingController phoneController;
+  final PostEditBloc bloc;
 
-  PhonePostInput(this.phoneController);
+  PhonePostInput(this.bloc);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,9 @@ class PhonePostInput extends TStatelessWidget {
             ),
             TextField(
               keyboardType: TextInputType.phone,
-              controller: phoneController,
+              onChanged: (String text) {
+                bloc.phoneNumber = text;
+              },
             )
           ],
         ),

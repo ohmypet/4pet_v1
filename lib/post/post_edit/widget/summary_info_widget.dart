@@ -37,7 +37,7 @@ class SummaryInfoWidget extends TStatelessWidget {
       flex: 1,
       child: AspectRatio(
         aspectRatio: 1 / 1,
-        child: urlValid ? TCacheImageWidget(url: petImage) : defaultImage,
+        child: urlValid ? Image.asset(petImage) : defaultImage,
       ),
     );
   }

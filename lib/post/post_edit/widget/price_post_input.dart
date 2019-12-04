@@ -2,8 +2,7 @@ part of petisland.post.post_edit.widget;
 
 class PricePostInput extends TStatelessWidget {
   final PostEditBloc bloc;
-  final TextEditingController priceController;
-  PricePostInput(this.bloc, this.priceController);
+  PricePostInput(this.bloc);
 
   @override
   Widget build(BuildContext context) {

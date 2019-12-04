@@ -37,7 +37,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
             BlocBuilder<PostEditBloc, PostEditState>(
                 bloc: widget.bloc,
                 builder: (_, PostEditState state) {
-                  return state is ImageState
+                  return widget.bloc.imagesLocalPath!=null && widget.bloc.imagesLocalPath.isNotEmpty
                       ? SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(

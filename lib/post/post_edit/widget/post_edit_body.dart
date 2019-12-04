@@ -7,11 +7,6 @@ class PostEditBody extends TStatefulWidget {
 
 class _CreatePostBodyState extends TState<PostEditBody> {
   PostEditBloc postEditBloc = DI.get(PostEditBloc);
-  TextEditingController titleController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
-  TextEditingController priceController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +30,9 @@ class _CreatePostBodyState extends TState<PostEditBody> {
                   direction: Axis.vertical,
                   children: <Widget>[
                     SizedBox(height: 14),
-                    TitlePostInput(postEditBloc, titleController),
-                    DescPostInput(descriptionController),
-                    PricePostInput(postEditBloc, priceController),
+                    TitlePostInput(postEditBloc),
+                    DescPostInput(postEditBloc),
+                    PricePostInput(postEditBloc),
                     ImagePostInput(postEditBloc),
                     Flexible(
                       child: state is ExpandState
@@ -45,9 +40,9 @@ class _CreatePostBodyState extends TState<PostEditBody> {
                               mainAxisSize: MainAxisSize.min,
                               direction: Axis.vertical,
                               children: <Widget>[
-                                LocationPostInput(locationController),
-                                PhonePostInput(phoneController),
-                                ChungLoaiPostInput(phoneController),
+                                LocationPostInput(postEditBloc),
+                                PhonePostInput(postEditBloc),
+                                ChungLoaiPostInput(postEditBloc),
                               ],
                             )
                           : ExpandWidget(postEditBloc),

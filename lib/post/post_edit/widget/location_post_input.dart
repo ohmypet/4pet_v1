@@ -1,9 +1,9 @@
 part of petisland.post.post_edit.widget;
 
 class LocationPostInput extends TStatelessWidget {
-  final TextEditingController locationController;
+  final PostEditBloc bloc;
 
-  LocationPostInput(this.locationController);
+  LocationPostInput(this.bloc);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,9 @@ class LocationPostInput extends TStatelessWidget {
               ),
             ),
             TextField(
-              controller: locationController,
+              onChanged: (String text) {
+                bloc.location = text;
+              },
             )
           ],
         ),
