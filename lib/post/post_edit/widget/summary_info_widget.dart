@@ -1,7 +1,7 @@
 part of petisland.post.post_edit.widget;
 
 class SummaryInfoWidget extends TStatelessWidget {
-  final PetImage petImage;
+  final List<String> petImage;
   final String title;
   final double price;
 
@@ -24,8 +24,12 @@ class SummaryInfoWidget extends TStatelessWidget {
     );
   }
 
-  Widget _buildImageWidget(PetImage petImage) {
-    bool urlValid = petImage?.url != null && petImage.url.isNotEmpty;
+  Widget _buildImageWidget(List<String> petImages) {
+    String petImage;
+    if (petImages != null && petImages.isNotEmpty) {
+      petImage = petImages.first;
+    }
+    bool urlValid = petImage != null && petImage.isNotEmpty;
     Widget defaultImage = Container(
       color: TColors.duck_egg_blue,
     );
@@ -33,7 +37,7 @@ class SummaryInfoWidget extends TStatelessWidget {
       flex: 1,
       child: AspectRatio(
         aspectRatio: 1 / 1,
-        child: urlValid ? TCacheImageWidget(url: petImage.url) : defaultImage,
+        child: urlValid ? TCacheImageWidget(url: petImage) : defaultImage,
       ),
     );
   }
@@ -61,10 +65,12 @@ class SummaryInfoWidget extends TStatelessWidget {
   }
 
   Widget _buildPriceWidget(double money) {
-    money ??= 0;
+    money ??= -1;
     FlutterMoneyFormatter formatter = FlutterMoneyFormatter(amount: money);
     return Text(
-      "${formatter.output.withoutFractionDigits} đ",
+      money.isNegative
+          ? "Miễn phí"
+          : "${formatter.output.withoutFractionDigits} đ",
       style: TTextStyles.bold(fontSize: 22, color: TColors.red),
     );
   }

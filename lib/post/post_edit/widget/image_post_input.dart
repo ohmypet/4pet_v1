@@ -42,10 +42,10 @@ class _ImagePostInputState extends TState<ImagePostInput> {
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             children:
-                                _buildImageWidget(state.imagesLocalPath),
+                                _buildImageWidget(widget.bloc.imagesLocalPath),
                           ),
                         )
-                      : SizedBox();
+                      : SizedBox(height: 100,);
                 }),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -106,7 +106,9 @@ class _ImagePostInputState extends TState<ImagePostInput> {
                     Icons.close,
                     size: 20,
                   ),
-                  onTap: onPressDelete != null ? onPressDelete(index, url) : null,
+                  onTap: onPressDelete != null
+                      ? () => onPressDelete(index, url)
+                      : null,
                 ),
               ),
             ],
@@ -147,7 +149,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
 
   void removeImage(int index, String imagePath) {
     if (index != null) {
-//      widget.bloc.removeImage(index, imagePath);
+      widget.bloc.removeImage(index, imagePath);
     }
   }
 }

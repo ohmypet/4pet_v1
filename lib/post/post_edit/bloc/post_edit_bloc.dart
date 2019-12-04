@@ -2,6 +2,8 @@ part of pestisland.post.post_edit.bloc;
 
 class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
   List<String> imagesLocalPath = <String>[];
+  String title = '';
+  double price = -1;
 
   @override
   Duration get delayEvent => const Duration(milliseconds: 0);
@@ -37,10 +39,12 @@ class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
   PostEditState get initialState => InitState();
 
   Stream<PostEditState> _handleTitleInputChange(TitleInputChange event) async* {
+    this.title = event.title ?? '';
     yield TitleState(event.title);
   }
 
   Stream<PostEditState> _handlePriceInputChange(PriceInputChange event) async* {
+    this.price = event.price ?? 0;
     yield PriceState(event.price);
   }
 

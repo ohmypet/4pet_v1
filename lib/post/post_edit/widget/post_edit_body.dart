@@ -18,37 +18,45 @@ class _CreatePostBodyState extends TState<PostEditBody> {
     return BlocBuilder<PostEditBloc, PostEditState>(
       bloc: postEditBloc,
       builder: (_, PostEditState state) {
-        return SingleChildScrollView(
-          child: Flex(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            direction: Axis.vertical,
-            children: <Widget>[
-              SummaryInfoWidget(
-                state is TitleState ? state.title : "",
-                petImage: null,
-                price: state is PriceState ? state.price : 0,
+        return Column(
+          children: <Widget>[
+            SummaryInfoWidget(
+              postEditBloc.title ?? "",
+              petImage: postEditBloc.imagesLocalPath ?? <String>[],
+              price: postEditBloc.price ?? 0,
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                primary: true,
+                child: Flex(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  direction: Axis.vertical,
+                  children: <Widget>[
+                    SizedBox(height: 14),
+                    TitlePostInput(postEditBloc, titleController),
+                    DescPostInput(descriptionController),
+                    PricePostInput(postEditBloc, priceController),
+                    ImagePostInput(postEditBloc),
+                    Flexible(
+                      child: state is ExpandState
+                          ? Flex(
+                              mainAxisSize: MainAxisSize.min,
+                              direction: Axis.vertical,
+                              children: <Widget>[
+                                LocationPostInput(locationController),
+                                PhonePostInput(phoneController),
+                                ChungLoaiPostInput(phoneController),
+                              ],
+                            )
+                          : ExpandWidget(postEditBloc),
+                    )
+                  ],
+                ),
               ),
-              SizedBox(height: 14),
-              TitlePostInput(postEditBloc, titleController),
-              DescPostInput(descriptionController),
-              PricePostInput(postEditBloc, priceController),
-              ImagePostInput(postEditBloc),
-              Flexible(
-                child: state is ExpandState
-                    ? Flex(
-                        mainAxisSize: MainAxisSize.min,
-                        direction: Axis.vertical,
-                        children: <Widget>[
-                          LocationPostInput(locationController),
-                          PhonePostInput(phoneController),
-                          ChungLoaiPostInput(phoneController),
-                        ],
-                      )
-                    : ExpandWidget(postEditBloc),
-              )
-            ],
-          ),
+            ),
+          ],
         );
       },
     );
