@@ -1,6 +1,8 @@
 part of pestisland.post.post_edit.bloc;
 
 class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
+  List<String> imagesLocalPath = <String>[];
+
   @override
   Duration get delayEvent => const Duration(milliseconds: 0);
 
@@ -21,6 +23,12 @@ class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
       case ExpandChange:
         yield* _handleExpandChange(event);
         break;
+      case AddImageEvent:
+        yield* _handleAddImageEvent(event);
+        break;
+      case RemoveImageEvent:
+        yield* _handleRemoveImageEvent(event);
+        break;
       default:
     }
   }
@@ -40,6 +48,22 @@ class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
     yield ExpandState();
   }
 
+  Stream<PostEditState> _handleAddImageEvent(AddImageEvent event) async* {
+    imagesLocalPath.add(event.imageLocalPath ?? "");
+    if (imagesLocalPath != null)
+      yield ImageState(imagesLocalPath);
+    else
+      yield ImageState(<String>[]);
+  }
+
+  Stream<PostEditState> _handleRemoveImageEvent(RemoveImageEvent event) async* {
+    imagesLocalPath.removeAt(event.index);
+    if (imagesLocalPath != null)
+      yield ImageState(imagesLocalPath);
+    else
+      yield ImageState(<String>[]);
+  }
+
   void inputChange(String title) {
     add(TitleInputChange(title));
   }
@@ -50,5 +74,13 @@ class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
 
   void expandChange() {
     add(ExpandChange());
+  }
+
+  void addImage(String imagesPath) {
+    add(AddImageEvent(imagesPath ?? ''));
+  }
+
+  void removeImage(int index, String imagePath) {
+    add(RemoveImageEvent(index ?? 0, imagePath ?? ''));
   }
 }

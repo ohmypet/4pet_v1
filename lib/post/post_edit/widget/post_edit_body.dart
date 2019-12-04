@@ -26,20 +26,14 @@ class _CreatePostBodyState extends TState<PostEditBody> {
             children: <Widget>[
               SummaryInfoWidget(
                 state is TitleState ? state.title : "",
-                imageUrl:
-                    'https://genknews.genkcdn.vn/2019/7/26/photo-1-15641331912121468899084.jpg',
+                petImage: null,
                 price: state is PriceState ? state.price : 0,
               ),
               SizedBox(height: 14),
               TitlePostInput(postEditBloc, titleController),
               DescPostInput(descriptionController),
               PricePostInput(postEditBloc, priceController),
-              ImagePostInput(
-                postEditBloc,
-                image: <String>[
-                  'https://genknews.genkcdn.vn/2019/7/26/photo-1-15641331912121468899084.jpg',
-                ],
-              ),
+              ImagePostInput(postEditBloc),
               Flexible(
                 child: state is ExpandState
                     ? Flex(

@@ -1,11 +1,11 @@
 part of petisland.post.post_edit.widget;
 
 class SummaryInfoWidget extends TStatelessWidget {
-  final String imageUrl;
+  final PetImage petImage;
   final String title;
   final double price;
 
-  SummaryInfoWidget(this.title, {this.imageUrl, this.price});
+  SummaryInfoWidget(this.title, {this.petImage, this.price});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class SummaryInfoWidget extends TStatelessWidget {
         direction: Axis.horizontal,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildImageWidget(imageUrl),
+          _buildImageWidget(petImage),
           SizedBox(width: 12),
           _buildInfo(title, price),
         ],
@@ -24,8 +24,8 @@ class SummaryInfoWidget extends TStatelessWidget {
     );
   }
 
-  Widget _buildImageWidget(String imageUrl) {
-    bool urlValid = imageUrl != null && imageUrl.isNotEmpty;
+  Widget _buildImageWidget(PetImage petImage) {
+    bool urlValid = petImage?.url != null && petImage.url.isNotEmpty;
     Widget defaultImage = Container(
       color: TColors.duck_egg_blue,
     );
@@ -33,12 +33,12 @@ class SummaryInfoWidget extends TStatelessWidget {
       flex: 1,
       child: AspectRatio(
         aspectRatio: 1 / 1,
-        child: urlValid ? TCacheImageWidget(url: imageUrl) : defaultImage,
+        child: urlValid ? TCacheImageWidget(url: petImage.url) : defaultImage,
       ),
     );
   }
 
-  Widget _buildInfo(String title, double money) {
+  Widget _buildInfo(String title, double price) {
     return Flexible(
       flex: 2,
       child: Flex(
@@ -46,7 +46,7 @@ class SummaryInfoWidget extends TStatelessWidget {
         direction: Axis.vertical,
         children: <Widget>[
           _buildTitleWidget(title),
-          _buildMoneyWidget(money),
+          _buildPriceWidget(price),
         ],
       ),
     );
@@ -60,7 +60,7 @@ class SummaryInfoWidget extends TStatelessWidget {
     );
   }
 
-  Widget _buildMoneyWidget(double money) {
+  Widget _buildPriceWidget(double money) {
     money ??= 0;
     FlutterMoneyFormatter formatter = FlutterMoneyFormatter(amount: money);
     return Text(

@@ -30,6 +30,12 @@ class PriceState extends PostEditState {
   @override
   String toString() => "PriceState:: price: $price";
 }
+class ImageState extends PostEditState{
+  final List<String> imagesLocalPath;
+
+  ImageState(this.imagesLocalPath);
+
+}
 
 class ExpandState extends PostEditState {
   @override

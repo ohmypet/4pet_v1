@@ -23,6 +23,26 @@ class PriceInputChange extends PostEditEvent {
   String toString() => "PriceInputChange:: price: ${price?.toString()}";
 }
 
+class AddImageEvent extends PostEditEvent {
+  final String imageLocalPath;
+
+  AddImageEvent(this.imageLocalPath);
+
+  @override
+  String toString() => "AddImageEvent: images: ${imageLocalPath?.toString()}";
+}
+
+class RemoveImageEvent extends PostEditEvent {
+  final int index;
+  final String imageLocalPath;
+
+  RemoveImageEvent(this.index, this.imageLocalPath);
+
+  @override
+  String toString() =>
+      "RemoveImageEvent: index: $index, image path: $imageLocalPath";
+}
+
 class ExpandChange extends PostEditEvent {
   @override
   String toString() => "ExpandChange";
