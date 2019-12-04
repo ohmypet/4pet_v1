@@ -7,5 +7,6 @@ class DevModule extends AbstractModule {
     bind(AuthenticationBloc).to(AuthenticationBloc());
     bind(LoginBloc).to(LoginBloc());
     bind(PostEditBloc).to(PostEditBloc());
+    bind(WorkerUpload).to(WorkerUpload());
   }
 }

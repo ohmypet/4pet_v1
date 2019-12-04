@@ -46,10 +46,10 @@ class _MainAppScreenState extends TState<MainAppScreen> {
             return const SplashScreen();
             break;
           case Unauthenticated:
-//            return LoginScreen(authBloc);
-            return PostEditScreen.create();
+           return LoginScreen(authBloc);
           default:
-            return HomePageScreen(authBloc);
+            return PostEditScreen.create();
+            // return HomePageScreen(authBloc);
         }
       },
     );

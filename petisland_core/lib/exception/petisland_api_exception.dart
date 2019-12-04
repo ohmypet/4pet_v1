@@ -18,3 +18,7 @@ class PetApiException extends PetException {
   @override
   String toString() => super.toString() + ' status: $statusCode';
 }
+
+class LimitRetryException extends PetApiException {
+  LimitRetryException() : super(message: "Limit retry upload");
+}

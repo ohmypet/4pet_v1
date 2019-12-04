@@ -24,7 +24,7 @@ class ChungLoaiPostInput extends TStatelessWidget {
             ),
             TextField(
               onChanged: (String text) {
-                bloc.chungLoai = text;
+                bloc.petCategory = text;
               },
             )
           ],
