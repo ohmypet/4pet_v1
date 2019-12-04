@@ -33,11 +33,16 @@ class PostEditScreen extends StatelessWidget {
   void _onPressSend() {
     final PostModal postModal = PostModal.create(
         title: _postEditBloc.title,
-        location: null,
+        description: _postEditBloc.description,
+        location: _postEditBloc.location,
         price: _postEditBloc.price,
-        pet: null);
-    if (onSendTap != null) {
-      onSendTap(postModal);
-    }
+        pet: Pet(type: PetCategory(id: "35d15307-7136-45d5-bfb2-8e63bdc1e108"))
+        // pet: _postEditBloc.chungLoai,
+        // tags: _postEditBloc.
+        );
+    DI.get<WorkerUpload>(WorkerUpload).uploadPost(postModal, _postEditBloc.imagesLocalPath);
+    // if (onSendTap != null) {
+    //   onSendTap(postModal);
+    // }
   }
 }

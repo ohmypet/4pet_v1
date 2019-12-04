@@ -7,7 +7,7 @@ class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
   String description = '';
   String location = '';
   String phoneNumber = '';
-  String chungLoai = "";
+  String petCategory = "";
 
   @override
   Duration get delayEvent => const Duration(milliseconds: 0);
