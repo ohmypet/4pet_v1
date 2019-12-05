@@ -6,7 +6,7 @@ abstract class PetIslandConstants {
   static const String key_token = 'token';
 
   /// **Warning**: must update [CategoryTypeEnum] same time
-  static const List<String> categoryTypes = <String>[
+  static const List<String> categoryTypes = const <String>[
     'Trending',
     'Popularity',
     'Price higth to low',
