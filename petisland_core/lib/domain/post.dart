@@ -1,6 +1,6 @@
 part of petisland_core.domain;
 
-class Post extends BaseModel {
+class Post extends BaseModel implements PostItem {
   String title;
   String description;
   String location;

@@ -97,4 +97,15 @@ void main() async {
       assert(false);
     }
   });
+
+  test("DisLike post", () async {
+    try {
+      final Post newPost = await postService.like(currentPost.id);
+      expect(newPost, isNotNull);
+      expect(newPost.likes, equals(0));
+    } catch (e) {
+      Log.error(e);
+      assert(false);
+    }
+  });
 }
