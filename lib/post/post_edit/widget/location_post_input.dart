@@ -1,9 +1,9 @@
 part of petisland.post.post_edit.widget;
 
-class TitlePostInput extends TStatelessWidget {
+class LocationPostInput extends TStatelessWidget {
   final PostEditBloc bloc;
 
-  TitlePostInput(this.bloc);
+  LocationPostInput(this.bloc);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class TitlePostInput extends TStatelessWidget {
           direction: Axis.vertical,
           children: <Widget>[
             Text(
-              'Tiêu đề',
+              'Địa chỉ',
               style: TTextStyles.bold(
                 fontSize: 18,
               ).copyWith(
@@ -24,7 +24,7 @@ class TitlePostInput extends TStatelessWidget {
             ),
             TextField(
               onChanged: (String text) {
-                bloc.inputChange(text);
+                bloc.location = text;
               },
             )
           ],

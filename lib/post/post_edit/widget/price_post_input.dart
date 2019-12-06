@@ -2,9 +2,7 @@ part of petisland.post.post_edit.widget;
 
 class PricePostInput extends TStatelessWidget {
   final PostEditBloc bloc;
-  final TextEditingController priceController;
-
-  PricePostInput(this.bloc, this.priceController);
+  PricePostInput(this.bloc);
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +24,12 @@ class PricePostInput extends TStatelessWidget {
             TextField(
               keyboardType: TextInputType.number,
               onChanged: (String text) {
-                if (text.trim().isNotEmpty) {
-                  bloc.priceChange(double.parse(text));
+                if (text.trim() == null ||
+                    text.trim().isEmpty ||
+                    double.parse(text.trim()) <= 0) {
+                  bloc.priceChange(-1);
                 } else {
-                  bloc.priceChange(0);
+                  bloc.priceChange(double.parse(text.trim()));
                 }
               },
             )

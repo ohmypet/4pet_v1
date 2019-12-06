@@ -1,11 +1,11 @@
 part of petisland.post.post_edit.widget;
 
 class SummaryInfoWidget extends TStatelessWidget {
-  final String imageUrl;
+  final List<String> petImage;
   final String title;
   final double price;
 
-  SummaryInfoWidget(this.title, {this.imageUrl, this.price});
+  SummaryInfoWidget(this.title, {this.petImage, this.price});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class SummaryInfoWidget extends TStatelessWidget {
         direction: Axis.horizontal,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildImageWidget(imageUrl),
+          _buildImageWidget(petImage),
           SizedBox(width: 12),
           _buildInfo(title, price),
         ],
@@ -24,8 +24,12 @@ class SummaryInfoWidget extends TStatelessWidget {
     );
   }
 
-  Widget _buildImageWidget(String imageUrl) {
-    bool urlValid = imageUrl != null && imageUrl.isNotEmpty;
+  Widget _buildImageWidget(List<String> petImages) {
+    String petImage;
+    if (petImages != null && petImages.isNotEmpty) {
+      petImage = petImages.first;
+    }
+    bool urlValid = petImage != null && petImage.isNotEmpty;
     Widget defaultImage = Container(
       color: TColors.duck_egg_blue,
     );
@@ -33,12 +37,12 @@ class SummaryInfoWidget extends TStatelessWidget {
       flex: 1,
       child: AspectRatio(
         aspectRatio: 1 / 1,
-        child: urlValid ? TCacheImageWidget(url: imageUrl) : defaultImage,
+        child: urlValid ? Image.asset(petImage) : defaultImage,
       ),
     );
   }
 
-  Widget _buildInfo(String title, double money) {
+  Widget _buildInfo(String title, double price) {
     return Flexible(
       flex: 2,
       child: Flex(
@@ -46,7 +50,7 @@ class SummaryInfoWidget extends TStatelessWidget {
         direction: Axis.vertical,
         children: <Widget>[
           _buildTitleWidget(title),
-          _buildMoneyWidget(money),
+          _buildPriceWidget(price),
         ],
       ),
     );
@@ -60,11 +64,13 @@ class SummaryInfoWidget extends TStatelessWidget {
     );
   }
 
-  Widget _buildMoneyWidget(double money) {
-    money ??= 0;
+  Widget _buildPriceWidget(double money) {
+    money ??= -1;
     FlutterMoneyFormatter formatter = FlutterMoneyFormatter(amount: money);
     return Text(
-      "${formatter.output.withoutFractionDigits} đ",
+      money.isNegative
+          ? "Miễn phí"
+          : "${formatter.output.withoutFractionDigits} đ",
       style: TTextStyles.bold(fontSize: 22, color: TColors.red),
     );
   }

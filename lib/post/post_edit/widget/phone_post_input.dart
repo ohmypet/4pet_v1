@@ -1,9 +1,9 @@
 part of petisland.post.post_edit.widget;
 
-class TitlePostInput extends TStatelessWidget {
+class PhonePostInput extends TStatelessWidget {
   final PostEditBloc bloc;
 
-  TitlePostInput(this.bloc);
+  PhonePostInput(this.bloc);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class TitlePostInput extends TStatelessWidget {
           direction: Axis.vertical,
           children: <Widget>[
             Text(
-              'Tiêu đề',
+              'Số điện thoại',
               style: TTextStyles.bold(
                 fontSize: 18,
               ).copyWith(
@@ -23,8 +23,9 @@ class TitlePostInput extends TStatelessWidget {
               ),
             ),
             TextField(
+              keyboardType: TextInputType.phone,
               onChanged: (String text) {
-                bloc.inputChange(text);
+                bloc.phoneNumber = text;
               },
             )
           ],
