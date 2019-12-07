@@ -11,10 +11,9 @@ abstract class BaseModel {
   @mustCallSuper
   BaseModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    createAt = json['create_at'];
-    updateAt = json['update_at'];
-    createBy =
-        json['create_by'] != null ? Account.fromJson(json['create_by']) : null;
+    createAt = _parseDateTime(json['create_at']);
+    updateAt = _parseDateTime(json['update_at']);
+    createBy = json['create_by'] != null ? Account.fromJson(json['create_by']) : null;
   }
 
   @mustCallSuper

@@ -17,6 +17,10 @@ part 'tag.dart';
 part 'user.dart';
 part 'post_modal.dart';
 part 'pet_category.dart';
+part 'post_image.dart';
+part 'post_tag.dart';
+part 'panel.dart';
+part 'panel_detail.dart';
 
 void _addValueToMap(String key, dynamic value, Map<String, dynamic> map) {
   if (value != null) map[key] = value;
@@ -40,9 +44,7 @@ List<Map<String, dynamic>> _tagsToJson(List<Tag> tags) {
 
 List<PetImage> parseImages(List<Map<String, dynamic>> images) {
   images ??= <Map<String, dynamic>>[];
-  return images
-      .map((Map<String, dynamic> item) => PetImage.fromJson(item))
-      .toList();
+  return images.map((Map<String, dynamic> item) => PetImage.fromJson(item)).toList();
 }
 
 DateTime _parseDateTime(String time) {
@@ -55,9 +57,4 @@ DateTime _parseDateTime(String time) {
     Log.debug(ex);
     return null;
   }
-}
-
-List<Tag> _parseTags(List<Map<String, dynamic>> tags) {
-  tags ??= <Map<String, dynamic>>[];
-  return tags.map((Map<String, dynamic> item) => Tag.fromJson(item)).toList();
 }

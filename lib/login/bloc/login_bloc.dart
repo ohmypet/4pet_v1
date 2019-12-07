@@ -33,10 +33,7 @@ class LoginBloc extends TBloc<LoginEvent, LoginState> {
   }
 
   void _logging(LoggingEvent event) {
-    accountService
-        .login(event.username, event.password)
-        .then(_handleLoginSuccess)
-        .catchError(_handleError);
+    accountService.login(event.username, event.password).then(_handleLoginSuccess).catchError(_handleError);
   }
 
   void login(String username, String password) {

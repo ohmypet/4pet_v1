@@ -1,6 +1,6 @@
 part of petisland_core.domain;
 
-class PetCategory extends BaseModel {
+class PetCategory extends BaseModel implements PostItem {
   String name;
   String description;
 

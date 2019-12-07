@@ -5,8 +5,7 @@ class BottomBarWidget extends TStatefulWidget {
   final List<Widget> children;
   final int intIndex;
 
-  const BottomBarWidget(
-      {@required this.iconBulder, @required this.children, this.intIndex = 0, Key key})
+  const BottomBarWidget({@required this.iconBulder, @required this.children, this.intIndex = 0, Key key})
       : super(key: key);
 
   @override

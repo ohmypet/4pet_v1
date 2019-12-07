@@ -7,8 +7,7 @@ class HttpClient {
 
   HttpClient.init(Dio dio) : dio = dio;
 
-  static Map<String, dynamic> _getParams(Map<String, dynamic> params) =>
-      params ?? <String, dynamic>{};
+  static Map<String, dynamic> _getParams(Map<String, dynamic> params) => params ?? <String, dynamic>{};
 
   static Options _getOptions(Options options) =>
       options is Options ? options : Options(responseType: ResponseType.plain);

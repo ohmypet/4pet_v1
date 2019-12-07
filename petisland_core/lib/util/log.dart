@@ -1,6 +1,7 @@
 library petisland_core.log;
 
 import 'package:flutter/foundation.dart';
+
 class Log {
   static void debug(dynamic data) {
     printConsole("Log_debug: $data");

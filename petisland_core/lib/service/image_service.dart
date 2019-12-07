@@ -8,7 +8,7 @@ class ImageServiceImpl extends ImageService {
   final ImageRepository repository;
 
   ImageServiceImpl(this.repository);
-  
+
   @override
   Future<List<PetImage>> upload(List<String> paths) {
     return repository.upload(paths);

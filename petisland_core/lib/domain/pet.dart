@@ -14,7 +14,7 @@ class Pet extends BaseModel {
   }) : super(id, createAt, updateAt, createBy);
 
   Pet.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
-    type = json['type'];
+    type = json['type'] != null ? PetCategory.fromJson(json) : null;
     info = json['info'];
   }
 

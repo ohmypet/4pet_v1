@@ -7,7 +7,7 @@ abstract class PetIslandConstants {
   static const int max_retry = 5;
 
   /// **Warning**: must update [CategoryTypeEnum] same time
-  static const List<String> categoryTypes = <String>[
+  static const List<String> categoryTypes = const <String>[
     'Trending',
     'Popularity',
     'Price higth to low',
