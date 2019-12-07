@@ -1,12 +1,14 @@
 part of petisland_core.domain;
 
-abstract class Item {}
+abstract class Item {
+  Map<String, dynamic> toJson();
+}
 
-abstract class PostItem {}
+abstract class PostItem extends Item {}
 
-class PanelDetail<T extends PostItem> extends Item {
+class PanelDetail extends Item {
   String type;
-  T postItem;
+  PostItem postItem;
 
   PanelDetail.fromJson(Map<String, dynamic> json) {
     type = json['type'];
@@ -19,5 +21,13 @@ class PanelDetail<T extends PostItem> extends Item {
       final PostItem post = PetCategory.fromJson(data);
       postItem = post;
     }
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> map = <String, dynamic>{};
+    _addValueToMap('type', type, map);
+    _addValueToMap('data', postItem.toJson(), map);
+    return map;
   }
 }
