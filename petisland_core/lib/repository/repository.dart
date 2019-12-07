@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:petisland_core/client/client.dart';
 import 'package:petisland_core/domain/domain.dart';
-import 'package:petisland_core/util/log.dart';
 import 'package:petisland_core/util/petisland_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path/path.dart';

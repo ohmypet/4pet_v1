@@ -32,7 +32,7 @@ void main() async {
       price: 0.0,
       title: 'Ahihi',
       location: 'Dong nai',
-      pet: Pet(type: PetCategory(id: "35d15307-7136-45d5-bfb2-8e63bdc1e108")),
+      pet: Pet(type: PetCategory(id: "a08cdd2b-9dd4-42e9-b4f8-0ad92c4f7651")),
     );
     try {
       final Post post = await postService.create(postModal);
@@ -49,7 +49,7 @@ void main() async {
         price: 10,
         title: 'Ahihi',
         location: 'Dong nai',
-        pet: Pet(type: PetCategory(id: "35d15307-7136-45d5-bfb2-8e63bdc1e108")),
+        pet: Pet(type: PetCategory(id: "a08cdd2b-9dd4-42e9-b4f8-0ad92c4f7651")),
         description: "i'm supper man",
         images: <PetImage>[PetImage(id: idImage)]);
     try {
@@ -67,7 +67,7 @@ void main() async {
       price: 10,
       title: 'Ahihi',
       location: 'Dong nai',
-      pet: Pet(type: PetCategory(id: "35d15307-7136-45d5-bfb2-8e63bdc1e108")),
+      pet: Pet(type: PetCategory(id: "a08cdd2b-9dd4-42e9-b4f8-0ad92c4f7651")),
       description: "i'm supper man",
       tags: <Tag>[
         Tag(title: "dog", description: "ahihi"),

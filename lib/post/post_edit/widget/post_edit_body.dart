@@ -34,6 +34,7 @@ class _CreatePostBodyState extends TState<PostEditBody> {
                     DescPostInput(postEditBloc),
                     PricePostInput(postEditBloc),
                     ImagePostInput(postEditBloc),
+                    PetCategoryInput(postEditBloc),
                     Flexible(
                       child: state is ExpandState
                           ? Flex(
@@ -41,8 +42,7 @@ class _CreatePostBodyState extends TState<PostEditBody> {
                               direction: Axis.vertical,
                               children: <Widget>[
                                 LocationPostInput(postEditBloc),
-                                PhonePostInput(postEditBloc),
-                                ChungLoaiPostInput(postEditBloc),
+                                // PhonePostInput(postEditBloc),
                               ],
                             )
                           : ExpandWidget(postEditBloc),

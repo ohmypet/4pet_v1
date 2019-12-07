@@ -3,7 +3,6 @@ library petisland.post.post_edit.widget;
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/common/common.dart';
@@ -33,5 +32,6 @@ part 'location_post_input.dart';
 
 part 'phone_post_input.dart';
 
-part 'chungloai_post_input.dart';
+part 'pet_category_input.dart';
+
 part 'image_choose_popup.dart';
