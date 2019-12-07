@@ -10,10 +10,12 @@ abstract class BaseTool {
     @required Widget screen,
     String screenName,
   }) {
+    final RouteSettings settings = screenName is String ? RouteSettings(name: screenName) : null;
+
     return Navigator.of(context).push<T>(
-      MaterialPageRoute<T>(
-        builder: (_) => screen,
-        settings: screenName != null ? RouteSettings(name: screenName) : null,
+      TPageRoute<T>(
+        builder: (BuildContext context) => screen,
+        settings: settings,
       ),
     );
   }
