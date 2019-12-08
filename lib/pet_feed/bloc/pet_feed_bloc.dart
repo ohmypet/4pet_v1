@@ -64,7 +64,7 @@ class PetFeedBloc extends TBloc<PetFeedEvent, PetFeedState> {
   }
 
   @override
-  PetFeedState get initialState => null;
+  PetFeedState get initialState => LoadPostSucceed(<Item>[], true);
 
   void retrievePosts(int offset, int limit) {
     add(_RetrievePostEvent(offset, limit: limit));

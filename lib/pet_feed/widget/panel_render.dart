@@ -5,11 +5,12 @@ abstract class PanelRender<T extends Panel> extends TStatelessWidget {
   static Map<Type, dynamic> renders = <Type, dynamic>{Post: renderPost, PetCategory: renderPetCategory};
 
   const PanelRender(this.panel, {Key key}) : super(key: key);
+}
 
-  Widget render(PanelDetail item) {
-    final dynamic render = renders[item.postItem.runtimeType];
-    return render != null ? render(item) : SizedBox();
-  }
+Widget renderPostDetail(PanelDetail postDetail) {
+  final PostItem item = postDetail.postItem;
+  final dynamic render = PanelRender.renders[item.runtimeType];
+  return render != null ? render(item) : SizedBox();
 }
 
 Widget renderPost(Post item) {

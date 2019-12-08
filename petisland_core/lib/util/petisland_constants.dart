@@ -21,14 +21,14 @@ enum CategoryTypeEnum {
   Trending,
   Popularity,
   PriceHighToLow,
-  PriceLowToHight,
+  PriceLowToHigh,
   PetCategory,
   Post,
 }
 
 enum Role { Free, Premium }
 
-enum AccountStatus { Active, Deactive }
+enum AccountStatus { Active, DeActive }
 
 enum PostStatus { Pending, New, Done, Expired }
 

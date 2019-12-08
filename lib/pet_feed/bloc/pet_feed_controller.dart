@@ -1,7 +1,9 @@
 part of petisland.petfeed.bloc;
 
 abstract class PetFeedController {
-  void retrievePost();
+  List<Item> getItems();
+
+  void retrievePosts();
 
   void reload();
 
@@ -36,7 +38,7 @@ class PetFeedControllerImpl extends PetFeedController {
   }
 
   @override
-  void retrievePost() {
+  void retrievePosts() {
     bloc.retrievePosts(offset, limit);
   }
 
@@ -46,12 +48,13 @@ class PetFeedControllerImpl extends PetFeedController {
 
   void _handleLoadPostSucceed(_LoadPostSucceed state) {
     this.items.addAll(state.newItems);
-    this.listener(LoadPostSucceed(items, state.newItems != null));
+    this.listener(LoadPostSucceed(items, state.newItems.isNotEmpty));
   }
 
   @override
   void dispose() {
     _unsubscribe();
+    items.clear();
   }
 
   void _subscribe() {
@@ -70,5 +73,10 @@ class PetFeedControllerImpl extends PetFeedController {
       _subscription.cancel();
       _subscription = null;
     }
+  }
+
+  @override
+  List<Item> getItems() {
+    return items;
   }
 }

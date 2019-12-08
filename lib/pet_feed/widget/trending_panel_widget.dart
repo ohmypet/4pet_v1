@@ -9,7 +9,7 @@ class TrendingPanelWidget extends PanelRender<Panel> {
       itemCount: panel.items.length,
       itemBuilder: (_, int index) {
         final PanelDetail item = panel.items[index];
-        return render(item);
+        return renderPostDetail(item);
       },
     );
   }
