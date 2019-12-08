@@ -6,9 +6,9 @@ class PetCategoryWidget extends PostItemRender<PetCategory> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 15,
+      height: 50,
       width: 15,
-      color: TColors.water_melon,
+      color: TColors.green,
     );
   }
 }

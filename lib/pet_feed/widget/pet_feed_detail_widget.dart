@@ -29,7 +29,11 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
+      shrinkWrap: true,
+      itemCount: items.length,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       itemBuilder: (BuildContext context, int index) {
         final Item item = items[index];
         if (item is Panel) {
@@ -38,7 +42,9 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
           return renderPostDetail(item);
         }
       },
-      itemCount: items.length,
+      separatorBuilder: (_, int index) {
+        return SizedBox(height: 15);
+      },
     );
   }
 
@@ -53,9 +59,10 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
 }
 
 Widget renderPanel(Panel item) {
-  if (item.type == "Trending") {
-    return TrendingPanelWidget(item);
-  }
-
-  return TrendingPanelWidget(item);
+  return Container(width: 15, height: 30, color: TColors.scarlet_gum);
+//  if (item.type == "Trending") {
+//    return TrendingPanelWidget(item);
+//  }
+//
+//  return TrendingPanelWidget(item);
 }

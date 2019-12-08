@@ -2,6 +2,7 @@ part of petisland.home_page;
 
 class HomePageScreen extends TStatelessWidget {
   final AuthenticationBloc bloc;
+
   HomePageScreen(this.bloc, {Key key}) : super(key: key);
   final List<BottomBarItemWidget> tabs = <BottomBarItemWidget>[
     BottomBarItemWidget(Icons.home),
@@ -9,6 +10,7 @@ class HomePageScreen extends TStatelessWidget {
     BottomBarItemWidget(Icons.sms),
     BottomBarItemWidget(Icons.person)
   ];
+
   @override
   Widget build(BuildContext context) {
     return BottomBarWidget(

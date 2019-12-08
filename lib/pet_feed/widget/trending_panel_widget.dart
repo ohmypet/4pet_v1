@@ -6,6 +6,8 @@ class TrendingPanelWidget extends PanelRender<Panel> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      shrinkWrap: true,
+      scrollDirection: Axis.horizontal,
       itemCount: panel.items.length,
       itemBuilder: (_, int index) {
         final PanelDetail item = panel.items[index];

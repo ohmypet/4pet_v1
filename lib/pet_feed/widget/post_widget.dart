@@ -6,9 +6,9 @@ class PostWidget extends PostItemRender<Post> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 15,
+      height: 30,
       width: 15,
-      color: TColors.black,
+      color: TColors.water_melon,
     );
   }
 }

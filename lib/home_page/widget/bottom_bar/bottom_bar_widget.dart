@@ -13,7 +13,8 @@ class BottomBarWidget extends TStatefulWidget {
 }
 
 class _BottomBarWidgetState extends TState<BottomBarWidget> with SingleTickerProviderStateMixin {
-  BottomItemBuilder get iconBulder => widget.iconBulder;
+  BottomItemBuilder get iconBuilder => widget.iconBulder;
+
   List<Widget> get children => widget.children;
 
   @protected
@@ -48,7 +49,7 @@ class _BottomBarWidgetState extends TState<BottomBarWidget> with SingleTickerPro
         child: BottomAppBar(
           child: BottomBarSelector(
             controller: tabController,
-            builder: iconBulder,
+            builder: iconBuilder,
           ),
         ),
       ),

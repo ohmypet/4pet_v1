@@ -56,7 +56,7 @@ class PostRepositoryImpl extends PostRepository {
       item = null;
     else {
       if (type == 'Post')
-        item = Post.fromJson(json['data']);
+        item = PanelDetail.fromJson(json);
       else
         item = Panel.fromJson(json);
     }
