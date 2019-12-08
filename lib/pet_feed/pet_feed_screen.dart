@@ -22,7 +22,7 @@ class PetFeedScreen extends TStatelessWidget {
           )
         ];
       },
-      body: Container(color: TColors.water_melon),
+      body: PetFeedDetailWidget(),
     );
   }
 
