@@ -2,7 +2,10 @@ part of petisland_core.service;
 
 abstract class PostService {
   Future<Post> create(PostModal postModal);
+
   Future<Post> like(String id);
+
+  Future<List<Item>> getPosts(int offset, {int limit = 10, String categoryType, String petCategoryId});
 }
 
 class PostServiceImpl extends PostService {
@@ -18,5 +21,10 @@ class PostServiceImpl extends PostService {
   @override
   Future<Post> like(String id) {
     return repository.like(id);
+  }
+
+  @override
+  Future<List<Item>> getPosts(int offset, {int limit = 10, String categoryType, String petCategoryId}) {
+    return repository.getPosts(offset, limit ?? 10, categoryType, petCategoryId);
   }
 }

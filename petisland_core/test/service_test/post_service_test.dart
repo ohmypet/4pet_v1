@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:petisland_core/petisland_core.dart';
 
@@ -7,11 +9,17 @@ void main() async {
   await setupEnvironment();
   final PostService postService = DI.get(PostService);
   final ImageService imageService = DI.get(ImageService);
-
+  final PetCategoryService petCategoryService = DI.get(PetCategoryService);
+  final Random random = Random();
   login();
 
   String idImage;
   Post currentPost;
+  List<PetCategory> categories;
+
+  PetCategory pickOne(List<PetCategory> categories) {
+    return categories[random.nextInt(categories.length)];
+  }
 
   test('upload image', () async {
     final String path = 'assets/meow.jpeg';
@@ -27,12 +35,28 @@ void main() async {
     }
   });
 
+  test("Get categories", () async {
+    try {
+      categories = await petCategoryService.getPetCategories();
+      for (PetCategory item in categories) {
+        Log.info(item.toJson());
+      }
+      assert(categories != null);
+      assert(categories.isNotEmpty);
+      assert(categories.first.id.isNotEmpty);
+    } catch (ex) {
+      Log.error(ex);
+      assert(false);
+    }
+  });
+
   test("Create post with empty image string", () async {
     final PostModal postModal = PostModal.create(
       price: 0.0,
       title: 'Ahihi',
       location: 'Dong nai',
-      pet: Pet(type: PetCategory(id: "a08cdd2b-9dd4-42e9-b4f8-0ad92c4f7651")),
+      pet: Pet(type: PetCategory(id: pickOne(categories).id)),
+
     );
     try {
       final Post post = await postService.create(postModal);
@@ -49,7 +73,8 @@ void main() async {
         price: 10,
         title: 'Ahihi',
         location: 'Dong nai',
-        pet: Pet(type: PetCategory(id: "a08cdd2b-9dd4-42e9-b4f8-0ad92c4f7651")),
+        pet: Pet(type: PetCategory(id: pickOne(categories).id)),
+
         description: "i'm supper man",
         images: <PetImage>[PetImage(id: idImage)]);
     try {
@@ -67,7 +92,7 @@ void main() async {
       price: 10,
       title: 'Ahihi',
       location: 'Dong nai',
-      pet: Pet(type: PetCategory(id: "a08cdd2b-9dd4-42e9-b4f8-0ad92c4f7651")),
+      pet: Pet(type: PetCategory(id: pickOne(categories).id)),
       description: "i'm supper man",
       tags: <Tag>[
         Tag(title: "dog", description: "ahihi"),
@@ -106,6 +131,31 @@ void main() async {
     } catch (e) {
       Log.error(e);
       assert(false);
+    }
+  });
+
+  test("Get post offset = 0, limit = 10", () async {
+    final List<Item> posts = await postService.getPosts(0);
+    Log.debug("Length: ${posts.length}");
+    for (Item post in posts) {
+      Log.debug(post.toJson());
+    }
+    expect(posts, isNotNull);
+    expect(posts, isNotEmpty);
+    expect(posts.length, greaterThanOrEqualTo(0));
+    expect(posts.length, lessThanOrEqualTo(11));
+  });
+
+  test("Get post offset = 10, limit = 20", () async {
+    final List<Item> posts = await postService.getPosts(10, limit: 20);
+    expect(posts, isNotNull);
+    expect(posts, isNotEmpty);
+    expect(posts.length, greaterThanOrEqualTo(0));
+    expect(posts.length, lessThanOrEqualTo(20));
+
+    Log.debug("Length: ${posts.length}");
+    for (Item post in posts) {
+      Log.debug(post.toJson());
     }
   });
 }
