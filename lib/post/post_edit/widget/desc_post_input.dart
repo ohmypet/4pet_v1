@@ -1,9 +1,21 @@
 part of petisland.post.post_edit.widget;
 
-class DescPostInput extends TStatelessWidget {
+class DescPostInput extends StatefulWidget {
   final PostEditBloc bloc;
 
   DescPostInput(this.bloc);
+
+  @override
+  _DescPostInputState createState() => _DescPostInputState();
+}
+
+class _DescPostInputState extends State<DescPostInput> {
+  final TextEditingController textController = TextEditingController();
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +35,12 @@ class DescPostInput extends TStatelessWidget {
                 fontFamily: FontFamilies.thabit,
               ),
             ),
-            TextField(
+            UserInputWidget(
+              textController,
+              hintText: "Nhập mô tả...",
               keyboardType: TextInputType.multiline,
-              maxLines: null,
-              onChanged: (String text) {
-                bloc.description = text;
+              onChange: (String text) {
+                widget.bloc.description = text;
               },
             )
           ],

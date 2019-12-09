@@ -1,8 +1,20 @@
 part of petisland.post.post_edit.widget;
 
-class PricePostInput extends TStatelessWidget {
+class PricePostInput extends StatefulWidget {
   final PostEditBloc bloc;
   PricePostInput(this.bloc);
+
+  @override
+  _PricePostInputState createState() => _PricePostInputState();
+}
+
+class _PricePostInputState extends State<PricePostInput> {
+  final TextEditingController textController = TextEditingController();
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +33,17 @@ class PricePostInput extends TStatelessWidget {
                 fontFamily: FontFamilies.thabit,
               ),
             ),
-            TextField(
+            UserInputWidget(
+              textController,
+              hintText: "Nhập giá tiền...",
               keyboardType: TextInputType.number,
-              onChanged: (String text) {
+              onChange: (String text) {
                 if (text.trim() == null ||
                     text.trim().isEmpty ||
                     double.parse(text.trim()) <= 0) {
-                  bloc.priceChange(-1);
+                  widget.bloc.priceChange(-1);
                 } else {
-                  bloc.priceChange(double.parse(text.trim()));
+                  widget.bloc.priceChange(double.parse(text.trim()));
                 }
               },
             )

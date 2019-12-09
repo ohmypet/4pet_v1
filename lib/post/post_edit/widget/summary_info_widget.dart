@@ -35,9 +35,12 @@ class SummaryInfoWidget extends TStatelessWidget {
     );
     return Flexible(
       flex: 1,
-      child: AspectRatio(
-        aspectRatio: 1 / 1,
-        child: urlValid ? Image.asset(petImage) : defaultImage,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(4),
+        child: AspectRatio(
+          aspectRatio: 1 / 1,
+          child: urlValid ? Image.asset(petImage,fit: BoxFit.cover,) : defaultImage,
+        ),
       ),
     );
   }

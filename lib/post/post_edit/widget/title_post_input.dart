@@ -1,9 +1,21 @@
 part of petisland.post.post_edit.widget;
 
-class TitlePostInput extends TStatelessWidget {
+class TitlePostInput extends StatefulWidget {
   final PostEditBloc bloc;
 
   TitlePostInput(this.bloc);
+
+  @override
+  _TitlePostInputState createState() => _TitlePostInputState();
+}
+
+class _TitlePostInputState extends State<TitlePostInput> {
+  final TextEditingController textController = TextEditingController();
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +34,11 @@ class TitlePostInput extends TStatelessWidget {
                 fontFamily: FontFamilies.thabit,
               ),
             ),
-            TextField(
-              onChanged: (String text) {
-                bloc.inputChange(text);
+            UserInputWidget(
+              textController,
+              hintText: "Nhập tiêu đề...",
+              onChange: (String text) {
+                widget.bloc.inputChange(text);
               },
             )
           ],

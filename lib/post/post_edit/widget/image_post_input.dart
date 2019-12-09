@@ -37,7 +37,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
             BlocBuilder<PostEditBloc, PostEditState>(
                 bloc: widget.bloc,
                 builder: (_, PostEditState state) {
-                  return widget.bloc.imagesLocalPath!=null && widget.bloc.imagesLocalPath.isNotEmpty
+                  return widget.bloc.imagesLocalPath != null
                       ? SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
@@ -45,29 +45,10 @@ class _ImagePostInputState extends TState<ImagePostInput> {
                                 _buildImageWidget(widget.bloc.imagesLocalPath),
                           ),
                         )
-                      : SizedBox(height: 100,);
+                      : SizedBox(
+                          height: 100,
+                        );
                 }),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                canAddImage(widget.image?.length)
-                    ? InkWell(
-                        onTap: () async {
-                          String imageLocalPath =
-                              await showModalBottomSheet<String>(
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  builder: (_) => ImageChoosePopup());
-                          addImage(imageLocalPath);
-                        },
-                        child: Icon(
-                          Icons.camera_alt,
-                          size: 26,
-                        ),
-                      )
-                    : SizedBox(),
-              ],
-            ),
           ],
         ),
       ),
@@ -80,65 +61,44 @@ class _ImagePostInputState extends TState<ImagePostInput> {
   }
 
   List<Widget> _buildImageWidget(List<String> imagePath) {
-    Widget imageDefaultWidget() {
-      return Container(
-        height: 100,
-        width: 100,
-        color: TColors.duck_egg_blue,
-      );
-    }
-
-    Widget imageWidget(int index, String url,
-        {@required Function(int index, String url) onPressDelete}) {
-      Widget result;
-      if (url != null && url.isNotEmpty) {
-        result = Container(
-          height: 100,
-          width: 100,
-          child: Stack(
-            children: <Widget>[
-              Image.asset(url),
-              Positioned(
-                top: 5,
-                right: 5,
-                child: GestureDetector(
-                  child: Icon(
-                    Icons.close,
-                    size: 20,
-                  ),
-                  onTap: onPressDelete != null
-                      ? () => onPressDelete(index, url)
-                      : null,
-                ),
-              ),
-            ],
-          ),
-        );
-      } else {
-        result = imageDefaultWidget();
-      }
-      return result;
-    }
-
     if (imagePath == null || imagePath.isEmpty) {
-      return <Widget>[];
+      return <Widget>[
+        AddImagePostWidget(
+          onPress: () => chooseImage(),
+        )
+      ];
     } else {
       List<Widget> result = <Widget>[];
+      if (canAddImage(imagePath.length)) {
+        result
+          ..add(AddImagePostWidget(
+            onPress: () => chooseImage(),
+          ))
+          ..add(SizedBox(
+            width: 7,
+          ));
+      }
       for (int index = 0; index < imagePath.length; ++index) {
         result
-          ..add(
-            imageWidget(
-              index,
-              imagePath[index],
-              onPressDelete: removeImage,
-            ),
-          )
+          ..add(ImagePostWidget(
+            imagePath[index],
+            index: index,
+            onPressDelete: removeImage,
+          ))
           ..add(SizedBox(
             width: 7,
           ));
       }
       return result..removeLast();
     }
+  }
+
+  void chooseImage() async {
+    String imageLocalPath = await showModalBottomSheet<String>(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (_) => ImageChoosePopup());
+    addImage(imageLocalPath);
   }
 
   void addImage(String imagesPath) {

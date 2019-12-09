@@ -1,9 +1,21 @@
 part of petisland.post.post_edit.widget;
 
-class PhonePostInput extends TStatelessWidget {
+class PhonePostInput extends TStatefulWidget {
   final PostEditBloc bloc;
 
   PhonePostInput(this.bloc);
+
+  @override
+  _PhonePostInputState createState() => _PhonePostInputState();
+}
+
+class _PhonePostInputState extends TState<PhonePostInput> {
+  final TextEditingController textController = TextEditingController();
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +34,12 @@ class PhonePostInput extends TStatelessWidget {
                 fontFamily: FontFamilies.thabit,
               ),
             ),
-            TextField(
+            UserInputWidget(
+              textController,
+              hintText: "Nhập điện thoại...",
               keyboardType: TextInputType.phone,
-              onChanged: (String text) {
-                bloc.phoneNumber = text;
+              onChange: (String text) {
+                widget.bloc.phoneNumber = text;
               },
             )
           ],
