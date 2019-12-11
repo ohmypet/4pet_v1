@@ -6,7 +6,7 @@ class PetFeedScreen extends TStatefulWidget {
 }
 
 class _PetFeedScreenState extends TState<PetFeedScreen> {
-  final PetFeedController controller = PetFeedControllerImpl();
+  final PetFeedController controller = DI.get(PetFeedController);
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +46,5 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
       ),
       screenName: PostEditScreen.name,
     );
-  }
-
-  void dispose() {
-    controller.dispose();
-    super.dispose();
   }
 }

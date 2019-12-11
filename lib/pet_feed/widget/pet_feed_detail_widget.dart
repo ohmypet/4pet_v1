@@ -22,9 +22,8 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
   void initState() {
     super.initState();
     items = controller.getItems();
-    controller
-      ..setListener(_onItemChange)
-      ..retrievePosts();
+    controller.setListener(_onItemChange);
+    if (controller.getItems().isEmpty == true) controller.retrievePosts();
   }
 
   @override

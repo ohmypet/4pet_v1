@@ -7,5 +7,6 @@ class DevModule extends AbstractModule {
     bind(AuthenticationBloc).to(AuthenticationBloc());
     bind(LoginBloc).to(LoginBloc());
     bind(WorkerUpload).to(WorkerUpload());
+    bind(PetFeedController).to(PetFeedControllerImpl());
   }
 }

@@ -1,7 +1,7 @@
 part of petisland.petfeed.bloc;
 
 class PetFeedBloc extends TBloc<PetFeedEvent, PetFeedState> {
-  final PostService postService = DI.get(PostService);
+  static final PostService postService = DI.get(PostService);
 
   @override
   Duration get delayEvent => const Duration(milliseconds: 150);
