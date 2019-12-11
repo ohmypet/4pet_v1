@@ -11,7 +11,6 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
   @override
   Widget build(BuildContext context) {
     return NestedScrollView(
-      physics: const BouncingScrollPhysics(),
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return <Widget>[
           SliverAppBar(

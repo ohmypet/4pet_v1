@@ -40,6 +40,7 @@ class Post extends BaseModel implements PostItem {
   }
 
   Post.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    Log.debug("fromJson: $json");
     title = json['title'];
     description = json['description'];
     location = json['location'];
@@ -49,8 +50,8 @@ class Post extends BaseModel implements PostItem {
     status = json['status'];
     account = json['account'] != null ? Account.fromJson(json['account']) : null;
     pet = json['pet'] != null ? Pet.fromJson(json['pet']) : null;
-    postImages.addAll(_parsePostImages(json['images']));
-    postTags.addAll(_parsePostTags(json['tags']));
+    postImages.addAll(_parsePostImages(json['postImages']));
+    postTags.addAll(_parsePostTags(json['postTags']));
     likes = json['likes'];
   }
 
@@ -67,7 +68,7 @@ class Post extends BaseModel implements PostItem {
     _addValueToMap('account', account?.toJson(), map);
     _addValueToMap('pet', pet?.toJson(), map);
     final List<Map<String, dynamic>> json = _postImageToJson(postImages);
-    _addValueToMap('images', json, map);
+    _addValueToMap('postImages', json, map);
     _addValueToMap('likes', likes, map);
 
     return map;

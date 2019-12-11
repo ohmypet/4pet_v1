@@ -31,7 +31,7 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
     return ListView.separated(
       shrinkWrap: true,
       itemCount: items.length,
-      physics: const NeverScrollableScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.symmetric(horizontal: 15),
       itemBuilder: (BuildContext context, int index) {
         final Item item = items[index];
@@ -58,7 +58,8 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
 }
 
 Widget renderPanel(Panel item) {
-  return Container(width: 15, height: 30, color: TColors.scarlet_gum);
+  return SizedBox();
+  // return Container(width: 15, height: 30, color: TColors.scarlet_gum);
 //  if (item.type == "Trending") {
 //    return TrendingPanelWidget(item);
 //  }
