@@ -13,10 +13,11 @@ class PostWidget extends PostItemRender<Post> {
         elevation: 2,
         borderOnForeground: false,
         child: Flex(
+          mainAxisSize: MainAxisSize.max,
           direction: Axis.horizontal,
           children: <Widget>[
             image,
-            description,
+            Expanded(child: description),
           ],
         ),
       ),
@@ -47,7 +48,6 @@ class PostWidget extends PostItemRender<Post> {
     final ThemeData theme = Theme.of(context);
 
     return Stack(
-      fit: StackFit.loose,
       children: <Widget>[
         Flex(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +67,7 @@ class PostWidget extends PostItemRender<Post> {
               children: <Widget>[
                 Icon(Icons.person, color: theme.accentColor),
                 SizedBox(width: 5),
-                Text('${item.account.username}', style: theme.textTheme.title),
+                Text(<String>['user', 'admin'][Random().nextInt(2)], style: theme.textTheme.title),
                 SizedBox(width: 7),
                 Icon(Icons.favorite_border, color: theme.primaryColor),
                 SizedBox(width: 5),
@@ -87,6 +87,7 @@ class PostWidget extends PostItemRender<Post> {
     title ??= "";
     return Text(
       title,
+      maxLines: 3,
       style: theme.textTheme.display2.copyWith(
         color: theme.accentColor,
         fontSize: 20,
@@ -97,6 +98,7 @@ class PostWidget extends PostItemRender<Post> {
   Widget _buildPriceWidget(BuildContext context, double money) {
     final ThemeData theme = Theme.of(context);
     money ??= -1;
+    money = money > 0 ? money : -1;
     FlutterMoneyFormatter formatter = FlutterMoneyFormatter(amount: money);
     return Text(
       money.isNegative ? "Miễn phí" : "${formatter.output.withoutFractionDigits} đ",

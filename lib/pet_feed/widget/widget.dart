@@ -1,5 +1,7 @@
 library petisland.pet_feed.widget;
 
+import 'dart:math';
+
 import 'package:auro_avatar/auro_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
