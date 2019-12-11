@@ -5,7 +5,6 @@ import 'package:flutter_template/common/common.dart';
 import 'package:flutter_template/common/state/state.dart';
 import 'package:flutter_template/pet_feed/bloc/bloc.dart';
 import 'package:petisland_core/domain/domain.dart';
-import 'package:petisland_core/util/log.dart';
 
 part 'panel_render.dart';
 

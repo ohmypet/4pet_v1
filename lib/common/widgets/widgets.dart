@@ -11,5 +11,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 part 't_cached_image_widget.dart';
+part 't_sheet.dart';
+part 't_dropdown.dart';
 part 't_circle_button.dart';
 part 't_page_route.dart';

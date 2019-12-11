@@ -11,6 +11,10 @@ class PostModal {
   List<Tag> tags = <Tag>[];
   final List<PetImage> images = <PetImage>[];
 
+    bool get titleIsValid => title?.trim()?.isNotEmpty == true;
+    bool get locationIsValid => location?.trim()?.isNotEmpty == true;
+    bool get petValid => pet != null;
+
   PostModal.create({
     @required this.title,
     @required this.location,

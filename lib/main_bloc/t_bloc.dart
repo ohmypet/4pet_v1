@@ -5,6 +5,7 @@ abstract class TBloc<Event extends BaseEvent, State extends BaseState> extends B
   Duration get delayEvent;
 
   @override
+  @protected
   Stream<State> transformEvents(Stream<Event> events, Stream<State> Function(Event event) next) {
     final Observable<Event> eventsObservable = events;
     return eventsObservable.debounceTime(delayEvent).switchMap(next);
@@ -24,11 +25,13 @@ abstract class BaseBloc<Event extends BaseEvent, State extends BaseState> extend
       return eventToState(event);
     }
   }
-
+  @protected
   Stream<State> errorToState(BaseErrorEvent event);
 
+  @protected
   Stream<State> eventToState(BaseEvent event);
 
+  @protected
   void notifyError(BaseErrorEvent event) {
     final BaseEvent baseEvent = event;
     add(baseEvent);

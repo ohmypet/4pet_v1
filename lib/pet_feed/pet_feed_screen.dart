@@ -1,11 +1,11 @@
 part of petisland.pet_feed;
 
-class PetFeedScreen extends StatefulWidget {
+class PetFeedScreen extends TStatefulWidget {
   @override
   _PetFeedScreenState createState() => _PetFeedScreenState();
 }
 
-class _PetFeedScreenState extends State<PetFeedScreen> {
+class _PetFeedScreenState extends TState<PetFeedScreen> {
   final PetFeedController controller = PetFeedControllerImpl();
 
   @override
@@ -34,12 +34,18 @@ class _PetFeedScreenState extends State<PetFeedScreen> {
   }
 
   void _onCreatePost(BuildContext context) {
-    // TODO(HaoNguyen): Navigate to pet feed in there
+    void _onTapCreatePost(PostModal post, List<String> images) {
+      Navigator.of(context).pop();
+      DI.get<WorkerUpload>(WorkerUpload).uploadPost(post, images);
+    }
 
-    // navigateToScreen(
-    //   context: context,
-    //   screen: ,
-    // );
+    navigateToScreen(
+      context: context,
+      screen: PostEditScreen.create(
+        onSendTap: _onTapCreatePost,
+      ),
+      screenName: PostEditScreen.name,
+    );
   }
 
   void dispose() {
