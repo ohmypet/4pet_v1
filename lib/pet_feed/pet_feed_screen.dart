@@ -1,6 +1,13 @@
 part of petisland.pet_feed;
 
-class PetFeedScreen extends TStatelessWidget {
+class PetFeedScreen extends TStatefulWidget {
+  @override
+  _PetFeedScreenState createState() => _PetFeedScreenState();
+}
+
+class _PetFeedScreenState extends TState<PetFeedScreen> {
+  final PetFeedController controller = DI.get(PetFeedController);
+
   @override
   Widget build(BuildContext context) {
     return NestedScrollView(
@@ -22,7 +29,7 @@ class PetFeedScreen extends TStatelessWidget {
           )
         ];
       },
-      body: Container(color: TColors.water_melon),
+      body: PetFeedDetailWidget(controller: controller),
     );
   }
 
