@@ -56,17 +56,20 @@ class PostWidget extends PostItemRender<Post> {
             Flexible(child: _buildPriceWidget(context, price)),
           ],
         ),
-        Container(
-          margin: const EdgeInsets.only(bottom: 5),
-          child: Flex(
-            direction: Axis.horizontal,
-            children: <Widget>[
-              Icon(Icons.favorite_border, color: theme.primaryColor),
-              SizedBox(width: 5),
-              Text('${item.likes}', style: theme.textTheme.title),
-            ],
+        GestureDetector(
+          onTap: _onLikes,
+          child: Container(
+            margin: const EdgeInsets.only(bottom: 5),
+            child: Flex(
+              direction: Axis.horizontal,
+              children: <Widget>[
+                Icon(Icons.favorite_border, color: theme.primaryColor),
+                SizedBox(width: 5),
+                Text('${item.likes}', style: theme.textTheme.title),
+              ],
+            ),
+            alignment: Alignment.bottomRight,
           ),
-          alignment: Alignment.bottomRight,
         )
       ],
     );
@@ -94,4 +97,6 @@ class PostWidget extends PostItemRender<Post> {
       style: theme.textTheme.display1.copyWith(fontSize: 18, color: theme.primaryColor),
     );
   }
+
+  void _onLikes() {}
 }

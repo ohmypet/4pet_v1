@@ -20,6 +20,7 @@ dependencies:
   flutter_money_formatter: ^0.8.3
   image_picker: ^0.6.2+1
   file_picker: ^1.4.3+1
+  pull_to_refresh: ^1.5.7
 
   ddi: any
   petisland_core:
