@@ -56,6 +56,7 @@ void main() async {
       title: 'Ahihi',
       location: 'Dong nai',
       pet: Pet(type: PetCategory(id: pickOne(categories).id)),
+
     );
     try {
       final Post post = await postService.create(postModal);
@@ -73,6 +74,7 @@ void main() async {
         title: 'Ahihi',
         location: 'Dong nai',
         pet: Pet(type: PetCategory(id: pickOne(categories).id)),
+
         description: "i'm supper man",
         images: <PetImage>[PetImage(id: idImage)]);
     try {

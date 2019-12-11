@@ -10,10 +10,10 @@ class TBaseCachedImageWidget extends StatelessWidget {
   final String url;
   final ImageWidgetBuilder imageBuilder;
 
-  /// Widget displayed while the target [imageUrl] is loading.
+  /// Widget displayed while the target [petImage] is loading.
   final PlaceholderWidgetBuilder placeholder;
 
-  /// Widget displayed while the target [imageUrl] failed loading.
+  /// Widget displayed while the target [petImage] failed loading.
   final LoadingErrorWidgetBuilder errorWidget;
 
   const TBaseCachedImageWidget({

@@ -6,6 +6,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart' as frc;
 import '../util/log.dart';
 
 part 'firebase_config.dart';
+
 part 'remote_config.dart';
 
 enum Mode { Debug, Production }
@@ -13,10 +14,12 @@ enum Mode { Debug, Production }
 class Config {
   static const Map<String, dynamic> _debug = <String, dynamic>{
     'api_host': 'https://petisland.herokuapp.com',
+    'max_image_per_post': 10,
   };
 
   static const Map<String, dynamic> _production = <String, dynamic>{
     'api_host': 'https://petisland.herokuapp.com',
+    'max_image_per_post': 10,
   };
 
   static RemoteConfig _config;

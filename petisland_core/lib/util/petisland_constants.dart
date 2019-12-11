@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 
 abstract class PetIslandConstants {
   static const String key_token = 'token';
+  static const int max_retry = 5;
 
   /// **Warning**: must update [CategoryTypeEnum] same time
   static const List<String> categoryTypes = const <String>[

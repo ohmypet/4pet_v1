@@ -8,6 +8,7 @@ class UserInputWidget extends TStatelessWidget {
   final TextInputType keyboardType;
   final FocusNode focusNode;
   final VoidCallback onSubmit;
+  final void Function(String) onChange;
 
   UserInputWidget(
     this.controller, {
@@ -18,6 +19,7 @@ class UserInputWidget extends TStatelessWidget {
     this.keyboardType,
     this.focusNode,
     this.onSubmit,
+    this.onChange,
   }) : super(key: key);
 
   @override
@@ -37,6 +39,7 @@ class UserInputWidget extends TStatelessWidget {
         obscureText: isObscureText,
         onEditingComplete: onSubmit,
         onSubmitted: onSubmit != null ? (_) => onSubmit() : null,
+        onChanged:  onChange!=null ? (_)=> onChange(_): null,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
           hintText: hintText,

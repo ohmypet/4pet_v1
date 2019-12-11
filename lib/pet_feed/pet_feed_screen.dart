@@ -27,11 +27,17 @@ class PetFeedScreen extends TStatelessWidget {
   }
 
   void _onCreatePost(BuildContext context) {
-    // TODO(HaoNguyen): Navigate to pet feed in there
+    void _onTapCreatePost(PostModal post, List<String> images) {
+      Navigator.of(context).pop();
+      DI.get<WorkerUpload>(WorkerUpload).uploadPost(post, images);
+    }
 
-    // navigateToScreen(
-    //   context: context,
-    //   screen: ,
-    // );
+    navigateToScreen(
+      context: context,
+      screen: PostEditScreen.create(
+        onSendTap: _onTapCreatePost,
+      ),
+      screenName: PostEditScreen.name,
+    );
   }
 }
