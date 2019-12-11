@@ -47,9 +47,11 @@ class PostWidget extends PostItemRender<Post> {
     final ThemeData theme = Theme.of(context);
 
     return Stack(
+      fit: StackFit.loose,
       children: <Widget>[
         Flex(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
           direction: Axis.vertical,
           children: <Widget>[
             Expanded(child: _buildTitleWidget(context, title)),
@@ -63,14 +65,18 @@ class PostWidget extends PostItemRender<Post> {
             child: Flex(
               direction: Axis.horizontal,
               children: <Widget>[
+                Icon(Icons.person, color: theme.accentColor),
+                SizedBox(width: 5),
+                Text('${item.account.username}', style: theme.textTheme.title),
+                SizedBox(width: 7),
                 Icon(Icons.favorite_border, color: theme.primaryColor),
                 SizedBox(width: 5),
                 Text('${item.likes}', style: theme.textTheme.title),
               ],
             ),
-            alignment: Alignment.bottomRight,
+            alignment: Alignment.bottomLeft,
           ),
-        )
+        ),
       ],
     );
   }

@@ -25,9 +25,6 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
     items = controller.getItems();
     controller.setListener(_onItemChange);
     refreshController = RefreshController(initialRefresh: controller.getItems().isEmpty);
-    // WidgetsBinding.instance.addPersistentFrameCallback((_) {
-    //   if (controller.getItems().isEmpty == true) refreshController.requestRefresh();
-    // });
   }
 
   @override
