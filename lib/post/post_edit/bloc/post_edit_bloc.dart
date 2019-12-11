@@ -1,13 +1,13 @@
 part of pestisland.post.post_edit.bloc;
 
 class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
-  List<String> imagesLocalPath = <String>[];
+  final List<String> imagesLocalPath = <String>[];
   String title = '';
   double price = -1;
   String description = '';
   String location = '';
-  String phoneNumber = '';
   PetCategory petCategory;
+  List<Tag> tags = <Tag>[];
 
   @override
   Duration get delayEvent => const Duration(milliseconds: 0);

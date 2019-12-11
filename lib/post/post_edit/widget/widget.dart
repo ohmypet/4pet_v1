@@ -31,8 +31,6 @@ part 'expand_widget.dart';
 
 part 'location_post_input.dart';
 
-part 'phone_post_input.dart';
-
 part 'pet_category_input.dart';
 
 part 'image_choose_popup.dart';

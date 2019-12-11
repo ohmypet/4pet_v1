@@ -6,6 +6,5 @@ import 'package:flutter_template/home_page/home_page.dart';
 import 'package:flutter_template/login/login.dart';
 import 'package:flutter_template/main_bloc/main_bloc.dart';
 import 'package:flutter_template/petisland.dart';
-import 'package:flutter_template/post/post_edit/screen/screen.dart';
 
 part 'main_app_screen.dart';

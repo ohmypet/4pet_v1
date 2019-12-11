@@ -1,13 +1,15 @@
 part of petisland.post.post_edit.widget;
 
 class PostEditBody extends TStatefulWidget {
+  final PostEditBloc postEditBloc;
+
+  PostEditBody(this.postEditBloc);
   @override
   _CreatePostBodyState createState() => _CreatePostBodyState();
 }
 
 class _CreatePostBodyState extends TState<PostEditBody> {
-  PostEditBloc postEditBloc = DI.get(PostEditBloc);
-
+  PostEditBloc get postEditBloc => widget.postEditBloc;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PostEditBloc, PostEditState>(
@@ -33,20 +35,22 @@ class _CreatePostBodyState extends TState<PostEditBody> {
                     TitlePostInput(postEditBloc),
                     DescPostInput(postEditBloc),
                     PricePostInput(postEditBloc),
+                    LocationPostInput(postEditBloc),
                     ImagePostInput(postEditBloc),
                     PetCategoryInput(postEditBloc),
-                    Flexible(
-                      child: state is ExpandState
-                          ? Flex(
-                              mainAxisSize: MainAxisSize.min,
-                              direction: Axis.vertical,
-                              children: <Widget>[
-                                LocationPostInput(postEditBloc),
-                                // PhonePostInput(postEditBloc),
-                              ],
-                            )
-                          : ExpandWidget(postEditBloc),
-                    )
+
+                    // Flexible(
+                    //   child: state is ExpandState
+                    //       ? Flex(
+                    //           mainAxisSize: MainAxisSize.min,
+                    //           direction: Axis.vertical,
+                    //           children: <Widget>[
+                    //             LocationPostInput(postEditBloc),
+                    //             // PhonePostInput(postEditBloc),
+                    //           ],
+                    //         )
+                    //       : ExpandWidget(postEditBloc),
+                    // )
                   ],
                 ),
               ),

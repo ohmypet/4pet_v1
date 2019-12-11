@@ -48,8 +48,7 @@ class _MainAppScreenState extends TState<MainAppScreen> {
           case Unauthenticated:
            return LoginScreen(authBloc);
           default:
-            return PostEditScreen.create();
-            // return HomePageScreen(authBloc);
+            return HomePageScreen(authBloc);
         }
       },
     );

@@ -1,11 +1,13 @@
 part of petisland.post.post_edit.screen;
 
 /// Post edit will be create mode when Post is null
-class PostEditScreen extends StatelessWidget {
+class PostEditScreen extends TStatelessWidget {
+  static const String name = '/PostEditScreen';
+
   ///Will be change String to Post
   final String post;
-  final void Function(PostModal post) onSendTap;
-  final PostEditBloc _postEditBloc = DI.get(PostEditBloc);
+  final void Function(PostModal post, List<String> images) onSendTap;
+  final PostEditBloc _postEditBloc = PostEditBloc();
 
   PostEditScreen.create({@required this.onSendTap}) : post = null;
 
@@ -17,32 +19,41 @@ class PostEditScreen extends StatelessWidget {
         title: Text("Đăng Tin"),
         centerTitle: true,
         actions: <Widget>[
-          SendWidget(
-            onPressSend: _onPressSend,
+          Builder(
+            builder: (BuildContext context) => SendWidget(
+              onPressSend: () => _onPressSend(context),
+            ),
           )
         ],
       ),
       body: Stack(
         children: <Widget>[
-          PostEditBody(),
+          PostEditBody(_postEditBloc),
         ],
       ),
     );
   }
 
-  void _onPressSend() {
+  void _onPressSend(BuildContext context) {
     final PostModal postModal = PostModal.create(
         title: _postEditBloc.title,
         description: _postEditBloc.description,
         location: _postEditBloc.location,
         price: _postEditBloc.price,
-        pet: Pet(type: PetCategory(id: "35d15307-7136-45d5-bfb2-8e63bdc1e108"))
-        // pet: _postEditBloc.chungLoai,
-        // tags: _postEditBloc.
-        );
-    DI.get<WorkerUpload>(WorkerUpload).uploadPost(postModal, _postEditBloc.imagesLocalPath);
-    // if (onSendTap != null) {
-    //   onSendTap(postModal);
-    // }
+        pet: Pet(type: _postEditBloc.petCategory),
+        tags: _postEditBloc.tags);
+
+    if (!postModal.titleIsValid) {
+      showErrorSnackBar(context: context, content: "Vui lòng nhập tiêu đề");
+      return;
+    }
+    if (!postModal.locationIsValid) {
+      showErrorSnackBar(context: context, content: "Vui lòng nhập Vui lòng nhập địa chỉ");
+      return;
+    }
+
+    if (onSendTap != null) {
+      onSendTap(postModal, _postEditBloc.imagesLocalPath);
+    }
   }
 }

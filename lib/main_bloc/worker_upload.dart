@@ -33,7 +33,7 @@ class WorkerUpload extends TBloc<UploadEvent, UploadState> {
   }
 
   @override
-  UploadState get initialState => null;
+  UploadState get initialState => UploadPostSuccess();
 
   void _uploadImage(UploadImageEvent event) {
     void _handleError(dynamic ex) {
