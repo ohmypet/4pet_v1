@@ -12,6 +12,11 @@ class LocationPostInput extends TStatefulWidget {
 class _LocationPostInputState extends TState<LocationPostInput> {
   final TextEditingController textController = TextEditingController();
   @override
+  void initState() {
+    super.initState();
+    textController.text = widget.bloc.location;
+  }
+  @override
   void dispose() {
     textController.dispose();
     super.dispose();

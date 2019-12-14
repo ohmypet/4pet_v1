@@ -5,7 +5,9 @@ class PetCategoryInput extends TStatelessWidget {
   final PostEditBloc bloc;
 
   PetCategoryInput(this.bloc) {
-    bloc.petCategory = categories.isNotEmpty ? categories.first : null;
+    if (bloc.petCategory == null) {
+      bloc.petCategory = categories.isNotEmpty ? categories.first : null;
+    }
   }
 
   @override
@@ -27,6 +29,8 @@ class PetCategoryInput extends TStatelessWidget {
             ),
             SizedBox(height: 5),
             TDropDown.builder(
+              initSelectedItem: categories.indexWhere(
+                  (petCategory) => bloc.petCategory.id == petCategory.id),
               itemCount: categories.length,
               onSelectedChanged: _onSelectedChanged,
               builder: (_, int index) {

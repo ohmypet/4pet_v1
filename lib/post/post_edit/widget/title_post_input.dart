@@ -12,6 +12,11 @@ class TitlePostInput extends StatefulWidget {
 class _TitlePostInputState extends State<TitlePostInput> {
   final TextEditingController textController = TextEditingController();
   @override
+  void initState() {
+    super.initState();
+    textController.text = widget.bloc.title;
+  }
+  @override
   void dispose() {
     textController.dispose();
     super.dispose();

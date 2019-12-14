@@ -2,14 +2,21 @@ part of petisland.post.post_edit.widget;
 
 class PostEditBody extends TStatefulWidget {
   final PostEditBloc postEditBloc;
+  final Post post;
 
-  PostEditBody(this.postEditBloc);
+  PostEditBody(this.postEditBloc, {this.post});
   @override
   _CreatePostBodyState createState() => _CreatePostBodyState();
 }
 
 class _CreatePostBodyState extends TState<PostEditBody> {
   PostEditBloc get postEditBloc => widget.postEditBloc;
+  @override
+  void initState() {
+    super.initState();
+    _getPostInfotoBLoc(widget.post);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PostEditBloc, PostEditState>(
@@ -59,5 +66,16 @@ class _CreatePostBodyState extends TState<PostEditBody> {
         );
       },
     );
+  }
+
+  void _getPostInfotoBLoc(Post post) {
+    postEditBloc
+      ..title = post.title
+      ..description = post.description
+      ..price = post.price
+      ..location = post.location
+      ..imagesLocalPath.addAll(post.postImages.map((petImage) => petImage?.image?.url))
+      ..petCategory=post.pet.type;
+      Log.info("$runtimeType:: Image after map post to bloc: ${postEditBloc.imagesLocalPath.toString()}");
   }
 }
