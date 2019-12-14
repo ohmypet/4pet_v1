@@ -1,5 +1,6 @@
 library petisland.authentication;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/petisland.dart';
 import 'package:petisland_core/service/service.dart';
@@ -9,10 +10,15 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState> {
   @protected
-  static LocalStorageService storageService = DI.get(LocalStorageService);
+  static final LocalStorageService storageService = DI.get(LocalStorageService);
 
   @protected
-  static AccountService accountService = DI.get(AccountService);
+  static final AccountService accountService = DI.get(AccountService);
+
+  @protected
+  static final PetCategoryService categoryService = DI.get(PetCategoryService);
+
+  final List<PetCategory> categories = [];
 
   bool isInit = false;
 
@@ -34,7 +40,10 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
   }
 
   void _tryLogin(String token) {
-    accountService.checkToken(token).then((_) => add(LoggedIn())).catchError((_) => add(LoggedOut()));
+    accountService
+        .checkToken(token)
+        .then((_) => add(LoggedIn()))
+        .catchError((_) => add(LoggedOut()));
   }
 
   void _removeToken() {
@@ -65,6 +74,9 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
         break;
 
       case LoggedIn:
+        categories.clear();
+        final List<PetCategory> newCategories = await categoryService.getPetCategories();
+        categories.addAll(newCategories);
         yield Authenticated();
         break;
       default:
