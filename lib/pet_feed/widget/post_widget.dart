@@ -5,10 +5,13 @@ class PostWidget extends PostItemRender<Post> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 30,
-      width: 15,
-      color: TColors.water_melon,
+    return InkWell(
+      onTap: () => navigateToScreen(context: context,screen: PostEditScreen.edit(item)),
+      child: Container(
+        height: 30,
+        width: 15,
+        color: TColors.water_melon,
+      ),
     );
   }
 }

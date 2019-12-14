@@ -47,9 +47,10 @@ class Post extends BaseModel implements PostItem {
     dueDate = _parseDateTime(json['dueDate']);
     if (json['settings']?.isNotEmpty == true) settings.addAll(json['settings']);
     status = json['status'];
-    account = json['account'] != null ? Account.fromJson(json['account']) : null;
+    account =
+        json['account'] != null ? Account.fromJson(json['account']) : null;
     pet = json['pet'] != null ? Pet.fromJson(json['pet']) : null;
-    postImages.addAll(_parsePostImages(json['images']));
+    postImages.addAll(_parsePostImages(json['postImages']));
     postTags.addAll(_parsePostTags(json['tags']));
     likes = json['likes'];
   }
