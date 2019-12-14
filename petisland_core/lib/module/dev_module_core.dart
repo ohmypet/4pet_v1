@@ -160,8 +160,8 @@ class DevModuleCore extends AbstractModule {
     return TagServiceImpl(repository);
   }
 
-  Future<List<PetCategory>> _getPetCategories() {
+  Future<List<PetCategory>> _getPetCategories() async{
     final PetCategoryService service = this.get<PetCategoryService>(PetCategoryService);
-    return service.getPetCategories();
+    return [];
   }
 }

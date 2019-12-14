@@ -28,7 +28,7 @@ class _LocationPostInputState extends TState<LocationPostInput> {
           children: <Widget>[
             Text(
               'Địa chỉ',
-              style: TTextStyles.bold(
+              style: TTextStyles.semi(
                 fontSize: 18,
               ).copyWith(
                 fontFamily: FontFamilies.thabit,

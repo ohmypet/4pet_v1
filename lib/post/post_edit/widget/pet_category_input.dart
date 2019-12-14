@@ -19,7 +19,7 @@ class PetCategoryInput extends TStatelessWidget {
           children: <Widget>[
             Text(
               'Chủng loại',
-              style: TTextStyles.bold(
+              style: TTextStyles.semi(
                 fontSize: 18,
               ).copyWith(
                 fontFamily: FontFamilies.thabit,

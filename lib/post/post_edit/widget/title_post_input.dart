@@ -28,7 +28,7 @@ class _TitlePostInputState extends State<TitlePostInput> {
           children: <Widget>[
             Text(
               'Tiêu đề',
-              style: TTextStyles.bold(
+              style: TTextStyles.semi(
                 fontSize: 18,
               ).copyWith(
                 fontFamily: FontFamilies.thabit,

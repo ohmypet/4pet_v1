@@ -28,7 +28,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
           children: <Widget>[
             Text(
               'Hình ảnh liên quan',
-              style: TTextStyles.bold(
+              style: TTextStyles.semi(
                 fontSize: 18,
               ).copyWith(
                 fontFamily: FontFamilies.thabit,

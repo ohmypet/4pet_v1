@@ -29,7 +29,7 @@ class _DescPostInputState extends State<DescPostInput> {
           children: <Widget>[
             Text(
               'Mô tả',
-              style: TTextStyles.bold(
+              style: TTextStyles.semi(
                 fontSize: 18,
               ).copyWith(
                 fontFamily: FontFamilies.thabit,
