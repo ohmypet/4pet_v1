@@ -41,7 +41,7 @@ class _LocationPostInputState extends TState<LocationPostInput> {
             ),
             UserInputWidget(
               textController,
-              hintText: "Nhập địa chỉ...",
+              hintText: 'Nhập địa chỉ...',
               onChange: (String text) {
                 widget.bloc.location = text;
               },

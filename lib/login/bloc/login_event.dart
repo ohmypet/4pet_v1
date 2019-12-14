@@ -3,7 +3,7 @@ part of petisland.login.bloc;
 @immutable
 abstract class LoginEvent extends BaseEvent {
   @override
-  String toString() => "$runtimeType";
+  String toString() => '$runtimeType';
 }
 
 class LoggingEvent extends LoginEvent {
@@ -13,7 +13,7 @@ class LoggingEvent extends LoginEvent {
   LoggingEvent(this.username, this.password);
 
   @override
-  String toString() => "$runtimeType $username";
+  String toString() => '$runtimeType $username';
 }
 
 class LoginSucceedEvent extends LoginEvent {}

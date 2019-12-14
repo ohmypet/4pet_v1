@@ -15,7 +15,7 @@ class PostEditScreen extends TStatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Đăng Tin"),
+        title: Text('Đăng Tin'),
         centerTitle: true,
         actions: <Widget>[
           Builder(
@@ -43,12 +43,11 @@ class PostEditScreen extends TStatelessWidget {
         tags: _postEditBloc.tags);
 
     if (!postModal.titleIsValid) {
-      showErrorSnackBar(context: context, content: "Vui lòng nhập tiêu đề");
+      showErrorSnackBar(context: context, content: 'Vui lòng nhập tiêu đề');
       return;
     }
     if (!postModal.locationIsValid) {
-      showErrorSnackBar(
-          context: context, content: "Vui lòng nhập Vui lòng nhập địa chỉ");
+      showErrorSnackBar(context: context, content: 'Vui lòng nhập Vui lòng nhập địa chỉ');
       return;
     }
 

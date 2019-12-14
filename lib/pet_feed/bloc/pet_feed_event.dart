@@ -3,7 +3,7 @@ part of petisland.petfeed.bloc;
 @immutable
 abstract class PetFeedEvent extends BaseEvent {
   @override
-  String toString() => "$runtimeType";
+  String toString() => '$runtimeType';
 }
 
 class _RetrievePostEvent extends PetFeedEvent {
@@ -13,17 +13,17 @@ class _RetrievePostEvent extends PetFeedEvent {
   final String petCategoryId;
 
   _RetrievePostEvent(this.offset, {this.limit = 10, this.categoryType, this.petCategoryId})
-      : assert(offset != null, "Offset must not null");
+      : assert(offset != null, 'Offset must not null');
 
   @override
-  String toString() => "$runtimeType offset: $offset - limit: $limit";
+  String toString() => '$runtimeType offset: $offset - limit: $limit';
 }
 
 class LoadPostErrorEvent extends BaseErrorEvent implements PetFeedEvent {
   LoadPostErrorEvent(String message) : super(message);
 
   @override
-  String toString() => "$runtimeType $message";
+  String toString() => '$runtimeType $message';
 }
 
 class _ReloadPostEvent extends PetFeedEvent {
@@ -33,10 +33,10 @@ class _ReloadPostEvent extends PetFeedEvent {
   final String petCategoryId;
 
   _ReloadPostEvent(this.offset, {this.limit = 10, this.categoryType, this.petCategoryId})
-      : assert(offset != null, "Offset must not null");
+      : assert(offset != null, 'Offset must not null');
 
   @override
-  String toString() => "$runtimeType offset: $offset - limit: $limit";
+  String toString() => '$runtimeType offset: $offset - limit: $limit';
 }
 
 class _LoadPostSucceedEvent extends PetFeedEvent {
@@ -45,5 +45,5 @@ class _LoadPostSucceedEvent extends PetFeedEvent {
   _LoadPostSucceedEvent(this.newItems);
 
   @override
-  String toString() => "$runtimeType items: ${newItems?.length}";
+  String toString() => '$runtimeType items: ${newItems?.length}';
 }

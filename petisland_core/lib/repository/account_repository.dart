@@ -11,7 +11,7 @@ abstract class AccountReposity {
 }
 
 class AccountReposityImpl extends AccountReposity {
-  static const String path = "/api/account";
+  static const String path = '/api/account';
   @protected
   final HttpClient client;
 

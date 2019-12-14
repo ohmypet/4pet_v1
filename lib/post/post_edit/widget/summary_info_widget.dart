@@ -74,9 +74,9 @@ class SummaryInfoWidget extends TStatelessWidget {
   }
 
   Widget _buildTitleWidget(String title) {
-    title ??= "";
+    title ??= '';
     return Text(
-      title.isEmpty ? "Thú cứng của bạn" : title,
+      title.isEmpty ? 'Thú cứng của bạn' : title,
       style: TTextStyles.bold(fontSize: 24),
     );
   }
@@ -86,8 +86,8 @@ class SummaryInfoWidget extends TStatelessWidget {
     FlutterMoneyFormatter formatter = FlutterMoneyFormatter(amount: money);
     return Text(
       money.isNegative
-          ? "Miễn phí"
-          : "${formatter.output.withoutFractionDigits} đ",
+          ? 'Miễn phí'
+          : '${formatter.output.withoutFractionDigits} đ',
       style: TTextStyles.semi(fontSize: 18, color: TColors.red),
     );
   }

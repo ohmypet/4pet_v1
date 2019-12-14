@@ -30,10 +30,10 @@ class PostModal {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};
-    assert(title != null, "title musn't null");
-    assert(location != null, "location musn't null");
-    assert(pet != null, "pet musn't null");
-    assert(price != null, "price musn't null");
+    assert(title != null, 'title musn\'t null');
+    assert(location != null, 'location musn\'t null');
+    assert(pet != null, 'pet musn\'t null');
+    assert(price != null, 'price musn\'t null');
 
     _addValueToMap('title', title, map);
     _addValueToMap('description', description, map);
@@ -43,12 +43,12 @@ class PostModal {
     _addValueToMap('price', price ?? 0, map);
 
     final List<String> jsonImages = images.map((PetImage image) => image.id).toList();
-    _addValueToMap("images", jsonImages, map);
+    _addValueToMap('images', jsonImages, map);
 
     final List<Map<String, dynamic>> jsonTags = _tagsToJson(tags);
-    _addValueToMap("tags", jsonTags, map);
+    _addValueToMap('tags', jsonTags, map);
 
-    _addValueToMap("pet", pet.toCreateJson(), map);
+    _addValueToMap('pet', pet.toCreateJson(), map);
 
     return map;
   }

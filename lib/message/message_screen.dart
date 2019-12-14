@@ -5,7 +5,7 @@ class MessageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tin nhắn đến"),
+        title: Text('Tin nhắn đến'),
         centerTitle: true,
       ),
     );

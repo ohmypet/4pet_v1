@@ -25,7 +25,7 @@ class _CreatePostBodyState extends TState<PostEditBody> {
         return Column(
           children: <Widget>[
             SummaryInfoWidget(
-              postEditBloc.title ?? "",
+              postEditBloc.title ?? '',
               petImage: postEditBloc.imagesLocalPath ?? <String>[],
               price: postEditBloc.price ?? 0,
             ),
@@ -75,7 +75,8 @@ class _CreatePostBodyState extends TState<PostEditBody> {
       ..price = post.price
       ..location = post.location
       ..imagesLocalPath.addAll(post.postImages.map((petImage) => petImage?.image?.url))
-      ..petCategory=post.pet.type;
-      Log.info("$runtimeType:: Image after map post to bloc: ${postEditBloc.imagesLocalPath.toString()}");
+      ..petCategory = post.pet.type;
+    Log.info(
+        '$runtimeType:: Image after map post to bloc: ${postEditBloc.imagesLocalPath.toString()}');
   }
 }

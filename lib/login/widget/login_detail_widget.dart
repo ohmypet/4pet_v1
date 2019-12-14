@@ -81,12 +81,12 @@ class _LoginDetailWidgetState extends TState<LoginDetailWidget> {
       widget.onLoginTapped(user, pass);
     } else {
       if (!isValid(user)) {
-        showErrorSnackBar(context: context, content: "Username không hợp lệ");
+        showErrorSnackBar(context: context, content: 'Username không hợp lệ');
         return;
       }
 
       if (!isValid(pass)) {
-        showErrorSnackBar(context: context, content: "Password không hợp lệ");
+        showErrorSnackBar(context: context, content: 'Password không hợp lệ');
         return;
       }
     }

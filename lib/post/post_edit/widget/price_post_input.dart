@@ -40,7 +40,7 @@ class _PricePostInputState extends State<PricePostInput> {
             ),
             UserInputWidget(
               textController,
-              hintText: "Nhập giá tiền...",
+              hintText: 'Nhập giá tiền...',
               keyboardType: TextInputType.number,
               onChange: (String text) {
                 if (text.trim() == null ||

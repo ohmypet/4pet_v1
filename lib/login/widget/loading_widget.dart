@@ -1,7 +1,7 @@
 part of petisland.login.widget;
 
 class LoadingWidget extends TStatelessWidget {
-  final String path = "assets/flare/loading.flr";
+  final String path = 'assets/flare/loading.flr';
   const LoadingWidget({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class LoadingWidget extends TStatelessWidget {
           width: 70,
           child: FlareActor(
             path,
-            animation: "loading",
+            animation: 'loading',
             sizeFromArtboard: true,
             fit: BoxFit.fitWidth,
             color: theme.primaryColor,

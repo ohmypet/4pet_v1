@@ -8,7 +8,7 @@ void main() async {
   login();
 
   final TagService service = DI.get<TagService>(TagService);
-  test("Get tags with title is empty", () async {
+  test('Get tags with title is empty', () async {
     try {
       final List<Tag> tags = await service.getTags('');
       for (Tag item in tags) {
@@ -20,7 +20,7 @@ void main() async {
       assert(false);
     }
   });
-  test("Get tags with title is null", () async {
+  test('Get tags with title is null', () async {
     try {
       final List<Tag> tags = await service.getTags(null);
       for (Tag item in tags) {
@@ -32,7 +32,7 @@ void main() async {
       assert(false);
     }
   });
-  test("Get tags with title dog", () async {
+  test('Get tags with title dog', () async {
     try {
       final List<Tag> tags = await service.getTags('dog');
       for (Tag item in tags) {

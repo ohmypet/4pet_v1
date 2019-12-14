@@ -64,7 +64,7 @@ Widget createMainScreen(MainAppBloc bloc) {
           return MainAppScreen(bloc);
 
         default:
-          Log.debug("blocBuilder: $bloc");
+          Log.debug('blocBuilder: $bloc');
           return SizedBox();
       }
     },

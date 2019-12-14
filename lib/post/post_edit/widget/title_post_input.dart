@@ -41,7 +41,7 @@ class _TitlePostInputState extends State<TitlePostInput> {
             ),
             UserInputWidget(
               textController,
-              hintText: "Nhập tiêu đề...",
+              hintText: 'Nhập tiêu đề...',
               onChange: (String text) {
                 widget.bloc.inputChange(text);
               },
