@@ -5,14 +5,24 @@ class TrendingPanelWidget extends PanelRender<Panel> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      scrollDirection: Axis.horizontal,
-      itemCount: panel.items.length,
-      itemBuilder: (_, int index) {
-        final PanelDetail item = panel.items[index];
-        return renderPostDetail(item);
-      },
+    return AspectRatio(
+      aspectRatio: 16 / 9,
+      child: ListView.separated(
+        shrinkWrap: false,
+        scrollDirection: Axis.horizontal,
+        itemCount: panel.items.length,
+        itemBuilder: (_, int index) {
+          // final PanelDetail item = panel.items[index];
+          // return renderPostDetail(item);
+          return AspectRatio(
+            aspectRatio: 3 / 4,
+            child: Container(
+              color: TColors.water_melon,
+            ),
+          );
+        },
+        separatorBuilder: (_, int index) => SizedBox(width: 2),
+      ),
     );
   }
 }

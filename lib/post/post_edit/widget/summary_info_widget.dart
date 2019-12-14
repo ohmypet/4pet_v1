@@ -30,7 +30,7 @@ class SummaryInfoWidget extends TStatelessWidget {
       petImage = petImages.first;
     }
     bool urlValid = petImage != null && petImage.isNotEmpty;
-    Widget defaultImage = SvgPicture.asset(TAsserts.post_default_image_avatar);
+    Widget defaultImage = SvgPicture.asset(TAssets.post_default_image_avatar);
     Widget child;
     if (!urlValid) {
       child = defaultImage;

@@ -6,6 +6,7 @@ class Account extends BaseModel {
   String role;
   String status;
   Map<String, dynamic> settings;
+  User user;
 
   Account({
     String id,
@@ -17,6 +18,7 @@ class Account extends BaseModel {
     this.role,
     this.status,
     this.settings,
+    this.user,
   }) : super(id, createAt, updateAt, createBy);
 
   Account.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
@@ -25,6 +27,7 @@ class Account extends BaseModel {
     role = json['role'];
     status = json['status'];
     settings = json['settings'];
+    user = json['user'];
   }
 
   @override

@@ -11,18 +11,18 @@ abstract class BaseModel {
   @mustCallSuper
   BaseModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    createAt = _parseDateTime(json['create_at']);
-    updateAt = _parseDateTime(json['update_at']);
-    createBy = json['create_by'] != null ? Account.fromJson(json['create_by']) : null;
+    createAt = _parseDateTime(json['createdAt']);
+    updateAt = _parseDateTime(json['updatedAt']);
+    createBy = json['createdBy'] != null ? Account.fromJson(json['createdBy']) : null;
   }
 
   @mustCallSuper
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};
     _addValueToMap('id', id, map);
-    _addValueToMap('create_at', createAt?.toIso8601String(), map);
-    _addValueToMap('update_at', updateAt?.toIso8601String(), map);
-    _addValueToMap('create_by', createBy?.toJson(), map);
+    _addValueToMap('createdAt', createAt?.toIso8601String(), map);
+    _addValueToMap('updatedAt', updateAt?.toIso8601String(), map);
+    _addValueToMap('createdBy', createBy?.toJson(), map);
     return map;
   }
 }

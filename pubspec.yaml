@@ -24,6 +24,7 @@ dependencies:
   auro_avatar: ^0.1.1
   flutter_svg: ^0.15.0
 
+
   ddi: any
   petisland_core:
     path: petisland_core

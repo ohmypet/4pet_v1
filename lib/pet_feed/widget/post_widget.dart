@@ -5,26 +5,84 @@ class PostWidget extends PostItemRender<Post> {
 
   @override
   Widget build(BuildContext context) {
-    final Widget image = _buildImage(item);
-    final Widget description = _buildInfo(context, item);
+    final Widget image = Flexible(
+      flex: 3,
+      child: Align(
+        child: _buildImage(item),
+        alignment: Alignment.centerLeft,
+      ),
+    );
+    final Widget description = Expanded(
+      child: _buildInfo(context, item),
+      flex: 5,
+    );
     return InkWell(
       onTap: () => navigateToScreen(context: context, screen: PostEditScreen.edit(item)),
-      child: Container(
-        height: 130,
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
         child: Card(
           elevation: 2,
           borderOnForeground: false,
           child: Flex(
             mainAxisSize: MainAxisSize.max,
-            direction: Axis.horizontal,
+            direction: Axis.vertical,
             children: <Widget>[
-              image,
-              Expanded(child: description),
+              Expanded(
+                flex: 7,
+                child: Flex(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  direction: Axis.horizontal,
+                  children: <Widget>[
+                    image,
+                    description,
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  color: TColors.water_melon,
+                ),
+              )
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildAccount(BuildContext context, User user) {
+    Widget _buildImage(BuildContext context, User user) {
+      final url = user?.avatar?.url != null ? user.avatar.url : null;
+      final image =
+          url != null ? TCacheImageWidget(url: url) : SvgPicture.asset(TAssets.user_avatar);
+      return AspectRatio(
+        child: image,
+        aspectRatio: 1,
+      );
+    }
+
+    Widget _buildTitle(BuildContext context, User user) {
+      final username = user?.name;
+      return username != null ? Text(username) : SizedBox();
+    }
+
+    if (user != null) {
+      final Widget image = _buildImage(context, user);
+      final Widget text = _buildTitle(context, user);
+      return Flex(
+        direction: Axis.horizontal,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          image,
+          text,
+        ],
+      );
+    } else {
+      return SizedBox();
+    }
   }
 
   Widget _buildImage(Post item) {
@@ -36,51 +94,46 @@ class PostWidget extends PostItemRender<Post> {
 
     final String imageUrl = getUrlImage(item.postImages);
 
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: AspectRatio(
-        child: TCacheImageWidget(url: imageUrl),
-        aspectRatio: 1,
-      ),
+    return AspectRatio(
+      child: TCacheImageWidget(url: imageUrl),
+      aspectRatio: 1,
     );
   }
 
   Widget _buildInfo(BuildContext context, Post item) {
     final String title = item.title;
+    final Account account = item.account;
     final double price = item.price;
-    final ThemeData theme = Theme.of(context);
-
-    return Stack(
-      children: <Widget>[
-        Flex(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          direction: Axis.vertical,
-          children: <Widget>[
-            Expanded(child: _buildTitleWidget(context, title)),
-            Flexible(child: _buildPriceWidget(context, price)),
-          ],
-        ),
-        GestureDetector(
-          onTap: _onLikes,
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 5),
-            child: Flex(
-              direction: Axis.horizontal,
-              children: <Widget>[
-                Icon(Icons.person, color: theme.accentColor),
-                SizedBox(width: 5),
-                Text(<String>['user', 'admin'][Random().nextInt(2)], style: theme.textTheme.title),
-                SizedBox(width: 7),
-                Icon(Icons.favorite_border, color: theme.primaryColor),
-                SizedBox(width: 5),
-                Text('${item.likes}', style: theme.textTheme.title),
-              ],
-            ),
-            alignment: Alignment.bottomLeft,
+    final String location = item.location;
+    final DateTime time = item.createAt;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Flex(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        direction: Axis.vertical,
+        children: <Widget>[
+          Flexible(
+            child: _buildTitleWidget(context, title),
+            flex: 3,
           ),
-        ),
-      ],
+          Flexible(child: _buildAccount(context, account?.user)),
+          Flexible(child: _buildPriceWidget(context, price)),
+          Flexible(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: _buildLocation(context, location),
+            ),
+          ),
+          Flexible(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: _buildTime(context, time),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -90,10 +143,13 @@ class PostWidget extends PostItemRender<Post> {
     title ??= '';
     return Text(
       title,
-      maxLines: 3,
-      style: theme.textTheme.display2.copyWith(
+      maxLines: 2,
+      style: theme.textTheme.body2.copyWith(
         color: theme.accentColor,
-        fontSize: 20,
+        fontSize: 18,
+        fontWeight: FontWeight.w300,
+        letterSpacing: 0.5,
+        height: 1.4,
       ),
     );
   }
@@ -105,9 +161,64 @@ class PostWidget extends PostItemRender<Post> {
     FlutterMoneyFormatter formatter = FlutterMoneyFormatter(amount: money);
     return Text(
       money.isNegative ? 'Miễn phí' : '${formatter.output.withoutFractionDigits} đ',
-      style: theme.textTheme.display1.copyWith(fontSize: 18, color: theme.primaryColor),
+      style: theme.textTheme.display4.copyWith(
+        fontSize: 15,
+        fontWeight: FontWeight.w700,
+        color: theme.primaryColor,
+      ),
     );
   }
 
-  void _onLikes() {}
+  Widget _buildLocation(BuildContext context, String address) {
+    final ThemeData theme = Theme.of(context);
+    return address?.isNotEmpty == true
+        ? Flex(
+            direction: Axis.horizontal,
+            children: <Widget>[
+              Icon(
+                Icons.location_on,
+                size: 14,
+                color: theme.accentColor.withAlpha(128),
+              ),
+              SizedBox(width: 2),
+              Text(
+                address,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.display4.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: theme.accentColor.withAlpha(128),
+                ),
+              ),
+            ],
+          )
+        : SizedBox();
+  }
+
+  Widget _buildTime(BuildContext context, DateTime time) {
+    final ThemeData theme = Theme.of(context);
+    return time != null
+        ? Flex(
+            direction: Axis.horizontal,
+            children: <Widget>[
+              Icon(
+                Icons.timer,
+                size: 14,
+                color: theme.accentColor.withAlpha(128),
+              ),
+              SizedBox(width: 2),
+              Text(
+                TimeUtils.getTimeAgo(time),
+                style: theme.textTheme.display4.copyWith(
+                    fontSize: 13,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w500,
+                    color: theme.accentColor.withAlpha(128),
+                    height: 1.2),
+              ),
+            ],
+          )
+        : SizedBox();
+  }
 }

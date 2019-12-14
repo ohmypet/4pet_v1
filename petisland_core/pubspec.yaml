@@ -12,6 +12,7 @@ dependencies:
   firebase_analytics: 5.0.2
   path_provider: 1.2.0
   flutter_cache_manager: ^1.1.1
+  timeago: ^2.0.22
 
   ddi:
     path: ../packages/di

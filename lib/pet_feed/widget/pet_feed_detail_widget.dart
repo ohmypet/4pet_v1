@@ -81,11 +81,5 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
 }
 
 Widget renderPanel(Panel item) {
-  return SizedBox();
-  // return Container(width: 15, height: 30, color: TColors.scarlet_gum);
-//  if (item.type == "Trending") {
-//    return TrendingPanelWidget(item);
-//  }
-//
-//  return TrendingPanelWidget(item);
+  return TrendingPanelWidget(item);
 }
