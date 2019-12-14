@@ -2,7 +2,7 @@ part of pestisland.post.post_edit.bloc;
 
 abstract class PostEditEvent extends BaseEvent {
   @override
-  String toString() => "$runtimeType";
+  String toString() => '$runtimeType';
 }
 
 class TitleInputChange extends PostEditEvent {
@@ -11,7 +11,7 @@ class TitleInputChange extends PostEditEvent {
   TitleInputChange(this.title);
 
   @override
-  String toString() => "TitleInputChange:: title: $title";
+  String toString() => 'TitleInputChange:: title: $title';
 }
 
 class PriceInputChange extends PostEditEvent {
@@ -20,7 +20,7 @@ class PriceInputChange extends PostEditEvent {
   PriceInputChange(this.price);
 
   @override
-  String toString() => "PriceInputChange:: price: ${price?.toString()}";
+  String toString() => 'PriceInputChange:: price: ${price?.toString()}';
 }
 
 class AddImageEvent extends PostEditEvent {
@@ -29,7 +29,7 @@ class AddImageEvent extends PostEditEvent {
   AddImageEvent(this.imageLocalPath);
 
   @override
-  String toString() => "AddImageEvent: images: ${imageLocalPath?.toString()}";
+  String toString() => 'AddImageEvent: images: ${imageLocalPath?.toString()}';
 }
 
 class RemoveImageEvent extends PostEditEvent {
@@ -40,10 +40,10 @@ class RemoveImageEvent extends PostEditEvent {
 
   @override
   String toString() =>
-      "RemoveImageEvent: index: $index, image path: $imageLocalPath";
+      'RemoveImageEvent: index: $index, image path: $imageLocalPath';
 }
 
 class ExpandChange extends PostEditEvent {
   @override
-  String toString() => "ExpandChange";
+  String toString() => 'ExpandChange';
 }

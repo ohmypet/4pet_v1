@@ -15,9 +15,9 @@ linter:
     - hash_and_equals
     - no_duplicate_case_values
     - prefer_void_to_null
+    - prefer_single_quotes
     - always_declare_return_types
-    - always_put_required_named_parameters_first
-    - always_specify_types
+    # - always_specify_types
     - avoid_init_to_null
     - avoid_returning_null_for_void
     - avoid_shadowing_type_parameters

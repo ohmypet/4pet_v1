@@ -12,12 +12,12 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Thông tin cá nhân"),
+        title: Text('Thông tin cá nhân'),
         centerTitle: true,
       ),
       body: Center(
         child: GestureDetector(
-          child: Text("Logout"),
+          child: Text('Logout'),
           onTap: _onTap,
         ),
       ),

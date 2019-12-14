@@ -2,7 +2,7 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group("Automation Test", () {
+  group('Automation Test', () {
     FlutterDriver driver;
     setUpAll(() async {
       driver = await FlutterDriver.connect();
@@ -12,7 +12,7 @@ void main() {
         driver.close();
       }
     });
-    test("Test flow", () async {
+    test('Test flow', () async {
       await mainFlow(driver);
     }, timeout: Timeout(const Duration(hours: 1)));
   });

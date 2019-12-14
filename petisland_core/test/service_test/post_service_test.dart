@@ -35,7 +35,7 @@ void main() async {
     }
   });
 
-  test("Get categories", () async {
+  test('Get categories', () async {
     try {
       categories = await petCategoryService.getPetCategories();
       for (PetCategory item in categories) {
@@ -50,7 +50,7 @@ void main() async {
     }
   });
 
-  test("Create post with empty image string", () async {
+  test('Create post with empty image string', () async {
     final PostModal postModal = PostModal.create(
       price: 0.0,
       title: 'Ahihi',
@@ -68,14 +68,14 @@ void main() async {
     }
   });
 
-  test("Create post with image", () async {
+  test('Create post with image', () async {
     final PostModal postModal = PostModal.create(
         price: 10,
         title: 'Ahihi',
         location: 'Dong nai',
         pet: Pet(type: PetCategory(id: pickOne(categories).id)),
 
-        description: "i'm supper man",
+        description: 'i\'m supper man',
         images: <PetImage>[PetImage(id: idImage)]);
     try {
       final Post post = await postService.create(postModal);
@@ -87,18 +87,18 @@ void main() async {
     }
   });
 
-  test("Create post with tags ", () async {
+  test('Create post with tags ', () async {
     final PostModal postModal = PostModal.create(
       price: 10,
       title: 'Ahihi',
       location: 'Dong nai',
       pet: Pet(type: PetCategory(id: pickOne(categories).id)),
-      description: "i'm supper man",
+      description: 'i\'m supper man',
       tags: <Tag>[
-        Tag(title: "dog", description: "ahihi"),
-        Tag(title: "dog white", description: "ahihi"),
-        Tag(title: "dog black", description: "ahihi"),
-        Tag(title: "dog red", description: "ahihi")
+        Tag(title: 'dog', description: 'ahihi'),
+        Tag(title: 'dog white', description: 'ahihi'),
+        Tag(title: 'dog black', description: 'ahihi'),
+        Tag(title: 'dog red', description: 'ahihi')
       ],
       images: <PetImage>[PetImage(id: idImage)],
     );
@@ -112,7 +112,7 @@ void main() async {
     }
   });
 
-  test("Like post", () async {
+  test('Like post', () async {
     try {
       final Post newPost = await postService.like(currentPost.id);
       expect(newPost, isNotNull);
@@ -123,7 +123,7 @@ void main() async {
     }
   });
 
-  test("DisLike post", () async {
+  test('DisLike post', () async {
     try {
       final Post newPost = await postService.like(currentPost.id);
       expect(newPost, isNotNull);
@@ -134,9 +134,9 @@ void main() async {
     }
   });
 
-  test("Get post offset = 0, limit = 10", () async {
+  test('Get post offset = 0, limit = 10', () async {
     final List<Item> posts = await postService.getPosts(0);
-    Log.debug("Length: ${posts.length}");
+    Log.debug('Length: ${posts.length}');
     for (Item post in posts) {
       Log.debug(post.toJson());
     }
@@ -146,14 +146,14 @@ void main() async {
     expect(posts.length, lessThanOrEqualTo(11));
   });
 
-  test("Get post offset = 10, limit = 20", () async {
+  test('Get post offset = 10, limit = 20', () async {
     final List<Item> posts = await postService.getPosts(10, limit: 20);
     expect(posts, isNotNull);
     expect(posts, isNotEmpty);
     expect(posts.length, greaterThanOrEqualTo(0));
     expect(posts.length, lessThanOrEqualTo(20));
 
-    Log.debug("Length: ${posts.length}");
+    Log.debug('Length: ${posts.length}');
     for (Item post in posts) {
       Log.debug(post.toJson());
     }

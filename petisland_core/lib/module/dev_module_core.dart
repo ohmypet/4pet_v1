@@ -66,7 +66,7 @@ class DevModuleCore extends AbstractModule {
 
   HttpClient _buildClient() {
     final BaseOptions baseOption = BaseOptions(
-      baseUrl: Config.getString("api_host"),
+      baseUrl: Config.getString('api_host'),
       connectTimeout: 15000,
       receiveTimeout: 10000,
       headers: <String, dynamic>{
@@ -79,7 +79,7 @@ class DevModuleCore extends AbstractModule {
 
   HttpClient _buildApiClient() {
     final BaseOptions baseOption = BaseOptions(
-      baseUrl: Config.getString("api_host"),
+      baseUrl: Config.getString('api_host'),
       connectTimeout: 15000,
       receiveTimeout: 10000,
       headers: <String, dynamic>{
@@ -99,7 +99,7 @@ class DevModuleCore extends AbstractModule {
 
   HttpClient _buildClientUpload() {
     final BaseOptions baseOption = BaseOptions(
-      baseUrl: Config.getString("api_host"),
+      baseUrl: Config.getString('api_host'),
       connectTimeout: 35000,
       receiveTimeout: 60000,
       headers: <String, dynamic>{

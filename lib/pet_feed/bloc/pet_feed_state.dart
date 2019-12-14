@@ -3,7 +3,7 @@ part of petisland.petfeed.bloc;
 @immutable
 abstract class PetFeedState extends BaseState {
   @override
-  String toString() => "$runtimeType";
+  String toString() => '$runtimeType';
 }
 
 class _LoadPostFailed extends PetFeedState {
@@ -12,7 +12,7 @@ class _LoadPostFailed extends PetFeedState {
   _LoadPostFailed(this.message);
 
   @override
-  String toString() => "$runtimeType $message";
+  String toString() => '$runtimeType $message';
 }
 
 class _LoadPostSucceed extends PetFeedState {
@@ -21,7 +21,7 @@ class _LoadPostSucceed extends PetFeedState {
   _LoadPostSucceed(this.newItems);
 
   @override
-  String toString() => "$runtimeType items: ${newItems?.length}";
+  String toString() => '$runtimeType items: ${newItems?.length}';
 }
 
 class LoadPostSucceed extends PetFeedState {

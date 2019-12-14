@@ -2,7 +2,7 @@ part of petisland.login.bloc;
 
 abstract class LoginState extends BaseState {
   @override
-  String toString() => "$runtimeType";
+  String toString() => '$runtimeType';
 }
 
 class InitLoginState extends LoginState {}

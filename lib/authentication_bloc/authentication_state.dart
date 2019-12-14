@@ -2,7 +2,7 @@ part of petisland.authentication;
 
 abstract class AuthenticationState extends BaseState {
   @override
-  String toString() => "$runtimeType";
+  String toString() => '$runtimeType';
 }
 
 /// App init

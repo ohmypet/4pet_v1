@@ -39,7 +39,7 @@ class WorkerUpload extends TBloc<UploadEvent, UploadState> {
     void _handleError(dynamic ex) {
       Log.error(ex);
       final UploadImageEvent newEventUpload = event.retry();
-      Log.debug("Retry ${newEventUpload.numRetry}");
+      Log.debug('Retry ${newEventUpload.numRetry}');
       add(newEventUpload);
     }
 
@@ -53,14 +53,14 @@ class WorkerUpload extends TBloc<UploadEvent, UploadState> {
         .upload(paths)
         .then(_uploadPostModal)
         .catchError(_handleError)
-        .catchError((_) => add(UploadFailedEvent("Upload failed")));
+        .catchError((_) => add(UploadFailedEvent('Upload failed')));
   }
 
   void _uploadPost(UploadPostEvent event) {
     void _retryUpload(dynamic ex) {
       Log.error(ex);
       final UploadPostEvent newUpload = event.retry();
-      Log.debug("Retry ${newUpload.numRetry}");
+      Log.debug('Retry ${newUpload.numRetry}');
       add(newUpload);
     }
 
@@ -68,7 +68,7 @@ class WorkerUpload extends TBloc<UploadEvent, UploadState> {
         .create(event.postMustUpload)
         .then((_) => add(UploadPostSuccessEvent()))
         .catchError(_retryUpload)
-        .catchError((_) => add(UploadFailedEvent("Upload failed")));
+        .catchError((_) => add(UploadFailedEvent('Upload failed')));
   }
 
   void uploadPost(PostModal modal, List<String> images) {

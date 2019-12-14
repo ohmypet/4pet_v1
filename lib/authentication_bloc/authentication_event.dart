@@ -2,7 +2,7 @@ part of petisland.authentication;
 
 abstract class AuthenticationEvent extends BaseEvent {
   @override
-  String toString() => "$runtimeType";
+  String toString() => '$runtimeType';
 }
 
 class AppStarted extends AuthenticationEvent {}

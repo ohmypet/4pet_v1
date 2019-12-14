@@ -11,9 +11,9 @@ class TagRepositoryImpl extends TagRepository {
 
   @override
   Future<List<Tag>> getTags(final String title) {
-    final Map<String, dynamic> params = <String, dynamic>{"title": title};
+    final Map<String, dynamic> params = <String, dynamic>{'title': title};
     return client
-        .get<List<dynamic>>("/api/tag", params: params)
+        .get<List<dynamic>>('/api/tag', params: params)
         .then((List<dynamic> tags) => _parseTags(tags));
   }
 

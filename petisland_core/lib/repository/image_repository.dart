@@ -23,7 +23,7 @@ class ImageRepositoryImpl extends ImageRepository {
     final FormData formData = FormData()..files.addAll(files);
 
     return client
-        .post<List<dynamic>>("/api/image", formData)
+        .post<List<dynamic>>('/api/image', formData)
         .then((List<dynamic> images) => _parseImages(images));
   }
 

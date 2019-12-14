@@ -18,7 +18,7 @@ class _CreatePostBodyState extends TState<PostEditBody> {
         return Column(
           children: <Widget>[
             SummaryInfoWidget(
-              postEditBloc.title ?? "",
+              postEditBloc.title ?? '',
               petImage: postEditBloc.imagesLocalPath ?? <String>[],
               price: postEditBloc.price ?? 0,
             ),

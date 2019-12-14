@@ -10,7 +10,7 @@ void main() async {
 
   final PetCategoryService service = DI.get(PetCategoryService);
 
-  test("Get categories", () async {
+  test('Get categories', () async {
     try {
       final List<PetCategory> categories = await service.getPetCategories();
       for (PetCategory item in categories) {
