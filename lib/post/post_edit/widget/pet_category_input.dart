@@ -1,7 +1,7 @@
 part of petisland.post.post_edit.widget;
 
 class PetCategoryInput extends TStatelessWidget {
-  final List<PetCategory> categories = DI.get(DIKeys.pet_categories);
+  final List<PetCategory> categories = DI.get<AuthenticationBloc>(AuthenticationBloc).categories;
   final PostEditBloc bloc;
 
   PetCategoryInput(this.bloc) {

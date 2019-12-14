@@ -7,7 +7,6 @@ abstract class _KeysCached {
 abstract class DIKeys {
   static const String dio_client = 'dio_client';
   static const String cache_image = 'cache_image';
-  static const String pet_categories = 'pet_categories';
 }
 
 class DevModuleCore extends AbstractModule {
@@ -27,7 +26,6 @@ class DevModuleCore extends AbstractModule {
     bind(PetCategoryService).to(_buildPetCategoryService());
     bind(PostService).to(_buildPostService());
     bind(TagService).to(_buildTagService());
-    bind(DIKeys.pet_categories).to(await _getPetCategories());
   }
 
   Future<LocalStorageService> _buildLocalService() async {
@@ -158,10 +156,5 @@ class DevModuleCore extends AbstractModule {
     final HttpClient client = get<HttpClient>(api_client);
     final TagRepository repository = TagRepositoryImpl(client);
     return TagServiceImpl(repository);
-  }
-
-  Future<List<PetCategory>> _getPetCategories() async{
-    final PetCategoryService service = this.get<PetCategoryService>(PetCategoryService);
-    return [];
   }
 }
