@@ -1,11 +1,13 @@
 part of petisland.post.post_edit.widget;
 
 class PetCategoryInput extends TStatelessWidget {
-  final List<PetCategory> categories = DI.get(DIKeys.pet_categories);
+  final List<PetCategory> categories = DI.get<AuthenticationBloc>(AuthenticationBloc).categories;
   final PostEditBloc bloc;
 
   PetCategoryInput(this.bloc) {
-    bloc.petCategory = categories.isNotEmpty ? categories.first : null;
+    if (bloc.petCategory == null) {
+      bloc.petCategory = categories.isNotEmpty ? categories.first : null;
+    }
   }
 
   @override
@@ -19,7 +21,7 @@ class PetCategoryInput extends TStatelessWidget {
           children: <Widget>[
             Text(
               'Chủng loại',
-              style: TTextStyles.bold(
+              style: TTextStyles.semi(
                 fontSize: 18,
               ).copyWith(
                 fontFamily: FontFamilies.thabit,
@@ -27,6 +29,8 @@ class PetCategoryInput extends TStatelessWidget {
             ),
             SizedBox(height: 5),
             TDropDown.builder(
+              initSelectedItem: categories.indexWhere(
+                  (petCategory) => bloc.petCategory.id == petCategory.id),
               itemCount: categories.length,
               onSelectedChanged: _onSelectedChanged,
               builder: (_, int index) {

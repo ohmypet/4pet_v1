@@ -10,19 +10,19 @@ class _ImageChoosePopupState extends TState<ImageChoosePopup> {
   Widget build(BuildContext context) {
     return TSheets.bottomSheet(
       context,
-      "Chọn hình ảnh",
+      'Chọn hình ảnh',
       Flex(
         direction: Axis.vertical,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ListTile(
             leading: Icon(Icons.camera_alt),
-            title: Text("Chọn hình ảnh từ camera"),
+            title: Text('Chọn hình ảnh từ camera'),
             onTap: () => onTapCamera(),
           ),
           ListTile(
             leading: Icon(Icons.image),
-            title: Text("Chọn hình ảnh từ thư viện"),
+            title: Text('Chọn hình ảnh từ thư viện'),
             onTap: () => onTapGallery(),
           ),
         ],
@@ -33,14 +33,14 @@ class _ImageChoosePopupState extends TState<ImageChoosePopup> {
   void onTapGallery() async {
     //Key is file name, value is file path
     File imageFile = await FilePicker.getFile(type: FileType.IMAGE);
-    Log.info("Image File Path after get by galery:: ${imageFile?.path}");
+    Log.info('Image File Path after get by galery:: ${imageFile?.path}');
     Navigator.of(context).pop(imageFile.path);
   }
 
   void onTapCamera() async {
     File imageFile = await ImagePicker.pickImage(source: ImageSource.camera);
     imageFile ??= await retrieveLostData();
-    Log.info("Image File Path after took:: ${imageFile?.path}");
+    Log.info('Image File Path after took:: ${imageFile?.path}');
     Navigator.of(context).pop(imageFile.path);
   }
 

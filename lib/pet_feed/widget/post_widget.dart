@@ -7,18 +7,21 @@ class PostWidget extends PostItemRender<Post> {
   Widget build(BuildContext context) {
     final Widget image = _buildImage(item);
     final Widget description = _buildInfo(context, item);
-    return Container(
-      height: 130,
-      child: Card(
-        elevation: 2,
-        borderOnForeground: false,
-        child: Flex(
-          mainAxisSize: MainAxisSize.max,
-          direction: Axis.horizontal,
-          children: <Widget>[
-            image,
-            Expanded(child: description),
-          ],
+    return InkWell(
+      onTap: () => navigateToScreen(context: context, screen: PostEditScreen.edit(item)),
+      child: Container(
+        height: 130,
+        child: Card(
+          elevation: 2,
+          borderOnForeground: false,
+          child: Flex(
+            mainAxisSize: MainAxisSize.max,
+            direction: Axis.horizontal,
+            children: <Widget>[
+              image,
+              Expanded(child: description),
+            ],
+          ),
         ),
       ),
     );

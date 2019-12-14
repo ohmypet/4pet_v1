@@ -12,6 +12,11 @@ class TitlePostInput extends StatefulWidget {
 class _TitlePostInputState extends State<TitlePostInput> {
   final TextEditingController textController = TextEditingController();
   @override
+  void initState() {
+    super.initState();
+    textController.text = widget.bloc.title;
+  }
+  @override
   void dispose() {
     textController.dispose();
     super.dispose();
@@ -28,7 +33,7 @@ class _TitlePostInputState extends State<TitlePostInput> {
           children: <Widget>[
             Text(
               'Tiêu đề',
-              style: TTextStyles.bold(
+              style: TTextStyles.semi(
                 fontSize: 18,
               ).copyWith(
                 fontFamily: FontFamilies.thabit,
@@ -36,7 +41,7 @@ class _TitlePostInputState extends State<TitlePostInput> {
             ),
             UserInputWidget(
               textController,
-              hintText: "Nhập tiêu đề...",
+              hintText: 'Nhập tiêu đề...',
               onChange: (String text) {
                 widget.bloc.inputChange(text);
               },

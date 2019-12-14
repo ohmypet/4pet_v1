@@ -2,15 +2,15 @@ part of pestisland.post.post_edit.bloc;
 
 abstract class PostEditState extends BaseState {
   @override
-  String toString() => "$runtimeType";
+  String toString() => '$runtimeType';
 }
 
 class InitState extends PostEditState {
-  final String title = "";
+  final String title = '';
   final double price = 0;
 
   @override
-  String toString() => "InitState";
+  String toString() => 'InitState';
 }
 
 class TitleState extends PostEditState {
@@ -19,7 +19,7 @@ class TitleState extends PostEditState {
   TitleState(this.title);
 
   @override
-  String toString() => "TitleState:: title: $title";
+  String toString() => 'TitleState:: title: $title';
 }
 
 class PriceState extends PostEditState {
@@ -28,7 +28,7 @@ class PriceState extends PostEditState {
   PriceState(this.price);
 
   @override
-  String toString() => "PriceState:: price: $price";
+  String toString() => 'PriceState:: price: $price';
 }
 class ImageState extends PostEditState{
   final List<String> imagesLocalPath;
@@ -39,5 +39,5 @@ class ImageState extends PostEditState{
 
 class ExpandState extends PostEditState {
   @override
-  String toString() => "ExpandState";
+  String toString() => 'ExpandState';
 }

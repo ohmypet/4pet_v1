@@ -12,6 +12,11 @@ class LocationPostInput extends TStatefulWidget {
 class _LocationPostInputState extends TState<LocationPostInput> {
   final TextEditingController textController = TextEditingController();
   @override
+  void initState() {
+    super.initState();
+    textController.text = widget.bloc.location;
+  }
+  @override
   void dispose() {
     textController.dispose();
     super.dispose();
@@ -28,7 +33,7 @@ class _LocationPostInputState extends TState<LocationPostInput> {
           children: <Widget>[
             Text(
               'Địa chỉ',
-              style: TTextStyles.bold(
+              style: TTextStyles.semi(
                 fontSize: 18,
               ).copyWith(
                 fontFamily: FontFamilies.thabit,
@@ -36,7 +41,7 @@ class _LocationPostInputState extends TState<LocationPostInput> {
             ),
             UserInputWidget(
               textController,
-              hintText: "Nhập địa chỉ...",
+              hintText: 'Nhập địa chỉ...',
               onChange: (String text) {
                 widget.bloc.location = text;
               },

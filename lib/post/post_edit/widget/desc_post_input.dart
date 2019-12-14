@@ -12,6 +12,12 @@ class DescPostInput extends StatefulWidget {
 class _DescPostInputState extends State<DescPostInput> {
   final TextEditingController textController = TextEditingController();
   @override
+  void initState() {
+    super.initState();
+    textController.text = widget.bloc.description;
+  }
+
+  @override
   void dispose() {
     textController.dispose();
     super.dispose();
@@ -29,7 +35,7 @@ class _DescPostInputState extends State<DescPostInput> {
           children: <Widget>[
             Text(
               'Mô tả',
-              style: TTextStyles.bold(
+              style: TTextStyles.semi(
                 fontSize: 18,
               ).copyWith(
                 fontFamily: FontFamilies.thabit,
@@ -37,7 +43,7 @@ class _DescPostInputState extends State<DescPostInput> {
             ),
             UserInputWidget(
               textController,
-              hintText: "Nhập mô tả...",
+              hintText: 'Nhập mô tả...',
               keyboardType: TextInputType.multiline,
               onChange: (String text) {
                 widget.bloc.description = text;

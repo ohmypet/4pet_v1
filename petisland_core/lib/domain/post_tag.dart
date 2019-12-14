@@ -11,6 +11,6 @@ class PostTag extends BaseModel {
   }) : super(id, createAt, updateAt, createBy);
 
   PostTag.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
-    tag = json["tag"] != null ? Tag.fromJson(json["tag"]) : null;
+    tag = json['tag'] != null ? Tag.fromJson(json['tag']) : null;
   }
 }

@@ -1,7 +1,7 @@
 part of petisland.main_app;
 
 class MainAppScreen extends TStatefulWidget {
-  static String name = "/";
+  static String name = '/';
   final MainAppBloc bloc;
 
   const MainAppScreen(this.bloc, {Key key}) : super(key: key);

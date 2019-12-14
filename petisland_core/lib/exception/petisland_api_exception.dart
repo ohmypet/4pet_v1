@@ -20,5 +20,5 @@ class PetApiException extends PetException {
 }
 
 class LimitRetryException extends PetApiException {
-  LimitRetryException() : super(message: "Limit retry upload");
+  LimitRetryException() : super(message: 'Limit retry upload');
 }

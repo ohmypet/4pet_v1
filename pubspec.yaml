@@ -22,6 +22,7 @@ dependencies:
   file_picker: ^1.4.3+1
   pull_to_refresh: ^1.5.7
   auro_avatar: ^0.1.1
+  flutter_svg: ^0.15.0
 
   ddi: any
   petisland_core:

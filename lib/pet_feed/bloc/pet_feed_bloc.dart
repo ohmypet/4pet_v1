@@ -60,7 +60,7 @@ class PetFeedBloc extends TBloc<PetFeedEvent, PetFeedState> {
 
   void _handleError(dynamic ex) {
     Log.error(ex);
-    add(LoadPostErrorEvent("Lấy bài đăng bị lỗi, thử lại sau"));
+    add(LoadPostErrorEvent('Lấy bài đăng bị lỗi, thử lại sau'));
   }
 
   @override

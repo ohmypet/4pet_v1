@@ -7,7 +7,7 @@ abstract class PetIslandConstants {
   static const int max_retry = 5;
 
   /// **Warning**: must update [CategoryTypeEnum] same time
-  static const List<String> categoryTypes = const <String>[
+  static final List<String> categoryTypes = <String>[
     'Trending',
     'Popularity',
     'Price higth to low',
@@ -36,6 +36,7 @@ enum PostStatus { Pending, New, Done, Expired }
 enum PetType { Dog, Cat, Bird, Fish, Snake, Hare, Hamster, Other }
 
 const int max_image = 10;
+
 
 String enumToString(Object object) {
   if (object is CategoryTypeEnum) return PetIslandConstants.categoryTypes[object.index];

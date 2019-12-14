@@ -11,6 +11,6 @@ class PostImage extends BaseModel {
   }) : super(id, createAt, updateAt, createBy);
 
   PostImage.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
-    image = json["image"] != null ? PetImage.fromJson(json["image"]) : null;
+    image = json['image'] != null ? PetImage.fromJson(json['image']) : null;
   }
 }
