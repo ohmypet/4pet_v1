@@ -40,7 +40,6 @@ class Post extends BaseModel implements PostItem {
   }
 
   Post.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
-    Log.debug("fromJson: $json");
     title = json['title'];
     description = json['description'];
     location = json['location'];

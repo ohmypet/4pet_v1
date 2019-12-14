@@ -87,7 +87,7 @@ class PostWidget extends PostItemRender<Post> {
   Widget _buildTitleWidget(BuildContext context, String title) {
     final ThemeData theme = Theme.of(context);
 
-    title ??= "";
+    title ??= '';
     return Text(
       title,
       maxLines: 3,
@@ -104,7 +104,7 @@ class PostWidget extends PostItemRender<Post> {
     money = money > 0 ? money : -1;
     FlutterMoneyFormatter formatter = FlutterMoneyFormatter(amount: money);
     return Text(
-      money.isNegative ? "Miễn phí" : "${formatter.output.withoutFractionDigits} đ",
+      money.isNegative ? 'Miễn phí' : '${formatter.output.withoutFractionDigits} đ',
       style: theme.textTheme.display1.copyWith(fontSize: 18, color: theme.primaryColor),
     );
   }
