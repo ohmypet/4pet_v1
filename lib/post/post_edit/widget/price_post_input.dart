@@ -11,6 +11,11 @@ class PricePostInput extends StatefulWidget {
 class _PricePostInputState extends State<PricePostInput> {
   final TextEditingController textController = TextEditingController();
   @override
+  void initState() {
+    super.initState();
+    textController.text = widget.bloc.price.toString();
+  }
+  @override
   void dispose() {
     textController.dispose();
     super.dispose();

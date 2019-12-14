@@ -3,18 +3,17 @@ part of petisland.post.post_edit.screen;
 /// Post edit will be create mode when Post is null
 class PostEditScreen extends TStatelessWidget {
   static const String name = '/PostEditScreen';
-
-  ///Will be change String to Post
-  final String post;
+  final Post post;
   final void Function(PostModal post, List<String> images) onSendTap;
   final PostEditBloc _postEditBloc = PostEditBloc();
 
   PostEditScreen.create({@required this.onSendTap}) : post = null;
 
+  PostEditScreen.edit(this.post, {@required this.onSendTap});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Đăng Tin'),
         centerTitle: true,
@@ -28,7 +27,7 @@ class PostEditScreen extends TStatelessWidget {
       ),
       body: Stack(
         children: <Widget>[
-          PostEditBody(_postEditBloc),
+          PostEditBody(_postEditBloc, post: this.post),
         ],
       ),
     );

@@ -30,16 +30,30 @@ class SummaryInfoWidget extends TStatelessWidget {
       petImage = petImages.first;
     }
     bool urlValid = petImage != null && petImage.isNotEmpty;
-    Widget defaultImage = Container(
-      color: TColors.duck_egg_blue,
-    );
+    Widget defaultImage = SvgPicture.asset(TAsserts.post_default_image_avatar);
+    Widget child;
+    if (!urlValid) {
+      child = defaultImage;
+    } else {
+      if (isImageUrlFormat(petImage)) {
+        child = TCacheImageWidget(
+          borderRadius: BorderRadius.circular(0),
+          url: petImage,
+        );
+      } else {
+        child = Image.asset(
+          petImage,
+          fit: BoxFit.cover,
+        );
+      }
+    }
     return Flexible(
       flex: 1,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
         child: AspectRatio(
           aspectRatio: 1 / 1,
-          child: urlValid ? Image.asset(petImage,fit: BoxFit.cover,) : defaultImage,
+          child: child,
         ),
       ),
     );
@@ -62,8 +76,8 @@ class SummaryInfoWidget extends TStatelessWidget {
   Widget _buildTitleWidget(String title) {
     title ??= '';
     return Text(
-      title,
-      style: TTextStyles.normal(fontSize: 20),
+      title.isEmpty ? 'Thú cứng của bạn' : title,
+      style: TTextStyles.bold(fontSize: 24),
     );
   }
 
@@ -74,7 +88,12 @@ class SummaryInfoWidget extends TStatelessWidget {
       money.isNegative
           ? 'Miễn phí'
           : '${formatter.output.withoutFractionDigits} đ',
-      style: TTextStyles.bold(fontSize: 22, color: TColors.red),
+      style: TTextStyles.semi(fontSize: 18, color: TColors.red),
     );
+  }
+
+  bool isImageUrlFormat(String url) {
+    return url.contains(RegExp('^https?://')) ||
+        url.contains(RegExp('^http?://'));
   }
 }
