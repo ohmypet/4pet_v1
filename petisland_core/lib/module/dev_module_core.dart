@@ -16,6 +16,8 @@ class DevModuleCore extends AbstractModule {
 
   @override
   void init() async {
+    timeAgo.setLocaleMessages('vi', TViShortMessage());
+
     bind(LocalStorageService).to(await _buildLocalService());
     bind(normal_client).to(_buildClient());
     bind(api_client).to(_buildApiClient());

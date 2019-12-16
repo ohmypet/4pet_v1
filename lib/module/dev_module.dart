@@ -6,7 +6,7 @@ class DevModule extends AbstractModule {
   void init() async {
     bind(AuthenticationBloc).to(AuthenticationBloc());
     bind(LoginBloc).to(LoginBloc());
-    bind(WorkerUpload).to(WorkerUpload());
+    bind(TWorker).to(TWorker());
     bind(PetFeedController).to(PetFeedControllerImpl());
   }
 }

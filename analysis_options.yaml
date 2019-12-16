@@ -45,3 +45,4 @@ analyzer:
     empty_constructor_bodies: error
     file_names: error
     null_closures: error
+    invalid_use_of_protected_member: error

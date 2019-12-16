@@ -9,4 +9,4 @@ part 't_colors.dart';
 part 't_text_styles.dart';
 part 't_navigator_observer.dart';
 part 't_shadows.dart';
-part 't_asserts.dart';
+part 't_assets.dart';
