@@ -15,6 +15,7 @@ class Post extends BaseModel implements PostItem {
   final List<PostImage> postImages = <PostImage>[];
   final List<PostTag> postTags = <PostTag>[];
 
+  @protected
   int likes;
 
   int getLikes() {
@@ -22,6 +23,26 @@ class Post extends BaseModel implements PostItem {
       return likes;
     else
       return 0;
+  }
+
+  int like() {
+    final likes = getLikes();
+    if (isReacted == true) {
+      return likes;
+    } else {
+      isReacted = true;
+      return this.likes = likes + 1;
+    }
+  }
+
+  int unLike() {
+    final likes = getLikes();
+    if (isReacted == false) {
+      return likes;
+    } else {
+      isReacted = false;
+      return this.likes = likes > 0 ? likes - 1 : 0;
+    }
   }
 
   Post({

@@ -116,7 +116,7 @@ void main() async {
     try {
       final Post newPost = await postService.like(currentPost.id);
       expect(newPost, isNotNull);
-      expect(newPost.likes, greaterThan(0));
+      expect(newPost.getLikes(), greaterThan(0));
     } catch (e) {
       Log.error(e);
       assert(false);
@@ -127,7 +127,7 @@ void main() async {
     try {
       final Post newPost = await postService.like(currentPost.id);
       expect(newPost, isNotNull);
-      expect(newPost.likes, equals(0));
+      expect(newPost.getLikes(), equals(0));
     } catch (e) {
       Log.error(e);
       assert(false);
