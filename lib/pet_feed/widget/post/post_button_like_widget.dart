@@ -68,11 +68,9 @@ class __PostButtonLikeWidgetState extends State<_PostButtonLikeWidget> {
     worker.likePost(widget.item.id);
     setState(() {
       if (widget.item.isReacted) {
-        widget.item.isReacted = false;
-        --widget.item.likes;
+        widget.item.unLike();
       } else {
-        widget.item.isReacted = true;
-        ++widget.item.likes;
+        widget.item.like();
       }
     });
     Future.delayed(const Duration(milliseconds: 600)).whenComplete(() {
