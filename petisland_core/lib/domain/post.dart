@@ -9,6 +9,7 @@ class Post extends BaseModel implements PostItem {
   String status;
   Account account;
   Pet pet;
+  bool isReacted = false;
 
   final Map<String, dynamic> settings = <String, dynamic>{};
   final List<PostImage> postImages = <PostImage>[];
@@ -30,6 +31,7 @@ class Post extends BaseModel implements PostItem {
     this.account,
     this.pet,
     this.likes,
+    this.isReacted = false,
     Map<String, dynamic> settings,
     List<PostImage> postImages,
     List<PostTag> postTags,
@@ -47,12 +49,12 @@ class Post extends BaseModel implements PostItem {
     dueDate = _parseDateTime(json['dueDate']);
     if (json['settings']?.isNotEmpty == true) settings.addAll(json['settings']);
     status = json['status'];
-    account =
-        json['account'] != null ? Account.fromJson(json['account']) : null;
+    account = json['account'] != null ? Account.fromJson(json['account']) : null;
     pet = json['pet'] != null ? Pet.fromJson(json['pet']) : null;
     postImages.addAll(_parsePostImages(json['postImages']));
     postTags.addAll(_parsePostTags(json['postTags']));
     likes = json['likes'];
+    isReacted = json['isReacted'] ?? false;
   }
 
   @override

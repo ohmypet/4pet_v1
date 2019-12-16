@@ -1,10 +1,11 @@
 part of petisland.common.resources;
 
 abstract class TAssets {
-  static const String _imagePath = 'assets/images';
-  static const String _iconPath = 'assets/icons';
+  @protected
+  static const String iconPath = 'assets/icons';
 
-  static const String post_default_image_avatar = '$_imagePath/cat.svg';
+  static const String post_default_image_avatar = '$iconPath/cat.svg';
+  static const String post_default_image_avatar_2 = '$iconPath/kitty.svg';
 
-  static const String user_avatar = '$_iconPath/user.svg';
+  static const String user_avatar = '$iconPath/user.svg';
 }

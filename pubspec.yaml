@@ -23,6 +23,7 @@ dependencies:
   pull_to_refresh: ^1.5.7
   auro_avatar: ^0.1.1
   flutter_svg: ^0.15.0
+  url_launcher: ^5.2.6
 
 
   ddi: any
