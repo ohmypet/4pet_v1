@@ -4,8 +4,9 @@ class SummaryInfoWidget extends TStatelessWidget {
   final List<String> petImage;
   final String title;
   final double price;
+  final String location;
 
-  SummaryInfoWidget(this.title, {this.petImage, this.price});
+  SummaryInfoWidget(this.title, {this.petImage, this.price, this.location});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class SummaryInfoWidget extends TStatelessWidget {
         children: <Widget>[
           _buildImageWidget(petImage),
           SizedBox(width: 12),
-          _buildInfo(title, price),
+          _buildInfo(title, price, location),
         ],
       ),
     );
@@ -30,7 +31,7 @@ class SummaryInfoWidget extends TStatelessWidget {
       petImage = petImages.first;
     }
     bool urlValid = petImage != null && petImage.isNotEmpty;
-    Widget defaultImage = SvgPicture.asset(TAssets.post_default_image_avatar);
+    Widget defaultImage = buildDefaultPetImage();
     Widget child;
     if (!urlValid) {
       child = defaultImage;
@@ -59,41 +60,25 @@ class SummaryInfoWidget extends TStatelessWidget {
     );
   }
 
-  Widget _buildInfo(String title, double price) {
+  Widget _buildInfo(String title, double price, String location) {
+    title = title.isEmpty ? 'Thú cứng của bạn' : title;
+    // location = location.isEmpty ? 'HCM' : location;
     return Flexible(
       flex: 2,
       child: Flex(
         crossAxisAlignment: CrossAxisAlignment.start,
         direction: Axis.vertical,
         children: <Widget>[
-          _buildTitleWidget(title),
-          _buildPriceWidget(price),
+          PostTitleWidget(title: title),
+          PostMoneyWidget(price: price),
+          PostLocationWidget(location: location),
+          PostTimeWidget(time: DateTime.now())
         ],
       ),
     );
   }
 
-  Widget _buildTitleWidget(String title) {
-    title ??= '';
-    return Text(
-      title.isEmpty ? 'Thú cứng của bạn' : title,
-      style: TTextStyles.bold(fontSize: 24),
-    );
-  }
-
-  Widget _buildPriceWidget(double money) {
-    money ??= -1;
-    FlutterMoneyFormatter formatter = FlutterMoneyFormatter(amount: money);
-    return Text(
-      money.isNegative
-          ? 'Miễn phí'
-          : '${formatter.output.withoutFractionDigits} đ',
-      style: TTextStyles.semi(fontSize: 18, color: TColors.red),
-    );
-  }
-
   bool isImageUrlFormat(String url) {
-    return url.contains(RegExp('^https?://')) ||
-        url.contains(RegExp('^http?://'));
+    return url.contains(RegExp('^https?://')) || url.contains(RegExp('^http?://'));
   }
 }

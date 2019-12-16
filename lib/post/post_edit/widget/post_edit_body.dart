@@ -1,21 +1,9 @@
 part of petisland.post.post_edit.widget;
 
-class PostEditBody extends TStatefulWidget {
+class PostEditBody extends TStatelessWidget {
   final PostEditBloc postEditBloc;
-  final Post post;
 
-  PostEditBody(this.postEditBloc, {this.post});
-  @override
-  _CreatePostBodyState createState() => _CreatePostBodyState();
-}
-
-class _CreatePostBodyState extends TState<PostEditBody> {
-  PostEditBloc get postEditBloc => widget.postEditBloc;
-  @override
-  void initState() {
-    super.initState();
-    _getPostInfotoBLoc(widget.post);
-  }
+  PostEditBody(this.postEditBloc);
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +16,7 @@ class _CreatePostBodyState extends TState<PostEditBody> {
               postEditBloc.title ?? '',
               petImage: postEditBloc.imagesLocalPath ?? <String>[],
               price: postEditBloc.price ?? 0,
+              location: postEditBloc.location,
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -45,7 +34,7 @@ class _CreatePostBodyState extends TState<PostEditBody> {
                     LocationPostInput(postEditBloc),
                     ImagePostInput(postEditBloc),
                     PetCategoryInput(postEditBloc),
-
+                    const SizedBox(height: 150),
                     // Flexible(
                     //   child: state is ExpandState
                     //       ? Flex(
@@ -66,17 +55,5 @@ class _CreatePostBodyState extends TState<PostEditBody> {
         );
       },
     );
-  }
-
-  void _getPostInfotoBLoc(Post post) {
-    postEditBloc
-      ..title = post.title
-      ..description = post.description
-      ..price = post.price
-      ..location = post.location
-      ..imagesLocalPath.addAll(post.postImages.map((petImage) => petImage?.image?.url))
-      ..petCategory = post.pet.type;
-    Log.info(
-        '$runtimeType:: Image after map post to bloc: ${postEditBloc.imagesLocalPath.toString()}');
   }
 }

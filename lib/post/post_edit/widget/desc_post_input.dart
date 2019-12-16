@@ -33,14 +33,7 @@ class _DescPostInputState extends State<DescPostInput> {
           crossAxisAlignment: CrossAxisAlignment.start,
           direction: Axis.vertical,
           children: <Widget>[
-            Text(
-              'Mô tả',
-              style: TTextStyles.semi(
-                fontSize: 18,
-              ).copyWith(
-                fontFamily: FontFamilies.thabit,
-              ),
-            ),
+            _TitleWidget(title: 'Mô tả', isRequired: false),
             UserInputWidget(
               textController,
               hintText: 'Nhập mô tả...',

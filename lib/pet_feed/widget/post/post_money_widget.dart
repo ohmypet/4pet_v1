@@ -1,9 +1,9 @@
 part of petisland.pet_feed.widget.post;
 
-class _PostMoneyWidget extends StatelessWidget {
+class PostMoneyWidget extends StatelessWidget {
   final double price;
 
-  const _PostMoneyWidget({Key key, this.price}) : super(key: key);
+  const PostMoneyWidget({Key key, this.price}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);

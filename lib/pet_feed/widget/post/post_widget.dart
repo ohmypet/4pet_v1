@@ -67,20 +67,20 @@ class PostWidget extends PostItemRender<Post> {
         mainAxisSize: MainAxisSize.max,
         direction: Axis.vertical,
         children: <Widget>[
-          Flexible(flex: 3, child: _PostTitleWidget(title: title)),
+          Flexible(flex: 3, child: PostTitleWidget(title: title)),
           SizedBox(height: 5),
           Flexible(child: _PostUserInfoWidget(user: account?.user)),
-          Flexible(child: _PostMoneyWidget(price: price)),
+          Flexible(child: PostMoneyWidget(price: price)),
           Flexible(
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: _PostLocationWidget(location: location),
+              child: PostLocationWidget(location: location),
             ),
           ),
           Flexible(
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: _PostTimeWidget(time: time),
+              child: PostTimeWidget(time: time),
             ),
           ),
         ],

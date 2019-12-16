@@ -1,9 +1,9 @@
 part of petisland.pet_feed.widget.post;
 
-class _PostTimeWidget extends StatelessWidget {
+class PostTimeWidget extends StatelessWidget {
   final DateTime time;
 
-  const _PostTimeWidget({Key key, this.time}) : super(key: key);
+  const PostTimeWidget({Key key, this.time}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);

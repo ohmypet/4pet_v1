@@ -39,7 +39,7 @@ AnsiPen chooseLogColor(LogLevel level) {
     case LogLevel.ALL:
       return AnsiPen()..white();
     case LogLevel.DEBUG:
-      return AnsiPen()..white();
+      return AnsiPen()..green();
     case LogLevel.INFO:
       return AnsiPen()..blue();
     case LogLevel.ERROR:

@@ -26,29 +26,21 @@ class _ImagePostInputState extends TState<ImagePostInput> {
           direction: Axis.vertical,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Hình ảnh liên quan',
-              style: TTextStyles.semi(
-                fontSize: 18,
-              ).copyWith(
-                fontFamily: FontFamilies.thabit,
-              ),
-            ),
+            _TitleWidget(title: 'Hình ảnh liên quan'),
+            const SizedBox(height: 5),
             BlocBuilder<PostEditBloc, PostEditState>(
-                bloc: widget.bloc,
-                builder: (_, PostEditState state) {
-                  return widget.bloc.imagesLocalPath != null
-                      ? SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children:
-                                _buildImageWidget(widget.bloc.imagesLocalPath),
-                          ),
-                        )
-                      : SizedBox(
-                          height: 100,
-                        );
-                }),
+              bloc: widget.bloc,
+              builder: (_, PostEditState state) {
+                return widget.bloc.imagesLocalPath != null
+                    ? SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: _buildImageWidget(widget.bloc.imagesLocalPath),
+                        ),
+                      )
+                    : const SizedBox(height: 100);
+              },
+            ),
           ],
         ),
       ),
@@ -62,11 +54,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
 
   List<Widget> _buildImageWidget(List<String> imagePath) {
     if (imagePath == null || imagePath.isEmpty) {
-      return <Widget>[
-        AddImagePostWidget(
-          onPress: () => chooseImage(),
-        )
-      ];
+      return <Widget>[AddImagePostWidget(onPress: () => chooseImage())];
     } else {
       List<Widget> result = <Widget>[];
       if (canAddImage(imagePath.length)) {
