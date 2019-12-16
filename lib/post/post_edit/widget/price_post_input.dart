@@ -13,8 +13,9 @@ class _PricePostInputState extends State<PricePostInput> {
   @override
   void initState() {
     super.initState();
-    textController.text = widget.bloc.price.toString();
+    if (widget.bloc.price > 0) textController.text = widget.bloc.price.toString();
   }
+
   @override
   void dispose() {
     textController.dispose();
@@ -30,14 +31,7 @@ class _PricePostInputState extends State<PricePostInput> {
           crossAxisAlignment: CrossAxisAlignment.start,
           direction: Axis.vertical,
           children: <Widget>[
-            Text(
-              'Giá',
-              style: TTextStyles.bold(
-                fontSize: 18,
-              ).copyWith(
-                fontFamily: FontFamilies.thabit,
-              ),
-            ),
+            _TitleWidget(title: 'Giá', isRequired: false),
             UserInputWidget(
               textController,
               hintText: 'Nhập giá tiền...',

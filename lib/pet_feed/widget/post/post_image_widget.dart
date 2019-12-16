@@ -31,7 +31,7 @@ Widget buildDefaultPetImage() {
       borderRadius: BorderRadius.circular(4),
     ),
     child: SvgPicture.asset(
-      TAssets.post_default_image_avatar_2,
+      TAssets.post_default_image_avatar,
     ),
   );
 }

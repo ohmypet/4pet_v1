@@ -1,9 +1,9 @@
 part of petisland.pet_feed.widget.post;
 
-class _PostTitleWidget extends StatelessWidget {
+class PostTitleWidget extends StatelessWidget {
   final String title;
 
-  const _PostTitleWidget({Key key, this.title}) : super(key: key);
+  const PostTitleWidget({Key key, this.title}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);

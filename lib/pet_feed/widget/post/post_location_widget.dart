@@ -1,9 +1,9 @@
 part of petisland.pet_feed.widget.post;
 
-class _PostLocationWidget extends StatelessWidget {
+class PostLocationWidget extends StatelessWidget {
   final String location;
 
-  const _PostLocationWidget({Key key, this.location}) : super(key: key);
+  const PostLocationWidget({Key key, this.location}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);

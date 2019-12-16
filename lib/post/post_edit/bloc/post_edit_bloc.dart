@@ -9,8 +9,21 @@ class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
   PetCategory petCategory;
   List<Tag> tags = <Tag>[];
 
+  PostEditBloc();
+
+  PostEditBloc.fromPost(Post post) {
+    this
+      ..title = post.title
+      ..description = post.description
+      ..price = post.price ?? 0
+      ..location = post.location
+      ..imagesLocalPath.addAll(post.postImages.map((petImage) => petImage?.image?.url))
+      ..petCategory = post.pet.type;
+  }
+
   @override
   Duration get delayEvent => const Duration(milliseconds: 0);
+
 
   @override
   Stream<PostEditState> errorToState(BaseErrorEvent event) {
