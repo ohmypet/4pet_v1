@@ -126,7 +126,7 @@ class PostWidget extends PostItemRender<Post> {
   }
 
   void _message(Account account) {
-    //TODO: setup message
+    // TODO(tvc12): Setup message
   }
 }
 

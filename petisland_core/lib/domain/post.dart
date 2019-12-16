@@ -17,6 +17,13 @@ class Post extends BaseModel implements PostItem {
 
   int likes;
 
+  int getLikes() {
+    if (likes != null && likes > 0)
+      return likes;
+    else
+      return 0;
+  }
+
   Post({
     String id,
     Account createBy,

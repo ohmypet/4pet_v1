@@ -10,12 +10,13 @@ class _PostButtonLikeWidget extends StatefulWidget {
 }
 
 class __PostButtonLikeWidgetState extends State<_PostButtonLikeWidget> {
+  bool isLook = false;
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final bool isLike = widget.item.isReacted;
-    final int likes = widget.item.likes ?? 0;
-    final IconData icon = isLike ? Icons.favorite : Icons.favorite_border;
+    final int likes = widget.item.getLikes();
+    final Widget icon = isLike ? animationLike() : defaultIcon();
     return FlatButton.icon(
       padding: EdgeInsets.zero,
       label: Flexible(
@@ -27,11 +28,52 @@ class __PostButtonLikeWidgetState extends State<_PostButtonLikeWidget> {
               .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
         ),
       ),
-      icon: Icon(
-        icon,
-        color: theme.primaryColor,
-      ),
-      onPressed: () {},
+      icon: icon,
+      onPressed: _onTapLikes,
     );
+  }
+
+  Widget defaultIcon() {
+    final ThemeData theme = Theme.of(context);
+    return Icon(
+      Icons.favorite_border,
+      color: theme.primaryColor,
+    );
+  }
+
+  Widget animationLike() {
+    final ThemeData theme = Theme.of(context);
+    return SizedBox(
+      width: 24,
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: FlareActor(
+          TAssets.flare_like,
+          animation: 'like_blast',
+          snapToEnd: false,
+          fit: BoxFit.cover,
+          sizeFromArtboard: false,
+          shouldClip: true,
+          color: theme.primaryColor,
+        ),
+      ),
+    );
+  }
+
+  void _onTapLikes() {
+    if (isLook) return;
+    isLook = true;
+    setState(() {
+      if (widget.item.isReacted) {
+        widget.item.isReacted = false;
+        --widget.item.likes;
+      } else {
+        widget.item.isReacted = true;
+        ++widget.item.likes;
+      }
+    });
+    Future.delayed(const Duration(milliseconds: 600)).whenComplete(() {
+      isLook = false;
+    });
   }
 }
