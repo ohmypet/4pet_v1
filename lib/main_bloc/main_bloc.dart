@@ -10,4 +10,6 @@ part 'main_app_bloc.dart';
 part 'main_app_event.dart';
 part 'main_app_state.dart';
 part 't_bloc.dart';
-part 'worker_upload.dart';
+part 't_worker.dart';
+part 't_worker_event.dart';
+part 't_worker_state.dart';

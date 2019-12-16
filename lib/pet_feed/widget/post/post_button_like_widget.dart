@@ -11,6 +11,8 @@ class _PostButtonLikeWidget extends StatefulWidget {
 
 class __PostButtonLikeWidgetState extends State<_PostButtonLikeWidget> {
   bool isLook = false;
+  final TWorker worker = DI.get(TWorker);
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -63,6 +65,7 @@ class __PostButtonLikeWidgetState extends State<_PostButtonLikeWidget> {
   void _onTapLikes() {
     if (isLook) return;
     isLook = true;
+    worker.likePost(widget.item.id);
     setState(() {
       if (widget.item.isReacted) {
         widget.item.isReacted = false;
