@@ -1,6 +1,6 @@
 part of petisland_core.repository;
 
-abstract class AccountReposity {
+abstract class AccountRepository {
   Future<Account> requireCode(String email);
 
   Future<Account> register(String email, String code, String username, String password);
@@ -8,9 +8,11 @@ abstract class AccountReposity {
   Future<LoginData> login(String username, String password);
 
   Future<void> checkToken(String token);
+
+  Future<bool> checkCode(String email, String code);
 }
 
-class AccountReposityImpl extends AccountReposity {
+class AccountReposityImpl extends AccountRepository {
   static const String path = '/api/account';
   @protected
   final HttpClient client;
@@ -57,5 +59,14 @@ class AccountReposityImpl extends AccountReposity {
   Future<void> checkToken(String token) {
     final Map<String, dynamic> headers = <String, dynamic>{'x-access-token': token};
     return client.get('$path/check-token', options: Options(headers: headers));
+  }
+
+  @override
+  Future<bool> checkCode(String email, String code) {
+    final Map<String, dynamic> params = <String, dynamic>{'email': email, 'code': code};
+    return client
+        .getRaw('$path/check-code', params: params)
+        .then((_) => true)
+        .catchError((_) => false);
   }
 }
