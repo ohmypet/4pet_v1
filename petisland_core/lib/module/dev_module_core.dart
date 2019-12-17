@@ -16,6 +16,8 @@ class DevModuleCore extends AbstractModule {
 
   @override
   void init() async {
+    timeAgo.setLocaleMessages('vi', TViShortMessage());
+
     bind(LocalStorageService).to(await _buildLocalService());
     bind(normal_client).to(_buildClient());
     bind(api_client).to(_buildApiClient());
@@ -130,8 +132,8 @@ class DevModuleCore extends AbstractModule {
 
   AccountService _buildAccountService() {
     final HttpClient client = get<HttpClient>(normal_client);
-    final AccountReposity reposity = AccountReposityImpl(client);
-    return AccountServiceImpl(reposity);
+    final AccountRepository repository = AccountReposityImpl(client);
+    return AccountServiceImpl(repository);
   }
 
   ImageService _buildImageService() {

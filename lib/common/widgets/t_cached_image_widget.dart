@@ -85,6 +85,7 @@ class TCacheImageWidget extends StatelessWidget {
   //default border radius = 4
   final BorderRadius borderRadius;
   final Color defaultBackgroundColor;
+  final BoxShape shape;
 
   const TCacheImageWidget({
     @required this.url,
@@ -93,11 +94,14 @@ class TCacheImageWidget extends StatelessWidget {
     this.height,
     this.borderRadius,
     this.defaultBackgroundColor = TColors.duck_egg_blue,
+    this.shape = BoxShape.rectangle,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final BorderRadius borderRadius = this.borderRadius ?? BorderRadius.circular(4);
+    final BoxShape shape = this.shape ?? BoxShape.rectangle;
+    BorderRadius borderRadius;
+    if (shape == BoxShape.rectangle) borderRadius = this.borderRadius ?? BorderRadius.circular(4);
     return TBaseCachedImageWidget(
       url: url,
       imageBuilder: (_, ImageProvider imageProvider) {
@@ -108,6 +112,7 @@ class TCacheImageWidget extends StatelessWidget {
             image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
             borderRadius: borderRadius,
             color: defaultBackgroundColor,
+            shape: shape,
           ),
         );
       },
@@ -118,6 +123,7 @@ class TCacheImageWidget extends StatelessWidget {
             height: height,
             decoration: BoxDecoration(
               borderRadius: borderRadius,
+              shape: shape,
               color: TColors.white,
             ),
           ),
@@ -128,6 +134,7 @@ class TCacheImageWidget extends StatelessWidget {
           width: width,
           height: height,
           decoration: BoxDecoration(
+            shape: shape,
             borderRadius: borderRadius,
             color: defaultBackgroundColor,
           ),

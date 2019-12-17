@@ -16,6 +16,7 @@ class _LocationPostInputState extends TState<LocationPostInput> {
     super.initState();
     textController.text = widget.bloc.location;
   }
+
   @override
   void dispose() {
     textController.dispose();
@@ -31,19 +32,13 @@ class _LocationPostInputState extends TState<LocationPostInput> {
           crossAxisAlignment: CrossAxisAlignment.start,
           direction: Axis.vertical,
           children: <Widget>[
-            Text(
-              'Địa chỉ',
-              style: TTextStyles.semi(
-                fontSize: 18,
-              ).copyWith(
-                fontFamily: FontFamilies.thabit,
-              ),
-            ),
+            _TitleWidget(title: 'Địa chỉ', isRequired: true),
             UserInputWidget(
               textController,
               hintText: 'Nhập địa chỉ...',
               onChange: (String text) {
                 widget.bloc.location = text;
+                widget.bloc.priceChange(widget.bloc.price);
               },
             )
           ],

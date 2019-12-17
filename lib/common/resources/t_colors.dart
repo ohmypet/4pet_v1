@@ -12,8 +12,8 @@ abstract class TColors {
   static const Color darkSkyBlue = Color.fromARGB(255, 74, 144, 226);
   static const Color sky = Color.fromARGB(255, 125, 205, 251);
 
-  static const Color scarlet_gum = Color.fromARGB(255, 81, 49, 98);
-  static const Color scarlet_gum_dark = Color.fromARGB(255, 39, 10, 56);
+  static const Color scarlet_gum = Color.fromARGB(255, 70, 29, 89);
+  static const Color scarlet_gum_dark = Color.fromARGB(255, 31, 0, 47);
 
   static const Color error = Color.fromARGB(255, 232, 5, 5);
 

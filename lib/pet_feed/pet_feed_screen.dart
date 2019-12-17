@@ -11,7 +11,6 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
   @override
   Widget build(BuildContext context) {
     return NestedScrollView(
-      physics: const BouncingScrollPhysics(),
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return <Widget>[
           SliverAppBar(
@@ -36,7 +35,7 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
   void _onCreatePost(BuildContext context) {
     void _onTapCreatePost(PostModal post, List<String> images) {
       Navigator.of(context).pop();
-      DI.get<WorkerUpload>(WorkerUpload).uploadPost(post, images);
+      DI.get<TWorker>(TWorker).uploadPost(post, images);
     }
 
     navigateToScreen(

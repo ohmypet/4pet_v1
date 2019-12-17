@@ -1,7 +1,8 @@
 part of petisland.post.post_edit.widget;
 
 class PetCategoryInput extends TStatelessWidget {
-  final List<PetCategory> categories = DI.get<AuthenticationBloc>(AuthenticationBloc).categories;
+  final List<PetCategory> categories =
+      DI.get<AuthenticationBloc>(AuthenticationBloc).categories;
   final PostEditBloc bloc;
 
   PetCategoryInput(this.bloc) {
@@ -19,24 +20,14 @@ class PetCategoryInput extends TStatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           direction: Axis.vertical,
           children: <Widget>[
-            Text(
-              'Chủng loại',
-              style: TTextStyles.semi(
-                fontSize: 18,
-              ).copyWith(
-                fontFamily: FontFamilies.thabit,
-              ),
-            ),
             SizedBox(height: 5),
+            _TitleWidget(title: 'Chủng loại', isRequired: false),
             TDropDown.builder(
-              initSelectedItem: categories.indexWhere(
-                  (petCategory) => bloc.petCategory.id == petCategory.id),
+              initSelectedItem: categories
+                  .indexWhere((petCategory) => bloc.petCategory.id == petCategory.id),
               itemCount: categories.length,
               onSelectedChanged: _onSelectedChanged,
-              builder: (_, int index) {
-                final PetCategory petCategory = categories[index];
-                return Text(petCategory.name);
-              },
+              builder: _builDescription,
             )
           ],
         ),
@@ -47,5 +38,18 @@ class PetCategoryInput extends TStatelessWidget {
   void _onSelectedChanged(int index) {
     final PetCategory petCategory = categories[index];
     bloc.petCategory = petCategory;
+  }
+
+  Widget _builDescription(BuildContext context, int index) {
+    final theme = Theme.of(context);
+
+    final PetCategory petCategory = categories[index];
+    return Text(
+      petCategory.name,
+      style: theme.textTheme.title.copyWith(
+        fontSize: 16,
+        color: theme.accentColor,
+      ),
+    );
   }
 }

@@ -17,37 +17,52 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
   bool maybeRetrievePost = true;
 
   PetFeedController get controller => widget.controller;
+  RefreshController refreshController;
 
   @override
   void initState() {
     super.initState();
     items = controller.getItems();
     controller.setListener(_onItemChange);
-    if (controller.getItems().isEmpty == true) controller.retrievePosts();
+    refreshController = RefreshController(initialRefresh: controller.getItems().isEmpty);
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      itemCount: items.length,
-      physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      itemBuilder: (BuildContext context, int index) {
-        final Item item = items[index];
-        if (item is Panel) {
-          return renderPanel(item);
-        } else {
-          return renderPostDetail(item);
-        }
-      },
-      separatorBuilder: (_, int index) {
-        return SizedBox(height: 15);
-      },
+    return SmartRefresher(
+      controller: refreshController,
+      enablePullDown: true,
+      enablePullUp: true,
+      onRefresh: _onRefresh,
+      onLoading: _onLoading,
+      child: ListView.separated(
+        shrinkWrap: true,
+        itemCount: items.length,
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        itemBuilder: (BuildContext context, int index) {
+          final Item item = items[index];
+          if (item is Panel) {
+            return renderPanel(item);
+          } else {
+            return renderPostDetail(item);
+          }
+        },
+        separatorBuilder: (_, int index) {
+          return SizedBox(height: 15);
+        },
+      ),
     );
   }
 
   void _onItemChange(PetFeedState state) {
+    if (refreshController.isLoading) {
+      refreshController.loadComplete();
+    }
+    if (refreshController.isRefresh) {
+      refreshController.refreshCompleted();
+    }
+
     if (state is LoadPostSucceed) {
       setState(() {
         items = state.items;
@@ -55,13 +70,16 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
       });
     }
   }
+
+  void _onRefresh() {
+    controller.reload();
+  }
+
+  void _onLoading() {
+    controller.retrievePosts();
+  }
 }
 
 Widget renderPanel(Panel item) {
-  return Container(width: 15, height: 30, color: TColors.scarlet_gum);
-//  if (item.type == "Trending") {
-//    return TrendingPanelWidget(item);
-//  }
-//
-//  return TrendingPanelWidget(item);
+  return TrendingPanelWidget(item);
 }

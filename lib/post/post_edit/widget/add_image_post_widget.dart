@@ -6,6 +6,7 @@ class AddImagePostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: onPress,
       child: ClipRRect(
@@ -13,11 +14,11 @@ class AddImagePostWidget extends StatelessWidget {
         child: Container(
           height: 100,
           width: 100,
-          color: Colors.lightBlueAccent[100].withOpacity(0.5),
+          color: theme.primaryColor.withAlpha(50),
           child: Center(
             child: Icon(
               Icons.add,
-              color: Colors.blueAccent[700],
+              color: TColors.darkSkyBlue,
               size: 36,
             ),
           ),

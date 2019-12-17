@@ -16,6 +16,7 @@ class _TitlePostInputState extends State<TitlePostInput> {
     super.initState();
     textController.text = widget.bloc.title;
   }
+
   @override
   void dispose() {
     textController.dispose();
@@ -31,14 +32,7 @@ class _TitlePostInputState extends State<TitlePostInput> {
           crossAxisAlignment: CrossAxisAlignment.start,
           direction: Axis.vertical,
           children: <Widget>[
-            Text(
-              'Tiêu đề',
-              style: TTextStyles.semi(
-                fontSize: 18,
-              ).copyWith(
-                fontFamily: FontFamilies.thabit,
-              ),
-            ),
+            _TitleWidget(title: 'Tiêu đề', isRequired: true),
             UserInputWidget(
               textController,
               hintText: 'Nhập tiêu đề...',

@@ -29,7 +29,7 @@ class _TDropDownState extends State<TDropDown> {
         widget.itemCount,
         (int i) => DropdownMenuItem<int>(
           value: i,
-          child: widget.builder(context, i),
+          child: Builder(builder: (context) => widget.builder(context, i)),
         ),
       ),
     );

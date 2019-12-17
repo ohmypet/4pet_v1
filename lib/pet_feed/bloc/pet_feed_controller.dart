@@ -34,6 +34,7 @@ class PetFeedControllerImpl extends PetFeedController {
 
   @override
   void reload() {
+    items.clear();
     bloc.reloadPosts(offset, limit);
   }
 

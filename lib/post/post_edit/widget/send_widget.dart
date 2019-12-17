@@ -7,24 +7,20 @@ class SendWidget extends TStatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData themeData = Theme.of(context);
-    return Container(
-      height: 50,
-      color: themeData.primaryColor,
-      child: Flex(
-        direction: Axis.horizontal,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          IconButton(
-            padding: EdgeInsets.all(9),
-            icon: Icon(
-              Icons.send,
-              color: themeData.buttonColor,
-            ),
-            onPressed: onPressSend != null ? onPressSend : () {},
-          )
-        ],
-      ),
+    return Flex(
+      direction: Axis.horizontal,
+      children: <Widget>[
+        IconButton(
+          icon: Icon(Icons.done),
+          onPressed: _onTapSend,
+          // color: T,
+        ),
+        // Text('Đăng', style: theme.accentTextTheme.subtitle.co),
+      ],
     );
+  }
+
+  void _onTapSend() {
+    if (onPressSend != null) onPressSend();
   }
 }
