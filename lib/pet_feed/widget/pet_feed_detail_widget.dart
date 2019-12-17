@@ -37,16 +37,19 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
       onLoading: _onLoading,
       child: ListView.separated(
         shrinkWrap: true,
-        itemCount: items.length,
+        itemCount: items.length + 1,
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 15),
         itemBuilder: (BuildContext context, int index) {
-          final Item item = items[index];
-          if (item is Panel) {
-            return renderPanel(item);
-          } else {
-            return renderPostDetail(item);
-          }
+          if (index < items.length) {
+            final Item item = items[index];
+            if (item is Panel) {
+              return renderPanel(item);
+            } else {
+              return renderPostDetail(item);
+            }
+          } else
+            return const SizedBox(height: 75);
         },
         separatorBuilder: (_, int index) {
           return SizedBox(height: 15);

@@ -58,7 +58,6 @@ class HttpClient {
   FutureOr<T> _handleResult<T>(Response<String> response) async {
     if (response.statusCode == HttpStatus.ok) {
       final String body = response.data;
-      Log.info(body);
       final T map = json.decode(body);
       return map;
     } else {
