@@ -1,16 +1,19 @@
 part of petisland_core.repository;
 
-abstract class AccountReposity {
+abstract class AccountRepository {
   Future<Account> requireCode(String email);
 
-  Future<Account> register(String email, String code, String username, String password);
+  Future<bool> checkCode(String email, String code);
+
+  Future<Account> register(String email, String code, String username, String password,
+      {User user});
 
   Future<LoginData> login(String username, String password);
 
   Future<void> checkToken(String token);
 }
 
-class AccountReposityImpl extends AccountReposity {
+class AccountReposityImpl extends AccountRepository {
   static const String path = '/api/account';
   @protected
   final HttpClient client;
@@ -29,7 +32,8 @@ class AccountReposityImpl extends AccountReposity {
   }
 
   @override
-  Future<Account> register(String email, String code, String username, String password) {
+  Future<Account> register(String email, String code, String username, String password,
+      {User user}) {
     final Map<String, dynamic> params = <String, dynamic>{
       'email': email,
       'code': code,
@@ -37,7 +41,10 @@ class AccountReposityImpl extends AccountReposity {
     final Map<String, dynamic> body = <String, dynamic>{
       'username': username,
       'password': password,
-    };
+      'settings': {},
+      'user': user?.toCreateJson(),
+    }..removeWhere((item, value) => value == null);
+
     return client
         .post<Map<String, dynamic>>('$path/register', body, params: params)
         .then((Map<String, dynamic> json) => Account.fromJson(json));
@@ -57,5 +64,14 @@ class AccountReposityImpl extends AccountReposity {
   Future<void> checkToken(String token) {
     final Map<String, dynamic> headers = <String, dynamic>{'x-access-token': token};
     return client.get('$path/check-token', options: Options(headers: headers));
+  }
+
+  @override
+  Future<bool> checkCode(String email, String code) {
+    final Map<String, dynamic> params = <String, dynamic>{'email': email, 'code': code};
+    return client
+        .getRaw('$path/check-code', params: params)
+        .then((_) => true)
+        .catchError((_) => false);
   }
 }

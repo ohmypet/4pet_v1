@@ -7,14 +7,24 @@ class HttpClient {
 
   HttpClient.init(Dio dio) : dio = dio;
 
-  static Map<String, dynamic> _getParams(Map<String, dynamic> params) => params ?? <String, dynamic>{};
+  static Map<String, dynamic> _getParams(Map<String, dynamic> params) =>
+      params ?? <String, dynamic>{};
 
   static Options _getOptions(Options options) =>
       options is Options ? options : Options(responseType: ResponseType.plain);
 
+  Future<String> getRaw(String path, {Map<String, dynamic> params, Options options}) {
+    return dio
+        .get<String>(path,
+            queryParameters: _getParams(params), options: _getOptions(options))
+        .then((Response<String> response) => response.data)
+        .catchError((dynamic e) => _handleError(path, e));
+  }
+
   Future<T> get<T>(String path, {Map<String, dynamic> params, Options options}) {
     return dio
-        .get<String>(path, queryParameters: _getParams(params), options: _getOptions(options))
+        .get<String>(path,
+            queryParameters: _getParams(params), options: _getOptions(options))
         .then((Response<String> response) => _handleResult<T>(response))
         .catchError((dynamic e) => _handleError(path, e));
   }
@@ -48,7 +58,7 @@ class HttpClient {
   FutureOr<T> _handleResult<T>(Response<String> response) async {
     if (response.statusCode == HttpStatus.ok) {
       final String body = response.data;
-
+      Log.info(body);
       final T map = json.decode(body);
       return map;
     } else {
@@ -67,7 +77,8 @@ class HttpClient {
     }
   }
 
-  void _handleError(String path, Exception ex) {
+  void _handleError(String path, dynamic ex) {
+    Log.error('_handleError:: $ex');
     if (ex is PetApiException) {
       throw ex;
     } else if (ex is DioError) {
@@ -78,7 +89,8 @@ class HttpClient {
 
   Exception _handleDioError(String path, DioError ex) {
     Log.error('path: $path ex: $ex');
-    final PetApiException error = _getApiException(ex.response) ?? PetException.fromException(ex);
+    final PetApiException error =
+        _getApiException(ex.response) ?? PetException.fromException(ex);
     throw error;
   }
 }

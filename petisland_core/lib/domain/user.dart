@@ -15,13 +15,13 @@ class User extends BaseModel {
     Account createBy,
     DateTime createAt,
     DateTime updateAt,
+    @required this.phoneNumber,
+    @required this.name,
     this.account,
     this.address,
     this.avatar,
-    this.phoneNumber,
     this.bio,
     this.dob,
-    this.name,
     this.settings,
   }) : super(id, createAt, updateAt, createBy);
 
@@ -41,11 +41,23 @@ class User extends BaseModel {
     final Map<String, dynamic> map = super.toJson();
     _addValueToMap('name', name, map);
     _addValueToMap('phone_numbder', phoneNumber, map);
-    _addValueToMap('address', address, map);
+    _addValueToMap('address', address ?? {}, map);
     _addValueToMap('bio', bio, map);
     _addValueToMap('dob', dob?.toIso8601String(), map);
     _addValueToMap('settings', settings, map);
     _addValueToMap('account', account?.toJson(), map);
+    _addValueToMap('avatar', avatar?.toJson(), map);
+    return map;
+  }
+
+  Map<String, dynamic> toCreateJson() {
+    final Map<String, dynamic> map = {};
+    _addValueToMap('name', name, map);
+    _addValueToMap('phoneNumber', phoneNumber, map);
+    _addValueToMap('address', address ?? {}, map);
+    _addValueToMap('bio', bio, map);
+    _addValueToMap('dob', dob?.toIso8601String(), map);
+    _addValueToMap('settings', settings, map);
     _addValueToMap('avatar', avatar?.toJson(), map);
     return map;
   }
