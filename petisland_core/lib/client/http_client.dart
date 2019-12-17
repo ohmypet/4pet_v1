@@ -48,7 +48,7 @@ class HttpClient {
   FutureOr<T> _handleResult<T>(Response<String> response) async {
     if (response.statusCode == HttpStatus.ok) {
       final String body = response.data;
-
+      Log.info(body);
       final T map = json.decode(body);
       return map;
     } else {
@@ -67,7 +67,8 @@ class HttpClient {
     }
   }
 
-  void _handleError(String path, Exception ex) {
+  void _handleError(String path, dynamic ex) {
+    Log.error('_handleError:: $ex');
     if (ex is PetApiException) {
       throw ex;
     } else if (ex is DioError) {

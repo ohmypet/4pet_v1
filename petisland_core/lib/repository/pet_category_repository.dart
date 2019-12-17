@@ -12,8 +12,9 @@ class PetCategoryRepositoryImpl extends PetCategoryRepository {
   @override
   Future<List<PetCategory>> getPetCategories() {
     return client
-        .get<List<dynamic>>('/api/pet-category')
-        .then((List<dynamic> json) => _parseToPetCategory(json));
+        .get<Map<String, dynamic>>('/api/pet-category')
+        .then((data) => data['rows'])
+        .then((jsons) => _parseToPetCategory(jsons));
   }
 
   List<PetCategory> _parseToPetCategory(List<dynamic> categories) {
