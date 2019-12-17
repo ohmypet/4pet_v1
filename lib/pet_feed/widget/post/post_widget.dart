@@ -30,8 +30,7 @@ class PostWidget extends PostItemRender<Post> {
             Expanded(
               flex: 7,
               child: InkWell(
-                onTap: () =>
-                    navigateToScreen(context: context, screen: PostEditScreen.edit(item)),
+                onTap: () => _onTapPost(context),
                 child: Flex(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,7 +91,7 @@ class PostWidget extends PostItemRender<Post> {
     final String phoneNumber = item.account.user?.phoneNumber?.trim();
     final double phoneOpacity = phoneNumber?.isEmpty == true ? 1 : 0.2;
     final double messageOpcaity = 1;
-    final likeWidget = _PostButtonLikeWidget(item: item);
+    final likeWidget = PostButtonLikeWidget(item: item);
     final messageWidget = _PostButtonWidget(
       title: 'Nhắn tin',
       opacity: messageOpcaity,
@@ -127,6 +126,11 @@ class PostWidget extends PostItemRender<Post> {
 
   void _message(Account account) {
     // TODO(tvc12): Setup message
+  }
+
+  void _onTapPost(BuildContext context) {
+    // TODO(tvc12): navigate to post detail
+    navigateToScreen(context: context, screen: PostEditScreen.edit(item));
   }
 }
 

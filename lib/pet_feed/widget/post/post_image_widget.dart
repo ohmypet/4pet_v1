@@ -2,18 +2,18 @@ part of petisland.pet_feed.widget.post;
 
 class PostImageWidget extends StatelessWidget {
   final Post item;
+  final bool isSquare;
   static final defaultImage = buildDefaultPetImage();
 
-  const PostImageWidget({Key key, @required this.item}) : super(key: key);
+  const PostImageWidget({Key key, @required this.item, this.isSquare = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final String imageUrl = getUrlImage(item.postImages);
-    return AspectRatio(
-      child: imageUrl != null ? TCacheImageWidget(url: imageUrl) : buildDefaultPetImage(),
-      aspectRatio: 1,
-      // child: ,
-    );
+    final Widget image =
+        imageUrl != null ? TCacheImageWidget(url: imageUrl) : buildDefaultPetImage();
+    return isSquare ? AspectRatio(child: image, aspectRatio: 1) : image;
   }
 
   String getUrlImage(List<PostImage> images) {

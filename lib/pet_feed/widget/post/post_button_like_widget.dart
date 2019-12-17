@@ -1,15 +1,15 @@
 part of petisland.pet_feed.widget.post;
 
-class _PostButtonLikeWidget extends StatefulWidget {
+class PostButtonLikeWidget extends StatefulWidget {
   final Post item;
 
-  const _PostButtonLikeWidget({Key key, @required this.item}) : super(key: key);
+  const PostButtonLikeWidget({Key key, @required this.item}) : super(key: key);
 
   @override
-  __PostButtonLikeWidgetState createState() => __PostButtonLikeWidgetState();
+  _PostButtonLikeWidgetState createState() => _PostButtonLikeWidgetState();
 }
 
-class __PostButtonLikeWidgetState extends State<_PostButtonLikeWidget> {
+class _PostButtonLikeWidgetState extends State<PostButtonLikeWidget> {
   bool isLook = false;
   final TWorker worker = DI.get(TWorker);
 

@@ -3,7 +3,8 @@ part of petisland.common.resources;
 abstract class TColors {
   static const Color white = Colors.white;
   static const Color black = Color.fromARGB(255, 43, 43, 43);
-  static const Color black10 = Color.fromARGB(50, 43, 43, 43);
+  static const Color black20 = Color.fromARGB(50, 43, 43, 43);
+
 
   static const Color green = Colors.green;
   static const Color red = Colors.red;

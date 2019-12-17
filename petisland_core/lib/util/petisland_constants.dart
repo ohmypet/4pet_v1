@@ -11,20 +11,33 @@ abstract class PetIslandConstants {
     'Trending',
     'Popularity',
     'Price higth to low',
-    'Price low to high',
+    'Price low to hight',
     'Pet category',
     'Post',
   ];
+
+  static final Map<CategoryTypeEnum, String> _categoryMap = {
+    CategoryTypeEnum.Trending: 'Thịnh hành nhất hiện nay',
+    CategoryTypeEnum.Popularity: 'Phổ biến nhất',
+    CategoryTypeEnum.PriceLowToHigh: 'Giá từ thấp đến cao',
+    CategoryTypeEnum.PriceHighToLow: 'Giá từ cao tới thấp',
+    CategoryTypeEnum.PetCategory: 'Loại thú cưng được yêu thích nhất'
+  };
 
   static CategoryTypeEnum getCategoryType(String type) {
     type = type.toLowerCase();
     if (type == 'trending') return CategoryTypeEnum.Trending;
     if (type == 'popularity') return CategoryTypeEnum.Popularity;
     if (type == 'price higth to low') return CategoryTypeEnum.PriceHighToLow;
-    if (type == 'price low to high') return CategoryTypeEnum.PriceLowToHigh;
+    if (type == 'price low to hight') return CategoryTypeEnum.PriceLowToHigh;
     if (type == 'pet category') return CategoryTypeEnum.PetCategory;
     if (type == 'post') return CategoryTypeEnum.Post;
     return CategoryTypeEnum.Unknow;
+  }
+
+  static String getCategoryStringFromType(String type) {
+    final CategoryTypeEnum typeEnum = getCategoryType(type);
+    return _categoryMap[typeEnum] ?? '';
   }
 }
 
