@@ -9,7 +9,7 @@ class PostWidget extends PostItemRender<Post> {
       flex: 3,
       child: Container(
         margin: const EdgeInsets.only(left: 5),
-        child: _PostImageWidget(item: item),
+        child: PostImageWidget(item: item),
         alignment: Alignment.centerLeft,
       ),
     );

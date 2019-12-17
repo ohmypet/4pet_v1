@@ -1,10 +1,10 @@
 part of petisland.pet_feed.widget.post;
 
-class _PostImageWidget extends StatelessWidget {
+class PostImageWidget extends StatelessWidget {
   final Post item;
   static final defaultImage = buildDefaultPetImage();
 
-  const _PostImageWidget({Key key, @required this.item}) : super(key: key);
+  const PostImageWidget({Key key, @required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
