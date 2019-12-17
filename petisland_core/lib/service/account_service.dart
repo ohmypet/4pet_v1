@@ -8,31 +8,38 @@ abstract class AccountService {
   Future<LoginData> login(String username, String password);
 
   Future<void> checkToken(String token);
+
+  Future<bool> checkCode(String email, String code);
 }
 
 class AccountServiceImpl extends AccountService {
   @protected
-  final AccountReposity reposity;
+  final AccountRepository repository;
 
-  AccountServiceImpl(this.reposity);
+  AccountServiceImpl(this.repository);
 
   @override
   Future<LoginData> login(String username, String password) {
-    return reposity.login(username, password);
+    return repository.login(username, password);
   }
 
   @override
   Future<Account> register(String email, String code, String username, String password) {
-    return reposity.register(email, code, username, password);
+    return repository.register(email, code, username, password);
   }
 
   @override
   Future<Account> requireCode(String email) {
-    return reposity.requireCode(email);
+    return repository.requireCode(email);
   }
 
   @override
   Future<void> checkToken(String token) {
-    return reposity.checkToken(token);
+    return repository.checkToken(token);
+  }
+
+  @override
+  Future<bool> checkCode(String email, String code) {
+    return repository.checkCode(email, code);
   }
 }
