@@ -10,8 +10,8 @@ abstract class PetIslandConstants {
   static final List<String> categoryTypes = <String>[
     'Trending',
     'Popularity',
-    'Price higth to low',
-    'Price low to hight',
+    'Price high to low',
+    'Price low to high',
     'Pet category',
     'Post',
   ];
@@ -28,8 +28,8 @@ abstract class PetIslandConstants {
     type = type.toLowerCase();
     if (type == 'trending') return CategoryTypeEnum.Trending;
     if (type == 'popularity') return CategoryTypeEnum.Popularity;
-    if (type == 'price higth to low') return CategoryTypeEnum.PriceHighToLow;
-    if (type == 'price low to hight') return CategoryTypeEnum.PriceLowToHigh;
+    if (type == 'price high to low') return CategoryTypeEnum.PriceHighToLow;
+    if (type == 'price low to high') return CategoryTypeEnum.PriceLowToHigh;
     if (type == 'pet category') return CategoryTypeEnum.PetCategory;
     if (type == 'post') return CategoryTypeEnum.Post;
     return CategoryTypeEnum.Unknow;
