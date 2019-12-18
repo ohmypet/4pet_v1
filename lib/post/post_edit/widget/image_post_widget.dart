@@ -6,8 +6,7 @@ class ImagePostWidget extends StatelessWidget {
   final String imageUrl;
   final void Function(int, String) onPressDelete;
 
-  ImagePostWidget(this.imageUrl,
-      {@required this.onPressDelete, this.index, Key key})
+  ImagePostWidget(this.imageUrl, {@required this.onPressDelete, this.index, Key key})
       : super(key: key);
 
   @override
@@ -41,16 +40,18 @@ class ImagePostWidget extends StatelessWidget {
               right: 5,
               child: GestureDetector(
                 child: Container(
+                  padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: TColors.white),
+                    shape: BoxShape.circle,
+                    color: TColors.white.withAlpha(220),
+                  ),
                   child: Icon(
                     Icons.close,
-                    size: 20,
+                    size: 16,
+                    color: TColors.water_melon,
                   ),
                 ),
-                onTap: onPressDelete != null
-                    ? () => onPressDelete(index, imageUrl)
-                    : null,
+                onTap: _onTapImage,
               ),
             ),
           ],
@@ -60,8 +61,7 @@ class ImagePostWidget extends StatelessWidget {
   }
 
   bool isImageUrlFormat(String url) {
-    return url.contains(RegExp('^https?://')) ||
-        url.contains(RegExp('^http?://'));
+    return url.contains(RegExp('^https?://')) || url.contains(RegExp('^http?://'));
   }
 
   Widget imageDefaultWidget() {
@@ -70,5 +70,9 @@ class ImagePostWidget extends StatelessWidget {
       width: 100,
       color: TColors.duck_egg_blue,
     );
+  }
+
+  void _onTapImage() {
+    if (onPressDelete != null) onPressDelete(index, imageUrl);
   }
 }
