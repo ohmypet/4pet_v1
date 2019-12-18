@@ -48,9 +48,12 @@ class _LoginDetailWidgetState extends TState<LoginDetailWidget> {
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: Text(
-                TConstants.text_register,
-                style: theme.textTheme.body1.copyWith(color: theme.accentColor),
+              child: GestureDetector(
+                onTap: () => navigateToScreen(context: context,screen: RegisterEmailScreen()),
+                child: Text(
+                  TConstants.text_register,
+                  style: theme.textTheme.body1.copyWith(color: theme.accentColor),
+                ),
               ),
             )
           ],
