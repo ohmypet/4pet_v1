@@ -1,4 +1,4 @@
-part of petisland.pet_feed.widget.trending_panel;
+part of petisland.pet_feed.widget.post_panel;
 
 class PostPanelDetailWidget extends PanelRender<Panel> {
   PostPanelDetailWidget(Panel panel, {Key key}) : super(panel, key: key);
@@ -44,7 +44,7 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
         );
         break;
       case PetCategory:
-        child = SizedBox();
+        child = PetCategoryWidget(item.postItem);
         break;
       default:
         Log.warn('TrendingPanelWidget::build dont support ${item.postItem.runtimeType}');

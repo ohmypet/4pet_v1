@@ -11,8 +11,7 @@ import 'package:flutter_template/main_bloc/main_bloc.dart';
 import 'package:flutter_template/pet_feed/widget/widget.dart';
 import 'package:flutter_template/post/post_edit/screen/screen.dart';
 import 'package:petisland_core/domain/domain.dart';
-import 'package:petisland_core/util/log.dart';
-import 'package:petisland_core/util/time.dart';
+import 'package:petisland_core/utils/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 part 'post_widget.dart';

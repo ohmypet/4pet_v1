@@ -6,4 +6,4 @@ export 'domain/domain.dart';
 export 'exception/exception.dart';
 export 'module/module.dart';
 export 'service/service.dart';
-export 'util/log.dart';
+export 'utils/utils.dart';

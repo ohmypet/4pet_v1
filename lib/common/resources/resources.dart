@@ -1,7 +1,7 @@
 library petisland.common.resources;
 
 import 'package:flutter/material.dart';
-import 'package:petisland_core/util/log.dart';
+import 'package:petisland_core/utils/utils.dart';
 
 part 'font_families.dart';
 part 't_constant.dart';

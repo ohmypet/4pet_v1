@@ -1,6 +1,4 @@
-library petisland_core.constant;
-
-import 'package:flutter/foundation.dart';
+part of petisland_core.utils;
 
 abstract class PetIslandConstants {
   static const String key_token = 'token';
@@ -42,15 +40,7 @@ abstract class PetIslandConstants {
 }
 
 /// **Warning**: must update [PetIslandConstants.categoryTypes] same time
-enum CategoryTypeEnum {
-  Trending,
-  Popularity,
-  PriceHighToLow,
-  PriceLowToHigh,
-  PetCategory,
-  Post,
-  Unknow
-}
+enum CategoryTypeEnum { Trending, Popularity, PriceHighToLow, PriceLowToHigh, PetCategory, Post, Unknow }
 
 enum Role { Free, Premium }
 

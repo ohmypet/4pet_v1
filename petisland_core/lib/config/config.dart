@@ -2,8 +2,7 @@
 library petisland_core.config;
 
 import 'package:firebase_remote_config/firebase_remote_config.dart' as frc;
-
-import '../util/log.dart';
+import 'package:petisland_core/utils/utils.dart';
 
 part 'firebase_config.dart';
 

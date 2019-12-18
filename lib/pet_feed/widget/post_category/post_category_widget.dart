@@ -1,4 +1,4 @@
-part of petisland.pet_feed.widget;
+part of petisland.pet_feed.widget.post_category.dart;
 
 class PetCategoryWidget extends PostItemRender<PetCategory> {
   PetCategoryWidget(PetCategory item) : super(item);
@@ -8,7 +8,7 @@ class PetCategoryWidget extends PostItemRender<PetCategory> {
     return Container(
       height: 50,
       width: 15,
-      color: TColors.green,
+      color: TColors.water_melon,
     );
   }
 }

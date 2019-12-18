@@ -1,4 +1,4 @@
-part of petisland.pet_feed.widget.trending_panel;
+part of petisland.pet_feed.widget.post_panel;
 
 class _PostTrendingWidget extends StatelessWidget {
   final Post item;
