@@ -4,8 +4,8 @@ class _TrendingDescriptionBar extends StatelessWidget {
   final Panel panel;
   final VoidCallback onTap;
 
-  const _TrendingDescriptionBar({Key key, @required this.panel, this.onTap})
-      : super(key: key);
+  const _TrendingDescriptionBar({Key key, @required this.panel, this.onTap}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final String title = PetIslandConstants.getCategoryStringFromType(panel.type);

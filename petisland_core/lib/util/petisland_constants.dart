@@ -67,3 +67,11 @@ String enumToString(Object object) {
 
   return describeEnum(object);
 }
+
+bool compareString(String a, String b) {
+  if (a == null || b == null) return false;
+
+  a = a.toLowerCase();
+  b = b.toLowerCase();
+  return a == b;
+}

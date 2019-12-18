@@ -81,8 +81,10 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
   void _onLoading() {
     controller.retrievePosts();
   }
-}
 
-Widget renderPanel(Panel item) {
-  return TrendingPanelWidget(item);
+  Widget renderPanel(Panel item) {
+    Log.info('renderPanel ${item.items.length}');
+
+    return PostPanelDetailWidget(item);
+  }
 }

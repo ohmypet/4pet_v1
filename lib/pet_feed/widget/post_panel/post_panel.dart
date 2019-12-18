@@ -9,7 +9,7 @@ import 'package:petisland_core/domain/domain.dart';
 import 'package:petisland_core/util/log.dart';
 import 'package:petisland_core/util/petisland_constants.dart';
 
-part 'trending_panel_widget.dart';
-part 'post_trending_widget.dart';
+part 'post_panel_widget.dart';
+part 'post_panel_detail_widget.dart';
 part 'trending_description_bar_widget.dart';
-part 'post_description_widget.dart';
+part 'post_panel_description_widget.dart';

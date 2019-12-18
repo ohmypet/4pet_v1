@@ -1,7 +1,7 @@
 part of petisland.pet_feed.widget.trending_panel;
 
-class TrendingPanelWidget extends PanelRender<Panel> {
-  TrendingPanelWidget(Panel panel, {Key key}) : super(panel, key: key);
+class PostPanelDetailWidget extends PanelRender<Panel> {
+  PostPanelDetailWidget(Panel panel, {Key key}) : super(panel, key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,19 +33,28 @@ class TrendingPanelWidget extends PanelRender<Panel> {
   }
 
   Widget _buildItem(BuildContext context, int index) {
+    Log.info('_buildItem');
+    Widget child;
     final PanelDetail item = panel.items[index];
-    if (item.postItem is Post) {
-      return AspectRatio(
-        aspectRatio: 3 / 4,
-        child: _PostTrendingWidget(
+    switch (item.postItem.runtimeType) {
+      case Post:
+        child = _PostTrendingWidget(
           item.postItem,
           onTap: () => _onTap(context, item.postItem),
-        ),
-      );
-    } else {
-      Log.warn('TrendingPanelWidget::build dont support ${item.postItem.runtimeType}');
-      return SizedBox();
+        );
+        break;
+      case PetCategory:
+        child = SizedBox();
+        break;
+      default:
+        Log.warn('TrendingPanelWidget::build dont support ${item.postItem.runtimeType}');
+        child = SizedBox();
     }
+
+    return AspectRatio(
+      aspectRatio: 3 / 4,
+      child: child,
+    );
   }
 
   void _onTap(BuildContext context, Post item) {
@@ -58,6 +67,5 @@ class TrendingPanelWidget extends PanelRender<Panel> {
 
   void _onTapSeeMore(BuildContext context) {
     // TODO(tvc12): navigate to search
-
   }
 }

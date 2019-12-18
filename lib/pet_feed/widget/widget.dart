@@ -5,13 +5,14 @@ import 'package:flutter_template/common/common.dart';
 import 'package:flutter_template/common/state/state.dart';
 import 'package:flutter_template/pet_feed/bloc/bloc.dart';
 import 'package:flutter_template/pet_feed/widget/post/post.dart';
-import 'package:flutter_template/pet_feed/widget/trending_panel/trending_panel.dart';
+import 'package:flutter_template/pet_feed/widget/post_panel/post_panel.dart';
 import 'package:petisland_core/domain/domain.dart';
+import 'package:petisland_core/util/log.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 export 'post/post.dart';
 
-export 'trending_panel/trending_panel.dart';
+export 'post_panel/post_panel.dart';
 
 part 'panel_render.dart';
 

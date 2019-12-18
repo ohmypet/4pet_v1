@@ -3,6 +3,7 @@ part of petisland_core.domain;
 class PetCategory extends BaseModel implements PostItem {
   String name;
   String description;
+  PetImage image;
 
   PetCategory({
     String id,
@@ -16,5 +17,6 @@ class PetCategory extends BaseModel implements PostItem {
   PetCategory.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     name = json['name'];
     description = json['description'];
+    image = json['image'] != null ? PetImage.fromJson(json['image']) : null;
   }
 }

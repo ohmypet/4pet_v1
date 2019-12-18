@@ -2,10 +2,7 @@ part of petisland.pet_feed.widget;
 
 abstract class PanelRender<T extends Panel> extends TStatelessWidget {
   final T panel;
-  static Map<Type, dynamic> renders = <Type, dynamic>{
-    Post: renderPost,
-    PetCategory: renderPetCategory
-  };
+  static Map<Type, dynamic> renders = <Type, dynamic>{Post: renderPost, PetCategory: renderPetCategory};
 
   const PanelRender(this.panel, {Key key}) : super(key: key);
 }

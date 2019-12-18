@@ -1,9 +1,10 @@
 part of petisland.pet_feed.widget.trending_panel;
 
-class _PostDescriptionWdiget extends StatelessWidget {
+class _PostPanelDescriptionWidget extends StatelessWidget {
   final Post item;
 
-  const _PostDescriptionWdiget({Key key, @required this.item}) : super(key: key);
+  const _PostPanelDescriptionWidget({Key key, @required this.item}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
