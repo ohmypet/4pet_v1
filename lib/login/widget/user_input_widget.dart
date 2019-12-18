@@ -8,6 +8,7 @@ class UserInputWidget extends TStatelessWidget {
   final TextInputType keyboardType;
   final FocusNode focusNode;
   final VoidCallback onSubmit;
+  final int maxLines;
   final void Function(String) onChange;
 
   UserInputWidget(
@@ -17,6 +18,7 @@ class UserInputWidget extends TStatelessWidget {
     this.isObscureText = false,
     this.icon,
     this.keyboardType,
+    this.maxLines = 1,
     this.focusNode,
     this.onSubmit,
     this.onChange,
@@ -31,7 +33,7 @@ class UserInputWidget extends TStatelessWidget {
         controller: controller,
         focusNode: focusNode,
         style: themeData.textTheme.body1,
-        maxLines: 1,
+        maxLines: maxLines,
         keyboardType: keyboardType,
         autocorrect: false,
         cursorColor: themeData.primaryColor,
@@ -41,7 +43,8 @@ class UserInputWidget extends TStatelessWidget {
         onSubmitted: onSubmit != null ? (_) => onSubmit() : null,
         onChanged: onChange != null ? (_) => onChange(_) : null,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
           hintText: hintText,
           prefixIcon: icon,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
