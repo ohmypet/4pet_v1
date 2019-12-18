@@ -42,22 +42,22 @@ class DevModuleCore extends AbstractModule {
   }
 
   Future<BaseCacheManager> _buildCacheImage() async {
-    final Duration conectTimeout = Duration(seconds: 15);
+    final Duration connectTimeout = Duration(seconds: 25);
     try {
       final Directory directory = await getTemporaryDirectory();
       final FileFetcher httpFileFetcher = (String url, {Map<String, String> headers}) {
         return http
             .get(url)
-            .timeout(conectTimeout)
-            .then((http.Response reponse) => HttpFileFetcherResponse(reponse))
+            .timeout(connectTimeout)
+            .then((http.Response response) => HttpFileFetcherResponse(response))
             .catchError((dynamic ex) => _handleErrorCacheImage(ex, url));
       };
 
       return TCacheService(
         _KeysCached.image_cache,
         directory,
-        maxAgeCacheObject: Duration(days: 60),
-        maxNrOfCacheObjects: 500,
+        maxAgeCacheObject: const Duration(days: 90),
+        maxNrOfCacheObjects: 1000,
         fileFetcher: httpFileFetcher,
       );
     } catch (ex) {

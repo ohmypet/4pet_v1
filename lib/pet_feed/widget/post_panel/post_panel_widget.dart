@@ -1,7 +1,7 @@
-part of petisland.pet_feed.widget.trending_panel;
+part of petisland.pet_feed.widget.post_panel;
 
-class TrendingPanelWidget extends PanelRender<Panel> {
-  TrendingPanelWidget(Panel panel, {Key key}) : super(panel, key: key);
+class PostPanelDetailWidget extends PanelRender<Panel> {
+  PostPanelDetailWidget(Panel panel, {Key key}) : super(panel, key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class TrendingPanelWidget extends PanelRender<Panel> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Flexible(
-          child: _TrendingDescriptionBar(
+          child: _PanelDescriptionBar(
             panel: panel,
             onTap: () => _onTapSeeMore(context),
           ),
@@ -33,22 +33,34 @@ class TrendingPanelWidget extends PanelRender<Panel> {
   }
 
   Widget _buildItem(BuildContext context, int index) {
+    Log.info('_buildItem');
+    Widget child;
     final PanelDetail item = panel.items[index];
-    if (item.postItem is Post) {
-      return AspectRatio(
-        aspectRatio: 3 / 4,
-        child: _PostTrendingWidget(
+    switch (item.postItem.runtimeType) {
+      case Post:
+        child = _PostTrendingWidget(
           item.postItem,
-          onTap: () => _onTap(context, item.postItem),
-        ),
-      );
-    } else {
-      Log.warn('TrendingPanelWidget::build dont support ${item.postItem.runtimeType}');
-      return SizedBox();
+          onTap: () => _onTapPostItem(context, item.postItem),
+        );
+        break;
+      case PetCategory:
+        child = PetCategoryWidget(
+          item.postItem,
+          onTap: () => _onTapPetCategory(context, item),
+        );
+        break;
+      default:
+        Log.warn('TrendingPanelWidget::build dont support ${item.postItem.runtimeType}');
+        child = SizedBox();
     }
+
+    return AspectRatio(
+      aspectRatio: 3 / 4,
+      child: child,
+    );
   }
 
-  void _onTap(BuildContext context, Post item) {
+  void _onTapPostItem(BuildContext context, Post item) {
     // TODO(tvc12): navigate to post detail
     navigateToScreen(
       context: context,
@@ -58,6 +70,10 @@ class TrendingPanelWidget extends PanelRender<Panel> {
 
   void _onTapSeeMore(BuildContext context) {
     // TODO(tvc12): navigate to search
+  }
 
+  void _onTapPetCategory(BuildContext context, PanelDetail item) {
+    Log.info('_onTapPetCategory:: $item');
+    // TODO(tvc12): navigate to search
   }
 }

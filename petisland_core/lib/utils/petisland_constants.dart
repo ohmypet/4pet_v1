@@ -1,6 +1,4 @@
-library petisland_core.constant;
-
-import 'package:flutter/foundation.dart';
+part of petisland_core.utils;
 
 abstract class PetIslandConstants {
   static const String key_token = 'token';
@@ -14,6 +12,15 @@ abstract class PetIslandConstants {
     'Price low to high',
     'Pet category',
     'Post',
+  ];
+
+  static final List<MapEntry<String, PetType>> _petCategories = [
+    MapEntry('meo', PetType.Cat),
+    MapEntry('cho', PetType.Dog),
+    MapEntry('chim', PetType.Bird),
+    MapEntry('ca', PetType.Fish),
+    MapEntry('chuot', PetType.Hamster),
+    MapEntry('ran', PetType.Snake),
   ];
 
   static final Map<CategoryTypeEnum, String> _categoryMap = {
@@ -35,6 +42,17 @@ abstract class PetIslandConstants {
     return CategoryTypeEnum.Unknow;
   }
 
+  static PetType getPetType(String type) {
+    final String petCategory = StringUtils.normalizePetCategory(type);
+    if (petCategory is String) {
+      final item = PetIslandConstants._petCategories
+          .firstWhere((item) => petCategory.contains(item.key), orElse: () => null);
+      return item != null ? item.value : PetType.Other;
+    } else {
+      return PetType.Other;
+    }
+  }
+
   static String getCategoryStringFromType(String type) {
     final CategoryTypeEnum typeEnum = getCategoryType(type);
     return _categoryMap[typeEnum] ?? '';
@@ -42,15 +60,7 @@ abstract class PetIslandConstants {
 }
 
 /// **Warning**: must update [PetIslandConstants.categoryTypes] same time
-enum CategoryTypeEnum {
-  Trending,
-  Popularity,
-  PriceHighToLow,
-  PriceLowToHigh,
-  PetCategory,
-  Post,
-  Unknow
-}
+enum CategoryTypeEnum { Trending, Popularity, PriceHighToLow, PriceLowToHigh, PetCategory, Post, Unknow }
 
 enum Role { Free, Premium }
 
@@ -66,4 +76,12 @@ String enumToString(Object object) {
   if (object is CategoryTypeEnum) return PetIslandConstants.categoryTypes[object.index];
 
   return describeEnum(object);
+}
+
+bool compareString(String a, String b) {
+  if (a == null || b == null) return false;
+
+  a = a.toLowerCase();
+  b = b.toLowerCase();
+  return a == b;
 }

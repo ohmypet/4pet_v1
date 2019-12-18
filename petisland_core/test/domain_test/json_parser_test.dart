@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:petisland_core/domain/domain.dart';
-import 'package:petisland_core/util/log.dart';
+import 'package:petisland_core/utils/utils.dart';
 
 void main() {
   group('Post test', () {

@@ -2,7 +2,7 @@ library petisland.main_bloc;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_template/petisland.dart';
-import 'package:petisland_core/util/petisland_constants.dart';
+import 'package:petisland_core/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'bloc_delegate.dart';

@@ -1,9 +1,10 @@
-part of petisland.pet_feed.widget.trending_panel;
+part of petisland.pet_feed.widget.post_panel;
 
-class _PostDescriptionWdiget extends StatelessWidget {
+class _PostPanelDescriptionWidget extends StatelessWidget {
   final Post item;
 
-  const _PostDescriptionWdiget({Key key, @required this.item}) : super(key: key);
+  const _PostPanelDescriptionWidget({Key key, @required this.item}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -12,15 +13,7 @@ class _PostDescriptionWdiget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
-        gradient: LinearGradient(
-          colors: [
-            TColors.black.withOpacity(0.10),
-            TColors.black.withOpacity(0.2),
-          ],
-          stops: [0.5, 0.75],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
+        gradient: TGradients.defaultGradient,
       ),
       child: Align(
         alignment: Alignment.bottomLeft,

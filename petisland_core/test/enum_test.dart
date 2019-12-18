@@ -1,5 +1,4 @@
-import 'package:petisland_core/util/log.dart';
-import 'package:petisland_core/util/petisland_constants.dart';
+import 'package:petisland_core/utils/utils.dart';
 import 'package:test/test.dart';
 
 void main() {

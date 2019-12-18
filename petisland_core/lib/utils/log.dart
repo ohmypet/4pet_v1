@@ -1,7 +1,5 @@
 //ignore_for_file: avoid_print
-library petisland_core.log;
-
-import 'package:ansicolor/ansicolor.dart';
+part of petisland_core.utils;
 
 abstract class Log {
   static final _debugCode = chooseLogColor(LogLevel.DEBUG);

@@ -1,8 +1,9 @@
-part of petisland.pet_feed.widget.trending_panel;
+part of petisland.pet_feed.widget.post_panel;
 
 class _PostTrendingWidget extends StatelessWidget {
   final Post item;
   final VoidCallback onTap;
+
   _PostTrendingWidget(this.item, {Key key, this.onTap}) : super(key: key);
 
   @override
@@ -12,7 +13,7 @@ class _PostTrendingWidget extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           PostImageWidget(item: item, isSquare: false),
-          _PostDescriptionWdiget(item: item)
+          _PostPanelDescriptionWidget(item: item)
         ],
       ),
     );

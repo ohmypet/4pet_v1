@@ -1,26 +1,40 @@
 library petisland_core.domain;
 
-import 'package:meta/meta.dart';
-import 'package:petisland_core/util/log.dart';
 import 'package:flutter/foundation.dart';
-import 'package:petisland_core/util/petisland_constants.dart';
+import 'package:meta/meta.dart';
+import 'package:petisland_core/utils/utils.dart';
 
 part 'account.dart';
+
 part 'base_model.dart';
+
 part 'comment.dart';
+
 part 'image.dart';
+
 part 'login_data.dart';
-part 'pet.dart';
-part 'post.dart';
-part 'review.dart';
-part 'tag.dart';
-part 'user.dart';
-part 'post_modal.dart';
-part 'pet_category.dart';
-part 'post_image.dart';
-part 'post_tag.dart';
+
 part 'panel.dart';
+
 part 'panel_detail.dart';
+
+part 'pet.dart';
+
+part 'pet_category.dart';
+
+part 'post.dart';
+
+part 'post_image.dart';
+
+part 'post_modal.dart';
+
+part 'post_tag.dart';
+
+part 'review.dart';
+
+part 'tag.dart';
+
+part 'user.dart';
 
 void _addValueToMap(String key, dynamic value, Map<String, dynamic> map) {
   if (value != null) map[key] = value;

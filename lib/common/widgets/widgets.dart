@@ -4,7 +4,7 @@ import 'package:ddi/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/resources/resources.dart';
 import 'package:petisland_core/module/module.dart';
-import 'package:petisland_core/util/log.dart';
+import 'package:petisland_core/utils/utils.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
