@@ -14,31 +14,19 @@ import 'package:flutter_template/post/post_edit/bloc/bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petisland_core/petisland_core.dart';
 
-part 'send_widget.dart';
-
-part 'post_edit_body.dart';
-
-part 'summary_info_widget.dart';
-
-part 'title_post_input.dart';
-
-part 'price_post_input.dart';
-
-part 'desc_post_input.dart';
-
-part 'image_post_input.dart';
-
-part 'expand_widget.dart';
-
-part 'location_post_input.dart';
-
-part 'pet_category_input.dart';
-
-part 'image_choose_popup.dart';
-
-part 'image_post_widget.dart';
-
 part 'add_image_post_widget.dart';
+part 'desc_post_input.dart';
+part 'expand_widget.dart';
+part 'image_choose_popup.dart';
+part 'image_post_input.dart';
+part 'image_post_widget.dart';
+part 'location_post_input.dart';
+part 'pet_category_input.dart';
+part 'post_edit_body.dart';
+part 'price_post_input.dart';
+part 'send_widget.dart';
+part 'summary_info_widget.dart';
+part 'title_post_input.dart';
 
 TextStyle _getTitleTextStyle(BuildContext context) {
   final theme = Theme.of(context);
@@ -53,8 +41,8 @@ class _TitleWidget extends StatelessWidget {
   final String title;
   final bool isRequired;
 
-  const _TitleWidget({Key key, @required this.title, this.isRequired = false})
-      : super(key: key);
+  const _TitleWidget({Key key, @required this.title, this.isRequired = false}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return RichText(

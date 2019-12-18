@@ -4,6 +4,7 @@ class _PostUserInfoWidget extends StatelessWidget {
   final User user;
 
   const _PostUserInfoWidget({Key key, this.user}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     if (user != null) {

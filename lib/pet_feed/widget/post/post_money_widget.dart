@@ -4,6 +4,7 @@ class PostMoneyWidget extends StatelessWidget {
   final double price;
 
   const PostMoneyWidget({Key key, this.price}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);

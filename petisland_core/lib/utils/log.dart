@@ -1,11 +1,10 @@
 //ignore_for_file: avoid_print
-library petisland_core.log;
-
-import 'package:ansicolor/ansicolor.dart';
+part of petisland_core.utils;
 
 abstract class Log {
   static final _debugCode = chooseLogColor(LogLevel.DEBUG);
   static final _infoCode = chooseLogColor(LogLevel.INFO);
+  static final _warnCode = chooseLogColor(LogLevel.WARN);
   static final _errorCode = chooseLogColor(LogLevel.ERROR);
 
   static void debug(dynamic data) {
@@ -14,6 +13,10 @@ abstract class Log {
 
   static void info(dynamic data) {
     _print(_infoCode, 'log_info:: $data');
+  }
+
+  static void warn(dynamic data) {
+    _print(_warnCode, 'log_warn:: $data');
   }
 
   static void error(dynamic data) {
@@ -42,6 +45,8 @@ AnsiPen chooseLogColor(LogLevel level) {
       return AnsiPen()..green();
     case LogLevel.INFO:
       return AnsiPen()..blue();
+    case LogLevel.WARN:
+      return AnsiPen()..yellow();
     case LogLevel.ERROR:
       return AnsiPen()..red();
     default:

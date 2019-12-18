@@ -5,7 +5,8 @@ abstract class PostRepository {
 
   Future<Post> like(String id);
 
-  Future<List<Item>> getPosts(int offset, int limit, String categoryType, String petCategoryId);
+  Future<List<Item>> getPosts(
+      int offset, int limit, String categoryType, String petCategoryId);
 }
 
 class PostRepositoryImpl extends PostRepository {
@@ -28,7 +29,8 @@ class PostRepositoryImpl extends PostRepository {
   }
 
   @override
-  Future<List<Item>> getPosts(int offset, int limit, String categoryType, String petCategoryId) {
+  Future<List<Item>> getPosts(
+      int offset, int limit, String categoryType, String petCategoryId) {
     final Map<String, dynamic> params = <String, dynamic>{
       'offset': offset,
       'limit': limit,
@@ -55,7 +57,7 @@ class PostRepositoryImpl extends PostRepository {
     if (type == null)
       item = null;
     else {
-      if (type == 'Post')
+      if (compareString(type, 'post'))
         item = PanelDetail.fromJson(json);
       else
         item = Panel.fromJson(json);

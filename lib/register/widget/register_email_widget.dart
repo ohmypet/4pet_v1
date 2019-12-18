@@ -40,7 +40,7 @@ class _LoginDetailWidgetState extends TState<RegisterEmailWidget> {
   }
 
   void _onEmailSubmitted() {
-    registerBloc.onEvent(SubmitEmail(emailController.text));
+    registerBloc.submitEmail(emailController.text ?? "");
   }
 
   bool isValid(String text) => text.length > 4;

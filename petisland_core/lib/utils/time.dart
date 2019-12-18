@@ -1,6 +1,4 @@
-library petisland_core.time;
-
-import 'package:timeago/timeago.dart' as timeAgo;
+part of petisland_core.utils;
 
 class TViShortMessage extends timeAgo.ViMessages {
   // String suffixAgo() => 'trước';

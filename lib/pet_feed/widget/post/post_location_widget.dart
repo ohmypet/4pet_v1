@@ -4,6 +4,7 @@ class PostLocationWidget extends StatelessWidget {
   final String location;
 
   const PostLocationWidget({Key key, this.location}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);

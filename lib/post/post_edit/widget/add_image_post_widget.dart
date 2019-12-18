@@ -2,6 +2,7 @@ part of petisland.post.post_edit.widget;
 
 class AddImagePostWidget extends StatelessWidget {
   final void Function() onPress;
+
   const AddImagePostWidget({@required this.onPress, Key key}) : super(key: key);
 
   @override

@@ -31,6 +31,10 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
   @override
   RegisterState get initialState => NotLoaded();
 
+  void submitEmail(String email) {
+    this.add(SubmitEmail(email));
+  }
+
   void _handleEmailSubmit(SubmitEmail event) {
     FutureOr<void> _handleRequireCodeSuccess(Account value) {
       add(EmailSuccess());

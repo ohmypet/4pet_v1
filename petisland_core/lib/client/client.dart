@@ -6,8 +6,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-
-import '../exception/exception.dart';
-import '../util/log.dart';
+import 'package:petisland_core/exception/exception.dart';
+import 'package:petisland_core/utils/utils.dart';
 
 part 'http_client.dart';

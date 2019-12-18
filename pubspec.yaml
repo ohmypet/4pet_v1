@@ -57,7 +57,9 @@ flutter:
   assets:
     - assets/audios/
     - assets/fonts/
+    - assets/fonts/sarabun/
     - assets/icons/
+    - assets/icons/pet_type/
     - assets/images/
     - assets/videos/
     - assets/flare/

@@ -15,7 +15,7 @@ class PetImage extends BaseModel {
 
   PetImage.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     url = json['url'];
-    publicId = json['public_id'];
+    publicId = json['publicId'];
   }
 
   @override

@@ -14,6 +14,7 @@ dependencies:
   flutter_cache_manager: ^1.1.1
   timeago: ^2.0.22
   ansicolor: ^1.0.2
+  tiengviet: ^0.3.0
 
   ddi:
     path: ../packages/di

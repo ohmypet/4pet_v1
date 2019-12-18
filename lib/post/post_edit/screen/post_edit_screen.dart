@@ -8,8 +8,7 @@ class PostEditScreen extends TStatelessWidget {
 
   PostEditScreen.create({@required this.onSendTap}) : _postEditBloc = PostEditBloc();
 
-  PostEditScreen.edit(Post post, {@required this.onSendTap})
-      : _postEditBloc = PostEditBloc.fromPost(post);
+  PostEditScreen.edit(Post post, {@required this.onSendTap}) : _postEditBloc = PostEditBloc.fromPost(post);
 
   @override
   Widget build(BuildContext context) {

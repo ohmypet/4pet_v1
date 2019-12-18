@@ -5,6 +5,7 @@ class LoginDetailWidget extends TStatefulWidget {
   final void Function(String user, String pass) onLoginTapped;
 
   LoginDetailWidget(this.bloc, this.onLoginTapped, {Key key}) : super(key: key);
+
   @override
   _LoginDetailWidgetState createState() => _LoginDetailWidgetState();
 }

@@ -2,6 +2,7 @@ part of petisland.post.post_edit.widget;
 
 class PricePostInput extends StatefulWidget {
   final PostEditBloc bloc;
+
   PricePostInput(this.bloc);
 
   @override
@@ -10,6 +11,7 @@ class PricePostInput extends StatefulWidget {
 
 class _PricePostInputState extends State<PricePostInput> {
   final TextEditingController textController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -37,9 +39,7 @@ class _PricePostInputState extends State<PricePostInput> {
               hintText: 'Nhập giá tiền...',
               keyboardType: TextInputType.number,
               onChange: (String text) {
-                if (text.trim() == null ||
-                    text.trim().isEmpty ||
-                    double.parse(text.trim()) <= 0) {
+                if (text.trim() == null || text.trim().isEmpty || double.parse(text.trim()) <= 0) {
                   widget.bloc.priceChange(-1);
                 } else {
                   widget.bloc.priceChange(double.parse(text.trim()));

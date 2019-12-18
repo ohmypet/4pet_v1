@@ -17,6 +17,6 @@ class SubmitEmail extends RegisterEvent {
 
 class EmailSuccess extends RegisterEvent {}
 
-class EmailError extends RegisterErrorEvent {
+class EmailError extends RegisterErrorEvent implements RegisterEvent{
   EmailError(String message) : super(message);
 }
