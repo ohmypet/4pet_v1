@@ -13,15 +13,7 @@ class _PostPanelDescriptionWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
-        gradient: LinearGradient(
-          colors: [
-            TColors.black.withOpacity(0.10),
-            TColors.black.withOpacity(0.2),
-          ],
-          stops: [0.5, 0.75],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
+        gradient: TGradients.defaultGradient,
       ),
       child: Align(
         alignment: Alignment.bottomLeft,

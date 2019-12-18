@@ -10,7 +10,7 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Flexible(
-          child: _TrendingDescriptionBar(
+          child: _PanelDescriptionBar(
             panel: panel,
             onTap: () => _onTapSeeMore(context),
           ),
@@ -40,11 +40,14 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
       case Post:
         child = _PostTrendingWidget(
           item.postItem,
-          onTap: () => _onTap(context, item.postItem),
+          onTap: () => _onTapPostItem(context, item.postItem),
         );
         break;
       case PetCategory:
-        child = PetCategoryWidget(item.postItem);
+        child = PetCategoryWidget(
+          item.postItem,
+          onTap: () => _onTapPetCategory(context, item),
+        );
         break;
       default:
         Log.warn('TrendingPanelWidget::build dont support ${item.postItem.runtimeType}');
@@ -57,7 +60,7 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
     );
   }
 
-  void _onTap(BuildContext context, Post item) {
+  void _onTapPostItem(BuildContext context, Post item) {
     // TODO(tvc12): navigate to post detail
     navigateToScreen(
       context: context,
@@ -66,6 +69,11 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
   }
 
   void _onTapSeeMore(BuildContext context) {
+    // TODO(tvc12): navigate to search
+  }
+
+  void _onTapPetCategory(BuildContext context, PanelDetail item) {
+    Log.info('_onTapPetCategory:: $item');
     // TODO(tvc12): navigate to search
   }
 }

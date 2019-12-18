@@ -1,10 +1,10 @@
 part of petisland.pet_feed.widget.post_panel;
 
-class _TrendingDescriptionBar extends StatelessWidget {
+class _PanelDescriptionBar extends StatelessWidget {
   final Panel panel;
   final VoidCallback onTap;
 
-  const _TrendingDescriptionBar({Key key, @required this.panel, this.onTap}) : super(key: key);
+  const _PanelDescriptionBar({Key key, @required this.panel, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

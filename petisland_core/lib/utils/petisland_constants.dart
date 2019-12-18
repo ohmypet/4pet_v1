@@ -17,7 +17,7 @@ abstract class PetIslandConstants {
   static final List<MapEntry<String, PetType>> _petCategories = [
     MapEntry('meo', PetType.Cat),
     MapEntry('cho', PetType.Dog),
-    MapEntry('chim', PetType.Cat),
+    MapEntry('chim', PetType.Bird),
     MapEntry('ca', PetType.Fish),
     MapEntry('chuot', PetType.Hamster),
     MapEntry('ran', PetType.Snake),
@@ -44,9 +44,13 @@ abstract class PetIslandConstants {
 
   static PetType getPetType(String type) {
     final String petCategory = StringUtils.normalizePetCategory(type);
-    final item = PetIslandConstants._petCategories
-        .firstWhere((item) => item.key.contains(petCategory), orElse: () => null);
-    return item != null ? item.value : PetType.Other;
+    if (petCategory is String) {
+      final item = PetIslandConstants._petCategories
+          .firstWhere((item) => petCategory.contains(item.key), orElse: () => null);
+      return item != null ? item.value : PetType.Other;
+    } else {
+      return PetType.Other;
+    }
   }
 
   static String getCategoryStringFromType(String type) {

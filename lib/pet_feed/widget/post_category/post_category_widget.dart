@@ -1,14 +1,24 @@
 part of petisland.pet_feed.widget.post_category.dart;
 
 class PetCategoryWidget extends PostItemRender<PetCategory> {
-  PetCategoryWidget(PetCategory item) : super(item);
+  final VoidCallback onTap;
+
+  PetCategoryWidget(PetCategory item, {Key key, this.onTap}) : super(item, key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: 15,
-      color: TColors.water_melon,
+    return GestureDetector(
+      onTap: _onTap,
+      child: Stack(
+        children: <Widget>[
+          _CategoryImageWidget(item: item),
+          _CategoryDescriptionWidget(item: item),
+        ],
+      ),
     );
+  }
+
+  void _onTap() {
+    if (onTap != null) onTap();
   }
 }
