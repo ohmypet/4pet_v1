@@ -5,20 +5,17 @@ class PostImageWidget extends StatelessWidget {
   final bool isSquare;
   static final defaultImage = buildDefaultPetImage();
 
-  const PostImageWidget({Key key, @required this.item, this.isSquare = true})
-      : super(key: key);
+  const PostImageWidget({Key key, @required this.item, this.isSquare = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final String imageUrl = getUrlImage(item.postImages);
-    final Widget image =
-        imageUrl != null ? TCacheImageWidget(url: imageUrl) : buildDefaultPetImage();
+    final Widget image = imageUrl != null ? TCacheImageWidget(url: imageUrl) : buildDefaultPetImage();
     return isSquare ? AspectRatio(child: image, aspectRatio: 1) : image;
   }
 
   String getUrlImage(List<PostImage> images) {
-    final PostImage image =
-        images.firstWhere((image) => image.image.url != null, orElse: () => null);
+    final PostImage image = images.firstWhere((image) => image.image.url != null, orElse: () => null);
     return image?.image?.url;
   }
 }

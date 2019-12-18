@@ -16,7 +16,5 @@ export 'post_category/post_category.dart';
 export 'post_panel/post_panel.dart';
 
 part 'panel_render.dart';
-
 part 'pet_feed_detail_widget.dart';
-
 part 'post_item_render.dart';

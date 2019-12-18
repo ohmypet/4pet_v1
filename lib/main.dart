@@ -22,9 +22,8 @@ void main() {
 void initAsync(MainAppBloc bloc) async {
   bloc.loadDependence();
   final Mode mode = kReleaseMode ? Mode.Production : Mode.Debug;
-  final List<Module> modules = kReleaseMode
-      ? <Module>[ProdModuleCore(), ProdModule()]
-      : <Module>[DevModuleCore(), DevModule()];
+  final List<Module> modules =
+      kReleaseMode ? <Module>[ProdModuleCore(), ProdModule()] : <Module>[DevModuleCore(), DevModule()];
 
   Config.initAsync(mode)
       .then((_) => DI.initAsync(modules))
@@ -45,7 +44,7 @@ void handleError() {
 Widget buildApp(MainAppBloc bloc) {
   final Widget screen = createMainScreen(bloc);
   return BlocProvider<MainAppBloc>(
-    builder: (_) => bloc,
+    create: (_) => bloc,
     child: screen,
   );
 }

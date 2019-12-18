@@ -6,6 +6,7 @@ import 'package:flutter_template/common/state/state.dart';
 
 class SplashScreen extends TStatelessWidget {
   const SplashScreen({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(

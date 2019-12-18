@@ -24,7 +24,6 @@ class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
   @override
   Duration get delayEvent => const Duration(milliseconds: 0);
 
-
   @override
   Stream<PostEditState> errorToState(BaseErrorEvent event) {
     return null;

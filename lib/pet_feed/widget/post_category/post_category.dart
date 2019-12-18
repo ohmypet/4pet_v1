@@ -9,7 +9,5 @@ import 'package:flutter_template/petisland.dart';
 import 'package:petisland_core/domain/domain.dart';
 
 part 'category_description_widget.dart';
-
 part 'category_image_widget.dart';
-
 part 'post_category_widget.dart';

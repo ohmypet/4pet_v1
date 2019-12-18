@@ -11,6 +11,7 @@ class TitlePostInput extends StatefulWidget {
 
 class _TitlePostInputState extends State<TitlePostInput> {
   final TextEditingController textController = TextEditingController();
+
   @override
   void initState() {
     super.initState();

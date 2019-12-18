@@ -40,10 +40,7 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
   }
 
   void _tryLogin(String token) {
-    accountService
-        .checkToken(token)
-        .then((_) => add(LoggedIn()))
-        .catchError((_) => add(LoggedOut()));
+    accountService.checkToken(token).then((_) => add(LoggedIn())).catchError((_) => add(LoggedOut()));
   }
 
   void _removeToken() {
