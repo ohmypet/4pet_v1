@@ -14,6 +14,15 @@ abstract class PetIslandConstants {
     'Post',
   ];
 
+  static final List<MapEntry<String, PetType>> _petCategories = [
+    MapEntry('meo', PetType.Cat),
+    MapEntry('cho', PetType.Dog),
+    MapEntry('chim', PetType.Cat),
+    MapEntry('ca', PetType.Fish),
+    MapEntry('chuot', PetType.Hamster),
+    MapEntry('ran', PetType.Snake),
+  ];
+
   static final Map<CategoryTypeEnum, String> _categoryMap = {
     CategoryTypeEnum.Trending: 'Thịnh hành nhất hiện nay',
     CategoryTypeEnum.Popularity: 'Phổ biến nhất',
@@ -31,6 +40,13 @@ abstract class PetIslandConstants {
     if (type == 'pet category') return CategoryTypeEnum.PetCategory;
     if (type == 'post') return CategoryTypeEnum.Post;
     return CategoryTypeEnum.Unknow;
+  }
+
+  static PetType getPetType(String type) {
+    final String petCategory = StringUtils.normalizePetCategory(type);
+    final item = PetIslandConstants._petCategories
+        .firstWhere((item) => item.key.contains(petCategory), orElse: () => null);
+    return item != null ? item.value : PetType.Other;
   }
 
   static String getCategoryStringFromType(String type) {
