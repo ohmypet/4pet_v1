@@ -27,6 +27,10 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
     reload();
   }
 
+  Account _currentAccount;
+
+  Account get account => _currentAccount;
+
   @override
   AuthenticationState get initialState => AuthenticationUninitialized();
 
@@ -40,11 +44,24 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
   }
 
   void _tryLogin(String token) {
-    accountService.checkToken(token).then((_) => add(LoggedIn())).catchError((_) => add(LoggedOut()));
+    accountService
+        .checkToken(token)
+        .then((_) => add(LoggedIn(_)))
+        .catchError((_) => add(LoggedOut()));
   }
 
   void _removeToken() {
     storageService.updateToken(null);
+  }
+
+  Future reloadPetCategory() async {
+    categories.clear();
+    final List<PetCategory> newCategories = await categoryService.getPetCategories();
+    categories.addAll(newCategories);
+  }
+
+  void updateCurrentAccount(LoggedIn event) {
+    _currentAccount = event.dataLogin.account;
   }
 
   @override
@@ -71,9 +88,8 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
         break;
 
       case LoggedIn:
-        categories.clear();
-        final List<PetCategory> newCategories = await categoryService.getPetCategories();
-        categories.addAll(newCategories);
+        updateCurrentAccount(event);
+        await reloadPetCategory();
         yield Authenticated();
         break;
       default:
