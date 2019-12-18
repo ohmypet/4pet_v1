@@ -33,7 +33,6 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
   }
 
   Widget _buildItem(BuildContext context, int index) {
-    Log.info('_buildItem');
     Widget child;
     final PanelDetail item = panel.items[index];
     switch (item.postItem.runtimeType) {

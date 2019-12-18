@@ -10,7 +10,7 @@ abstract class AccountRepository {
 
   Future<LoginData> login(String username, String password);
 
-  Future<void> checkToken(String token);
+  Future<LoginData> checkToken(String token);
 }
 
 class AccountReposityImpl extends AccountRepository {
@@ -61,9 +61,11 @@ class AccountReposityImpl extends AccountRepository {
   }
 
   @override
-  Future<void> checkToken(String token) {
+  Future<LoginData> checkToken(String token) {
     final Map<String, dynamic> headers = <String, dynamic>{'x-access-token': token};
-    return client.get('$path/check-token', options: Options(headers: headers));
+    return client
+        .get<Map<String, dynamic>>('$path/check-token', options: Options(headers: headers))
+        .then((Map<String, dynamic> json) => LoginData.fromJson(json));
   }
 
   @override

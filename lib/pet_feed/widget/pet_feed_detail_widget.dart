@@ -83,8 +83,6 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
   }
 
   Widget renderPanel(Panel item) {
-    Log.info('renderPanel ${item.items.length}');
-
     return PostPanelDetailWidget(item);
   }
 }
