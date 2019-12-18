@@ -25,6 +25,7 @@ abstract class BaseBloc<Event extends BaseEvent, State extends BaseState> extend
       return eventToState(event);
     }
   }
+
   @protected
   Stream<State> errorToState(BaseErrorEvent event);
 

@@ -26,8 +26,7 @@ class _PostButtonLikeWidgetState extends State<PostButtonLikeWidget> {
           '$likes thích',
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: theme.textTheme.display4
-              .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+          style: theme.textTheme.display4.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
         ),
       ),
       icon: icon,

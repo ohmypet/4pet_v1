@@ -39,7 +39,7 @@ class UserInputWidget extends TStatelessWidget {
         obscureText: isObscureText,
         onEditingComplete: onSubmit,
         onSubmitted: onSubmit != null ? (_) => onSubmit() : null,
-        onChanged:  onChange!=null ? (_)=> onChange(_): null,
+        onChanged: onChange != null ? (_) => onChange(_) : null,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
           hintText: hintText,

@@ -11,6 +11,7 @@ class DescPostInput extends StatefulWidget {
 
 class _DescPostInputState extends State<DescPostInput> {
   final TextEditingController textController = TextEditingController();
+
   @override
   void initState() {
     super.initState();

@@ -82,6 +82,7 @@ class TCacheImageWidget extends StatelessWidget {
   final double width;
   final double height;
   final String url;
+
   //default border radius = 4
   final BorderRadius borderRadius;
   final Color defaultBackgroundColor;

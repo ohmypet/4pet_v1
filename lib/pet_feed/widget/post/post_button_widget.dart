@@ -20,6 +20,7 @@ class _PostButtonWidget extends StatelessWidget {
     this.opacity = 1,
     this.onTap,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);

@@ -4,6 +4,7 @@ class PostTimeWidget extends StatelessWidget {
   final DateTime time;
 
   const PostTimeWidget({Key key, this.time}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);

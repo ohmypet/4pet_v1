@@ -5,9 +5,8 @@ class ImagePostWidget extends StatelessWidget {
   final int index;
   final String imageUrl;
   final void Function(int, String) onPressDelete;
-  ImagePostWidget(this.imageUrl,
-      {@required this.onPressDelete, this.index, Key key})
-      : super(key: key);
+
+  ImagePostWidget(this.imageUrl, {@required this.onPressDelete, this.index, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,10 @@ class ImagePostWidget extends StatelessWidget {
           url: imageUrl,
         );
       } else {
-        child = Image.asset(imageUrl,fit: BoxFit.cover,);
+        child = Image.asset(
+          imageUrl,
+          fit: BoxFit.cover,
+        );
       }
       return ClipRRect(
         borderRadius: BorderRadius.circular(4),
@@ -40,9 +42,7 @@ class ImagePostWidget extends StatelessWidget {
                   Icons.close,
                   size: 20,
                 ),
-                onTap: onPressDelete != null
-                    ? () => onPressDelete(index, imageUrl)
-                    : null,
+                onTap: onPressDelete != null ? () => onPressDelete(index, imageUrl) : null,
               ),
             ),
           ],
@@ -52,8 +52,7 @@ class ImagePostWidget extends StatelessWidget {
   }
 
   bool isImageUrlFormat(String url) {
-    return url.contains(RegExp('^https?://')) ||
-        url.contains(RegExp('^http?://'));
+    return url.contains(RegExp('^https?://')) || url.contains(RegExp('^http?://'));
   }
 
   Widget imageDefaultWidget() {
