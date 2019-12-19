@@ -8,7 +8,6 @@ class _CategoryDescriptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final name = item.name ?? '';
-    final theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       decoration: BoxDecoration(

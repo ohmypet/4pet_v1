@@ -6,7 +6,8 @@ class ImagePostWidget extends StatelessWidget {
   final String imageUrl;
   final void Function(int, String) onPressDelete;
 
-  ImagePostWidget(this.imageUrl, {@required this.onPressDelete, this.index, Key key}) : super(key: key);
+  ImagePostWidget(this.imageUrl, {@required this.onPressDelete, this.index, Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +39,19 @@ class ImagePostWidget extends StatelessWidget {
               top: 5,
               right: 5,
               child: GestureDetector(
-                child: Icon(
-                  Icons.close,
-                  size: 20,
+                child: Container(
+                  padding: const EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: TColors.white.withAlpha(220),
+                  ),
+                  child: Icon(
+                    Icons.close,
+                    size: 16,
+                    color: TColors.water_melon,
+                  ),
                 ),
-                onTap: onPressDelete != null ? () => onPressDelete(index, imageUrl) : null,
+                onTap: _onTapImage,
               ),
             ),
           ],
@@ -61,5 +70,9 @@ class ImagePostWidget extends StatelessWidget {
       width: 100,
       color: TColors.duck_egg_blue,
     );
+  }
+
+  void _onTapImage() {
+    if (onPressDelete != null) onPressDelete(index, imageUrl);
   }
 }

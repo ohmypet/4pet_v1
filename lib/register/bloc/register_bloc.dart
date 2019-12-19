@@ -1,8 +1,7 @@
 part of petisland.register.bloc;
 
 class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
-  static final AccountService accountService =
-      DI.get<AccountService>(AccountService);
+  static final AccountService accountService = DI.get<AccountService>(AccountService);
 
   @override
   Duration get delayEvent => Duration(seconds: 0);
@@ -43,7 +42,13 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
 
     FutureOr<void> _handleError(dynamic error) {
       if (error is PetApiException) {
-        notifyError(EmailError(error.message));
+        if (error.statusCode == 409)
+          notifyError(EmailError('Email đã tồn tại'));
+        else if (error.statusCode == 400) {
+          notifyError(EmailError('Email không hợp lệ'));
+        } else {
+          notifyError(EmailError(error.message));
+        }
       } else {
         notifyError(EmailError(error.toString()));
       }

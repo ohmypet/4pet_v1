@@ -37,6 +37,7 @@ class _DescPostInputState extends State<DescPostInput> {
             _TitleWidget(title: 'Mô tả', isRequired: false),
             UserInputWidget(
               textController,
+              maxLines: null,
               hintText: 'Nhập mô tả...',
               keyboardType: TextInputType.multiline,
               onChange: (String text) {

@@ -7,6 +7,9 @@ class RegisterEmailWidget extends TStatefulWidget {
 }
 
 class _LoginDetailWidgetState extends TState<RegisterEmailWidget> {
+  static Pattern pattern =
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  final regex = RegExp(pattern);
   final TextEditingController emailController = TextEditingController();
   final FocusNode emailFocusNode = FocusNode();
   final RegisterBloc registerBloc = DI.get(RegisterBloc);
@@ -28,10 +31,14 @@ class _LoginDetailWidgetState extends TState<RegisterEmailWidget> {
               hintText: 'Nhập email...',
               icon: Icon(Icons.person, size: 22),
               onSubmit: _onEmailSubmitted,
+              onChange: _onTextChanged,
             ),
-            PetIslandButtonWidget(
-              text: 'Tiếp',
-              onTap: _onEmailSubmitted,
+            Opacity(
+              opacity: isValid ? 1 : 0.2,
+              child: PetIslandButtonWidget(
+                text: 'Tiếp',
+                onTap: isValid ? _onEmailSubmitted : null,
+              ),
             ),
           ],
         ),
@@ -40,15 +47,19 @@ class _LoginDetailWidgetState extends TState<RegisterEmailWidget> {
   }
 
   void _onEmailSubmitted() {
-    registerBloc.submitEmail(emailController.text ?? "");
+    registerBloc.submitEmail(emailController.text ?? '');
   }
 
-  bool isValid(String text) => text.length > 4;
+  bool get isValid => regex.hasMatch(emailController.text);
 
   @override
   void dispose() {
     super.dispose();
     emailController.dispose();
     emailFocusNode.dispose();
+  }
+
+  void _onTextChanged(String str) {
+    setState(() {});
   }
 }
