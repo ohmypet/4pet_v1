@@ -9,5 +9,6 @@ class DevModule extends AbstractModule {
     bind(RegisterBloc).to(RegisterBloc());
     bind(TWorker).to(TWorker());
     bind(PetFeedController).to(PetFeedControllerImpl());
+    bind(BottomBarController).to(BottomBarControllerImpl());
   }
 }

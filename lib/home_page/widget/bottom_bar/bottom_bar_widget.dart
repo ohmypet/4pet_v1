@@ -1,11 +1,11 @@
 part of petisland.home_page.widget.bottom_bar;
 
 class BottomBarWidget extends TStatefulWidget {
-  final BottomItemBuilder iconBulder;
+  final BottomItemBuilder iconBuilder;
   final List<Widget> children;
   final int intIndex;
 
-  const BottomBarWidget({@required this.iconBulder, @required this.children, this.intIndex = 0, Key key})
+  const BottomBarWidget({@required this.iconBuilder, @required this.children, this.intIndex = 0, Key key})
       : super(key: key);
 
   @override
@@ -13,7 +13,7 @@ class BottomBarWidget extends TStatefulWidget {
 }
 
 class _BottomBarWidgetState extends TState<BottomBarWidget> with SingleTickerProviderStateMixin {
-  BottomItemBuilder get iconBuilder => widget.iconBulder;
+  BottomItemBuilder get iconBuilder => widget.iconBuilder;
 
   List<Widget> get children => widget.children;
 
@@ -30,6 +30,7 @@ class _BottomBarWidgetState extends TState<BottomBarWidget> with SingleTickerPro
     )..addListener(() {
         Log.debug('Ahihi tab ${tabController.index}');
       });
+    DI.get<BottomBarController>(BottomBarController).addController(tabController);
   }
 
   @override
