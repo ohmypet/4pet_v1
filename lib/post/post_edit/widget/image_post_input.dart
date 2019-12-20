@@ -83,7 +83,10 @@ class _ImagePostInputState extends TState<ImagePostInput> {
 
   void chooseImage() async {
     String imageLocalPath = await showModalBottomSheet<String>(
-        backgroundColor: Colors.transparent, context: context, builder: (_) => ImageChoosePopup());
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (_) => ImageChoosePopup(),
+    );
     addImage(imageLocalPath);
   }
 

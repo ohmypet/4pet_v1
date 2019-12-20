@@ -79,6 +79,22 @@ class PostDetailScreen extends StatelessWidget {
   }
 
   void _onTapSeeMore(BuildContext context, SeeMoreType seeMoreType) {
-    Log.info(seeMoreType);
+    // Log.info(seeMoreType);
+    switch (seeMoreType) {
+      case SeeMoreType.Report:
+        showModalBottomSheet(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          context: context,
+          builder: (_) => KikiReportWidget(
+            onSendReport: _senReport,
+          ),
+        );
+        break;
+      default:
+    }
+  }
+
+  void _senReport(ReportData reportData) {
+    // TODO(tvc12): send report data to server.
   }
 }
