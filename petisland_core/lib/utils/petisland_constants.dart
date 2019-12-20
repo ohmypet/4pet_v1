@@ -60,9 +60,17 @@ abstract class PetIslandConstants {
 }
 
 /// **Warning**: must update [PetIslandConstants.categoryTypes] same time
-enum CategoryTypeEnum { Trending, Popularity, PriceHighToLow, PriceLowToHigh, PetCategory, Post, Unknow }
+enum CategoryTypeEnum {
+  Trending,
+  Popularity,
+  PriceHighToLow,
+  PriceLowToHigh,
+  PetCategory,
+  Post,
+  Unknow
+}
 
-enum Role { Free, Premium }
+enum Role { Free, Admin, Premium }
 
 enum AccountStatus { Active, DeActive }
 
