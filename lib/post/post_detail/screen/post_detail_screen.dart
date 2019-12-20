@@ -16,8 +16,9 @@ class PostDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         child: PostDetailAppBar(
+          hasPermision: hasPermissionEditAndDel(item.account),
           onTapBack: () => _onTapBack(context),
-          onTapSeeMore: () => _onTapSeeMore(context),
+          onTapSeeMore: (_) => _onTapSeeMore(context, _),
         ),
         preferredSize: Size.fromHeight(32),
       ),
@@ -62,9 +63,22 @@ class PostDetailScreen extends StatelessWidget {
     );
   }
 
+  bool hasPermissionEditAndDel(Account accountFromPost) {
+    final AuthenticationBloc currentAccount = DI.get(AuthenticationBloc);
+    final Account account = currentAccount.account;
+    if (accountFromPost?.id == account.id) {
+      return true;
+    } else if (account.role == 'Admin')
+      return true;
+    else
+      return false;
+  }
+
   void _onTapBack(BuildContext context) {
     Navigator.of(context).pop();
   }
 
-  void _onTapSeeMore(BuildContext context) {}
+  void _onTapSeeMore(BuildContext context, SeeMoreType seeMoreType) {
+    Log.info(seeMoreType);
+  }
 }
