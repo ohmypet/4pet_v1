@@ -62,7 +62,10 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
   void _onTapPostItem(BuildContext context, Post item) {
     navigateToScreen(
       context: context,
-      screen: PostDetailScreen(item: item),
+      screen: PostDetailScreen(
+        item: item,
+        onDeletePost: () => _removePost(item.id),
+      ),
       screenName: PostDetailScreen.name,
     );
   }
@@ -74,5 +77,9 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
   void _onTapPetCategory(BuildContext context, PanelDetail item) {
     Log.info('_onTapPetCategory:: $item');
     // TODO(tvc12): navigate to search
+  }
+
+  void _removePost(String id) {
+    DI.get<PetFeedController>(PetFeedController).remove(id);
   }
 }

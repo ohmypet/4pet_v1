@@ -104,7 +104,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
   void _deletePost(DeletePostEvent event) {
     postService
         .delete(event.postId)
-        .then((_) => Log.info('Delete post ${event.postId}'))
+        .then((_) => Log.info('Delete success post ${event.postId}'))
         .catchError((_) => Log.error('Error delete post: $_'));
   }
 

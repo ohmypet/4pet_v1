@@ -3,8 +3,10 @@ part of petisland.post.post_detail.screen;
 class PostDetailScreen extends StatelessWidget {
   static const name = '/PostDetailScreen';
   final Post item;
+  final VoidCallback onDeletePost;
 
-  const PostDetailScreen({Key key, @required this.item}) : super(key: key);
+  const PostDetailScreen({Key key, @required this.item, @required this.onDeletePost})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     final imageSliderWidget = item.postImages?.isNotEmpty == true
@@ -87,6 +89,9 @@ class PostDetailScreen extends StatelessWidget {
           ),
         );
         break;
+      case SeeMoreType.Delete:
+        _deletePost(context, item);
+        break;
       default:
     }
   }
@@ -96,5 +101,11 @@ class PostDetailScreen extends StatelessWidget {
     final AuthenticationBloc bloc = DI.get(AuthenticationBloc);
 
     worker.report(item.id, reportData.text, bloc.account.id);
+  }
+
+  void _deletePost(BuildContext context, Post item) {
+    Navigator.pop(context);
+    DI.get<TWorker>(TWorker).deletePost(item.id);
+    if (onDeletePost != null) onDeletePost();
   }
 }

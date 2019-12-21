@@ -26,7 +26,7 @@ class TCircleButton extends StatelessWidget {
             ),
           ),
         ),
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(7.0),
         decoration: BoxDecoration(
           boxShadow: TShadows.defaultShadow,
           shape: BoxShape.circle,
