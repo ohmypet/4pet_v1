@@ -79,7 +79,6 @@ class PostDetailScreen extends StatelessWidget {
   }
 
   void _onTapSeeMore(BuildContext context, SeeMoreType seeMoreType) {
-    // Log.info(seeMoreType);
     switch (seeMoreType) {
       case SeeMoreType.Report:
         showModalBottomSheet(
@@ -95,6 +94,9 @@ class PostDetailScreen extends StatelessWidget {
   }
 
   void _senReport(ReportData reportData) {
-    // TODO(tvc12): send report data to server.
+    final TWorker worker = DI.get(TWorker);
+    final AuthenticationBloc bloc = DI.get(AuthenticationBloc);
+
+    worker.report(item.id, reportData.text, bloc.account.id);
   }
 }

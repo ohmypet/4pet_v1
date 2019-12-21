@@ -127,7 +127,7 @@ class _KikiReportWidgetState extends TState<KikiReportWidget> {
       final firstString = feedbacks.removeAt(0);
 
       final completedBuffer = feedbacks.fold<StringBuffer>(
-          buffer, (buffer, feedback) => buffer..write(', $feedback'));
+          buffer, (buffer, feedback) => buffer..write('|$feedback'));
 
       return firstString + completedBuffer.toString();
     } else

@@ -53,3 +53,28 @@ class LikePostEvent extends WorkerEvent {
 
   LikePostEvent(this.id);
 }
+
+class ReportPostEvent extends WorkerEvent {
+  final String reason;
+  final String postId;
+  final String accountId;
+  final String description;
+  final int numRetry;
+
+  ReportPostEvent(this.reason, this.postId, this.accountId, {this.description})
+      : numRetry = 0;
+  ReportPostEvent._(this.reason, this.postId, this.accountId,
+      {this.description, @required this.numRetry});
+
+  ReportPostEvent retry() {
+    if (numRetry < PetIslandConstants.max_retry) {
+      return ReportPostEvent._(
+        reason,
+        postId,
+        accountId,
+        numRetry: numRetry + 1,
+      );
+    } else
+      throw LimitRetryException();
+  }
+}

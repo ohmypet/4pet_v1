@@ -3,9 +3,10 @@ part of petisland.main_bloc;
 class TWorker extends TBloc<WorkerEvent, WorkerState> {
   static final ImageService uploadService = DI.get<ImageService>(ImageService);
   static final PostService postService = DI.get<PostService>(PostService);
+  static final ReportService reportService = DI.get(ReportService);
 
   @override
-  Duration get delayEvent => const Duration(milliseconds: 50);
+  Duration get delayEvent => PetIslandConstants.time_delay_retry;
 
   @override
   Stream<WorkerState> errorToState(BaseErrorEvent event) async* {
@@ -28,6 +29,9 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
         break;
       case LikePostEvent:
         _likePost(event);
+        break;
+      case ReportPostEvent:
+        _reportPost(event);
         break;
       case UploadPostSuccessEvent:
         yield UploadPostSuccess();
@@ -78,6 +82,22 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
     postService.like(event.id).catchError((_) => Log.error(_));
   }
 
+  void _reportPost(ReportPostEvent event) {
+    void retryUpload(dynamic ex) {
+      Log.error('Fail upload:: $ex');
+      Log.info('Retry upload ${event.runtimeType} ${event.numRetry} times');
+      final newEvent = event.retry();
+      add(newEvent);
+    }
+
+    reportService
+        .report(event.postId, event.reason, event.accountId,
+            description: event.description)
+        .then((_) => Log.info('Upload success ${event.runtimeType}'))
+        .catchError(retryUpload)
+        .catchError((_) => Log.error('Failed upload report'));
+  }
+
   void uploadPost(PostModal modal, List<String> images) {
     if (images?.isNotEmpty == true) {
       add(UploadImageEvent._(postModal: modal, imagesMustUpload: images));
@@ -88,5 +108,9 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
 
   void likePost(String id) {
     add(LikePostEvent(id));
+  }
+
+  void report(String postId, String reason, String accountId, {String description}) {
+    add(ReportPostEvent(reason, postId, accountId, description: description));
   }
 }
