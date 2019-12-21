@@ -117,11 +117,13 @@ class PostDetailScreen extends TStatelessWidget {
       context: context,
       screen: PostEditScreen.edit(
         item,
-        onSendTap: _onSendEditPost,
+        onEditCompleted: _onSendEditPost,
       ),
       screenName: PostEditScreen.name,
     );
   }
 
-  void _onSendEditPost(PostModal post, List<String> images) {}
+  void _onSendEditPost(PostModal post, List<String> images, List<String> imageRemoved) {
+    
+  }
 }

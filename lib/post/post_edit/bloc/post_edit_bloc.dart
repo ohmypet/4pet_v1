@@ -1,7 +1,11 @@
 part of pestisland.post.post_edit.bloc;
 
 class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
-  final List<String> imagesLocalPath = <String>[];
+  final List<PostImage> postImages = <PostImage>[];
+  final List<PostImage> imagesRemoved = <PostImage>[];
+
+  List<String> get images => postImages.map((item) => item.image.url).toList();
+
   String title = '';
   double price = -1;
   String description = '';
@@ -17,7 +21,7 @@ class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
       ..description = post.description
       ..price = post.price ?? 0
       ..location = post.location
-      ..imagesLocalPath.addAll(post.postImages.map((petImage) => petImage?.image?.url))
+      ..postImages.addAll(post.postImages)
       ..petCategory = post.pet.type;
   }
 
@@ -69,13 +73,15 @@ class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
   }
 
   Stream<PostEditState> _handleAddImageEvent(AddImageEvent event) async* {
-    imagesLocalPath.add(event.imageLocalPath ?? '');
-    yield ImageState(imagesLocalPath);
+    final PostImage image = PostImage(image: PetImage(url: event.imageLocalPath));
+    postImages.add(image);
+    yield ImageState(postImages);
   }
 
   Stream<PostEditState> _handleRemoveImageEvent(RemoveImageEvent event) async* {
-    imagesLocalPath.removeAt(event.index);
-    yield ImageState(imagesLocalPath);
+    PostImage image = postImages.removeAt(event.index);
+    if (image.id != null) imagesRemoved.add(image);
+    yield ImageState(postImages);
   }
 
   void inputChange(String title) {
@@ -94,7 +100,7 @@ class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
     add(AddImageEvent(imagesPath ?? ''));
   }
 
-  void removeImage(int index, String imagePath) {
-    add(RemoveImageEvent(index ?? 0, imagePath ?? ''));
+  void removeImage(int index, ImageType type) {
+    add(RemoveImageEvent(index, type));
   }
 }
