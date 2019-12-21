@@ -70,18 +70,12 @@ class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
 
   Stream<PostEditState> _handleAddImageEvent(AddImageEvent event) async* {
     imagesLocalPath.add(event.imageLocalPath ?? '');
-    if (imagesLocalPath != null)
-      yield ImageState(imagesLocalPath);
-    else
-      yield ImageState(<String>[]);
+    yield ImageState(imagesLocalPath);
   }
 
   Stream<PostEditState> _handleRemoveImageEvent(RemoveImageEvent event) async* {
     imagesLocalPath.removeAt(event.index);
-    if (imagesLocalPath != null)
-      yield ImageState(imagesLocalPath);
-    else
-      yield ImageState(<String>[]);
+    yield ImageState(imagesLocalPath);
   }
 
   void inputChange(String title) {

@@ -1,6 +1,6 @@
 part of petisland.post.post_detail.screen;
 
-class PostDetailScreen extends StatelessWidget {
+class PostDetailScreen extends TStatelessWidget {
   static const name = '/PostDetailScreen';
   final Post item;
   final VoidCallback onDeletePost;
@@ -92,6 +92,9 @@ class PostDetailScreen extends StatelessWidget {
       case SeeMoreType.Delete:
         _deletePost(context, item);
         break;
+      case SeeMoreType.Edit:
+        _editPOst(context, item);
+        break;
       default:
     }
   }
@@ -108,4 +111,17 @@ class PostDetailScreen extends StatelessWidget {
     DI.get<TWorker>(TWorker).deletePost(item.id);
     if (onDeletePost != null) onDeletePost();
   }
+
+  void _editPOst(BuildContext context, Post item) {
+    navigateToScreen(
+      context: context,
+      screen: PostEditScreen.edit(
+        item,
+        onSendTap: _onSendEditPost,
+      ),
+      screenName: PostEditScreen.name,
+    );
+  }
+
+  void _onSendEditPost(PostModal post, List<String> images) {}
 }

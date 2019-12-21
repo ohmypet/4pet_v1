@@ -33,6 +33,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
               builder: (_, PostEditState state) {
                 return widget.bloc.imagesLocalPath != null
                     ? SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: _buildImageWidget(widget.bloc.imagesLocalPath),
@@ -52,31 +53,26 @@ class _ImagePostInputState extends TState<ImagePostInput> {
     return imagePostLength < maxImage;
   }
 
-  List<Widget> _buildImageWidget(List<String> imagePath) {
-    if (imagePath == null || imagePath.isEmpty) {
-      return <Widget>[AddImagePostWidget(onPress: () => chooseImage())];
+  List<Widget> _buildImageWidget(List<String> imagePaths) {
+    List<Widget> result = <Widget>[AddImagePostWidget(onPress: () => chooseImage())];
+
+    if (imagePaths == null || imagePaths.isEmpty) {
+      return result;
     } else {
-      List<Widget> result = <Widget>[];
-      if (canAddImage(imagePath.length)) {
-        result
-          ..add(AddImagePostWidget(
-            onPress: () => chooseImage(),
-          ))
-          ..add(SizedBox(
-            width: 7,
-          ));
-      }
-      for (int index = 0; index < imagePath.length; ++index) {
+      if (canAddImage(imagePaths.length)) {
+        result.add(SizedBox(width: 7));
+      } else
+        result.removeLast();
+      imagePaths.fold(0, (i, path) {
         result
           ..add(ImagePostWidget(
-            imagePath[index],
-            index: index,
+            path,
+            index: i,
             onPressDelete: removeImage,
           ))
-          ..add(SizedBox(
-            width: 7,
-          ));
-      }
+          ..add(SizedBox(width: 7));
+        return i + 1;
+      });
       return result..removeLast();
     }
   }
