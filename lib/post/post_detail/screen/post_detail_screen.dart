@@ -68,9 +68,7 @@ class PostDetailScreen extends StatelessWidget {
     final Account account = currentAccount.account;
     if (accountFromPost?.id == account.id) {
       return true;
-    } else if (account.role == 'Admin')
-      return true;
-    else
+    } else
       return false;
   }
 
