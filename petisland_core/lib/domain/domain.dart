@@ -36,6 +36,8 @@ part 'tag.dart';
 
 part 'user.dart';
 
+part 'report.dart';
+
 void _addValueToMap(String key, dynamic value, Map<String, dynamic> map) {
   if (value != null) map[key] = value;
 }
