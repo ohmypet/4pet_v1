@@ -3,6 +3,7 @@ part of petisland_core.utils;
 abstract class PetIslandConstants {
   static const String key_token = 'token';
   static const int max_retry = 5;
+  static const Duration time_delay_retry = const Duration(seconds: 1);
 
   /// **Warning**: must update [CategoryTypeEnum] same time
   static final List<String> categoryTypes = <String>[

@@ -21,6 +21,8 @@ class ReportRepositoryImpl extends ReportRepository {
       'description': description,
     }..removeWhere((_, item) => item == null);
 
-    return client.post('/api/report', map);
+    return client
+        .post<Map<String, dynamic>>('/api/report', map)
+        .then((json) => Report.fromJson(json));
   }
 }
