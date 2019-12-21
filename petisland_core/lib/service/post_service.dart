@@ -1,7 +1,9 @@
 part of petisland_core.service;
 
 abstract class PostService {
-  Future<Post> create(PostModal postModal);
+  Future<Post> create(PostCreateModal postModal);
+
+  Future<Post> edit(PostEditModal postModal);
 
   Future<Post> like(String id);
 
@@ -17,7 +19,7 @@ class PostServiceImpl extends PostService {
   PostServiceImpl(this.repository);
 
   @override
-  Future<Post> create(PostModal postModal) {
+  Future<Post> create(PostCreateModal postModal) {
     return repository.create(postModal);
   }
 
@@ -35,5 +37,10 @@ class PostServiceImpl extends PostService {
   @override
   Future<Post> delete(String id) {
     return repository.delete(id);
+  }
+
+  @override
+  Future<Post> edit(PostEditModal postModal) {
+    return repository.edit(postModal);
   }
 }

@@ -1,6 +1,6 @@
 part of petisland_core.domain;
 
-class PostModal {
+class PostCreateModal {
   String title;
   String description;
   String location;
@@ -15,7 +15,7 @@ class PostModal {
     bool get locationIsValid => location?.trim()?.isNotEmpty == true;
     bool get petValid => pet != null;
 
-  PostModal.create({
+  PostCreateModal.create({
     @required this.title,
     @required this.location,
     @required this.price,

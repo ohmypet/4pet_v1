@@ -1,5 +1,6 @@
 library petisland_core.domain;
 
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:petisland_core/utils/utils.dart';
@@ -26,7 +27,9 @@ part 'post.dart';
 
 part 'post_image.dart';
 
-part 'post_modal.dart';
+part 'post_create_modal.dart';
+
+part 'post_edit_modal.dart';
 
 part 'post_tag.dart';
 

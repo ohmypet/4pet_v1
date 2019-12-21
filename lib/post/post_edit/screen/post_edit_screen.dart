@@ -1,12 +1,19 @@
 part of petisland.post.post_edit.screen;
 
-/// Post edit will be create mode when Post is null
+typedef OnCreatePostScreen = void Function(PostCreateModal post, List<String> urlNeedUpload);
+
+typedef OnEditPostScreen = void Function(
+  PostCreateModal post,
+  List<PostImage> rawPostImage,
+  List<String> urlNeedUpload,
+  List<String> idImageNeedDelete,
+);
+
 class PostEditScreen extends TStatelessWidget {
   static const String name = '/PostEditScreen';
-  final void Function(PostModal post, List<String> images) onSendTap;
+  final OnCreatePostScreen onSendTap;
+  final OnEditPostScreen onEditCompleted;
   final PostEditBloc _postEditBloc;
-  final void Function(PostModal post, List<String> images, List<String> imageDelete)
-      onEditCompleted;
 
   PostEditScreen.create({@required this.onSendTap})
       : _postEditBloc = PostEditBloc(),
@@ -35,7 +42,7 @@ class PostEditScreen extends TStatelessWidget {
   }
 
   void _onPressSend(BuildContext context) {
-    final PostModal postModal = PostModal.create(
+    final PostCreateModal postModal = PostCreateModal.create(
       title: _postEditBloc.title,
       description: _postEditBloc.description,
       location: _postEditBloc.location,
@@ -54,15 +61,14 @@ class PostEditScreen extends TStatelessWidget {
     }
 
     final localPaths = _getPathImagesNeedUpload(_postEditBloc.postImages);
-    Log.info('Image from local:: ${localPaths.length}');
+    Navigator.of(context).pop();
 
     if (onSendTap != null) {
-      // onSendTap(postModal, localPaths);
+      onSendTap(postModal, localPaths);
     }
     if (onEditCompleted != null) {
       final ids = _getIdImagesNeedDelete(_postEditBloc.imagesRemoved);
-      Log.info('Image delete:: ${ids.length}');
-      // onEditCompleted(postModal, localPaths, ids);
+      onEditCompleted(postModal, _postEditBloc.postImages, localPaths, ids);
     }
   }
 

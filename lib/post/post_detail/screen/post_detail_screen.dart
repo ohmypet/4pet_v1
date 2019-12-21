@@ -1,12 +1,20 @@
 part of petisland.post.post_detail.screen;
 
-class PostDetailScreen extends TStatelessWidget {
+class PostDetailScreen extends TStatefulWidget {
   static const name = '/PostDetailScreen';
   final Post item;
   final VoidCallback onDeletePost;
 
   const PostDetailScreen({Key key, @required this.item, @required this.onDeletePost})
       : super(key: key);
+
+  @override
+  _PostDetailScreenState createState() => _PostDetailScreenState();
+}
+
+class _PostDetailScreenState extends TState<PostDetailScreen> {
+  Post get item => widget.item;
+
   @override
   Widget build(BuildContext context) {
     final imageSliderWidget = item.postImages?.isNotEmpty == true
@@ -109,21 +117,33 @@ class PostDetailScreen extends TStatelessWidget {
   void _deletePost(BuildContext context, Post item) {
     Navigator.pop(context);
     DI.get<TWorker>(TWorker).deletePost(item.id);
-    if (onDeletePost != null) onDeletePost();
+    if (widget.onDeletePost != null) widget.onDeletePost();
   }
 
   void _editPOst(BuildContext context, Post item) {
     navigateToScreen(
       context: context,
-      screen: PostEditScreen.edit(
-        item,
-        onEditCompleted: _onSendEditPost,
-      ),
+      screen: PostEditScreen.edit(item, onEditCompleted: _onSendEditPost),
       screenName: PostEditScreen.name,
     );
   }
 
-  void _onSendEditPost(PostModal post, List<String> images, List<String> imageRemoved) {
-    
+  void _onSendEditPost(PostCreateModal post, List<PostImage> rawPostImage,
+      List<String> urlNeedUpload, List<String> idImageNeedDelete) {
+    reloadUI(post, rawPostImage);
+    DI.get<TWorker>(TWorker).updatePost(item, urlNeedUpload, idImageNeedDelete);
+  }
+
+  void reloadUI(PostCreateModal post, List<PostImage> rawPostImage) {
+    setState(() {
+      item
+        ..title = post.title
+        ..description = post.description
+        ..price = post.price
+        ..location = post.location
+        ..postImages.clear()
+        ..postImages.addAll(rawPostImage)
+        ..pet = post.pet;
+    });
   }
 }

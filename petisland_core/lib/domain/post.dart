@@ -45,6 +45,36 @@ class Post extends BaseModel implements PostItem {
     }
   }
 
+  Post copyWith({
+    String title,
+    String description,
+    String location,
+    double price,
+    Pet pet,
+    List<PostImage> postImages,
+    List<PostTag> postTags,
+  }) {
+    return Post(
+      id: id,
+      createBy: createBy,
+      createAt: createAt,
+      title: title,
+      description: description,
+      location: location,
+      price: price,
+      pet: pet,
+      account: account,
+      dueDate: dueDate,
+      isReacted: isReacted,
+      likes: likes,
+      postImages: postImages,
+      postTags: postTags,
+      settings: settings,
+      status: status,
+      updateAt: updateAt,
+    );
+  }
+
   Post({
     String id,
     Account createBy,
