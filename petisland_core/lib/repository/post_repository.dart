@@ -7,6 +7,8 @@ abstract class PostRepository {
 
   Future<List<Item>> getPosts(
       int offset, int limit, String categoryType, String petCategoryId);
+
+  Future<Post> delete(String id);
 }
 
 class PostRepositoryImpl extends PostRepository {
@@ -63,5 +65,10 @@ class PostRepositoryImpl extends PostRepository {
         item = Panel.fromJson(json);
     }
     return item;
+  }
+
+  @override
+  Future<Post> delete(String id) {
+    return client.delete('/api/post/$id').then((_) => Post.fromJson(_));
   }
 }

@@ -5,7 +5,10 @@ abstract class PostService {
 
   Future<Post> like(String id);
 
-  Future<List<Item>> getPosts(int offset, {int limit = 10, String categoryType, String petCategoryId});
+  Future<List<Item>> getPosts(int offset,
+      {int limit = 10, String categoryType, String petCategoryId});
+
+  Future<Post> delete(String id);
 }
 
 class PostServiceImpl extends PostService {
@@ -24,7 +27,13 @@ class PostServiceImpl extends PostService {
   }
 
   @override
-  Future<List<Item>> getPosts(int offset, {int limit = 10, String categoryType, String petCategoryId}) {
+  Future<List<Item>> getPosts(int offset,
+      {int limit = 10, String categoryType, String petCategoryId}) {
     return repository.getPosts(offset, limit ?? 10, categoryType, petCategoryId);
+  }
+
+  @override
+  Future<Post> delete(String id) {
+    return repository.delete(id);
   }
 }

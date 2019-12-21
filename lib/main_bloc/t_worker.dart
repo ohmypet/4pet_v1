@@ -33,6 +33,9 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
       case ReportPostEvent:
         _reportPost(event);
         break;
+      case DeletePostEvent:
+        _deletePost(event);
+        break;
       case UploadPostSuccessEvent:
         yield UploadPostSuccess();
         break;
@@ -98,6 +101,13 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
         .catchError((_) => Log.error('Failed upload report'));
   }
 
+  void _deletePost(DeletePostEvent event) {
+    postService
+        .delete(event.postId)
+        .then((_) => Log.info('Delete post ${event.postId}'))
+        .catchError((_) => Log.error('Error delete post: $_'));
+  }
+
   void uploadPost(PostModal modal, List<String> images) {
     if (images?.isNotEmpty == true) {
       add(UploadImageEvent._(postModal: modal, imagesMustUpload: images));
@@ -112,5 +122,9 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
 
   void report(String postId, String reason, String accountId, {String description}) {
     add(ReportPostEvent(reason, postId, accountId, description: description));
+  }
+
+  void deletePost(String postId) {
+    add(DeletePostEvent(postId));
   }
 }
