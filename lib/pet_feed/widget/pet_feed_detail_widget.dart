@@ -32,7 +32,7 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
     return SmartRefresher(
       controller: refreshController,
       enablePullDown: true,
-      enablePullUp: true,
+      enablePullUp: maybeRetrievePost,
       onRefresh: _onRefresh,
       onLoading: _onLoading,
       child: ListView.separated(

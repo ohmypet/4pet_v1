@@ -7,6 +7,10 @@ abstract class PetFeedController {
 
   void reload();
 
+  void clear();
+
+  void remove(String id);
+
   void setListener(ValueChanged<PetFeedState> listener);
 
   void dispose();
@@ -79,5 +83,24 @@ class PetFeedControllerImpl extends PetFeedController {
   @override
   List<Item> getItems() {
     return items;
+  }
+
+  @override
+  void clear() {
+    items.clear();
+  }
+
+  @override
+  void remove(String id) {
+    items.removeWhere((item) {
+      if (item is PanelDetail && item.postItem is Post) {
+        final Post post = item.postItem;
+        return post.id == id;
+      } else if (item is Panel) {
+        // TODO(tvc12): remove item is trending
+      }
+      return false;
+    });
+    this.listener(LoadPostSucceed(items, true));
   }
 }

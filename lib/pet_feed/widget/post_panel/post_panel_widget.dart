@@ -49,7 +49,7 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
         );
         break;
       default:
-        Log.warn('TrendingPanelWidget::build dont support ${item.postItem.runtimeType}');
+        Log.warn('_buildItem::build dont support ${item.postItem.runtimeType}');
         child = SizedBox();
     }
 
@@ -60,10 +60,13 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
   }
 
   void _onTapPostItem(BuildContext context, Post item) {
-    // TODO(tvc12): navigate to post detail
     navigateToScreen(
       context: context,
-      screen: PostEditScreen.edit(item),
+      screen: PostDetailScreen(
+        item: item,
+        onDeletePost: () => _removePost(item.id),
+      ),
+      screenName: PostDetailScreen.name,
     );
   }
 
@@ -74,5 +77,9 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
   void _onTapPetCategory(BuildContext context, PanelDetail item) {
     Log.info('_onTapPetCategory:: $item');
     // TODO(tvc12): navigate to search
+  }
+
+  void _removePost(String id) {
+    DI.get<PetFeedController>(PetFeedController).remove(id);
   }
 }

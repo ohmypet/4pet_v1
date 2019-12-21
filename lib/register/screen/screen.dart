@@ -9,3 +9,4 @@ import 'package:flutter_template/login/widget/widget.dart';
 import 'package:flutter_template/register/register.dart';
 
 part 'register_email_screen.dart';
+part 'register_code_screen.dart';

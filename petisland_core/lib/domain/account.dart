@@ -27,7 +27,7 @@ class Account extends BaseModel {
     role = json['role'];
     status = json['status'];
     settings = json['settings'];
-    user = json['user'];
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   @override
