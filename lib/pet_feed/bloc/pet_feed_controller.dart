@@ -7,6 +7,8 @@ abstract class PetFeedController {
 
   void reload();
 
+  void clear();
+
   void setListener(ValueChanged<PetFeedState> listener);
 
   void dispose();
@@ -79,5 +81,10 @@ class PetFeedControllerImpl extends PetFeedController {
   @override
   List<Item> getItems() {
     return items;
+  }
+
+  @override
+  void clear() {
+    items.clear();
   }
 }
