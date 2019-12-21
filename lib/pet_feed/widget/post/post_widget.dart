@@ -34,9 +34,16 @@ class PostWidget extends PostItemRender<Post> {
   void _onTapPost(BuildContext context) {
     navigateToScreen(
       context: context,
-      screen: PostDetailScreen(item: item),
+      screen: PostDetailScreen(
+        item: item,
+        onDeletePost: () => _removePost(context, item.id),
+      ),
       screenName: PostDetailScreen.name,
     );
+  }
+
+  void _removePost(BuildContext context, String id) {
+    DI.get<PetFeedController>(PetFeedController).remove(id);
   }
 }
 

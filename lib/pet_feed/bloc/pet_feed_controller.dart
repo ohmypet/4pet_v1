@@ -9,6 +9,8 @@ abstract class PetFeedController {
 
   void clear();
 
+  void remove(String id);
+
   void setListener(ValueChanged<PetFeedState> listener);
 
   void dispose();
@@ -86,5 +88,19 @@ class PetFeedControllerImpl extends PetFeedController {
   @override
   void clear() {
     items.clear();
+  }
+
+  @override
+  void remove(String id) {
+    items.removeWhere((item) {
+      if (item is PanelDetail && item.postItem is Post) {
+        final Post post = item.postItem;
+        return post.id == id;
+      } else if (item is Panel) {
+        // TODO(tvc12): remove item is trending
+      }
+      return false;
+    });
+    this.listener(LoadPostSucceed(items, true));
   }
 }

@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_template/common/resources/resources.dart';
 import 'package:flutter_template/common/widgets/widgets.dart';
 import 'package:flutter_template/main_bloc/main_bloc.dart';
+import 'package:flutter_template/pet_feed/bloc/bloc.dart';
 import 'package:flutter_template/pet_feed/widget/widget.dart';
 import 'package:flutter_template/post/post.dart';
 import 'package:petisland_core/domain/domain.dart';
