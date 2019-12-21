@@ -78,3 +78,9 @@ class ReportPostEvent extends WorkerEvent {
       throw LimitRetryException();
   }
 }
+
+class DeletePostEvent extends WorkerEvent {
+  final String postId;
+
+  DeletePostEvent(this.postId);
+}
