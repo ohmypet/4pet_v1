@@ -6,7 +6,7 @@ abstract class TShadows {
       color: TColors.black20,
       spreadRadius: 2,
       blurRadius: 6,
-      offset: const Offset(0, 4),
+      offset: const Offset(0, 2),
     )
   ];
 
