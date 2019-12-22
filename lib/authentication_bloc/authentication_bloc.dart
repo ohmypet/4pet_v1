@@ -21,6 +21,8 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
 
   final List<PetCategory> categories = [];
 
+  final List<String> reportContents = [];
+
   bool isInit = false;
 
   void init() {
@@ -58,7 +60,15 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
   Future reloadPetCategory() async {
     categories.clear();
     final List<PetCategory> newCategories = await categoryService.getPetCategories();
-    categories.addAll(newCategories);
+    categories.addAll([...?newCategories]);
+    Log.info('loaded pet cateogory');
+  }
+
+  Future reloadReportContent() async {
+    reportContents.clear();
+    final reports = await DI.get<ReportService>(ReportService).getReason();
+    reportContents.addAll([...?reports]);
+    Log.info('loaded report');
   }
 
   void updateCurrentAccount(LoggedIn event) {
@@ -92,6 +102,7 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
         _clearData();
         updateCurrentAccount(event);
         await reloadPetCategory();
+        await reloadReportContent();
         yield Authenticated();
         break;
       default:
