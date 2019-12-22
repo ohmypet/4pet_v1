@@ -51,7 +51,7 @@ void main() async {
   });
 
   test('Create post with empty image string', () async {
-    final PostModal postModal = PostModal.create(
+    final PostCreateModal postModal = PostCreateModal.create(
       price: 0.0,
       title: 'Ahihi',
       location: 'Dong nai',
@@ -69,7 +69,7 @@ void main() async {
   });
 
   test('Create post with image', () async {
-    final PostModal postModal = PostModal.create(
+    final PostCreateModal postModal = PostCreateModal.create(
         price: 10,
         title: 'Ahihi',
         location: 'Dong nai',
@@ -88,7 +88,7 @@ void main() async {
   });
 
   test('Create post with tags ', () async {
-    final PostModal postModal = PostModal.create(
+    final PostCreateModal postModal = PostCreateModal.create(
       price: 10,
       title: 'Ahihi',
       location: 'Dong nai',

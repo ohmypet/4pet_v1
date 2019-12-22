@@ -32,7 +32,7 @@ class PriceState extends PostEditState {
 }
 
 class ImageState extends PostEditState {
-  final List<String> imagesLocalPath;
+  final List<PostImage> imagesLocalPath;
 
   ImageState(this.imagesLocalPath);
 }

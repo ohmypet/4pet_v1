@@ -14,7 +14,7 @@ class PostEditBody extends TStatelessWidget {
           children: <Widget>[
             SummaryInfoWidget(
               postEditBloc.title ?? '',
-              petImage: postEditBloc.imagesLocalPath ?? <String>[],
+              petImage: postEditBloc.images ?? <String>[],
               price: postEditBloc.price ?? 0,
               location: postEditBloc.location,
             ),

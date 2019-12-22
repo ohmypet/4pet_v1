@@ -31,14 +31,13 @@ class _ImagePostInputState extends TState<ImagePostInput> {
             BlocBuilder<PostEditBloc, PostEditState>(
               bloc: widget.bloc,
               builder: (_, PostEditState state) {
-                return widget.bloc.imagesLocalPath != null
-                    ? SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: _buildImageWidget(widget.bloc.imagesLocalPath),
-                        ),
-                      )
-                    : const SizedBox(height: 100);
+                return SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: _buildImageWidget(widget.bloc.postImages),
+                  ),
+                );
               },
             ),
           ],
@@ -52,31 +51,22 @@ class _ImagePostInputState extends TState<ImagePostInput> {
     return imagePostLength < maxImage;
   }
 
-  List<Widget> _buildImageWidget(List<String> imagePath) {
-    if (imagePath == null || imagePath.isEmpty) {
-      return <Widget>[AddImagePostWidget(onPress: () => chooseImage())];
+  List<Widget> _buildImageWidget(List<PostImage> postImages) {
+    List<Widget> result = <Widget>[AddImagePostWidget(onPress: () => chooseImage())];
+
+    if (postImages == null || postImages.isEmpty) {
+      return result;
     } else {
-      List<Widget> result = <Widget>[];
-      if (canAddImage(imagePath.length)) {
+      if (canAddImage(postImages.length)) {
+        result.add(SizedBox(width: 7));
+      } else
+        result.removeLast();
+      postImages.fold(0, (i, postImage) {
         result
-          ..add(AddImagePostWidget(
-            onPress: () => chooseImage(),
-          ))
-          ..add(SizedBox(
-            width: 7,
-          ));
-      }
-      for (int index = 0; index < imagePath.length; ++index) {
-        result
-          ..add(ImagePostWidget(
-            imagePath[index],
-            index: index,
-            onPressDelete: removeImage,
-          ))
-          ..add(SizedBox(
-            width: 7,
-          ));
-      }
+          ..add(ImagePostWidget(postImage, index: i, onTapRemove: _removeImage))
+          ..add(SizedBox(width: 7));
+        return i + 1;
+      });
       return result..removeLast();
     }
   }
@@ -96,9 +86,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
     }
   }
 
-  void removeImage(int index, String imagePath) {
-    if (index != null) {
-      widget.bloc.removeImage(index, imagePath);
-    }
+  void _removeImage(int index, ImageType type) {
+    widget.bloc.removeImage(index, type);
   }
 }

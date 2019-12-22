@@ -16,7 +16,7 @@ class PostImageWidget extends StatelessWidget {
         onTapImage != null ? () => onTapImage(imageUrl, ImageType.Server) : null;
     final Widget image = imageUrl != null
         ? GestureDetector(
-            child: TCacheImageWidget(url: imageUrl),
+            child: _buildImage(imageUrl),
             onTap: onTap,
           )
         : buildDefaultPetImage();
@@ -27,6 +27,11 @@ class PostImageWidget extends StatelessWidget {
     final PostImage image =
         images.firstWhere((image) => image.image.url != null, orElse: () => null);
     return image?.image?.url;
+  }
+
+  Widget _buildImage(String imageUrl) {
+    final bool isFromServer = StringUtils.isImageUrlFormat(imageUrl);
+    return isFromServer ? TCacheImageWidget(url: imageUrl) : Image.file(File(imageUrl));
   }
 }
 

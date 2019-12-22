@@ -1,7 +1,7 @@
 part of petisland_core.repository;
 
 abstract class PostRepository {
-  Future<Post> create(PostModal postModal);
+  Future<Post> create(PostCreateModal postModal);
 
   Future<Post> like(String id);
 
@@ -9,6 +9,8 @@ abstract class PostRepository {
       int offset, int limit, String categoryType, String petCategoryId);
 
   Future<Post> delete(String id);
+
+  Future<Post> edit(PostEditModal postModal);
 }
 
 class PostRepositoryImpl extends PostRepository {
@@ -17,7 +19,7 @@ class PostRepositoryImpl extends PostRepository {
   PostRepositoryImpl(this.client);
 
   @override
-  Future<Post> create(PostModal postModal) {
+  Future<Post> create(PostCreateModal postModal) {
     return client
         .post<Map<String, dynamic>>('/api/post', postModal.toJson())
         .then((Map<String, dynamic> json) => Post.fromJson(json));
@@ -70,5 +72,12 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future<Post> delete(String id) {
     return client.delete('/api/post/$id').then((_) => Post.fromJson(_));
+  }
+
+  @override
+  Future<Post> edit(PostEditModal postModal) {
+    final id = postModal.id;
+    final body = postModal.toJson();
+    return client.put('/api/post/$id', body).then((_) => Post.fromJson(_));
   }
 }

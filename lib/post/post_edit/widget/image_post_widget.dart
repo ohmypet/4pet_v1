@@ -3,65 +3,54 @@ part of petisland.post.post_edit.widget;
 class ImagePostWidget extends StatelessWidget {
   ///Index in PetImage List for display Images's Post
   final int index;
-  final String imageUrl;
-  final void Function(int, String) onPressDelete;
+  final PostImage postImage;
+  final void Function(int, ImageType) onTapRemove;
+  final ImageType type;
 
-  ImagePostWidget(this.imageUrl, {@required this.onPressDelete, this.index, Key key})
-      : super(key: key);
+  ImagePostWidget(this.postImage, {@required this.onTapRemove, this.index, Key key})
+      : type = StringUtils.isImageUrlFormat(postImage.image.url)
+            ? ImageType.Server
+            : ImageType.Local,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrl == null || imageUrl.isEmpty) {
-      return imageDefaultWidget();
-    } else {
-      Widget child;
-      if (isImageUrlFormat(imageUrl)) {
-        child = TCacheImageWidget(
-          borderRadius: BorderRadius.circular(0),
-          url: imageUrl,
-        );
-      } else {
-        child = Image.asset(
-          imageUrl,
-          fit: BoxFit.cover,
-        );
-      }
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(4),
-        child: Stack(
-          children: <Widget>[
-            SizedBox(
-              height: 100,
-              width: 100,
-              child: child,
-            ),
-            Positioned(
-              top: 5,
-              right: 5,
-              child: GestureDetector(
-                child: Container(
-                  padding: const EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: TColors.white.withAlpha(220),
-                  ),
-                  child: Icon(
-                    Icons.close,
-                    size: 16,
-                    color: TColors.water_melon,
-                  ),
-                ),
-                onTap: _onTapImage,
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-  }
+    final imageUrl = postImage.image.url;
+    Widget child = type == ImageType.Server
+        ? TCacheImageWidget(borderRadius: BorderRadius.circular(0), url: imageUrl)
+        : Image.asset(imageUrl, fit: BoxFit.cover);
 
-  bool isImageUrlFormat(String url) {
-    return url.contains(RegExp('^https?://')) || url.contains(RegExp('^http?://'));
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(4),
+      child: Stack(
+        children: <Widget>[
+          SizedBox(
+            height: 100,
+            width: 100,
+            child: child,
+          ),
+          Positioned(
+            top: 5,
+            right: 5,
+            child: GestureDetector(
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: TColors.white.withAlpha(220),
+                ),
+                child: Icon(
+                  Icons.close,
+                  size: 16,
+                  color: TColors.water_melon,
+                ),
+              ),
+              onTap: _onTapRemoveImage,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget imageDefaultWidget() {
@@ -72,7 +61,7 @@ class ImagePostWidget extends StatelessWidget {
     );
   }
 
-  void _onTapImage() {
-    if (onPressDelete != null) onPressDelete(index, imageUrl);
+  void _onTapRemoveImage() {
+    if (onTapRemove != null) onTapRemove(index, type);
   }
 }

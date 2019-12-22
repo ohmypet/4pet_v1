@@ -26,7 +26,9 @@ part 'post.dart';
 
 part 'post_image.dart';
 
-part 'post_modal.dart';
+part 'post_create_modal.dart';
+
+part 'post_edit_modal.dart';
 
 part 'post_tag.dart';
 

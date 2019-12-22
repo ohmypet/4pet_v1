@@ -28,7 +28,7 @@ class ImageSliderWidget extends StatelessWidget {
               final postImage = postImages[index];
               return AspectRatio(
                 aspectRatio: 1,
-                child: TCacheImageWidget(url: postImage.image.url),
+                child: _buildImage(postImage.image.url),
               );
             },
             separatorBuilder: (BuildContext context, int index) {
@@ -38,6 +38,11 @@ class ImageSliderWidget extends StatelessWidget {
         )
       ],
     );
+  }
+
+  Widget _buildImage(String url) {
+    final bool isFromServer = StringUtils.isImageUrlFormat(url);
+    return isFromServer ? TCacheImageWidget(url: url) : Image.file(File(url));
   }
 }
 
