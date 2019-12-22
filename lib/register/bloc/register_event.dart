@@ -25,9 +25,22 @@ class SubmitCode extends RegisterEvent {
   }
 }
 
+class SubmitAccount extends RegisterEvent {
+  final String userName;
+  final String password;
+  final User user;
+  SubmitAccount(this.userName, this.password,{this.user});
+  @override
+  String toString() {
+    return '$runtimeType:: {userName:: $userName, password:: $password, user:: $user}';
+  }
+}
+
 class EmailSuccess extends RegisterEvent {}
 
 class CodeSuccess extends RegisterEvent {}
+
+class AccountSuccess extends RegisterEvent {}
 
 class EmailError extends RegisterErrorEvent implements RegisterEvent {
   EmailError(String message) : super(message);
@@ -35,4 +48,8 @@ class EmailError extends RegisterErrorEvent implements RegisterEvent {
 
 class CodeError extends RegisterErrorEvent implements RegisterEvent {
   CodeError(String message) : super(message);
+}
+
+class AccountError extends RegisterErrorEvent implements RegisterEvent {
+  AccountError(String message) : super(message);
 }

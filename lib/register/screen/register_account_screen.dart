@@ -1,20 +1,18 @@
 part of petisland.register.screen;
 
-class RegisterCodeScreen extends TStatelessWidget {
-  static String name = '/RegisterCodeScreen';
+class RegisterAccountScreen extends TStatelessWidget {
+  static String name = '/RegisterAccountScreen';
   final Duration timeAnimation = const Duration(milliseconds: 210);
   final RegisterBloc registerBloc = DI.get(RegisterBloc);
 
-  RegisterCodeScreen({Key key}) : super(key: key);
+  RegisterAccountScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return AnimatedPadding(
       duration: timeAnimation,
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -33,19 +31,21 @@ class RegisterCodeScreen extends TStatelessWidget {
           ),
         ),
         body: Stack(
+          overflow: Overflow.visible,
+          fit: StackFit.expand,
           children: <Widget>[
-            RegisterCodeWidget(),
+            RegisterEmailWidget(),
             Builder(
               builder: (BuildContext context) {
                 return BlocBuilder<RegisterBloc, RegisterState>(
                   bloc: registerBloc,
                   condition: (_, RegisterState state) {
                     if (state is Failed) _showError(context, state);
-                    if (state is CodeSuccessful) {
+                    if (state is EmailSuccessful) {
                       navigateToScreen(
                           context: context,
-                          screen: RegisterAccountScreen(),
-                          screenName: RegisterAccountScreen.name);
+                          screen: RegisterCodeScreen(),
+                          screenName: RegisterCodeScreen.name);
                     }
                     return true;
                   },

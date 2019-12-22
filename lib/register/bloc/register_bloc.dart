@@ -1,8 +1,10 @@
 part of petisland.register.bloc;
 
 class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
-  static final AccountService accountService = DI.get<AccountService>(AccountService);
+  static final AccountService accountService =
+      DI.get<AccountService>(AccountService);
   Account _account;
+  String _code;
 
   @override
   Duration get delayEvent => Duration(seconds: 0);
@@ -27,6 +29,7 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
         _handleEmailSubmit(event);
         break;
       case SubmitCode:
+        yield Loading();
         _handleCodeSubmit(event);
         break;
       case EmailSuccess:
@@ -79,6 +82,11 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
   }
 
   void _handleCodeSubmit(SubmitCode event) async {
+    FutureOr<void> _handleCodeSuccess(bool success, String requireCode) {
+      _code = requireCode;
+      add(CodeSuccess());
+    }
+
     FutureOr<void> _handleError(dynamic error) {
       Log.error('_handleCodeSubmit:: $error');
       if (error is PetApiException) {
@@ -96,7 +104,48 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
 
     accountService
         .checkCode(_account.email, event.requireCode)
-        .then((_) => Log.info('Code is valid'))
+        .then((_) => _handleCodeSuccess(_, event.requireCode))
+        .catchError(_handleError);
+  }
+
+  void _handleAccountSubmit(SubmitAccount event) async {
+    bool accountIsNotValid(SubmitAccount event) {
+      return (event?.userName?.trim()?.isEmpty ??
+          true & event?.password?.trim()?.isEmpty ??
+          true);
+    }
+
+    FutureOr<void> _handleAccountSuccess(Account account) {
+      add(AccountSuccess());
+    }
+
+    FutureOr<void> _handleError(dynamic error) {
+      Log.error('_handleCodeSubmit:: $error');
+      if (error is PetApiException) {
+        if (error.statusCode == 408)
+          notifyError(CodeError('Mã xác nhận không hợp lệ'));
+        else if (error.statusCode == 400) {
+          notifyError(CodeError('Mã xác nhận không hợp lệ'));
+        } else {
+          notifyError(CodeError(error.message));
+        }
+      } else {
+        notifyError(CodeError(error.toString()));
+      }
+    }
+
+    if (accountIsNotValid(event)) {
+      _handleError('Tài khoản không hợp lệ');
+    }
+    accountService
+        .register(
+          _account.email,
+          _code,
+          event.userName,
+          event.password,
+          user: event.user,
+        )
+        .then((_) => _handleAccountSuccess(_))
         .catchError(_handleError);
   }
 }
