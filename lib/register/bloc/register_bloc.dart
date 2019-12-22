@@ -1,8 +1,7 @@
 part of petisland.register.bloc;
 
 class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
-  static final AccountService accountService =
-      DI.get<AccountService>(AccountService);
+  static final AccountService accountService = DI.get<AccountService>(AccountService);
   Account _account;
 
   @override
@@ -80,13 +79,13 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
   }
 
   void _handleCodeSubmit(SubmitCode event) async {
-    // TODO: define Error message
     FutureOr<void> _handleError(dynamic error) {
+      Log.error('_handleCodeSubmit:: $error');
       if (error is PetApiException) {
-        if (error.statusCode == 409)
-          notifyError(CodeError('Email đã tồn tại'));
+        if (error.statusCode == 408)
+          notifyError(CodeError('Mã xác nhận không hợp lệ'));
         else if (error.statusCode == 400) {
-          notifyError(CodeError('Email không hợp lệ'));
+          notifyError(CodeError('Mã xác nhận không hợp lệ'));
         } else {
           notifyError(CodeError(error.message));
         }
@@ -95,20 +94,9 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
       }
     }
 
-    try {
-      if (event?.requireCode?.trim()?.isEmpty ?? true) {
-        _handleError('Mã xác nhận không hợp lệ');
-      }
-      bool success = await accountService
-          .checkCode(_account.email, event.requireCode)
-          .catchError(_handleError);
-      if (success) {
-        add(CodeSuccess());
-      } else {
-        _handleError('Mã xác nhận không chính xác');
-      }
-    } catch (e) {
-      _handleError(e);
-    }
+    accountService
+        .checkCode(_account.email, event.requireCode)
+        .then((_) => Log.info('Code is valid'))
+        .catchError(_handleError);
   }
 }

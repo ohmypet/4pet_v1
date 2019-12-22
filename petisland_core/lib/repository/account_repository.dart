@@ -64,16 +64,14 @@ class AccountReposityImpl extends AccountRepository {
   Future<LoginData> checkToken(String token) {
     final Map<String, dynamic> headers = <String, dynamic>{'x-access-token': token};
     return client
-        .get<Map<String, dynamic>>('$path/check-token', options: Options(headers: headers))
+        .get<Map<String, dynamic>>('$path/check-token',
+            options: Options(headers: headers))
         .then((Map<String, dynamic> json) => LoginData.fromJson(json));
   }
 
   @override
   Future<bool> checkCode(String email, String code) {
     final Map<String, dynamic> params = <String, dynamic>{'email': email, 'code': code};
-    return client
-        .getRaw('$path/check-code', params: params)
-        .then((_) => true)
-        .catchError((_) => false);
+    return client.getRaw('$path/check-code', params: params).then((_) => true);
   }
 }

@@ -12,8 +12,9 @@ class RegisterCodeScreen extends TStatelessWidget {
     final theme = Theme.of(context);
     return AnimatedPadding(
       duration: timeAnimation,
-      padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(

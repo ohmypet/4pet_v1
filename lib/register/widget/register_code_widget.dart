@@ -26,7 +26,6 @@ class _RegisterCodeWidgetState extends TState<RegisterCodeWidget> {
               codeController,
               focusNode: codeFocusNode,
               hintText: 'Nhập mã xác nhận',
-              icon: Icon(Icons.person, size: 22),
               keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
               onSubmit: _onCodeSubmitted,

@@ -31,6 +31,8 @@ class RegisterEmailScreen extends TStatelessWidget {
           ),
         ),
         body: Stack(
+          overflow: Overflow.visible,
+          fit: StackFit.expand,
           children: <Widget>[
             RegisterEmailWidget(),
             Builder(
