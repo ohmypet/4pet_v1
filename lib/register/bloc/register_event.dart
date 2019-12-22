@@ -15,8 +15,24 @@ class SubmitEmail extends RegisterEvent {
   }
 }
 
+class SubmitCode extends RegisterEvent {
+  final String requireCode;
+
+  SubmitCode(this.requireCode);
+  @override
+  String toString() {
+    return '$runtimeType:: requireCode:: $requireCode';
+  }
+}
+
 class EmailSuccess extends RegisterEvent {}
 
-class EmailError extends RegisterErrorEvent implements RegisterEvent{
+class CodeSuccess extends RegisterEvent {}
+
+class EmailError extends RegisterErrorEvent implements RegisterEvent {
   EmailError(String message) : super(message);
+}
+
+class CodeError extends RegisterErrorEvent implements RegisterEvent {
+  CodeError(String message) : super(message);
 }

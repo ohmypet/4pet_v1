@@ -1,18 +1,20 @@
 part of petisland.register.screen;
 
-class RegisterEmailScreen extends TStatelessWidget {
-  static String name = '/RegisterEmailScreen';
+class RegisterCodeScreen extends TStatelessWidget {
+  static String name = '/RegisterCodeScreen';
   final Duration timeAnimation = const Duration(milliseconds: 210);
   final RegisterBloc registerBloc = DI.get(RegisterBloc);
 
-  RegisterEmailScreen({Key key}) : super(key: key);
+  RegisterCodeScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return AnimatedPadding(
       duration: timeAnimation,
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -31,22 +33,20 @@ class RegisterEmailScreen extends TStatelessWidget {
           ),
         ),
         body: Stack(
-          overflow: Overflow.visible,
-          fit: StackFit.expand,
           children: <Widget>[
-            RegisterEmailWidget(),
+            RegisterCodeWidget(),
             Builder(
               builder: (BuildContext context) {
                 return BlocBuilder<RegisterBloc, RegisterState>(
                   bloc: registerBloc,
                   condition: (_, RegisterState state) {
                     if (state is Failed) _showError(context, state);
-                    if (state is EmailSuccessful) {
-                      navigateToScreen(
-                          context: context,
-                          screen: RegisterCodeScreen(),
-                          screenName: RegisterCodeScreen.name);
-                    }
+                    // if (state is EmailSuccessful) {
+                    //   navigateToScreen(
+                    //       context: context,
+                    //       screen: RegisterCodeScreen(),
+                    //       screenName: RegisterCodeScreen.name);
+                    // }
                     return true;
                   },
                   builder: (_, RegisterState state) {

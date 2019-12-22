@@ -9,6 +9,7 @@ class UserInputWidget extends TStatelessWidget {
   final FocusNode focusNode;
   final VoidCallback onSubmit;
   final int maxLines;
+  final TextAlign textAlign;
   final void Function(String) onChange;
 
   UserInputWidget(
@@ -19,6 +20,7 @@ class UserInputWidget extends TStatelessWidget {
     this.icon,
     this.keyboardType,
     this.maxLines = 1,
+    this.textAlign = TextAlign.start,
     this.focusNode,
     this.onSubmit,
     this.onChange,
@@ -42,6 +44,7 @@ class UserInputWidget extends TStatelessWidget {
         onEditingComplete: onSubmit,
         onSubmitted: onSubmit != null ? (_) => onSubmit() : null,
         onChanged: onChange != null ? (_) => onChange(_) : null,
+        textAlign: textAlign ?? TextAlign.start,
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(vertical: 15, horizontal: 5),

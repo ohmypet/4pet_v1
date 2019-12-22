@@ -2,6 +2,7 @@ part of petisland.register.bloc;
 
 class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
   static final AccountService accountService = DI.get<AccountService>(AccountService);
+  Account _account;
 
   @override
   Duration get delayEvent => Duration(seconds: 0);
@@ -10,6 +11,9 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
   Stream<RegisterState> errorToState(BaseErrorEvent event) async* {
     switch (event.runtimeType) {
       case EmailError:
+        yield Failed(event.message);
+        break;
+      case CodeError:
         yield Failed(event.message);
         break;
     }
@@ -22,8 +26,15 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
         yield Loading();
         _handleEmailSubmit(event);
         break;
+      case SubmitCode:
+        _handleCodeSubmit(event);
+        break;
       case EmailSuccess:
-        yield Successful();
+        yield EmailSuccessful();
+        break;
+      case CodeSuccess:
+        yield CodeSuccessful();
+        break;
     }
   }
 
@@ -34,10 +45,14 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
     this.add(SubmitEmail(email));
   }
 
+  void submitCode(String code) {
+    this.add(SubmitCode(code));
+  }
+
   void _handleEmailSubmit(SubmitEmail event) {
     FutureOr<void> _handleRequireCodeSuccess(Account value) {
+      _account = value;
       add(EmailSuccess());
-      //navigateToScreen Username password
     }
 
     FutureOr<void> _handleError(dynamic error) {
@@ -60,6 +75,28 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
     accountService
         .requireCode(event.email)
         .then(_handleRequireCodeSuccess)
+        .catchError(_handleError);
+  }
+
+  void _handleCodeSubmit(SubmitCode event) async {
+    FutureOr<void> _handleError(dynamic error) {
+      Log.error('_handleCodeSubmit:: $error');
+      if (error is PetApiException) {
+        if (error.statusCode == 408)
+          notifyError(CodeError('Mã xác nhận không hợp lệ'));
+        else if (error.statusCode == 400) {
+          notifyError(CodeError('Mã xác nhận không hợp lệ'));
+        } else {
+          notifyError(CodeError(error.message));
+        }
+      } else {
+        notifyError(CodeError(error.toString()));
+      }
+    }
+
+    accountService
+        .checkCode(_account.email, event.requireCode)
+        .then((_) => Log.info('Code is valid'))
         .catchError(_handleError);
   }
 }
