@@ -8,7 +8,9 @@ class ImagePostWidget extends StatelessWidget {
   final ImageType type;
 
   ImagePostWidget(this.postImage, {@required this.onTapRemove, this.index, Key key})
-      : type = isImageUrlFormat(postImage.image.url) ? ImageType.Server : ImageType.Local,
+      : type = StringUtils.isImageUrlFormat(postImage.image.url)
+            ? ImageType.Server
+            : ImageType.Local,
         super(key: key);
 
   @override
@@ -49,10 +51,6 @@ class ImagePostWidget extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  static bool isImageUrlFormat(String url) {
-    return url.contains(RegExp('^https?://')) || url.contains(RegExp('^http?://'));
   }
 
   Widget imageDefaultWidget() {

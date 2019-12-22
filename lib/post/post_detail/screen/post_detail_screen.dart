@@ -18,10 +18,7 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final imageSliderWidget = item.postImages?.isNotEmpty == true
-        ? ImageSliderWidget(
-            postImages: item.postImages,
-            description: 'Ảnh thú cưng',
-          )
+        ? ImageSliderWidget(postImages: item.postImages, description: 'Ảnh thú cưng')
         : SizedBox();
     return Scaffold(
       appBar: PreferredSize(

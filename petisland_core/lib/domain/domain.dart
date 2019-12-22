@@ -1,6 +1,5 @@
 library petisland_core.domain;
 
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:petisland_core/utils/utils.dart';
