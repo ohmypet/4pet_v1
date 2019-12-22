@@ -78,6 +78,6 @@ class PostRepositoryImpl extends PostRepository {
   Future<Post> edit(PostEditModal postModal) {
     final id = postModal.id;
     final body = postModal.toJson();
-    return client.put('/api/post/$id', body);
+    return client.put('/api/post/$id', body).then((_) => Post.fromJson(_));
   }
 }
