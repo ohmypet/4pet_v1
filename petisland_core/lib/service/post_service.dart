@@ -11,6 +11,12 @@ abstract class PostService {
       {int limit = 10, String categoryType, String petCategoryId});
 
   Future<Post> delete(String id);
+
+  Future<Comment> createComment(String postId, String message);
+
+  Future<List<Comment>> getComments(String postId, {int from, int limit});
+
+  Future<Comment> deleteComment(String postId, String commentId);
 }
 
 class PostServiceImpl extends PostService {
@@ -42,5 +48,20 @@ class PostServiceImpl extends PostService {
   @override
   Future<Post> edit(PostEditModal postModal) {
     return repository.edit(postModal);
+  }
+
+  @override
+  Future<Comment> createComment(String postId, String message) {
+    return repository.createComment(postId, message);
+  }
+
+  @override
+  Future<Comment> deleteComment(String postId, String commentId) {
+    return repository.deleteComment(postId, commentId);
+  }
+
+  @override
+  Future<List<Comment>> getComments(String postId, {int from = 0, int limit = 15}) {
+    return repository.getComments(postId, from: from, limit: limit);
   }
 }
