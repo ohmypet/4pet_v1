@@ -128,7 +128,7 @@ void main() {
         id: '12345',
         createAt: DateTime.now(),
         updateAt: DateTime.now(),
-        address: <String, dynamic>{'city': 'HCM'},
+        address: 'HCM',
         bio: 'ahihi',
         createBy: null,
         dob: DateTime.now(),

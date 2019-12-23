@@ -3,7 +3,7 @@ part of petisland_core.domain;
 class User extends BaseModel {
   String name;
   String phoneNumber;
-  Map<String, dynamic> address;
+  String address;
   String bio; //
   DateTime dob; // day of birth
   Map<String, dynamic> settings;
@@ -41,7 +41,7 @@ class User extends BaseModel {
     final Map<String, dynamic> map = super.toJson();
     _addValueToMap('name', name, map);
     _addValueToMap('phone_numbder', phoneNumber, map);
-    _addValueToMap('address', address ?? {}, map);
+    _addValueToMap('address', address, map);
     _addValueToMap('bio', bio, map);
     _addValueToMap('dob', dob?.toIso8601String(), map);
     _addValueToMap('settings', settings, map);
@@ -54,7 +54,7 @@ class User extends BaseModel {
     final Map<String, dynamic> map = {};
     _addValueToMap('name', name, map);
     _addValueToMap('phoneNumber', phoneNumber, map);
-    _addValueToMap('address', address ?? {}, map);
+    _addValueToMap('address', address, map);
     _addValueToMap('bio', bio, map);
     _addValueToMap('dob', dob?.toIso8601String(), map);
     _addValueToMap('settings', settings, map);
