@@ -14,7 +14,7 @@ abstract class PostRepository {
 
   Future<Comment> createComment(String postId, String message);
 
-  Future<List<Comment>> getComments(String postId, {int from, int limit});
+  Future<List<Comment>> getComments(String postId, {int offset, int limit});
 
   Future<Comment> deleteComment(String postId, String commentId);
 }
@@ -99,8 +99,18 @@ class PostRepositoryImpl extends PostRepository {
   }
 
   @override
-  Future<List<Comment>> getComments(String postId, {int from = 0, int limit = 15}) {
-    final Map<String, int> map = {'from': from, 'limit': limit};
-    return client.get('/api/post/$postId/comment', params: map);
+  Future<List<Comment>> getComments(String postId, {int offset = 0, int limit = 15}) {
+    // final Map<String, int> map = {'offset': offset, 'limit': limit};
+    Log.info('/api/post/$postId/comment');
+    return client
+        .get<List<dynamic>>('/api/post/$postId/comment')
+        .then((_) => _parseToComments(_));
+  }
+
+  List<Comment> _parseToComments(List<dynamic> list) {
+    return list
+        .cast<Map<String, dynamic>>()
+        .map((json) => Comment.fromJson(json))
+        .toList();
   }
 }

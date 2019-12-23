@@ -31,7 +31,7 @@ class TPageRoute<T> extends PageRoute<T> {
     Animation<double> secondaryAnimation,
     Widget child,
   ) {
-    Log.info('$runtimeType buildTransitions');
+    // Log.info('$runtimeType buildTransitions');
     return ScaleTransition(
       child: child,
       scale: Tween<double>(begin: 0.0, end: 1).animate(

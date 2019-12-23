@@ -18,12 +18,18 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final imageSliderWidget = item.postImages?.isNotEmpty == true
-        ? ImageSliderWidget(postImages: item.postImages, description: 'Ảnh thú cưng')
+        ? Container(
+            height: 150,
+            child: ImageSliderWidget(
+              postImages: item.postImages,
+              description: 'Ảnh thú cưng',
+            ),
+          )
         : SizedBox();
     return Scaffold(
       appBar: PreferredSize(
         child: PostDetailAppBar(
-          hasPermision: hasPermissionEditAndDel(item.account),
+          hasPermision: grantEditAndDel(item.account),
           onTapBack: () => _onTapBack(context),
           onTapSeeMore: (_) => _onTapSeeMore(context, _),
         ),
@@ -32,51 +38,47 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: SingleChildScrollView(
-            child: Flex(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              direction: Axis.vertical,
-              children: <Widget>[
-                AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Flex(
-                    direction: Axis.vertical,
-                    children: <Widget>[
-                      Expanded(
-                        flex: 7,
-                        child: PostPreviewWidget(item: item),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: PostButtonBar(item: item),
-                      )
-                    ],
+          child: ListView(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            children: <Widget>[
+              Flex(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                direction: Axis.vertical,
+                children: <Widget>[
+                  AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: Flex(
+                      direction: Axis.vertical,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 7,
+                          child: PostPreviewWidget(item: item),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: PostButtonBar(item: item),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: 15),
-                buildTextDescription(context, 'Miêu tả'),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: PostDescriptionWidget(description: item.description),
-                ),
-                Container(child: imageSliderWidget, height: 150),
-                SizedBox(height: 15),
-              ],
-            ),
+                  SizedBox(height: 15),
+                  buildTextDescription(context, 'Miêu tả'),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: PostDescriptionWidget(description: item.description),
+                  ),
+                  Flexible(child: imageSliderWidget),
+                  SizedBox(height: 15),
+                ],
+              ),
+              CommnetListingWidget(item: widget.item),
+            ],
           ),
         ),
       ),
     );
-  }
-
-  bool hasPermissionEditAndDel(Account accountFromPost) {
-    final AuthenticationBloc currentAccount = DI.get(AuthenticationBloc);
-    final Account account = currentAccount.account;
-    if (accountFromPost?.id == account.id) {
-      return true;
-    } else
-      return false;
   }
 
   void _onTapBack(BuildContext context) {
@@ -98,7 +100,7 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
         _deletePost(context, item);
         break;
       case SeeMoreType.Edit:
-        _editPOst(context, item);
+        _editPost(context, item);
         break;
       default:
     }
@@ -117,7 +119,7 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
     if (widget.onDeletePost != null) widget.onDeletePost();
   }
 
-  void _editPOst(BuildContext context, Post item) {
+  void _editPost(BuildContext context, Post item) {
     navigateToScreen(
       context: context,
       screen: PostEditScreen.edit(item, onEditCompleted: _onSendEditPost),
@@ -143,4 +145,13 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
         ..pet = post.pet;
     });
   }
+}
+
+bool grantEditAndDel(Account accountFromPost) {
+  final AuthenticationBloc currentAccount = DI.get(AuthenticationBloc);
+  final Account account = currentAccount.account;
+  if (accountFromPost?.id == account.id) {
+    return true;
+  } else
+    return false;
 }
