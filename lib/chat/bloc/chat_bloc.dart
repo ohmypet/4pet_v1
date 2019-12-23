@@ -1,6 +1,6 @@
 part of petisland.chat.bloc;
 
-class ChatBloc extends  {}
+// class ChatBloc extends  {}
 
 abstract class ChatEvent extends BaseEvent {}
 

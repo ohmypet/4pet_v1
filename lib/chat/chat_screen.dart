@@ -8,15 +8,15 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final url = 'https://github.com/tvc12';
-
   @override
   Widget build(BuildContext context) {
+    final firstAccount = '6dc14848-0380-4211-b4f5-88335e8355bd';
+    final seccondAccount = '7ea44efa-b307-40ce-9056-b4785d3a0c99';
+    final url =
+        'https://chat-plugin.now.sh/?firstAccount=$firstAccount&secondAccount=$seccondAccount';
     return SafeArea(
 //      key: PageStorageKey('chat'),
-      child: WebviewScaffold(
-        url: url,
-      ),
+      child: WebviewScaffold(url: url),
     );
   }
 }

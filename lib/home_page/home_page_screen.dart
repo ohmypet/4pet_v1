@@ -19,7 +19,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Log.info('tao reload');
     return BottomBarWidget(
       children: <Widget>[
         PetFeedScreen(),
