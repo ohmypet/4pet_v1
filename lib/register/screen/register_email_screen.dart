@@ -29,6 +29,8 @@ class RegisterEmailScreen extends TStatelessWidget {
               ),
             ),
           ),
+          title: Text('Nhập email'),
+          centerTitle: true,
         ),
         body: Stack(
           overflow: Overflow.visible,

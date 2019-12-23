@@ -31,6 +31,8 @@ class RegisterCodeScreen extends TStatelessWidget {
               ),
             ),
           ),
+          title: Text('Nhập mã xác nhận'),
+          centerTitle: true,
         ),
         body: Stack(
           children: <Widget>[

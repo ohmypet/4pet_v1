@@ -30,6 +30,8 @@ class RegisterAccountScreen extends TStatelessWidget {
               ),
             ),
           ),
+          title: Text('Đăng kí tài khoản'),
+          centerTitle: true,
         ),
         body: Stack(
           overflow: Overflow.visible,

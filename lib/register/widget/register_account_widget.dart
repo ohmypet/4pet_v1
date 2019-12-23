@@ -22,6 +22,18 @@ class _RegisterAccountWidgetState extends TState<RegisterAccountWidget> {
   final RegisterBloc registerBloc = DI.get(RegisterBloc);
 
   ThemeData get theme => Theme.of(context);
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    nameController.dispose();
+    usernameController.dispose();
+    locationController.dispose();
+    phoneController.dispose();
+    usernameFocusNode.dispose();
+    passwordFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -198,14 +210,7 @@ class _RegisterAccountWidgetState extends TState<RegisterAccountWidget> {
 
   bool get isValid =>
       usernameController.text.isNotEmpty & passwordController.text.isNotEmpty;
-
-  @override
-  void dispose() {
-    super.dispose();
-    usernameController.dispose();
-    passwordController.dispose();
-  }
-
+      
   void _onTextChanged(String str) {
     setState(() {});
   }
