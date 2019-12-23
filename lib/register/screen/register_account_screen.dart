@@ -12,7 +12,8 @@ class RegisterAccountScreen extends TStatelessWidget {
     final theme = Theme.of(context);
     return AnimatedPadding(
       duration: timeAnimation,
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -34,18 +35,15 @@ class RegisterAccountScreen extends TStatelessWidget {
           overflow: Overflow.visible,
           fit: StackFit.expand,
           children: <Widget>[
-            RegisterEmailWidget(),
+            RegisterAccountWidget(),
             Builder(
               builder: (BuildContext context) {
                 return BlocBuilder<RegisterBloc, RegisterState>(
                   bloc: registerBloc,
                   condition: (_, RegisterState state) {
                     if (state is Failed) _showError(context, state);
-                    if (state is EmailSuccessful) {
-                      navigateToScreen(
-                          context: context,
-                          screen: RegisterCodeScreen(),
-                          screenName: RegisterCodeScreen.name);
+                    if (state is AccountSuccessful) {
+                      closeUntil(context, MainAppScreen.name);
                     }
                     return true;
                   },

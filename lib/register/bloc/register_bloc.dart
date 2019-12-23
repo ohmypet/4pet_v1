@@ -32,11 +32,18 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
         yield Loading();
         _handleCodeSubmit(event);
         break;
+      case SubmitAccount:
+        yield Loading();
+        _handleAccountSubmit(event);
+        break;
       case EmailSuccess:
         yield EmailSuccessful();
         break;
       case CodeSuccess:
         yield CodeSuccessful();
+        break;
+      case AccountSuccess:
+        yield AccountSuccessful();
         break;
     }
   }
@@ -50,6 +57,10 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
 
   void submitCode(String code) {
     this.add(SubmitCode(code));
+  }
+
+  void submitAccount(String username, String password, {User user}) {
+    this.add(SubmitAccount(username, password, user: user));
   }
 
   void _handleEmailSubmit(SubmitEmail event) {
