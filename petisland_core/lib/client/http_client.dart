@@ -45,7 +45,7 @@ class HttpClient {
         .catchError((dynamic e) => _handleError(path, e));
   }
 
-  Future<T> delete<T>(String path, {Options options}) {
+  Future<T> delete<T>(String path, { Options options}) {
     return dio
         .delete<String>(path, options: _getOptions(options))
         .then((Response<String> response) => _handleResult<T>(response))
