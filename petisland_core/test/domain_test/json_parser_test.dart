@@ -103,7 +103,7 @@ void main() {
         likes: 1234,
         createAt: DateTime.now(),
         updateAt: DateTime.now(),
-        account: Account(
+        createBy: Account(
           id: '1234',
           username: 'meomeocf98',
           createAt: DateTime.now(),

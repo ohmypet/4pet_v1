@@ -17,13 +17,8 @@ class KikiReportWidget extends StatefulWidget {
 class _KikiReportWidgetState extends TState<KikiReportWidget> {
   bool isActive = false;
 
-  static const feedbackOption = [
-    'Ảnh thô tục',
-    'Ảnh không đúng',
-    'Lừa đảo',
-    'Gây hiểu lầm',
-    'Phân biệt'
-  ];
+  final List<String> feedbackOption =
+      DI.get<AuthenticationBloc>(AuthenticationBloc).reportContents;
   List<bool> optionChosen;
 
   void callbackSetState() {
@@ -42,8 +37,8 @@ class _KikiReportWidgetState extends TState<KikiReportWidget> {
     final Widget title = _buildTitle();
     final Widget button = _buildButton(isActive, context);
     return ListView(
-      shrinkWrap: true,
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      physics: const BouncingScrollPhysics(),
+      // padding: const EdgeInsets.symmetric(vertical: 0),
       children: <Widget>[
         title,
         Padding(
