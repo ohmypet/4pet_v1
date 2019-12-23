@@ -197,7 +197,6 @@ class _RegisterAccountWidgetState extends TState<RegisterAccountWidget> {
       String name = getText(nameController);
       String location = getText(locationController);
       String phone = getText(phoneController);
-      // TODO(Hao): fixed check there
       user = User(
         name: name,
         address: location,

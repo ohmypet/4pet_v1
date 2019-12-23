@@ -3,7 +3,7 @@ part of petisland_core.domain;
 class User extends BaseModel {
   String name;
   String phoneNumber;
-  String address;
+  dynamic address;
   String bio; //
   DateTime dob; // day of birth
   Map<String, dynamic> settings;

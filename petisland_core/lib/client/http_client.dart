@@ -84,7 +84,7 @@ class HttpClient {
   }
 
   Exception _handleDioError(String path, DioError ex) {
-    Log.error('path: $path ex: $ex');
+    Log.error('path: $path ex: $ex - ${ex.response.data}');
     final PetApiException error = _getApiException(ex.response) ?? PetException.fromException(ex);
     throw error;
   }
