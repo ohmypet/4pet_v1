@@ -22,11 +22,11 @@ class TCircleButton extends StatelessWidget {
           data: theme.copyWith(
             iconTheme: IconThemeData(
               color: theme.primaryColor,
-              size: 22,
+              size: 24,
             ),
           ),
         ),
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(7.0),
         decoration: BoxDecoration(
           boxShadow: TShadows.defaultShadow,
           shape: BoxShape.circle,

@@ -1,6 +1,8 @@
 # PetIsland
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FPetIsland%2FPetIsland.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FPetIsland%2FPetIsland?ref=badge_shield)
 
+[![PetIsland Team](https://img.shields.io/badge/🐶%20PetIsland-team-important)](https://github.com/PetIsland)
+[![Made with love](https://img.shields.io/badge/made-with%20❤️-red)](https://github.com/PetIsland)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FPetIsland%2FPetIsland.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FPetIsland%2FPetIsland?ref=badge_shield)
 
 Awesome mobile app for PetIsland.
 

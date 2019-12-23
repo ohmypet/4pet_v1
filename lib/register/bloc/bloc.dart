@@ -7,6 +7,7 @@ import 'package:flutter_template/main_bloc/main_bloc.dart';
 import 'package:petisland_core/domain/domain.dart';
 import 'package:petisland_core/exception/exception.dart';
 import 'package:petisland_core/service/service.dart';
+import 'package:petisland_core/utils/utils.dart';
 
 part 'register_bloc.dart';
 part 'register_event.dart';

@@ -8,7 +8,6 @@ import 'package:flutter_template/pet_feed/widget/post/post.dart';
 import 'package:flutter_template/pet_feed/widget/post_category/post_category.dart';
 import 'package:flutter_template/pet_feed/widget/post_panel/post_panel.dart';
 import 'package:petisland_core/domain/domain.dart';
-import 'package:petisland_core/utils/utils.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 export 'post/post.dart';

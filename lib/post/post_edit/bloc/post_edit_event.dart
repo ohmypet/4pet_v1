@@ -34,12 +34,12 @@ class AddImageEvent extends PostEditEvent {
 
 class RemoveImageEvent extends PostEditEvent {
   final int index;
-  final String imageLocalPath;
+  final ImageType type;
 
-  RemoveImageEvent(this.index, this.imageLocalPath);
+  RemoveImageEvent(this.index, this.type);
 
   @override
-  String toString() => 'RemoveImageEvent: index: $index, image path: $imageLocalPath';
+  String toString() => 'RemoveImageEvent: index: $index';
 }
 
 class ExpandChange extends PostEditEvent {

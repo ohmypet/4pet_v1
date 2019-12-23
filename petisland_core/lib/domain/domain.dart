@@ -26,7 +26,9 @@ part 'post.dart';
 
 part 'post_image.dart';
 
-part 'post_modal.dart';
+part 'post_create_modal.dart';
+
+part 'post_edit_modal.dart';
 
 part 'post_tag.dart';
 
@@ -35,6 +37,8 @@ part 'review.dart';
 part 'tag.dart';
 
 part 'user.dart';
+
+part 'report.dart';
 
 void _addValueToMap(String key, dynamic value, Map<String, dynamic> map) {
   if (value != null) map[key] = value;

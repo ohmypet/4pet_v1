@@ -2,10 +2,10 @@ part of petisland.main_bloc;
 
 abstract class WorkerEvent extends BaseEvent {}
 
-class UploadImageEvent extends WorkerEvent {
+class UploadImageEvent<T> extends WorkerEvent {
   final int numRetry;
   final List<String> imagesMustUpload;
-  final PostModal postModal;
+  final T postModal;
 
   UploadImageEvent._({
     @required this.imagesMustUpload,
@@ -27,7 +27,7 @@ class UploadImageEvent extends WorkerEvent {
 
 class UploadPostEvent extends WorkerEvent {
   final int numRetry;
-  final PostModal postMustUpload;
+  final PostCreateModal postMustUpload;
 
   UploadPostEvent._({@required this.postMustUpload, this.numRetry = 0});
 
@@ -37,6 +37,20 @@ class UploadPostEvent extends WorkerEvent {
         numRetry: numRetry + 1,
         postMustUpload: postMustUpload,
       );
+    } else
+      throw LimitRetryException();
+  }
+}
+
+class UpdatePostEvent extends WorkerEvent {
+  final int numRetry;
+  final PostEditModal postMustUpdate;
+
+  UpdatePostEvent._({@required this.postMustUpdate, this.numRetry = 0});
+
+  UpdatePostEvent retry() {
+    if (numRetry < PetIslandConstants.max_retry) {
+      return UpdatePostEvent._(numRetry: numRetry + 1, postMustUpdate: postMustUpdate);
     } else
       throw LimitRetryException();
   }
@@ -52,4 +66,35 @@ class LikePostEvent extends WorkerEvent {
   final String id;
 
   LikePostEvent(this.id);
+}
+
+class ReportPostEvent extends WorkerEvent {
+  final String reason;
+  final String postId;
+  final String accountId;
+  final String description;
+  final int numRetry;
+
+  ReportPostEvent(this.reason, this.postId, this.accountId, {this.description})
+      : numRetry = 0;
+  ReportPostEvent._(this.reason, this.postId, this.accountId,
+      {this.description, @required this.numRetry});
+
+  ReportPostEvent retry() {
+    if (numRetry < PetIslandConstants.max_retry) {
+      return ReportPostEvent._(
+        reason,
+        postId,
+        accountId,
+        numRetry: numRetry + 1,
+      );
+    } else
+      throw LimitRetryException();
+  }
+}
+
+class DeletePostEvent extends WorkerEvent {
+  final String postId;
+
+  DeletePostEvent(this.postId);
 }

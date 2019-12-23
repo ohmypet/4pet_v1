@@ -3,20 +3,35 @@ part of petisland.pet_feed.widget.post;
 class PostImageWidget extends StatelessWidget {
   final Post item;
   final bool isSquare;
-  static final defaultImage = buildDefaultPetImage();
+  final TapImage onTapImage;
 
-  const PostImageWidget({Key key, @required this.item, this.isSquare = true}) : super(key: key);
+  const PostImageWidget(
+      {Key key, @required this.item, this.isSquare = true, this.onTapImage})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final String imageUrl = getUrlImage(item.postImages);
-    final Widget image = imageUrl != null ? TCacheImageWidget(url: imageUrl) : buildDefaultPetImage();
+    final onTap =
+        onTapImage != null ? () => onTapImage(imageUrl, ImageType.Server) : null;
+    final Widget image = imageUrl != null
+        ? GestureDetector(
+            child: _buildImage(imageUrl),
+            onTap: onTap,
+          )
+        : buildDefaultPetImage();
     return isSquare ? AspectRatio(child: image, aspectRatio: 1) : image;
   }
 
   String getUrlImage(List<PostImage> images) {
-    final PostImage image = images.firstWhere((image) => image.image.url != null, orElse: () => null);
+    final PostImage image =
+        images.firstWhere((image) => image.image.url != null, orElse: () => null);
     return image?.image?.url;
+  }
+
+  Widget _buildImage(String imageUrl) {
+    final bool isFromServer = StringUtils.isImageUrlFormat(imageUrl);
+    return isFromServer ? TCacheImageWidget(url: imageUrl) : Image.file(File(imageUrl));
   }
 }
 

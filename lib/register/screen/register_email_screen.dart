@@ -31,6 +31,8 @@ class RegisterEmailScreen extends TStatelessWidget {
           ),
         ),
         body: Stack(
+          overflow: Overflow.visible,
+          fit: StackFit.expand,
           children: <Widget>[
             RegisterEmailWidget(),
             Builder(
@@ -39,6 +41,12 @@ class RegisterEmailScreen extends TStatelessWidget {
                   bloc: registerBloc,
                   condition: (_, RegisterState state) {
                     if (state is Failed) _showError(context, state);
+                    if (state is EmailSuccessful) {
+                      navigateToScreen(
+                          context: context,
+                          screen: RegisterCodeScreen(),
+                          screenName: RegisterCodeScreen.name);
+                    }
                     return true;
                   },
                   builder: (_, RegisterState state) {

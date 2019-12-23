@@ -1,12 +1,22 @@
 part of petisland_core.repository;
 
 abstract class PostRepository {
-  Future<Post> create(PostModal postModal);
+  Future<Post> create(PostCreateModal postModal);
 
   Future<Post> like(String id);
 
   Future<List<Item>> getPosts(
       int offset, int limit, String categoryType, String petCategoryId);
+
+  Future<Post> delete(String id);
+
+  Future<Post> edit(PostEditModal postModal);
+
+  Future<Comment> createComment(String postId, String message);
+
+  Future<List<Comment>> getComments(String postId, {int from, int limit});
+
+  Future<Comment> deleteComment(String postId, String commentId);
 }
 
 class PostRepositoryImpl extends PostRepository {
@@ -15,7 +25,7 @@ class PostRepositoryImpl extends PostRepository {
   PostRepositoryImpl(this.client);
 
   @override
-  Future<Post> create(PostModal postModal) {
+  Future<Post> create(PostCreateModal postModal) {
     return client
         .post<Map<String, dynamic>>('/api/post', postModal.toJson())
         .then((Map<String, dynamic> json) => Post.fromJson(json));
@@ -63,5 +73,34 @@ class PostRepositoryImpl extends PostRepository {
         item = Panel.fromJson(json);
     }
     return item;
+  }
+
+  @override
+  Future<Post> delete(String id) {
+    return client.delete('/api/post/$id').then((_) => Post.fromJson(_));
+  }
+
+  @override
+  Future<Post> edit(PostEditModal postModal) {
+    final id = postModal.id;
+    final body = postModal.toJson();
+    return client.put('/api/post/$id', body).then((_) => Post.fromJson(_));
+  }
+
+  @override
+  Future<Comment> createComment(String postId, String message) {
+    final Map<String, String> map = {'message': message};
+    return client.post('/api/post/$postId/comment', map).then((_) => Comment.fromJson(_));
+  }
+
+  @override
+  Future<Comment> deleteComment(String postId, String commentId) {
+    return client.delete('/api/post/$postId/comment/$commentId');
+  }
+
+  @override
+  Future<List<Comment>> getComments(String postId, {int from = 0, int limit = 15}) {
+    final Map<String, int> map = {'from': from, 'limit': limit};
+    return client.get('/api/post/$postId/comment', params: map);
   }
 }

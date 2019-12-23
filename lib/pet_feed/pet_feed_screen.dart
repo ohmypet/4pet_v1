@@ -33,16 +33,13 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
   }
 
   void _onCreatePost(BuildContext context) {
-    void _onTapCreatePost(PostModal post, List<String> images) {
-      Navigator.of(context).pop();
-      DI.get<TWorker>(TWorker).uploadPost(post, images);
+    void _onTapCreatePost(PostCreateModal post, List<String> images) {
+      DI.get<TWorker>(TWorker).createPost(post, images);
     }
 
     navigateToScreen(
       context: context,
-      screen: PostEditScreen.create(
-        onSendTap: _onTapCreatePost,
-      ),
+      screen: PostEditScreen.create(onSendTap: _onTapCreatePost),
       screenName: PostEditScreen.name,
     );
   }

@@ -2,6 +2,7 @@ library petisland.authentication;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/pet_feed/bloc/bloc.dart';
 import 'package:flutter_template/petisland.dart';
 import 'package:petisland_core/service/service.dart';
 
@@ -19,6 +20,8 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
   static final PetCategoryService categoryService = DI.get(PetCategoryService);
 
   final List<PetCategory> categories = [];
+
+  final List<String> reportContents = [];
 
   bool isInit = false;
 
@@ -57,7 +60,15 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
   Future reloadPetCategory() async {
     categories.clear();
     final List<PetCategory> newCategories = await categoryService.getPetCategories();
-    categories.addAll(newCategories);
+    categories.addAll([...?newCategories]);
+    Log.info('loaded pet cateogory');
+  }
+
+  Future reloadReportContent() async {
+    reportContents.clear();
+    final reports = await DI.get<ReportService>(ReportService).getReason();
+    reportContents.addAll([...?reports]);
+    Log.info('loaded report');
   }
 
   void updateCurrentAccount(LoggedIn event) {
@@ -88,8 +99,10 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
         break;
 
       case LoggedIn:
+        _clearData();
         updateCurrentAccount(event);
         await reloadPetCategory();
+        await reloadReportContent();
         yield Authenticated();
         break;
       default:
@@ -102,5 +115,9 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
 
   void logout() {
     add(LoggedOut());
+  }
+
+  void _clearData() {
+    DI.get<PetFeedController>(PetFeedController).clear();
   }
 }

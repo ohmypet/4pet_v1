@@ -3,6 +3,7 @@ part of petisland_core.utils;
 abstract class PetIslandConstants {
   static const String key_token = 'token';
   static const int max_retry = 5;
+  static const Duration time_delay_retry = const Duration(seconds: 1);
 
   /// **Warning**: must update [CategoryTypeEnum] same time
   static final List<String> categoryTypes = <String>[
@@ -60,9 +61,17 @@ abstract class PetIslandConstants {
 }
 
 /// **Warning**: must update [PetIslandConstants.categoryTypes] same time
-enum CategoryTypeEnum { Trending, Popularity, PriceHighToLow, PriceLowToHigh, PetCategory, Post, Unknow }
+enum CategoryTypeEnum {
+  Trending,
+  Popularity,
+  PriceHighToLow,
+  PriceLowToHigh,
+  PetCategory,
+  Post,
+  Unknow
+}
 
-enum Role { Free, Premium }
+enum Role { Free, Admin, Premium }
 
 enum AccountStatus { Active, DeActive }
 
