@@ -4,10 +4,10 @@ abstract class CommentState extends BaseState {}
 
 class CommentStateInit extends CommentState {}
 
-class RealoadUIState extends CommentState {
+class ReloadUIState extends CommentState {
   final List<Comment> items;
 
-  RealoadUIState(this.items);
+  ReloadUIState(this.items);
 
   @override
   String toString() => 'RealoadUIState:: ${items.length}';

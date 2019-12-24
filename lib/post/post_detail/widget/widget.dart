@@ -1,6 +1,7 @@
 library petisland.post.screen.widget;
 
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,3 +19,5 @@ part 'report_post_widget.dart';
 part 'report_option.dart';
 part 'comment_listing_widget.dart';
 part 'comment_widget.dart';
+part 'comment_default_widget.dart';
+part 'comment_description_widget.dart';

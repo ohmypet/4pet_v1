@@ -73,7 +73,7 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
                   SizedBox(height: 15),
                 ],
               ),
-              CommnetListingWidget(item: widget.item),
+              CommentListingWidget(item: widget.item),
             ],
           ),
         ),

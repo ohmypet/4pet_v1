@@ -1,14 +1,15 @@
 part of petisland.post.screen.widget;
 
-class CommnetListingWidget extends StatefulWidget {
+class CommentListingWidget extends StatefulWidget {
   final Post item;
 
-  const CommnetListingWidget({Key key, @required this.item}) : super(key: key);
+  const CommentListingWidget({Key key, @required this.item}) : super(key: key);
+
   @override
-  _CommnetListingWidgetState createState() => _CommnetListingWidgetState();
+  _CommentListingWidgetState createState() => _CommentListingWidgetState();
 }
 
-class _CommnetListingWidgetState extends State<CommnetListingWidget> {
+class _CommentListingWidgetState extends State<CommentListingWidget> {
   CommentBloc bloc;
 
   void initState() {
@@ -25,7 +26,7 @@ class _CommnetListingWidgetState extends State<CommnetListingWidget> {
         buildTextDescription(context, 'Bình luận'),
         BlocBuilder<CommentBloc, CommentState>(
           bloc: bloc,
-          condition: (_, state) => state is RealoadUIState,
+          condition: (_, state) => state is ReloadUIState,
           builder: _buildCommentUI,
         ),
       ],
@@ -33,9 +34,8 @@ class _CommnetListingWidgetState extends State<CommnetListingWidget> {
   }
 
   Widget _buildCommentUI(BuildContext context, CommentState state) {
-    if (state is RealoadUIState) {
+    if (state is ReloadUIState) {
       final items = state.items;
-      Log.info('_buildCommentUI:: ${items.length}');
       return ListView.separated(
         primary: false,
         shrinkWrap: true,
@@ -46,14 +46,17 @@ class _CommnetListingWidgetState extends State<CommnetListingWidget> {
         },
       );
     } else {
-      return SizedBox();
+      final random = DI.get<Random>(Random);
+      return ListView.separated(
+        primary: false,
+        shrinkWrap: true,
+        itemCount: random.nextInt(15) + 7,
+        itemBuilder: (_, __) => _CommentLoadingWidget(),
+        separatorBuilder: (_, int index) {
+          return Divider();
+        },
+      );
     }
-  }
-
-  @override
-  void dispose() {
-    bloc?.close();
-    super.dispose();
   }
 
   Widget _buildComment(BuildContext context, int index, List<Comment> items) {
@@ -62,5 +65,11 @@ class _CommnetListingWidgetState extends State<CommnetListingWidget> {
       return _CommentWidget(item: item);
     } else
       return SizedBox(height: 150);
+  }
+
+  @override
+  void dispose() {
+    bloc?.close();
+    super.dispose();
   }
 }

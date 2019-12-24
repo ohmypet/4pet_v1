@@ -3,7 +3,7 @@ part of petisland.post.post_detail.bloc;
 class CommentBloc extends TBloc<CommentEvent, CommentState> {
   static final PostService service = DI.get(PostService);
 
-  final List<Comment> comment = <Comment>[];
+  final List<Comment> comments = <Comment>[];
   final String postId;
 
   CommentBloc(this.postId);
@@ -31,11 +31,13 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
 
   void _loadComment(LoadCommentEvent event) {
     service.getComments(event.postId).then((items) {
-      if (items.isNotEmpty) {
-        comment
-          ..clear()
-          ..addAll(items);
-        add(ReloadCommentUIEvent(items));
+      if (items != null) {
+        if (items.isNotEmpty) {
+          comments
+            ..clear()
+            ..addAll(items);
+        }
+        add(ReloadCommentUIEvent(comments));
       }
     }).catchError(_handleError);
   }
@@ -48,7 +50,7 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   }
 
   Stream<CommentState> _reloadUI(ReloadCommentUIEvent event) async* {
-    yield RealoadUIState(event.items);
+    yield ReloadUIState(event.items);
   }
 
   void reload() {
