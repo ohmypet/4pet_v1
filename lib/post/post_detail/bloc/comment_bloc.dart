@@ -4,12 +4,24 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   static final PostService service = DI.get(PostService);
 
   final List<Comment> comments = <Comment>[];
+
   final String postId;
+
+  @protected
+  Timer timer;
 
   CommentBloc(this.postId);
 
+  void startListener() {
+    timer = Timer.periodic(const Duration(seconds: 5), (_) => reload());
+  }
+
+  void stopListener() {
+    if (timer.isActive) timer.cancel();
+  }
+
   @override
-  Duration get delayEvent => const Duration(milliseconds: 150);
+  Duration get delayEvent => const Duration(milliseconds: 350);
 
   @override
   Stream<CommentState> errorToState(BaseErrorEvent event) {
@@ -24,6 +36,9 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
         break;
       case ReloadCommentUIEvent:
         yield* _reloadUI(event);
+        break;
+      case SoftReloadEvent:
+        yield* _softReload(event);
         break;
       default:
     }
@@ -53,7 +68,24 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
     yield ReloadUIState(event.items);
   }
 
+  Stream<CommentState> _softReload(SoftReloadEvent event) async* {
+    yield ScrollToBottom();
+    comments.add(event.item);
+    yield ReloadUIState(comments);
+  }
+
+  @protected
   void reload() {
     add(LoadCommentEvent(postId));
+  }
+
+  void addSoftComment(String message) {
+    final account = DI.get<AuthenticationBloc>(AuthenticationBloc).account;
+    final Comment item = Comment(
+      createBy: account,
+      createAt: DateTime.now(),
+      message: message,
+    );
+    add(SoftReloadEvent(item));
   }
 }

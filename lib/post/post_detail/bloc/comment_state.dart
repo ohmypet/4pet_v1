@@ -12,3 +12,5 @@ class ReloadUIState extends CommentState {
   @override
   String toString() => 'RealoadUIState:: ${items.length}';
 }
+
+class ScrollToBottom extends CommentState {}

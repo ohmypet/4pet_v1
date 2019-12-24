@@ -13,6 +13,14 @@ class PostDetailScreen extends TStatefulWidget {
 
 class _PostDetailScreenState extends TState<PostDetailScreen> {
   Post get item => widget.item;
+  final TWorker worker = DI.get<TWorker>(TWorker);
+  CommentBloc bloc;
+  final ScrollController controller = ScrollController();
+
+  void initState() {
+    super.initState();
+    bloc = CommentBloc(item.id)..startListener();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,25 +33,32 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
           onTapSeeMore: (_) => _onTapSeeMore(context, _),
         ),
       ),
-      body: SafeArea(
-        child: Stack(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: ListView(
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                children: <Widget>[
-                  PostDetailSummaryWidget(item: item),
-                  CommentListingWidget(item: widget.item),
-                ],
+      body: BlocListener<CommentBloc, CommentState>(
+        bloc: bloc,
+        listener: _onCommentChanged,
+        child: SafeArea(
+          child: Stack(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: ListView(
+                  controller: controller,
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  children: <Widget>[
+                    PostDetailSummaryWidget(item: item),
+                    CommentListingWidget(item: widget.item, bloc: bloc),
+                  ],
+                ),
               ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: CommentInputBarWidget(),
-            ),
-          ],
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: CommentInputBarWidget(
+                  onTapSend: _onTapSend,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -79,7 +94,6 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
   }
 
   void _sendReport(ReportData reportData) {
-    final TWorker worker = DI.get(TWorker);
     final AuthenticationBloc bloc = DI.get(AuthenticationBloc);
 
     worker.report(item.id, reportData.text, bloc.account.id);
@@ -87,7 +101,7 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
 
   void _deletePost(BuildContext context, Post item) {
     Navigator.pop(context);
-    DI.get<TWorker>(TWorker).deletePost(item.id);
+    worker.deletePost(item.id);
     if (widget.onDeletePost != null) widget.onDeletePost();
   }
 
@@ -102,7 +116,7 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
   void _onSendEditPost(PostCreateModal post, List<PostImage> rawPostImage, List<String> urlNeedUpload,
       List<String> idImageNeedDelete) {
     reloadUI(post, rawPostImage);
-    DI.get<TWorker>(TWorker).updatePost(item, urlNeedUpload, idImageNeedDelete);
+    worker.updatePost(item, urlNeedUpload, idImageNeedDelete);
   }
 
   void reloadUI(PostCreateModal post, List<PostImage> rawPostImage) {
@@ -116,5 +130,26 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
         ..postImages.addAll(rawPostImage)
         ..pet = post.pet;
     });
+  }
+
+  void _onTapSend(String message) {
+    worker.commentPost(item.id, message);
+    bloc.addSoftComment(message);
+  }
+
+  void _onCommentChanged(BuildContext context, CommentState state) {
+    if (state is ScrollToBottom) {
+      controller.animateTo(
+        controller.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 150),
+        curve: Curves.bounceIn,
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    bloc.stopListener();
   }
 }

@@ -2,20 +2,16 @@ part of petisland.post.screen.widget;
 
 class CommentListingWidget extends StatefulWidget {
   final Post item;
+  final CommentBloc bloc;
 
-  const CommentListingWidget({Key key, @required this.item}) : super(key: key);
+  const CommentListingWidget({Key key, @required this.item, @required this.bloc}) : super(key: key);
 
   @override
   _CommentListingWidgetState createState() => _CommentListingWidgetState();
 }
 
 class _CommentListingWidgetState extends State<CommentListingWidget> {
-  CommentBloc bloc;
-
-  void initState() {
-    super.initState();
-    bloc = CommentBloc(widget.item.id)..reload();
-  }
+  CommentBloc get bloc => widget.bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +61,5 @@ class _CommentListingWidgetState extends State<CommentListingWidget> {
       return _CommentWidget(item: item);
     } else
       return SizedBox(height: 150);
-  }
-
-  @override
-  void dispose() {
-    bloc?.close();
-    super.dispose();
   }
 }

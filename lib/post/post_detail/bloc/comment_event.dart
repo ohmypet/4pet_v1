@@ -13,3 +13,9 @@ class ReloadCommentUIEvent extends CommentEvent {
 
   ReloadCommentUIEvent(this.items);
 }
+
+class SoftReloadEvent extends CommentEvent {
+  final Comment item;
+
+  SoftReloadEvent(this.item);
+}

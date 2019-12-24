@@ -36,6 +36,9 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
       case DeletePostEvent:
         _deletePost(event);
         break;
+      case CommentPostEvent:
+        _commentPost(event);
+        break;
       case UploadPostSuccessEvent:
         yield UploadPostSuccess();
         break;
@@ -126,8 +129,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
     }
 
     reportService
-        .report(event.postId, event.reason, event.accountId,
-            description: event.description)
+        .report(event.postId, event.reason, event.accountId, description: event.description)
         .then((_) => Log.info('Upload success ${event.runtimeType}'))
         .catchError(retryUpload)
         .catchError((_) => Log.error('Failed upload report'));
@@ -164,6 +166,14 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
     }
   }
 
+  void _commentPost(CommentPostEvent event) {
+    postService
+        .createComment(event.postId, event.message)
+        .then((_) => Log.info('Comment Success'))
+        .catchError((ex) => Log.error('Comment Failed: $ex'));
+  }
+
+  //---------------------------------------------
   void likePost(String id) {
     add(LikePostEvent(id));
   }
@@ -174,5 +184,9 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
 
   void deletePost(String postId) {
     add(DeletePostEvent(postId));
+  }
+
+  void commentPost(String postId, String message) {
+    add(CommentPostEvent(postId, message));
   }
 }
