@@ -58,8 +58,8 @@ class PetFeedBloc extends TBloc<PetFeedEvent, PetFeedState> {
     add(_LoadPostSucceedEvent(items));
   }
 
-  void _handleError(dynamic ex) {
-    Log.error(ex);
+  void _handleError(dynamic ex, trace) {
+    Log.error('$ex - $trace');
     add(LoadPostErrorEvent('Lấy bài đăng bị lỗi, thử lại sau'));
   }
 

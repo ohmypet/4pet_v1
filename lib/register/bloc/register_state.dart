@@ -11,9 +11,12 @@ class NotLoaded extends RegisterState {}
 class Loading extends RegisterState {}
 
 class EmailSuccessful extends RegisterState {}
+
 class CodeSuccessful extends RegisterState {}
 
-class Failed extends RegisterErrorState implements RegisterState{
+class AccountSuccessful extends RegisterState {}
+
+class Failed extends RegisterErrorState implements RegisterState {
   Failed(String message) : super(message);
   @override
   String toString() {
