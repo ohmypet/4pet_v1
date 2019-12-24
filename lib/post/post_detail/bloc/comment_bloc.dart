@@ -13,6 +13,7 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   CommentBloc(this.postId);
 
   void startListener() {
+    reload();
     timer = Timer.periodic(const Duration(seconds: 5), (_) => reload());
   }
 
@@ -21,7 +22,7 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   }
 
   @override
-  Duration get delayEvent => const Duration(milliseconds: 350);
+  Duration get delayEvent => const Duration(milliseconds: 250);
 
   @override
   Stream<CommentState> errorToState(BaseErrorEvent event) {
@@ -37,8 +38,11 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
       case ReloadCommentUIEvent:
         yield* _reloadUI(event);
         break;
-      case SoftReloadEvent:
-        yield* _softReload(event);
+      case SoftAddCommentEvent:
+        yield* _softAdd(event);
+        break;
+      case SoftDeleteCommentEvent:
+        yield* _softDelete(event);
         break;
       default:
     }
@@ -68,10 +72,18 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
     yield ReloadUIState(event.items);
   }
 
-  Stream<CommentState> _softReload(SoftReloadEvent event) async* {
+  Stream<CommentState> _softAdd(SoftAddCommentEvent event) async* {
     yield ScrollToBottom();
     comments.add(event.item);
     yield ReloadUIState(comments);
+  }
+
+  Stream<CommentState> _softDelete(SoftDeleteCommentEvent event) async* {
+    final index = event.index;
+    if (index > 0 && index < comments.length) {
+      comments.removeAt(index);
+      yield ReloadUIState(comments);
+    }
   }
 
   @protected
@@ -79,13 +91,17 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
     add(LoadCommentEvent(postId));
   }
 
-  void addSoftComment(String message) {
+  void softAddComment(String message) {
     final account = DI.get<AuthenticationBloc>(AuthenticationBloc).account;
     final Comment item = Comment(
       createBy: account,
       createAt: DateTime.now(),
       message: message,
     );
-    add(SoftReloadEvent(item));
+    add(SoftAddCommentEvent(item));
+  }
+
+  void softDeleteComment(int index) {
+    add(SoftDeleteCommentEvent(index));
   }
 }

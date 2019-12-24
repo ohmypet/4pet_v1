@@ -134,7 +134,7 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
 
   void _onTapSend(String message) {
     worker.commentPost(item.id, message);
-    bloc.addSoftComment(message);
+    bloc.softAddComment(message);
   }
 
   void _onCommentChanged(BuildContext context, CommentState state) {

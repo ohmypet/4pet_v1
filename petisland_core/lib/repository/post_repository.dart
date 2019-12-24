@@ -5,8 +5,7 @@ abstract class PostRepository {
 
   Future<Post> like(String id);
 
-  Future<List<Item>> getPosts(
-      int offset, int limit, String categoryType, String petCategoryId);
+  Future<List<Item>> getPosts(int offset, int limit, String categoryType, String petCategoryId);
 
   Future<Post> delete(String id);
 
@@ -39,8 +38,7 @@ class PostRepositoryImpl extends PostRepository {
   }
 
   @override
-  Future<List<Item>> getPosts(
-      int offset, int limit, String categoryType, String petCategoryId) {
+  Future<List<Item>> getPosts(int offset, int limit, String categoryType, String petCategoryId) {
     final Map<String, dynamic> params = <String, dynamic>{
       'offset': offset,
       'limit': limit,
@@ -95,22 +93,15 @@ class PostRepositoryImpl extends PostRepository {
 
   @override
   Future<Comment> deleteComment(String postId, String commentId) {
-    return client.delete('/api/post/$postId/comment/$commentId');
+    return client.delete('/api/post/$postId/comment/$commentId').then((_) => Comment.fromJson(_));
   }
 
   @override
   Future<List<Comment>> getComments(String postId, {int offset = 0, int limit = 15}) {
-    // final Map<String, int> map = {'offset': offset, 'limit': limit};
-    Log.info('/api/post/$postId/comment');
-    return client
-        .get<List<dynamic>>('/api/post/$postId/comment')
-        .then((_) => _parseToComments(_));
+    return client.get<List<dynamic>>('/api/post/$postId/comment').then((_) => _parseToComments(_));
   }
 
   List<Comment> _parseToComments(List<dynamic> list) {
-    return list
-        .cast<Map<String, dynamic>>()
-        .map((json) => Comment.fromJson(json))
-        .toList();
+    return list.cast<Map<String, dynamic>>().map((json) => Comment.fromJson(json)).toList();
   }
 }

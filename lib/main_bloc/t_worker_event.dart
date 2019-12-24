@@ -104,3 +104,10 @@ class CommentPostEvent extends WorkerEvent {
 
   CommentPostEvent(this.postId, this.message);
 }
+
+class DeleteCommentPostEvent extends WorkerEvent {
+  final String postId;
+  final String commentId;
+
+  DeleteCommentPostEvent(this.postId, this.commentId);
+}

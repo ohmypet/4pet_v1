@@ -58,8 +58,13 @@ class _CommentListingWidgetState extends State<CommentListingWidget> {
   Widget _buildComment(BuildContext context, int index, List<Comment> items) {
     if (index < items.length) {
       final item = items[index];
-      return _CommentWidget(item: item);
+      return _CommentWidget(item: item, onTapDelete: () => _onTapDelete(index, item));
     } else
       return SizedBox(height: 150);
+  }
+
+  void _onTapDelete(int index, Comment comment) {
+    DI.get<TWorker>(TWorker).deleteComment(bloc.postId, comment.id);
+    bloc.softDeleteComment(index);
   }
 }
