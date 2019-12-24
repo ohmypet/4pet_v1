@@ -41,7 +41,7 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: CommentInputWidget(),
+              child: CommentInputBarWidget(),
             ),
           ],
         ),

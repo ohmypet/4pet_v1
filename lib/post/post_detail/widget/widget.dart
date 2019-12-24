@@ -26,3 +26,4 @@ part 'comment/comment_default_widget.dart';
 part 'comment/comment_description_widget.dart';
 part 'comment/comment_input_widget.dart';
 part 'post/post_detail_summary_widget.dart';
+part 'comment/comment_input_bar_widget.dart';
