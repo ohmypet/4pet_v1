@@ -22,7 +22,7 @@ class _CommentDescriptionWidget extends StatelessWidget {
 
   Widget _buildName(BuildContext context, Account account) {
     final String name = account.user?.name ?? '@username';
-    final isPermission = grantEditAndDel(account);
+    final isPermission = AccountUtils.grantEditAndDel(account);
     final text = DefaultTextStyle.merge(
       style: TTextStyles.bold(fontSize: 18, color: TColors.darkSkyBlue),
       child: Text(name),

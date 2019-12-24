@@ -5,8 +5,7 @@ class PostDetailScreen extends TStatefulWidget {
   final Post item;
   final VoidCallback onDeletePost;
 
-  const PostDetailScreen({Key key, @required this.item, @required this.onDeletePost})
-      : super(key: key);
+  const PostDetailScreen({Key key, @required this.item, @required this.onDeletePost}) : super(key: key);
 
   @override
   _PostDetailScreenState createState() => _PostDetailScreenState();
@@ -17,65 +16,34 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final imageSliderWidget = item.postImages?.isNotEmpty == true
-        ? Container(
-            height: 150,
-            child: ImageSliderWidget(
-              postImages: item.postImages,
-              description: 'Ảnh thú cưng',
-            ),
-          )
-        : SizedBox();
     return Scaffold(
       appBar: PreferredSize(
+        preferredSize: Size.fromHeight(32),
         child: PostDetailAppBar(
-          hasPermision: grantEditAndDel(item.account),
+          hasPermision: AccountUtils.grantEditAndDel(item.account),
           onTapBack: () => _onTapBack(context),
           onTapSeeMore: (_) => _onTapSeeMore(context, _),
         ),
-        preferredSize: Size.fromHeight(32),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: ListView(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            children: <Widget>[
-              Flex(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                direction: Axis.vertical,
+        child: Stack(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: ListView(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
                 children: <Widget>[
-                  AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: Flex(
-                      direction: Axis.vertical,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 7,
-                          child: PostPreviewWidget(item: item),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: PostButtonBar(item: item),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  buildTextDescription(context, 'Miêu tả'),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: PostDescriptionWidget(description: item.description),
-                  ),
-                  Flexible(child: imageSliderWidget),
-                  SizedBox(height: 15),
+                  PostDetailSummaryWidget(item: item),
+                  CommentListingWidget(item: widget.item),
                 ],
               ),
-              CommentListingWidget(item: widget.item),
-            ],
-          ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: CommentInputWidget(),
+            ),
+          ],
         ),
       ),
     );
@@ -88,13 +56,7 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
   void _onTapSeeMore(BuildContext context, SeeMoreType seeMoreType) {
     switch (seeMoreType) {
       case SeeMoreType.Report:
-        showModalBottomSheet(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          context: context,
-          builder: (_) => KikiReportWidget(
-            onSendReport: _senReport,
-          ),
-        );
+        _reportPost(context, item);
         break;
       case SeeMoreType.Delete:
         _deletePost(context, item);
@@ -106,7 +68,17 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
     }
   }
 
-  void _senReport(ReportData reportData) {
+  void _reportPost(BuildContext context, Post item) {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      context: context,
+      builder: (_) => KikiReportWidget(
+        onSendReport: _sendReport,
+      ),
+    );
+  }
+
+  void _sendReport(ReportData reportData) {
     final TWorker worker = DI.get(TWorker);
     final AuthenticationBloc bloc = DI.get(AuthenticationBloc);
 
@@ -127,8 +99,8 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
     );
   }
 
-  void _onSendEditPost(PostCreateModal post, List<PostImage> rawPostImage,
-      List<String> urlNeedUpload, List<String> idImageNeedDelete) {
+  void _onSendEditPost(PostCreateModal post, List<PostImage> rawPostImage, List<String> urlNeedUpload,
+      List<String> idImageNeedDelete) {
     reloadUI(post, rawPostImage);
     DI.get<TWorker>(TWorker).updatePost(item, urlNeedUpload, idImageNeedDelete);
   }
@@ -145,13 +117,4 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
         ..pet = post.pet;
     });
   }
-}
-
-bool grantEditAndDel(Account accountFromPost) {
-  final AuthenticationBloc currentAccount = DI.get(AuthenticationBloc);
-  final Account account = currentAccount.account;
-  if (accountFromPost?.id == account.id) {
-    return true;
-  } else
-    return false;
 }
