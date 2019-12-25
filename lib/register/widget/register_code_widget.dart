@@ -28,6 +28,7 @@ class _RegisterCodeWidgetState extends TState<RegisterCodeWidget> {
               hintText: 'Nhập mã xác nhận',
               keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
+              icon: Icon(Icons.code, size: 22),
               onSubmit: _onCodeSubmitted,
               onChange: _onTextChanged,
             ),
@@ -35,7 +36,9 @@ class _RegisterCodeWidgetState extends TState<RegisterCodeWidget> {
               opacity: isValid(codeController.text.length) ? 1 : 0.2,
               child: PetIslandButtonWidget(
                 text: 'Tiếp',
-                onTap: isValid(codeController.text.length) ? _onCodeSubmitted : null,
+                onTap: isValid(codeController.text.length)
+                    ? _onCodeSubmitted
+                    : null,
               ),
             ),
           ],
@@ -48,7 +51,7 @@ class _RegisterCodeWidgetState extends TState<RegisterCodeWidget> {
     registerBloc.submitCode(codeController.text ?? '');
   }
 
-  bool  isValid(int textLength) => textLength == 4;
+  bool isValid(int textLength) => textLength == 4;
 
   @override
   void dispose() {
@@ -58,7 +61,7 @@ class _RegisterCodeWidgetState extends TState<RegisterCodeWidget> {
   }
 
   void _onTextChanged(String str) {
-    if(isValid(str.length)){
+    if (isValid(str.length)) {
       _onCodeSubmitted();
     }
     setState(() {});

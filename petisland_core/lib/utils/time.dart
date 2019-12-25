@@ -5,10 +5,15 @@ class TViShortMessage extends timeAgo.ViMessages {
 }
 
 abstract class TimeUtils {
+  static final DateFormat formatter = DateFormat.Hm();
   static String getTimeAgo(DateTime time) {
     final now = DateTime.now();
     final Duration diff = now.difference(time);
 
     return timeAgo.format(now.subtract(diff), locale: 'vi');
+  }
+
+  static String toPm(DateTime time) {
+    return formatter.format(time);
   }
 }

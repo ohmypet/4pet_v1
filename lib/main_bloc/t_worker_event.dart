@@ -75,10 +75,9 @@ class ReportPostEvent extends WorkerEvent {
   final String description;
   final int numRetry;
 
-  ReportPostEvent(this.reason, this.postId, this.accountId, {this.description})
-      : numRetry = 0;
-  ReportPostEvent._(this.reason, this.postId, this.accountId,
-      {this.description, @required this.numRetry});
+  ReportPostEvent(this.reason, this.postId, this.accountId, {this.description}) : numRetry = 0;
+
+  ReportPostEvent._(this.reason, this.postId, this.accountId, {this.description, @required this.numRetry});
 
   ReportPostEvent retry() {
     if (numRetry < PetIslandConstants.max_retry) {
@@ -97,4 +96,18 @@ class DeletePostEvent extends WorkerEvent {
   final String postId;
 
   DeletePostEvent(this.postId);
+}
+
+class CommentPostEvent extends WorkerEvent {
+  final String postId;
+  final String message;
+
+  CommentPostEvent(this.postId, this.message);
+}
+
+class DeleteCommentPostEvent extends WorkerEvent {
+  final String postId;
+  final String commentId;
+
+  DeleteCommentPostEvent(this.postId, this.commentId);
 }

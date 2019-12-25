@@ -10,5 +10,6 @@ class DevModule extends AbstractModule {
     bind(TWorker).to(TWorker());
     bind(PetFeedController).to(PetFeedControllerImpl());
     bind(BottomBarController).to(BottomBarControllerImpl());
+    bind(Random).to(Random(DateTime.now().millisecondsSinceEpoch));
   }
 }

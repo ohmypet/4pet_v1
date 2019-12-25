@@ -1,5 +1,7 @@
 library petisland.module;
 
+import 'dart:math';
+
 import 'package:ddi/di.dart';
 import 'package:flutter_template/authentication_bloc/authentication_bloc.dart';
 import 'package:flutter_template/home_page/widget/bottom_bar/bottom_bar.dart';

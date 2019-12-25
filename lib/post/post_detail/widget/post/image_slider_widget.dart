@@ -49,9 +49,9 @@ class ImageSliderWidget extends StatelessWidget {
 Widget buildTextDescription(BuildContext context, String text) {
   final theme = Theme.of(context);
   return DefaultTextStyle(
-    style: TTextStyles.normal(
+    style: TTextStyles.semi(
       letterSpacing: 0.3,
-      fontSize: 18,
+      fontSize: 20,
       color: theme.accentColor.withAlpha(128),
     ),
     child: Text(text),

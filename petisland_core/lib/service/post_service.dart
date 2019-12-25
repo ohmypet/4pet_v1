@@ -14,7 +14,7 @@ abstract class PostService {
 
   Future<Comment> createComment(String postId, String message);
 
-  Future<List<Comment>> getComments(String postId, {int from, int limit});
+  Future<List<Comment>> getComments(String postId, {int offset, int limit});
 
   Future<Comment> deleteComment(String postId, String commentId);
 }
@@ -61,7 +61,7 @@ class PostServiceImpl extends PostService {
   }
 
   @override
-  Future<List<Comment>> getComments(String postId, {int from = 0, int limit = 15}) {
-    return repository.getComments(postId, from: from, limit: limit);
+  Future<List<Comment>> getComments(String postId, {int offset = 0, int limit = 15}) {
+    return repository.getComments(postId, offset: offset, limit: limit);
   }
 }

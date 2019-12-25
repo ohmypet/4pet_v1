@@ -36,9 +36,16 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
       case DeletePostEvent:
         _deletePost(event);
         break;
+      case DeleteCommentPostEvent:
+        _deleteCommentPost(event);
+        break;
+      case CommentPostEvent:
+        _commentPost(event);
+        break;
       case UploadPostSuccessEvent:
         yield UploadPostSuccess();
         break;
+
       default:
         if (event is UploadImageEvent) _uploadImage(event);
         break;
@@ -126,8 +133,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
     }
 
     reportService
-        .report(event.postId, event.reason, event.accountId,
-            description: event.description)
+        .report(event.postId, event.reason, event.accountId, description: event.description)
         .then((_) => Log.info('Upload success ${event.runtimeType}'))
         .catchError(retryUpload)
         .catchError((_) => Log.error('Failed upload report'));
@@ -164,6 +170,22 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
     }
   }
 
+  void _commentPost(CommentPostEvent event) {
+    postService
+        .createComment(event.postId, event.message)
+        .then((_) => Log.info('Comment Success'))
+        .catchError((ex) => Log.error('Comment Failed: $ex'));
+  }
+
+  void _deleteCommentPost(DeleteCommentPostEvent event) {
+    Log.info('${event.postId} - ${event.commentId}');
+    postService
+        .deleteComment(event.postId, event.commentId)
+        .then((_) => Log.info('Delete Comment Success'))
+        .catchError((ex, t) => Log.error('Delete Comment Failed: $ex - $t'));
+  }
+
+  //---------------------------------------------
   void likePost(String id) {
     add(LikePostEvent(id));
   }
@@ -174,5 +196,13 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
 
   void deletePost(String postId) {
     add(DeletePostEvent(postId));
+  }
+
+  void commentPost(String postId, String message) {
+    add(CommentPostEvent(postId, message));
+  }
+
+  void deleteComment(String postId, String commentId) {
+    if (commentId != null) add(DeleteCommentPostEvent(postId, commentId));
   }
 }
