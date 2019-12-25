@@ -11,5 +11,7 @@ class DevModule extends AbstractModule {
     bind(PetFeedController).to(PetFeedControllerImpl());
     bind(BottomBarController).to(BottomBarControllerImpl());
     bind(Random).to(Random(DateTime.now().millisecondsSinceEpoch));
+    bind(NavigationBarBloc).to(NavigationBarBloc());
+    bind(ChatBloc).to(ChatBloc());
   }
 }

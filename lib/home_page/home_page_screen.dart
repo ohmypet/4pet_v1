@@ -1,5 +1,12 @@
 part of petisland.home_page;
 
+enum Tabs {
+  Home,
+  Notification,
+  Messenger,
+  Profile,
+}
+
 class HomePageScreen extends StatefulWidget {
   final AuthenticationBloc bloc;
 
@@ -20,6 +27,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return BottomBarWidget(
+      bloc: DI.get(NavigationBarBloc),
       children: <Widget>[
         PetFeedScreen(),
         NotificationScreen(),
@@ -27,7 +35,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
         SettingScreen(bloc: widget.bloc),
       ],
       iconBuilder: (_, int index, bool isSelected) {
-        return isSelected ? tabs[index].buildSeletect(context) : tabs[index].buildUnSelect(context);
+        return isSelected
+            ? tabs[index].buildSeletect(context)
+            : tabs[index].buildUnSelect(context);
       },
     );
   }
