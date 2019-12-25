@@ -7,7 +7,7 @@
 # # Uncomment to specify additional rules.
 linter:
   rules:
-    - avoid_as
+    # - avoid_as
     - camel_case_types
     - avoid_print
     - unnecessary_new
@@ -34,7 +34,7 @@ linter:
     - only_throw_errors
 analyzer:
   errors:
-    avoid_as: error
+    # avoid_as: error
     camel_case_types: error
     avoid_print: error
     unnecessary_new: error

@@ -1,9 +1,22 @@
 part of petisland.home_page;
 
-class HomePageScreen extends TStatelessWidget {
+enum Tabs {
+  Home,
+  Notification,
+  Messenger,
+  Profile,
+}
+
+class HomePageScreen extends StatefulWidget {
   final AuthenticationBloc bloc;
 
   HomePageScreen(this.bloc, {Key key}) : super(key: key);
+
+  @override
+  _HomePageScreenState createState() => _HomePageScreenState();
+}
+
+class _HomePageScreenState extends State<HomePageScreen> {
   final List<BottomBarItemWidget> tabs = <BottomBarItemWidget>[
     BottomBarItemWidget(Icons.home),
     BottomBarItemWidget(Icons.notifications),
@@ -14,14 +27,17 @@ class HomePageScreen extends TStatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomBarWidget(
+      bloc: DI.get(NavigationBarBloc),
       children: <Widget>[
         PetFeedScreen(),
         NotificationScreen(),
-        MessageScreen(),
-        SettingScreen(bloc: bloc),
+        ChatScreen(),
+        SettingScreen(bloc: widget.bloc),
       ],
-      iconBulder: (_, int index, bool isSelected) {
-        return isSelected ? tabs[index].buildSeletect(context) : tabs[index].buildUnSelect(context);
+      iconBuilder: (_, int index, bool isSelected) {
+        return isSelected
+            ? tabs[index].buildSeletect(context)
+            : tabs[index].buildUnSelect(context);
       },
     );
   }

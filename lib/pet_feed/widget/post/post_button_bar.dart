@@ -1,6 +1,6 @@
 part of petisland.pet_feed.widget.post;
 
-class PostButtonBar extends StatelessWidget {
+class PostButtonBar extends TStatelessWidget {
   final Post item;
 
   final VoidCallback onTapPost;
@@ -16,7 +16,7 @@ class PostButtonBar extends StatelessWidget {
     final messageWidget = _PostButtonWidget(
       title: 'Nhắn tin',
       opacity: messageOpcaity,
-      onTap: () => _message(item.account),
+      onTap: () => _message(context, item.account),
       icon: Icon(
         Icons.message,
         color: TColors.green,
@@ -45,7 +45,12 @@ class PostButtonBar extends StatelessWidget {
     tlaunch(phoneNumber, mode: LaunchMode.Phone);
   }
 
-  void _message(Account account) {
-    // TODO(tvc12): Setup message
+  void _message(BuildContext context, Account account) {
+    if (account?.id?.isNotEmpty == true) {
+      Log.info('_message:: ${account.id}');
+      closeUntil(context, '/');
+      DI.get<NavigationBarBloc>(NavigationBarBloc).navigationTo(Tabs.Messenger);
+      DI.get<ChatBloc>(ChatBloc).loadChatDetail(account.id);
+    }
   }
 }
