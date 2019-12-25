@@ -40,6 +40,8 @@ part 'user.dart';
 
 part 'report.dart';
 
+part 'notification.dart';
+
 void _addValueToMap(String key, dynamic value, Map<String, dynamic> map) {
   if (value != null) map[key] = value;
 }
