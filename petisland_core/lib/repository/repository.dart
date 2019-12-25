@@ -1,5 +1,7 @@
 library petisland_core.repository;
 
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:petisland_core/client/client.dart';
@@ -16,3 +18,4 @@ part 'post_repository.dart';
 part 'pet_category_repository.dart';
 part 'tag_repository.dart';
 part 'report_repository.dart';
+part 'notification_repository.dart';
