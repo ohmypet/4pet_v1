@@ -12,6 +12,8 @@ abstract class TColors {
   static const Color brown_grey = Color.fromARGB(255, 155, 155, 155);
 
   static const Color water_melon_dark = Color.fromARGB(255, 197, 57, 88);
+  static const Color water_melon_light = Color.fromARGB(255, 255, 158, 181);
+
   static const Color darkSkyBlue = Color.fromARGB(255, 74, 144, 226);
   static const Color sky = Color.fromARGB(255, 125, 205, 251);
 

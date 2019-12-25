@@ -14,8 +14,14 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return <Widget>[
           SliverAppBar(
-            elevation: 0,
+            elevation: 1,
             backgroundColor: Colors.white,
+            floating: true,
+            snap: true,
+            title: Text(
+              'PETISLAND',
+              style: TTextStyles.bold(fontSize: 24, color: TColors.water_melon),
+            ),
             actions: <Widget>[
               TCircleButton(icon: Icon(Icons.search)),
               SizedBox(width: 7),
