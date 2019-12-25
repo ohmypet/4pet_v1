@@ -17,11 +17,14 @@ abstract class TShadows {
       blurRadius: 6,
       offset: const Offset(0, 2),
     )
-    // const BoxShadow(
-    //   color: TColors.black10,
-    //   spreadRadius: 2,
-    //   blurRadius: 6,
-    //   offset: const Offset(0, 4),
-    // )
+  ];
+
+  static const List<BoxShadow> smallShadow = const <BoxShadow>[
+    const BoxShadow(
+      color: TColors.black20,
+      spreadRadius: 1,
+      blurRadius: 6,
+      offset: const Offset(1, 1),
+    )
   ];
 }

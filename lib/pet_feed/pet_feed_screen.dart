@@ -17,7 +17,7 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
             elevation: 0,
             backgroundColor: Colors.white,
             actions: <Widget>[
-              TCircleButton(icon: Icon(Icons.search)),
+              TCircleButton(icon: Icon(Icons.search), onTap: _onTapSearch),
               SizedBox(width: 7),
               TCircleButton(
                 icon: Icon(Icons.add),
@@ -41,6 +41,15 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
       context: context,
       screen: PostEditScreen.create(onSendTap: _onTapCreatePost),
       screenName: PostEditScreen.name,
+    );
+  }
+
+  void _onTapSearch() {
+    // TODO(tvc12): navigate to search
+    navigateToScreen(
+      context: context,
+      screen: SearchScreen(),
+      screenName: SearchScreen.name,
     );
   }
 }

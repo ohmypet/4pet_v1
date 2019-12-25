@@ -22,6 +22,7 @@ class CommentInputWidget extends StatelessWidget {
           Flexible(
             child: TextField(
               controller: controller,
+              cursorColor: theme.primaryColor,
               style: TTextStyles.light(fontSize: 16),
               textInputAction: TextInputAction.newline,
               maxLines: null,
