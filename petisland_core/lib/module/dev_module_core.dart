@@ -29,6 +29,7 @@ class DevModuleCore extends AbstractModule {
     bind(PostService).to(_buildPostService());
     bind(TagService).to(_buildTagService());
     bind(ReportService).to(_buildReportService());
+    bind(NotificationService).to(_buildNotificationService());
   }
 
   Future<LocalStorageService> _buildLocalService() async {
@@ -165,5 +166,11 @@ class DevModuleCore extends AbstractModule {
     final HttpClient client = get<HttpClient>(api_client);
     final repository = ReportRepositoryImpl(client);
     return ReportServiceImpl(repository);
+  }
+
+  NotificationService _buildNotificationService() {
+    final HttpClient client = get<HttpClient>(api_client);
+    final repository = NotificationRepositoryImpl(client);
+    return NotificationServiceImpl(repository);
   }
 }

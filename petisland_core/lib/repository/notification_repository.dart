@@ -6,6 +6,7 @@ abstract class NotificationRepository {
 }
 
 class NotificationRepositoryImpl extends NotificationRepository {
+  @protected
   final HttpClient client;
 
   NotificationRepositoryImpl(this.client);
