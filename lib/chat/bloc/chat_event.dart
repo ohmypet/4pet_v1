@@ -6,4 +6,7 @@ class PostNavigateToChatEvent extends ChatEvent {
   final String accountId;
 
   PostNavigateToChatEvent(this.accountId);
+
+  @override
+  String toString() => '$runtimeType:: $accountId';
 }

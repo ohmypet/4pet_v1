@@ -46,8 +46,11 @@ class PostButtonBar extends TStatelessWidget {
   }
 
   void _message(BuildContext context, Account account) {
-    closeUntil(context, '/');
-    DI.get<NavigationBarBloc>(NavigationBarBloc).navigationTo(Tabs.Messenger);
-    DI.get<ChatBloc>(ChatBloc).loadChatDetail(account.id);
+    if (account?.id?.isNotEmpty == true) {
+      Log.info('_message:: ${account.id}');
+      closeUntil(context, '/');
+      DI.get<NavigationBarBloc>(NavigationBarBloc).navigationTo(Tabs.Messenger);
+      DI.get<ChatBloc>(ChatBloc).loadChatDetail(account.id);
+    }
   }
 }

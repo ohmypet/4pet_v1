@@ -4,12 +4,13 @@ class ChatBloc extends TBloc<ChatEvent, ChatState> {
   FlutterWebviewPlugin flutterWebviewPlugin;
   StreamSubscription<double> _onChanged;
   String get url => _url;
+
   String _url;
 
   void setFlutterWebView(FlutterWebviewPlugin flutterWebviewPlugin) {
     this.flutterWebviewPlugin = flutterWebviewPlugin;
     _setListener();
-    if (_url == null) _setFirstJoinInChat();
+    if (_url == null) _url = _getChatUrl();
   }
 
   void _setListener() {
@@ -21,15 +22,14 @@ class ChatBloc extends TBloc<ChatEvent, ChatState> {
     });
   }
 
-  void _setFirstJoinInChat() {
+  String _getChatUrl() {
     final Account account = DI.get<AuthenticationBloc>(AuthenticationBloc).account;
-    _url = 'https://chat-plugin.now.sh?firstAccount=${account.id}';
+    return 'https://chat-plugin.now.sh?firstAccount=${account.id}';
   }
 
-  void _setUrl(String secondAccount) {
+  String _getChatDetailUrl(String secondAccount) {
     final Account account = DI.get<AuthenticationBloc>(AuthenticationBloc).account;
-    _url =
-        'https://chat-plugin.now.sh/?firstAccount=${account.id}&secondAccount=$secondAccount';
+    return 'https://chat-plugin.now.sh/?firstAccount=${account.id}&secondAccount=$secondAccount';
   }
 
   @override
@@ -59,20 +59,24 @@ class ChatBloc extends TBloc<ChatEvent, ChatState> {
   }
 
   FutureOr _onURLChanged(NavigationBarBloc navigationBarBloc, String url) {
-    _url = url;
-    Log.info('current url:: $url');
     if (url?.contains('detail') == true) {
       navigationBarBloc.hide();
-    } else
+    } else {
+      _url = _getChatUrl();
       navigationBarBloc.show();
+    }
   }
 
   void _navigateToChatDetail(PostNavigateToChatEvent event) {
-    _setUrl(event.accountId);
+    _url = _getChatDetailUrl(event.accountId);
     flutterWebviewPlugin?.launch(_url);
   }
 
   void loadChatDetail(String secondAccount) {
     add(PostNavigateToChatEvent(secondAccount));
+  }
+
+  void reload() {
+    flutterWebviewPlugin.reload();
   }
 }

@@ -37,9 +37,7 @@ class _BottomBarWidgetState extends TState<BottomBarWidget>
       initialIndex: widget.intIndex,
       vsync: this,
       length: children.length,
-    )..addListener(() {
-        Log.debug('Ahihi tab ${tabController.index}');
-      });
+    );
 
     DI.get<BottomBarController>(BottomBarController).addController(tabController);
   }
