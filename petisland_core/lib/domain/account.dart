@@ -21,6 +21,12 @@ class Account extends BaseModel {
     this.user,
   }) : super(id, createAt, updateAt, createBy);
 
+  String getName() {
+    String name = username;
+    if (user != null) name = user.name ?? name;
+    return name;
+  }
+
   Account.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     username = json['username'];
     email = json['email'];

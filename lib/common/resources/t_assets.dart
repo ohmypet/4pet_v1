@@ -13,6 +13,10 @@ abstract class TAssets {
   static const String post_default_image_avatar = '$iconPath/kitty.svg';
 
   static const String user_avatar = '$iconPath/user.svg';
+  static const String logout = '$iconPath/logout.svg';
+  static const String moon = '$iconPath/moon.svg';
+  static const String note = '$iconPath/note.svg';
+
 
   // pet type
   static const String pet_type_fish = '$petTypePath/fish.svg';
@@ -23,4 +27,5 @@ abstract class TAssets {
 
   static const String flare_loading = '$flarePath/loading.flr';
   static const String flare_like = '$flarePath/like.flr';
+
 }
