@@ -53,4 +53,20 @@ abstract class BaseTool {
   void showErrorSnackBar({@required BuildContext context, @required String content}) {
     showSnackBar(context, content, Colors.red);
   }
+
+  void showSnackBarByScaffoldKey({@required GlobalKey<ScaffoldState> key, @required String content}) async {
+    try {
+      key.currentState.removeCurrentSnackBar();
+      await Future<void>.delayed(const Duration(milliseconds: 150));
+      key.currentState.showSnackBar(
+        SnackBar(
+          content: Text(content),
+          backgroundColor: TColors.red,
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    } catch (ex) {
+      Log.error(ex);
+    }
+  }
 }

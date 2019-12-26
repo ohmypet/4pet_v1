@@ -18,6 +18,7 @@ class AccountSuccessful extends RegisterState {}
 
 class Failed extends RegisterErrorState implements RegisterState {
   Failed(String message) : super(message);
+
   @override
   String toString() {
     return '$runtimeType:: error:: ${message?.toString()}';
