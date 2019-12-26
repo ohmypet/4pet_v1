@@ -63,7 +63,7 @@ class PostRepositoryImpl extends PostRepository {
   Future<List<PanelDetail>> getMyPost({int offset, int limit}) {
     final params = {'offset': offset ?? 0, 'limit': limit ?? 15};
     return client
-        .get<List>('/api/post/by-account', params: params)
+        .get<List>('/api/post/list/by-account', params: params)
         .then(_parseToListPostItem);
   }
 
@@ -72,7 +72,7 @@ class PostRepositoryImpl extends PostRepository {
     final params = {'offset': offset ?? 0, 'limit': limit ?? 15};
 
     return client
-        .get<List>('/api/post/liked-by-account', params: params)
+        .get<List>('/api/post/list/liked-by-account', params: params)
         .then(_parseToListPostItem);
   }
 
