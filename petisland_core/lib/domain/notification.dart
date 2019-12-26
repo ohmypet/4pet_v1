@@ -31,7 +31,7 @@ class PetNotification extends BaseModel {
   PetNotification.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     id = json['_id'];
     message = json['message'];
-    sender = json['sender'] != null ? Account.fromJson(json['sender']) : null;
+    sender = json['sender'] is Map ? Account.fromJson(json['sender']) : null;
     isRead = json['isRead'] ?? false;
     type = json['category'] != null ? NotificationType.fromJson(json['category']) : null;
   }

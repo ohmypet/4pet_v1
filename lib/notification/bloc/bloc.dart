@@ -3,6 +3,7 @@ library petisland.notification.bloc;
 import 'dart:async';
 
 import 'package:ddi/di.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart' show protected;
 import 'package:flutter_template/main_bloc/main_bloc.dart';
 import 'package:petisland_core/domain/domain.dart';

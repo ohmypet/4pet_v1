@@ -21,3 +21,9 @@ class RetrieveNotificationEvent extends NotificationEvent {
 
   RetrieveNotificationEvent(this.offset, this.limit);
 }
+
+class ReadNotification extends NotificationEvent {
+  final String id;
+
+  ReadNotification(this.id);
+}

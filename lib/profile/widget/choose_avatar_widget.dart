@@ -4,7 +4,8 @@ class ChooseAvatarWidget extends StatelessWidget {
   final Widget avatar;
   final VoidCallback onTapCamera;
 
-  const ChooseAvatarWidget({Key key, @required this.avatar, this.onTapCamera}) : super(key: key);
+  const ChooseAvatarWidget({Key key, @required this.avatar, this.onTapCamera})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

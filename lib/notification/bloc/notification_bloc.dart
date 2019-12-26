@@ -27,6 +27,10 @@ class NotificationBloc extends TBloc<NotificationEvent, NotificationState> {
       case RetrieveNotificationEvent:
         _retrieveNotification(event);
         break;
+      case ReadNotification:
+        stopListener();
+        _readNotification(event);
+        break;
       case RequireReloadUIEvent:
         yield ReloadNotificationUI((event as RequireReloadUIEvent).items);
         break;
@@ -69,7 +73,7 @@ class NotificationBloc extends TBloc<NotificationEvent, NotificationState> {
   @override
   NotificationState get initialState => InitNotificationState();
 
-  void _getNotification() {
+  void getNotification() {
     add(ReloadNotificationEvent(offset, limit));
   }
 
@@ -78,13 +82,31 @@ class NotificationBloc extends TBloc<NotificationEvent, NotificationState> {
   }
 
   void startListener() {
-    _getNotification();
-//     timer = Timer.periodic(const Duration(seconds: 10), (_) => _getNotification());
+    getNotification();
+    timer = Timer.periodic(const Duration(seconds: 10), (_) => getNotification());
+  }
+
+  void clear() {
+    notifications.clear();
+  }
+
+  void readNotification(String id) {
+    add(ReadNotification(id));
   }
 
   void stopListener() {
     if (timer?.isActive == true) {
       timer.cancel();
     }
+  }
+
+  void _readNotification(ReadNotification event) {
+    service.readNotification(event.id).then((_) {
+      Log.info('readNotification:: success');
+      startListener();
+    }).catchError((_, __) {
+      Log.info('readNotification:: failure $__');
+      startListener();
+    });
   }
 }

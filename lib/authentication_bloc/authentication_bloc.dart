@@ -2,6 +2,7 @@ library petisland.authentication;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/notification/bloc/bloc.dart';
 import 'package:flutter_template/pet_feed/bloc/bloc.dart';
 import 'package:flutter_template/petisland.dart';
 import 'package:petisland_core/service/service.dart';
@@ -101,6 +102,7 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
       case LoggedIn:
         _clearData();
         updateCurrentAccount(event);
+
         await reloadPetCategory();
         await reloadReportContent();
         yield Authenticated();
@@ -119,5 +121,6 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
 
   void _clearData() {
     DI.get<PetFeedController>(PetFeedController).clear();
+    DI.get<NotificationBloc>(NotificationBloc).clear();
   }
 }
