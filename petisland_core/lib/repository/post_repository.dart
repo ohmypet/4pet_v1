@@ -21,6 +21,8 @@ abstract class PostRepository {
   Future<List<PanelDetail>> getMyPost({int offset, int limit});
 
   Future<List<PanelDetail>> getFavoritePosts({int offset, int limit});
+
+  Future<Post> getPost(String id);
 }
 
 class PostRepositoryImpl extends PostRepository {
@@ -142,5 +144,12 @@ class PostRepositoryImpl extends PostRepository {
         .cast<Map<String, dynamic>>()
         .map((json) => Comment.fromJson(json))
         .toList();
+  }
+
+  @override
+  Future<Post> getPost(String id) {
+    return client
+        .get<Map<String, dynamic>>('/api/post/$id')
+        .then((json) => Post.fromJson(json));
   }
 }
