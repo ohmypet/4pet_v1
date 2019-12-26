@@ -1,8 +1,7 @@
 part of petisland.register.bloc;
 
 class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
-  static final AccountService accountService =
-      DI.get<AccountService>(AccountService);
+  static final AccountService accountService = DI.get<AccountService>(AccountService);
   Account _account;
   String _code;
 
@@ -86,10 +85,7 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
     if (event?.email?.trim()?.isEmpty ?? true) {
       _handleError('Email không hợp lệ');
     }
-    accountService
-        .requireCode(event.email)
-        .then(_handleRequireCodeSuccess)
-        .catchError(_handleError);
+    accountService.requireCode(event.email).then(_handleRequireCodeSuccess).catchError(_handleError);
   }
 
   void _handleCodeSubmit(SubmitCode event) async {
@@ -121,9 +117,7 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
 
   void _handleAccountSubmit(SubmitAccount event) async {
     bool accountIsNotValid(SubmitAccount event) {
-      return (event?.userName?.trim()?.isEmpty ??
-          true & event?.password?.trim()?.isEmpty ??
-          true);
+      return (event?.userName?.trim()?.isEmpty ?? true & event?.password?.trim()?.isEmpty ?? true);
     }
 
     FutureOr<void> _handleAccountSuccess(Account account) {

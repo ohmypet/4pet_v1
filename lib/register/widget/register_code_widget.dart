@@ -2,6 +2,7 @@ part of petisland.register.widget;
 
 class RegisterCodeWidget extends TStatefulWidget {
   RegisterCodeWidget({Key key}) : super(key: key);
+
   @override
   _RegisterCodeWidgetState createState() => _RegisterCodeWidgetState();
 }
@@ -36,9 +37,7 @@ class _RegisterCodeWidgetState extends TState<RegisterCodeWidget> {
               opacity: isValid(codeController.text.length) ? 1 : 0.2,
               child: PetIslandButtonWidget(
                 text: 'Tiếp',
-                onTap: isValid(codeController.text.length)
-                    ? _onCodeSubmitted
-                    : null,
+                onTap: isValid(codeController.text.length) ? _onCodeSubmitted : null,
               ),
             ),
           ],
