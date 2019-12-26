@@ -7,7 +7,7 @@ class NotificationScreen extends StatefulWidget {
 
 class _NotificationScreenState extends State<NotificationScreen> {
   final NotificationBloc bloc = DI.get(NotificationBloc);
-
+  final Random random = DI.get(Random);
   @override
   void initState() {
     super.initState();
@@ -55,10 +55,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   Widget buildDefaultNotification() {
-    return Container(
-      height: 15,
-      width: 15,
-      color: TColors.red,
+    return ListView.separated(
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.symmetric(vertical: kToolbarHeight, horizontal: 20),
+      itemCount: random.nextInt(15) + 5,
+      itemBuilder: (_, index) {
+        return NotificationDefaultWidget();
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return Divider();
+      },
     );
   }
 }

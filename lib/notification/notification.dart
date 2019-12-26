@@ -1,5 +1,7 @@
 library petisland.notification;
 
+import 'dart:math';
+
 import 'package:ddi/di.dart';
 import 'package:flutter/material.dart' hide Notification;
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -8,9 +8,13 @@ class NotificationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final imageWidget = _buildImage(item.sender?.user?.avatar?.url);
-
+    final color = item.isRead ? TColors.transparent : TColors.brown_grey.withAlpha(25);
     return Container(
       height: 85,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(5)
+      ),
       child: Flex(
         crossAxisAlignment: CrossAxisAlignment.start,
         direction: Axis.horizontal,
