@@ -1,6 +1,6 @@
-part of petisland.profile;
+part of petisland.profile.screen;
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   final AuthenticationBloc bloc;
 
   const ProfileScreen({
@@ -8,6 +8,11 @@ class ProfileScreen extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends TState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final spacer = SizedBox(height: 5);
@@ -23,10 +28,19 @@ class ProfileScreen extends StatelessWidget {
           _buildName(context, account),
           _buildDarkMode(),
           Divider(),
-          ProfileDetailWidget(),
+          ProfileDetailWidget(
+            onTapMyPost: _onTapMyPost,
+            onTapPostLiked: _onTapPostLiked,
+            onTapProfile: _onTapProfile,
+          ),
           spacer,
           Divider(),
-          BasicFunctionWidget(onTapLogout: _onTapLogout),
+          BasicFunctionWidget(
+            onTapLogout: _onTapLogout,
+            onTapChangePassword: _onTapChangePassword,
+            onTapRating: _onTapRating,
+            onTapReport: _onTapReport,
+          ),
         ],
       ),
     );
@@ -64,6 +78,34 @@ class ProfileScreen extends StatelessWidget {
   }
 
   void _onTapLogout() {
-    bloc.logout();
+    widget.bloc.logout();
+  }
+
+  void _onTapChangePassword() {
+    // TODO(tvc12): change password
+  }
+
+  void _onTapRating() {
+    // TODO(tvc12): navigate to rating
+  }
+
+  void _onTapReport() {
+    // TODO(tvc12): navigate to report
+  }
+
+  void _onTapMyPost() {
+    navigateToScreen(
+      context: context,
+      screen: MyPostScreen(),
+      screenName: MyPostScreen.name,
+    );
+  }
+
+  void _onTapPostLiked() {
+    // TODO(tvc12): navigate to liked
+  }
+
+  void _onTapProfile() {
+    // TODO(tvc12): navigate to profile
   }
 }

@@ -14,5 +14,6 @@ class DevModule extends AbstractModule {
     bind(NavigationBarBloc).to(NavigationBarBloc());
     bind(ChatBloc).to(ChatBloc());
     bind(NotificationBloc).to(NotificationBloc());
+    bind(MyPostBloc).to(MyPostBloc());
   }
 }

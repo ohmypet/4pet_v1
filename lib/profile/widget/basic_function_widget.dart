@@ -2,8 +2,17 @@ part of petisland.profile.widget;
 
 class BasicFunctionWidget extends StatelessWidget {
   final VoidCallback onTapLogout;
+  final VoidCallback onTapChangePassword;
+  final VoidCallback onTapReport;
+  final VoidCallback onTapRating;
 
-  const BasicFunctionWidget({Key key, this.onTapLogout}) : super(key: key);
+  const BasicFunctionWidget(
+      {Key key,
+      this.onTapLogout,
+      this.onTapChangePassword,
+      this.onTapReport,
+      this.onTapRating})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +35,7 @@ class BasicFunctionWidget extends StatelessWidget {
   Widget _buildChangePassword() {
     return SettingOptionWidget(
       title: 'Đổi mật khẩu',
+      onTap: onTapChangePassword,
       icon: Icon(Icons.security),
     );
   }
@@ -33,6 +43,7 @@ class BasicFunctionWidget extends StatelessWidget {
   Widget _buildRating() {
     return SettingOptionWidget(
       title: 'Đánh giá',
+      onTap: onTapRating,
       icon: Icon(Icons.star_half),
     );
   }
@@ -40,6 +51,7 @@ class BasicFunctionWidget extends StatelessWidget {
   Widget _buildReport() {
     return SettingOptionWidget(
       title: 'Báo cáo và đề xuất',
+      onTap: onTapReport,
       icon: Icon(Icons.info_outline),
     );
   }
