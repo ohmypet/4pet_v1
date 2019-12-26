@@ -1,5 +1,7 @@
 library petisland.common.resources;
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 part 'font_families.dart';
