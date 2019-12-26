@@ -1,4 +1,4 @@
-part of petisland.profile;
+part of petisland.profile.screen;
 
 class ProfileScreen extends StatelessWidget {
   final AuthenticationBloc bloc;
