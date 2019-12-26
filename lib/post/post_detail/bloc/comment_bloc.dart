@@ -14,11 +14,12 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
 
   void startListener() {
     reload();
+    if (timer?.isActive == true) timer.cancel();
     timer = Timer.periodic(const Duration(seconds: 5), (_) => reload());
   }
 
   void stopListener() {
-    if (timer.isActive) timer.cancel();
+    if (timer?.isActive == true) timer.cancel();
   }
 
   @override
