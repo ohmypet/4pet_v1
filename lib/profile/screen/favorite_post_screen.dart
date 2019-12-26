@@ -1,14 +1,14 @@
 part of petisland.profile.screen;
 
-class MyPostScreen extends StatefulWidget {
-  static const String name = '/MyPostScreen';
+class FavoritePostScreen extends StatefulWidget {
+  static const String name = '/FavoritePostScreen';
 
   @override
-  _MyPostScreenState createState() => _MyPostScreenState();
+  _FavoritePostScreenState createState() => _FavoritePostScreenState();
 }
 
-class _MyPostScreenState extends State<MyPostScreen> {
-  final MyPostBloc bloc = DI.get(MyPostBloc);
+class _FavoritePostScreenState extends State<FavoritePostScreen> {
+  final FavoritePostBloc bloc = DI.get(FavoritePostBloc);
   final RefreshController controller = RefreshController();
 
   void initState() {
@@ -20,7 +20,7 @@ class _MyPostScreenState extends State<MyPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bài viết của bạn', style: TTextStyles.bold(fontSize: 18)),
+        title: Text('Bài viết bạn đã thích', style: TTextStyles.bold(fontSize: 18)),
         centerTitle: true,
         backgroundColor: TColors.white,
         automaticallyImplyLeading: false,
@@ -29,10 +29,10 @@ class _MyPostScreenState extends State<MyPostScreen> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: BlocListener<MyPostBloc, MyPostState>(
+      body: BlocListener<FavoritePostBloc, FavoritePostState>(
         bloc: bloc,
         listener: _onListChanged,
-        child: BlocBuilder<MyPostBloc, MyPostState>(
+        child: BlocBuilder<FavoritePostBloc, FavoritePostState>(
           bloc: bloc,
           condition: (_, state) => state is ReloadMyPost,
           builder: _buildUIState,
@@ -41,8 +41,8 @@ class _MyPostScreenState extends State<MyPostScreen> {
     );
   }
 
-  Widget _buildUIState(BuildContext context, MyPostState state) {
-    if (state is ReloadMyPost) {
+  Widget _buildUIState(BuildContext context, FavoritePostState state) {
+    if (state is ReloadFavoritePost) {
       final items = state.items;
       return SmartRefresher(
         controller: controller,
@@ -75,8 +75,8 @@ class _MyPostScreenState extends State<MyPostScreen> {
     bloc.retrievePost();
   }
 
-  void _onListChanged(BuildContext context, MyPostState state) {
-    if (state is! ReloadMyPost) return;
+  void _onListChanged(BuildContext context, FavoritePostState state) {
+    if (state is! ReloadFavoritePost) return;
     if (controller.isLoading) {
       controller.loadComplete();
     }

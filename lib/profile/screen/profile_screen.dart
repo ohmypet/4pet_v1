@@ -102,7 +102,11 @@ class _ProfileScreenState extends TState<ProfileScreen> {
   }
 
   void _onTapPostLiked() {
-    // TODO(tvc12): navigate to liked
+    navigateToScreen(
+      context: context,
+      screen: FavoritePostScreen(),
+      screenName: FavoritePostScreen.name,
+    );
   }
 
   void _onTapProfile() {

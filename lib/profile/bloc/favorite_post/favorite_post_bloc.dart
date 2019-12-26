@@ -1,6 +1,6 @@
-part of petisland.profile.bloc.my_post;
+part of petisland.profile.bloc.favorite_post;
 
-class MyPostBloc extends TBloc<MyPostEvent, MyPostState> {
+class FavoritePostBloc extends TBloc<FavoritePostEvent, FavoritePostState> {
   static final PostService service = DI.get(PostService);
   final List<PanelDetail> posts = [];
   final int limit = 15;
@@ -12,20 +12,20 @@ class MyPostBloc extends TBloc<MyPostEvent, MyPostState> {
   Duration get delayEvent => const Duration(milliseconds: 150);
 
   @override
-  Stream<MyPostState> errorToState(BaseErrorEvent event) {
+  Stream<FavoritePostState> errorToState(BaseErrorEvent event) {
     return null;
   }
 
   @override
-  Stream<MyPostState> eventToState(BaseEvent event) async* {
+  Stream<FavoritePostState> eventToState(BaseEvent event) async* {
     switch (event.runtimeType) {
-      case _ReloadMyPostEvent:
+      case _ReloadFavoritePostEvent:
         _reloadMyPost(event);
         break;
       case _ReloadUIEvent:
-        yield ReloadMyPost((event as _ReloadUIEvent).items);
+        yield ReloadFavoritePost((event as _ReloadUIEvent).items);
         break;
-      case _RetrieveMyPostEvent:
+      case _RetrieveFavoritePostEvent:
         _retrievePosts(event);
         break;
       default:
@@ -33,9 +33,9 @@ class MyPostBloc extends TBloc<MyPostEvent, MyPostState> {
   }
 
   @override
-  MyPostState get initialState => InitMyPostState();
+  FavoritePostState get initialState => IniFavoritePostState();
 
-  void _reloadMyPost(_ReloadMyPostEvent event) {
+  void _reloadMyPost(_ReloadFavoritePostEvent event) {
     FutureOr _reloadUI(List<PanelDetail> value) {
       if (value.isNotEmpty) {
         posts
@@ -45,10 +45,13 @@ class MyPostBloc extends TBloc<MyPostEvent, MyPostState> {
       add(_ReloadUIEvent(posts));
     }
 
-    service.getMyPost(offset: event.offset, limit: event.limit).then(_reloadUI).catchError(_handleError);
+    service
+        .getFavoritePosts(offset: event.offset, limit: event.limit)
+        .then(_reloadUI)
+        .catchError(_handleError);
   }
 
-  void _retrievePosts(_RetrieveMyPostEvent event) {
+  void _retrievePosts(_RetrieveFavoritePostEvent event) {
     FutureOr _reloadUI(List<PanelDetail> items) {
       if (items.isNotEmpty) {
         posts.addAll(items);
@@ -56,7 +59,10 @@ class MyPostBloc extends TBloc<MyPostEvent, MyPostState> {
       add(_ReloadUIEvent(posts));
     }
 
-    service.getMyPost(offset: event.offset, limit: event.limit).then(_reloadUI).catchError(_handleError);
+    service
+        .getFavoritePosts(offset: event.offset, limit: event.limit)
+        .then(_reloadUI)
+        .catchError(_handleError);
   }
 
   void _handleError(dynamic ex) {
@@ -65,10 +71,10 @@ class MyPostBloc extends TBloc<MyPostEvent, MyPostState> {
   }
 
   void reload() {
-    add(_ReloadMyPostEvent(offset, limit));
+    add(_ReloadFavoritePostEvent(offset, limit));
   }
 
   void retrievePost() {
-    add(_RetrieveMyPostEvent(offset, limit));
+    add(_RetrieveFavoritePostEvent(offset, limit));
   }
 }
