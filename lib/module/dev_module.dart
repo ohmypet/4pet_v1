@@ -13,5 +13,6 @@ class DevModule extends AbstractModule {
     bind(Random).to(Random(DateTime.now().millisecondsSinceEpoch));
     bind(NavigationBarBloc).to(NavigationBarBloc());
     bind(ChatBloc).to(ChatBloc());
+    bind(NotificationBloc).to(NotificationBloc());
   }
 }

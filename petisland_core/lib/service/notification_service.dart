@@ -1,8 +1,8 @@
 part of petisland_core.service;
 
 abstract class NotificationService {
-  Future<List<Notification>> getNotifications({int offset, int limit});
-  Future<Notification> readNotification(String id);
+  Future<List<PetNotification>> getNotifications({int offset, int limit});
+  Future<PetNotification> readNotification(String id);
 }
 
 class NotificationServiceImpl extends NotificationService {
@@ -11,12 +11,12 @@ class NotificationServiceImpl extends NotificationService {
 
   NotificationServiceImpl(this.repository);
   @override
-  Future<List<Notification>> getNotifications({int offset, int limit}) {
+  Future<List<PetNotification>> getNotifications({int offset, int limit}) {
     return repository.getNotifications(offset: offset, limit: limit);
   }
 
   @override
-  Future<Notification> readNotification(String id) {
+  Future<PetNotification> readNotification(String id) {
     return repository.readNotification(id);
   }
 }

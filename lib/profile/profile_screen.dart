@@ -12,13 +12,14 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final spacer = SizedBox(height: 5);
     final Account account = DI.get<AuthenticationBloc>(AuthenticationBloc).account;
+    final image = account.user?.avatar?.url;
     return Scaffold(
       body: ListView(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         children: <Widget>[
           const SizedBox(height: 25),
-          AvatarWidget(url: account.user?.avatar?.url),
+          ChooseAvatarWidget(avatar: AvatarWidget(url: image)),
           _buildName(context, account),
           _buildDarkMode(),
           Divider(),

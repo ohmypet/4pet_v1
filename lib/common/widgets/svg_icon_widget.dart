@@ -1,4 +1,4 @@
-part of petisland.profile.widget;
+part of petisland.common.widgets;
 
 class SvgIconWidget extends StatelessWidget {
   final Widget icon;
