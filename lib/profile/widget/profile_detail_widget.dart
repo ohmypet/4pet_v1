@@ -33,7 +33,7 @@ class ProfileDetailWidget extends StatelessWidget {
       icon: SvgIconWidget(
         icon: SvgPicture.asset(
           TAssets.note,
-          color: TColors.darkSkyBlue,
+          color: TColors.dark_sky_blue,
         ),
       ),
       trailing: Icon(

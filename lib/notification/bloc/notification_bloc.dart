@@ -2,7 +2,7 @@ part of petisland.notification.bloc;
 
 class NotificationBloc extends TBloc<NotificationEvent, NotificationState> {
   static final NotificationService service = DI.get(NotificationService);
-  final List<Notification> notifications = [];
+  final List<PetNotification> notifications = [];
   final int limit = 15;
   @protected
   Timer timer;
@@ -35,7 +35,7 @@ class NotificationBloc extends TBloc<NotificationEvent, NotificationState> {
   }
 
   void _reloadNotification(ReloadNotificationEvent event) {
-    FutureOr updateNotifications(List<Notification> items) {
+    FutureOr updateNotifications(List<PetNotification> items) {
       if (items.isNotEmpty) {
         notifications
           ..clear()
@@ -52,7 +52,7 @@ class NotificationBloc extends TBloc<NotificationEvent, NotificationState> {
   }
 
   void _retrieveNotification(RetrieveNotificationEvent event) {
-    FutureOr updateNotifications(List<Notification> items) {
+    FutureOr updateNotifications(List<PetNotification> items) {
       if (items.isNotEmpty) {
         notifications.addAll([...?items]);
       }
@@ -79,7 +79,7 @@ class NotificationBloc extends TBloc<NotificationEvent, NotificationState> {
 
   void startListener() {
     _getNotification();
-    timer = Timer.periodic(const Duration(seconds: 10), (_) => _getNotification());
+//     timer = Timer.periodic(const Duration(seconds: 10), (_) => _getNotification());
   }
 
   void stopListener() {

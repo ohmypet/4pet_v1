@@ -39,16 +39,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   Widget _buildNotificationWidget(ReloadNotificationUI state) {
-    final List<Notification> items = state.items;
-    return ListView.builder(
+    final List<PetNotification> items = state.items;
+    return ListView.separated(
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.symmetric(vertical: kToolbarHeight, horizontal: 20),
       itemCount: items.length,
       itemBuilder: (_, index) {
-        final Notification notification = items[index];
-        return Container(
-          height: 15,
-          width: 15,
-          color: TColors.water_melon,
-        );
+        final PetNotification notification = items[index];
+        return NotificationWidget(item: notification);
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return Divider();
       },
     );
   }

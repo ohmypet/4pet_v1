@@ -19,7 +19,7 @@ class AddImagePostWidget extends StatelessWidget {
           child: Center(
             child: Icon(
               Icons.add,
-              color: TColors.darkSkyBlue,
+              color: TColors.dark_sky_blue,
               size: 36,
             ),
           ),

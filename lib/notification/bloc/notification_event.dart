@@ -10,7 +10,7 @@ class ReloadNotificationEvent extends NotificationEvent {
 }
 
 class RequireReloadUIEvent extends NotificationEvent {
-  final List<Notification> items;
+  final List<PetNotification> items;
 
   RequireReloadUIEvent(this.items);
 }

@@ -3,7 +3,7 @@ part of petisland.notification.bloc;
 abstract class NotificationState extends BaseState {}
 
 class ReloadNotificationUI extends NotificationState {
-  final List<Notification> items;
+  final List<PetNotification> items;
 
   ReloadNotificationUI(this.items);
 
