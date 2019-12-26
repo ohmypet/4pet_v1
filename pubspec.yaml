@@ -61,6 +61,7 @@ flutter:
     - assets/fonts/sarabun/
     - assets/icons/
     - assets/icons/pet_type/
+    - assets/icons/kitty/
     - assets/images/
     - assets/videos/
     - assets/flare/
