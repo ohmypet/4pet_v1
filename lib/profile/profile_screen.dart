@@ -23,10 +23,19 @@ class ProfileScreen extends StatelessWidget {
           _buildName(context, account),
           _buildDarkMode(),
           Divider(),
-          ProfileDetailWidget(),
+          ProfileDetailWidget(
+            onTapMyPost: _onTapMyPost,
+            onTapPostLiked: _onTapPostLiked,
+            onTapProfile: _onTapProfile,
+          ),
           spacer,
           Divider(),
-          BasicFunctionWidget(onTapLogout: _onTapLogout),
+          BasicFunctionWidget(
+            onTapLogout: _onTapLogout,
+            onTapChangePassword: _onTapChangePassword,
+            onTapRating: _onTapRating,
+            onTapReport: _onTapReport,
+          ),
         ],
       ),
     );
@@ -65,5 +74,29 @@ class ProfileScreen extends StatelessWidget {
 
   void _onTapLogout() {
     bloc.logout();
+  }
+
+  void _onTapChangePassword() {
+    // TODO(tvc12): change password
+  }
+
+  void _onTapRating() {
+    // TODO(tvc12): navigate to rating
+  }
+
+  void _onTapReport() {
+    // TODO(tvc12): navigate to report
+  }
+
+  void _onTapMyPost() {
+    // TODO(tvc12): navigate to my post
+  }
+
+  void _onTapPostLiked() {
+    // TODO(tvc12): navigate to liked
+  }
+
+  void _onTapProfile() {
+    // TODO(tvc12): navigate to profile
   }
 }
