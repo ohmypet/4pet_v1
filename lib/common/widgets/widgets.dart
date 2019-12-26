@@ -26,3 +26,5 @@ part 't_dropdown.dart';
 part 't_page_route.dart';
 
 part 't_sheet.dart';
+
+part 'text_logo.dart';

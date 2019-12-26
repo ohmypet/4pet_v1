@@ -18,10 +18,7 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
             backgroundColor: Colors.white,
             floating: true,
             snap: true,
-            title: Text(
-              'PETISLAND',
-              style: TTextStyles.bold(fontSize: 24, color: TColors.water_melon),
-            ),
+            title: TextLogo(),
             actions: <Widget>[
               TCircleButton(icon: Icon(Icons.search)),
               SizedBox(width: 7),
