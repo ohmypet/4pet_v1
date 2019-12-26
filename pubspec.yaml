@@ -13,7 +13,7 @@ dependencies:
   firebase_core: 0.4.0+9
   firebase_crashlytics: 0.1.0+3
   shared_preferences: 0.5.3+4
-  flutter_bloc: ^2.0.0
+  flutter_bloc: ^2.1.1
   # flare_flutter: ^1.7.1
   flare_flutter: ^1.8.2
   shimmer: ^1.0.1
@@ -50,7 +50,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/launcher_icons/app_icon.jpeg"
+  image_path: "assets/launcher_icons/app_icon.png"
   build_runner: ^1.0.0
 
 flutter:
