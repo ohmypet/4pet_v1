@@ -105,16 +105,23 @@ class _NotificationScreenState extends TState<NotificationScreen> {
     }
   }
 
-  void _onTap(PetNotification notification) {
+  void _onTap(PetNotification notification) async {
     // if (!notification.isRead)
     bloc.readNotification(notification.id);
     setState(() {
       notification.isRead = true;
     });
-    // navigateToScreen(
-    //   context: context,
-    //   screen: PetCa
-    // );
+    bloc.stopListener();
+    final PopResult data = await navigateToScreen<PopResult>(
+      context: context,
+      screen: PostLoadingScreen(id: notification.type.id),
+      screenName: PostLoadingScreen.name,
+    );
+    if (data == PopResult.Failure) {
+      showErrorSnackBar(context: context, content: 'Lỗi không tải được bài viết');
+    }
+
+    bloc.startListener();
   }
 
   @override
@@ -122,4 +129,9 @@ class _NotificationScreenState extends TState<NotificationScreen> {
     bloc.stopListener();
     super.dispose();
   }
+}
+
+enum PopResult {
+  Success,
+  Failure,
 }
