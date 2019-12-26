@@ -20,7 +20,7 @@ abstract class PostRepository {
 
   Future<List<PanelDetail>> getMyPost({int offset, int limit});
 
-  Future<List<PanelDetail>> getPostLiked({int offset, int limit});
+  Future<List<PanelDetail>> getFavoritePosts({int offset, int limit});
 }
 
 class PostRepositoryImpl extends PostRepository {
@@ -66,7 +66,7 @@ class PostRepositoryImpl extends PostRepository {
   }
 
   @override
-  Future<List<PanelDetail>> getPostLiked({int offset, int limit}) {
+  Future<List<PanelDetail>> getFavoritePosts({int offset, int limit}) {
     final params = {'offset': offset ?? 0, 'limit': limit ?? 15};
 
     return client

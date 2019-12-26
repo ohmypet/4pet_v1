@@ -45,7 +45,10 @@ class FavoritePostBloc extends TBloc<FavoritePostEvent, FavoritePostState> {
       add(_ReloadUIEvent(posts));
     }
 
-    service.getMyPost(offset: event.offset, limit: event.limit).then(_reloadUI).catchError(_handleError);
+    service
+        .getFavoritePosts(offset: event.offset, limit: event.limit)
+        .then(_reloadUI)
+        .catchError(_handleError);
   }
 
   void _retrievePosts(_RetrieveFavoritePostEvent event) {
@@ -56,7 +59,10 @@ class FavoritePostBloc extends TBloc<FavoritePostEvent, FavoritePostState> {
       add(_ReloadUIEvent(posts));
     }
 
-    service.getMyPost(offset: event.offset, limit: event.limit).then(_reloadUI).catchError(_handleError);
+    service
+        .getFavoritePosts(offset: event.offset, limit: event.limit)
+        .then(_reloadUI)
+        .catchError(_handleError);
   }
 
   void _handleError(dynamic ex) {

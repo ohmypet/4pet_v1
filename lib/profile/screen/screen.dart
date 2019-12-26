@@ -12,6 +12,8 @@ import 'package:flutter_template/profile/bloc/bloc.dart';
 import 'package:flutter_template/profile/widget/widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+part 'favorite_post_screen.dart';
+
 part 'my_post_screen.dart';
 
 part 'profile_screen.dart';
