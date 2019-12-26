@@ -5,7 +5,8 @@ abstract class PostRepository {
 
   Future<Post> like(String id);
 
-  Future<List<Item>> getPosts(int offset, int limit, String categoryType, String petCategoryId);
+  Future<List<Item>> getPosts(
+      int offset, int limit, String categoryType, String petCategoryId);
 
   Future<Post> delete(String id);
 
@@ -16,6 +17,10 @@ abstract class PostRepository {
   Future<List<Comment>> getComments(String postId, {int offset, int limit});
 
   Future<Comment> deleteComment(String postId, String commentId);
+
+  Future<List<PanelDetail>> getMyPost({int offset, int limit});
+
+  Future<List<PanelDetail>> getPostLiked({int offset, int limit});
 }
 
 class PostRepositoryImpl extends PostRepository {
@@ -38,7 +43,8 @@ class PostRepositoryImpl extends PostRepository {
   }
 
   @override
-  Future<List<Item>> getPosts(int offset, int limit, String categoryType, String petCategoryId) {
+  Future<List<Item>> getPosts(
+      int offset, int limit, String categoryType, String petCategoryId) {
     final Map<String, dynamic> params = <String, dynamic>{
       'offset': offset,
       'limit': limit,
@@ -48,10 +54,35 @@ class PostRepositoryImpl extends PostRepository {
 
     Log.debug(params);
 
-    return client.get<List<dynamic>>('/api/post', params: params).then(_parseToListPost);
+    return client.get<List<dynamic>>('/api/post', params: params).then(_parseToListItem);
   }
 
-  Future<List<Item>> _parseToListPost(List<dynamic> jsons) async {
+  @override
+  Future<List<PanelDetail>> getMyPost({int offset, int limit}) {
+    final params = {'offset': offset ?? 0, 'limit': limit ?? 15};
+    return client
+        .get<List>('/api/post/by-account', params: params)
+        .then(_parseToListPostItem);
+  }
+
+  @override
+  Future<List<PanelDetail>> getPostLiked({int offset, int limit}) {
+    final params = {'offset': offset ?? 0, 'limit': limit ?? 15};
+
+    return client
+        .get<List>('/api/post/liked-by-account', params: params)
+        .then(_parseToListPostItem);
+  }
+
+  List<PanelDetail> _parseToListPostItem(List<dynamic> jsons) {
+    return jsons
+        .cast<Map<String, dynamic>>()
+        .map((Map<String, dynamic> json) => _parseToPost(json))
+        .where((Item item) => item != null)
+        .toList();
+  }
+
+  List<Item> _parseToListItem(List<dynamic> jsons) {
     return jsons
         .cast<Map<String, dynamic>>()
         .map((Map<String, dynamic> json) => _parseToPost(json))
@@ -93,15 +124,22 @@ class PostRepositoryImpl extends PostRepository {
 
   @override
   Future<Comment> deleteComment(String postId, String commentId) {
-    return client.delete('/api/post/$postId/comment/$commentId').then((_) => Comment.fromJson(_));
+    return client
+        .delete('/api/post/$postId/comment/$commentId')
+        .then((_) => Comment.fromJson(_));
   }
 
   @override
   Future<List<Comment>> getComments(String postId, {int offset = 0, int limit = 15}) {
-    return client.get<List<dynamic>>('/api/post/$postId/comment').then((_) => _parseToComments(_));
+    return client
+        .get<List<dynamic>>('/api/post/$postId/comment')
+        .then((_) => _parseToComments(_));
   }
 
   List<Comment> _parseToComments(List<dynamic> list) {
-    return list.cast<Map<String, dynamic>>().map((json) => Comment.fromJson(json)).toList();
+    return list
+        .cast<Map<String, dynamic>>()
+        .map((json) => Comment.fromJson(json))
+        .toList();
   }
 }
