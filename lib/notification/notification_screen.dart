@@ -35,12 +35,6 @@ class _NotificationScreenState extends TState<NotificationScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    bloc.stopListener();
-  }
-
   Widget _buildNotification(BuildContext context, NotificationState state) {
     if (state is ReloadNotificationUI) {
       return _buildNotificationWidget(state);
@@ -112,7 +106,7 @@ class _NotificationScreenState extends TState<NotificationScreen> {
   }
 
   void _onTap(PetNotification notification) {
-    // if (!notification.isRead) 
+    // if (!notification.isRead)
     bloc.readNotification(notification.id);
     setState(() {
       notification.isRead = true;
@@ -121,5 +115,11 @@ class _NotificationScreenState extends TState<NotificationScreen> {
     //   context: context,
     //   screen: PetCa
     // );
+  }
+
+  @override
+  void dispose() {
+    bloc.stopListener();
+    super.dispose();
   }
 }

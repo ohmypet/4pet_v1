@@ -33,7 +33,7 @@ class _MyPostScreenState extends State<MyPostScreen> {
         listener: _onListChanged,
         child: BlocBuilder<MyPostBloc, MyPostState>(
           bloc: bloc,
-          condition: (_, state) => state is ReloadUI,
+          condition: (_, state) => state is ReloadMyPost,
           builder: _buildUIState,
         ),
       ),
@@ -41,7 +41,7 @@ class _MyPostScreenState extends State<MyPostScreen> {
   }
 
   Widget _buildUIState(BuildContext context, MyPostState state) {
-    if (state is ReloadUI) {
+    if (state is ReloadMyPost) {
       final items = state.items;
       return SmartRefresher(
         controller: controller,
@@ -75,7 +75,7 @@ class _MyPostScreenState extends State<MyPostScreen> {
   }
 
   void _onListChanged(BuildContext context, MyPostState state) {
-    if (state is! ReloadUI) return;
+    if (state is! ReloadMyPost) return;
     if (controller.isLoading) {
       controller.loadComplete();
     }

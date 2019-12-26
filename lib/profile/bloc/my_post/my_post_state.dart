@@ -2,10 +2,10 @@ part of petisland.profile.bloc.my_post;
 
 abstract class MyPostState extends BaseState {}
 
-class ReloadUI extends MyPostState {
+class ReloadMyPost extends MyPostState {
   final List<PanelDetail> items;
 
-  ReloadUI(this.items);
+  ReloadMyPost(this.items);
 
   @override
   String toString() => '$runtimeType-${items.length}';
