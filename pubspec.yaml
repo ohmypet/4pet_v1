@@ -3,115 +3,114 @@ description: A new project template with Flutter.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+    sdk: '>=2.2.2 <3.0.0'
 
 dependencies:
-  flutter:
-    sdk: flutter
-  equatable: ^0.5.1
-  cupertino_icons: 0.1.2
-  firebase_core: 0.4.0+9
-  firebase_crashlytics: 0.1.0+3
-  shared_preferences: 0.5.3+4
-  flutter_bloc: ^2.1.1
-  # flare_flutter: ^1.7.1
-  flare_flutter: ^1.8.2
-  shimmer: ^1.0.1
-  cached_network_image: ^1.1.3
-  flutter_money_formatter: ^0.8.3
-  image_picker: ^0.6.2+2
-  file_picker: ^1.4.3+1
-  pull_to_refresh: ^1.5.7
-  auro_avatar: ^0.1.1
-  flutter_svg: ^0.15.0
-  url_launcher: ^5.2.6
-  ansicolor: ^1.0.2
-  flutter_webview_plugin: 0.3.10
+    flutter:
+        sdk: flutter
+    equatable: ^0.5.1
+    cupertino_icons: 0.1.2
+    firebase_core: 0.4.0+9
+    firebase_crashlytics: 0.1.0+3
+    shared_preferences: 0.5.3+4
+    flutter_bloc: ^2.1.1
+    # flare_flutter: ^1.7.1
+    flare_flutter: ^1.8.2
+    shimmer: ^1.0.1
+    cached_network_image: ^1.1.3
+    flutter_money_formatter: ^0.8.3
+    image_picker: ^0.6.2+2
+    file_picker: ^1.4.3+1
+    pull_to_refresh: ^1.5.7
+    auro_avatar: ^0.1.1
+    flutter_svg: ^0.15.0
+    url_launcher: ^5.2.6
+    ansicolor: ^1.0.2
+    flutter_webview_plugin: 0.3.10
 
-
-
-  ddi: any
-  petisland_core:
-    path: petisland_core
+    ddi: any
+    petisland_core:
+        path: petisland_core
 
 dependency_overrides:
-  ddi:
-    path: packages/di
+    ddi:
+        path: packages/di
 
 dev_dependencies:
-  flutter_driver:
-    sdk: flutter
-  flutter_test:
-    sdk: flutter
-  flutter_launcher_icons: ^0.7.2+1
-  json_serializable: ^2.0.0
-  pedantic: ^1.8.0+1
+    flutter_driver:
+        sdk: flutter
+    flutter_test:
+        sdk: flutter
+    flutter_launcher_icons: ^0.7.2+1
+    json_serializable: ^2.0.0
+    pedantic: ^1.8.0+1
+    flutter_native_splash: ^0.1.9
 
 flutter_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "assets/launcher_icons/app_icon.png"
-  build_runner: ^1.0.0
+    android: 'launcher_icon'
+    ios: true
+    image_path: 'assets/launcher_icons/app_icon.png'
+    build_runner: ^1.0.0
 
 flutter:
-  uses-material-design: true
-  assets:
-    - assets/audios/
-    - assets/fonts/
-    - assets/fonts/sarabun/
-    - assets/icons/
-    - assets/icons/pet_type/
-    - assets/icons/kitty/
-    - assets/images/
-    - assets/videos/
-    - assets/flare/
+    uses-material-design: true
+    assets:
+        - assets/audios/
+        - assets/fonts/
+        - assets/fonts/sarabun/
+        - assets/icons/
+        - assets/icons/pet_type/
+        - assets/icons/kitty/
+        - assets/images/
+        - assets/videos/
+        - assets/flare/
 
-  fonts:
-    - family: Sarabun
-      fonts:
-        - asset: assets/fonts/sarabun/Sarabun-Thin.ttf
-          weight: 100
-        - asset: assets/fonts/sarabun/Sarabun-ThinItalic.ttf
-          weight: 100
-          style: italic
+    fonts:
+        - family: Sarabun
+          fonts:
+              - asset: assets/fonts/sarabun/Sarabun-Thin.ttf
+                weight: 100
+              - asset: assets/fonts/sarabun/Sarabun-ThinItalic.ttf
+                weight: 100
+                style: italic
 
-        - asset: assets/fonts/sarabun/Sarabun-ExtraLight.ttf
-          weight: 200
-        - asset: assets/fonts/sarabun/Sarabun-ExtraLightItalic.ttf
-          weight: 200
-          style: italic
+              - asset: assets/fonts/sarabun/Sarabun-ExtraLight.ttf
+                weight: 200
+              - asset: assets/fonts/sarabun/Sarabun-ExtraLightItalic.ttf
+                weight: 200
+                style: italic
 
-        - asset: assets/fonts/sarabun/Sarabun-Light.ttf
-          weight: 300
-        - asset: assets/fonts/sarabun/Sarabun-LightItalic.ttf
-          weight: 300
-          style: italic
+              - asset: assets/fonts/sarabun/Sarabun-Light.ttf
+                weight: 300
+              - asset: assets/fonts/sarabun/Sarabun-LightItalic.ttf
+                weight: 300
+                style: italic
 
-        - asset: assets/fonts/sarabun/Sarabun-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/sarabun/Sarabun-Italic.ttf
-          style: italic
+              - asset: assets/fonts/sarabun/Sarabun-Regular.ttf
+                weight: 400
+              - asset: assets/fonts/sarabun/Sarabun-Italic.ttf
+                style: italic
 
-        - asset: assets/fonts/sarabun/Sarabun-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/sarabun/Sarabun-MediumItalic.ttf
-          weight: 500
-          style: italic
+              - asset: assets/fonts/sarabun/Sarabun-Medium.ttf
+                weight: 500
+              - asset: assets/fonts/sarabun/Sarabun-MediumItalic.ttf
+                weight: 500
+                style: italic
 
-        - asset: assets/fonts/sarabun/Sarabun-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/sarabun/Sarabun-SemiBoldItalic.ttf
-          weight: 600
-          style: italic
+              - asset: assets/fonts/sarabun/Sarabun-SemiBold.ttf
+                weight: 600
+              - asset: assets/fonts/sarabun/Sarabun-SemiBoldItalic.ttf
+                weight: 600
+                style: italic
 
-        - asset: assets/fonts/sarabun/Sarabun-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/sarabun/Sarabun-BoldItalic.ttf
-          weight: 700
-          style: italic
+              - asset: assets/fonts/sarabun/Sarabun-Bold.ttf
+                weight: 700
+              - asset: assets/fonts/sarabun/Sarabun-BoldItalic.ttf
+                weight: 700
+                style: italic
 
-        - asset: assets/fonts/sarabun/Sarabun-ExtraBold.ttf
-          weight: 800
-        - asset: assets/fonts/sarabun/Sarabun-ExtraBoldItalic.ttf
-          weight: 800
-          style: italic
+              - asset: assets/fonts/sarabun/Sarabun-ExtraBold.ttf
+                weight: 800
+              - asset: assets/fonts/sarabun/Sarabun-ExtraBoldItalic.ttf
+                weight: 800
+                style: italic
