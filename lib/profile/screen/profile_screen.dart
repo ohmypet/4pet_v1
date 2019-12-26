@@ -1,6 +1,6 @@
 part of petisland.profile.screen;
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   final AuthenticationBloc bloc;
 
   const ProfileScreen({
@@ -8,6 +8,11 @@ class ProfileScreen extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends TState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final spacer = SizedBox(height: 5);
@@ -73,7 +78,7 @@ class ProfileScreen extends StatelessWidget {
   }
 
   void _onTapLogout() {
-    bloc.logout();
+    widget.bloc.logout();
   }
 
   void _onTapChangePassword() {
@@ -89,7 +94,11 @@ class ProfileScreen extends StatelessWidget {
   }
 
   void _onTapMyPost() {
-    // TODO(tvc12): navigate to my post
+    navigateToScreen(
+      context: context,
+      screen: MyPostScreen(),
+      screenName: MyPostScreen.name,
+    );
   }
 
   void _onTapPostLiked() {

@@ -79,6 +79,7 @@ class PostRepositoryImpl extends PostRepository {
         .cast<Map<String, dynamic>>()
         .map((Map<String, dynamic> json) => _parseToPost(json))
         .where((Item item) => item != null)
+        .cast<PanelDetail>()
         .toList();
   }
 

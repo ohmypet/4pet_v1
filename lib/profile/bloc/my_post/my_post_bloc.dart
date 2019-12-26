@@ -1,6 +1,6 @@
 part of petisland.profile.bloc.my_post;
 
-class NotificationBloc extends TBloc<MyPostEvent, MyPostState> {
+class MyPostBloc extends TBloc<MyPostEvent, MyPostState> {
   static final PostService service = DI.get(PostService);
   final List<PanelDetail> posts = [];
   final int limit = 15;

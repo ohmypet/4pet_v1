@@ -7,6 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_template/common/common.dart';
 import 'package:flutter_template/common/widgets/widgets.dart';
 
+export 'my_post/my_post.dart';
+
 part 'basic_function_widget.dart';
 
 part 'choose_avatar_widget.dart';
