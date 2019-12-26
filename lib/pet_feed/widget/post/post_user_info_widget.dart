@@ -1,28 +1,24 @@
 part of petisland.pet_feed.widget.post;
 
 class _PostUserInfoWidget extends StatelessWidget {
-  final User user;
+  final Account account;
 
-  const _PostUserInfoWidget({Key key, this.user}) : super(key: key);
+  const _PostUserInfoWidget({Key key, this.account}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (user != null) {
-      final Widget image = _buildImage(context, user);
-      final Widget text = _buildTitle(context, user);
-      return Flex(
-        direction: Axis.horizontal,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          image,
-          SizedBox(width: 5),
-          Flexible(child: text),
-        ],
-      );
-    } else {
-      return SizedBox();
-    }
+    final Widget image = _buildImage(context, account?.user);
+    final Widget text = _buildTitle(context, account);
+    return Flex(
+      direction: Axis.horizontal,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        image,
+        SizedBox(width: 5),
+        Flexible(child: text),
+      ],
+    );
   }
 
   Widget _buildImage(BuildContext context, User user) {
@@ -36,8 +32,8 @@ class _PostUserInfoWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle(BuildContext context, User user) {
-    final username = user?.name;
+  Widget _buildTitle(BuildContext context, Account account) {
+    final username = account.getName();
     final ThemeData theme = Theme.of(context);
 
     return username != null
