@@ -22,6 +22,10 @@ abstract class TAssets {
   static const String moon = '$iconPath/moon.svg';
   static const String note = '$iconPath/note.svg';
 
+  // image
+  static const String splash = 'assets/images/app_icon.png';
+
+
   // pet type
   static const String pet_type_fish = '$petTypePath/fish.svg';
   static const String pet_type_dog = '$petTypePath/dog.svg';
