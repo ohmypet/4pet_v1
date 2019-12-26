@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>flutter_template</string>
+	<string>Đảo thú cưng</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -54,8 +54,8 @@
        <string>remote-notification</string>
     </array>
     <key>NSAppleMusicUsageDescription</key>
-    <string>Explain why your app uses music</string>
+    <string>I want use music</string>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>Explain why your app uses photo library</string>
+    <string>I want use picture</string>
 </dict>
 </plist>
