@@ -42,8 +42,8 @@ class SummaryInfoWidget extends TStatelessWidget {
           url: petImage,
         );
       } else {
-        child = Image.asset(
-          petImage,
+        child = Image.file(
+          File(petImage),
           fit: BoxFit.cover,
         );
       }

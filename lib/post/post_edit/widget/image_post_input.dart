@@ -71,13 +71,21 @@ class _ImagePostInputState extends TState<ImagePostInput> {
     }
   }
 
-  void chooseImage() async {
-    String imageLocalPath = await showModalBottomSheet<String>(
+  void chooseImage() {
+    showModalBottomSheet<File>(
       backgroundColor: Colors.transparent,
       context: context,
       builder: (_) => ImageChoosePopup(),
-    );
-    addImage(imageLocalPath);
+    ).then((File file) {
+      if (file != null) {
+        addImage(file.absolute.path);
+        return null;
+      } else {
+        return retrieveLostData();
+      }
+    }).then((File file) {
+      if (file != null) addImage(file.absolute.path);
+    }).catchError((ex) => Log.error('chooseImage:: $ex'));
   }
 
   void addImage(String imagesPath) {

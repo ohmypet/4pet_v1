@@ -18,7 +18,7 @@ class ImagePostWidget extends StatelessWidget {
     final imageUrl = postImage.image.url;
     Widget child = type == ImageType.Server
         ? TCacheImageWidget(borderRadius: BorderRadius.circular(0), url: imageUrl)
-        : Image.asset(imageUrl, fit: BoxFit.cover);
+        : Image.file(File(imageUrl), fit: BoxFit.cover);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(4),
