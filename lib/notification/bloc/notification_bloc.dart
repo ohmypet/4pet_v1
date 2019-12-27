@@ -74,7 +74,7 @@ class NotificationBloc extends TBloc<NotificationEvent, NotificationState> {
   NotificationState get initialState => InitNotificationState();
 
   void getNotification() {
-    add(ReloadNotificationEvent(offset, limit));
+    add(ReloadNotificationEvent(0, limit));
   }
 
   void retrieveNotification() {
