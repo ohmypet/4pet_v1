@@ -5,6 +5,7 @@ class SummaryInfoWidget extends TStatelessWidget {
   final String title;
   final double price;
   final String location;
+  static const Widget defaultImage = DefaultPetImage();
 
   SummaryInfoWidget(this.title, {this.petImage, this.price, this.location});
 
@@ -31,7 +32,6 @@ class SummaryInfoWidget extends TStatelessWidget {
       petImage = petImages.first;
     }
     bool urlValid = petImage != null && petImage.isNotEmpty;
-    Widget defaultImage = buildDefaultPetImage();
     Widget child;
     if (!urlValid) {
       child = defaultImage;
