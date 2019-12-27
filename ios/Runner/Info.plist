@@ -57,5 +57,8 @@
     <string>I want use music</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>I want use picture</string>
+	<key>UIStatusBarHidden</key>
+	<true/>
+
 </dict>
 </plist>
