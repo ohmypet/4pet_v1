@@ -4,11 +4,11 @@ class DevModule extends AbstractModule {
   // static const String
   @override
   void init() async {
+    bind(TWorker).to(TWorker());
     bind(AuthenticationBloc).to(AuthenticationBloc());
     bind(LoginBloc).to(LoginBloc());
     bind(RegisterBloc).to(RegisterBloc());
-    bind(TWorker).to(TWorker());
-    bind(PetFeedController).to(PetFeedControllerImpl());
+    bind(PetFeedController).to(PetFeedControllerImpl(get(TWorker)));
     bind(BottomBarController).to(BottomBarControllerImpl());
     bind(Random).to(Random(DateTime.now().millisecondsSinceEpoch));
     bind(NavigationBarBloc).to(NavigationBarBloc());
