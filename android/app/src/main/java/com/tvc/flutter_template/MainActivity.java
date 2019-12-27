@@ -1,4 +1,4 @@
-package com.tvc.fluttertemplate;
+package com.tvc.flutter_template;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
