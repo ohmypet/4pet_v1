@@ -4,9 +4,9 @@ class PostImageWidget extends StatelessWidget {
   final Post item;
   final bool isSquare;
   final TapImage onTapImage;
+  final Widget imageDefault = DefaultPetImage();
 
-  const PostImageWidget(
-      {Key key, @required this.item, this.isSquare = true, this.onTapImage})
+  PostImageWidget({Key key, @required this.item, this.isSquare = true, this.onTapImage})
       : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class PostImageWidget extends StatelessWidget {
             child: _buildImage(imageUrl),
             onTap: onTap,
           )
-        : buildDefaultPetImage();
+        : imageDefault;
     return isSquare ? AspectRatio(child: image, aspectRatio: 1) : image;
   }
 
@@ -35,15 +35,19 @@ class PostImageWidget extends StatelessWidget {
   }
 }
 
-Widget buildDefaultPetImage() {
-  return Container(
-    padding: const EdgeInsets.all(15),
-    decoration: BoxDecoration(
-      color: TColors.black.withAlpha(15),
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: SvgPicture.asset(
-      TAssets.post_default_image_avatar,
-    ),
-  );
+class DefaultPetImage extends StatelessWidget {
+  const DefaultPetImage({Key key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: TColors.black.withAlpha(15),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: SvgPicture.asset(
+        TAssets.post_default_image_avatar,
+      ),
+    );
+  }
 }
