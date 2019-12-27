@@ -80,11 +80,9 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   }
 
   Stream<CommentState> _softDelete(SoftDeleteCommentEvent event) async* {
-    final index = event.index;
-    if (index > 0 && index < comments.length) {
-      comments.removeAt(index);
-      yield ReloadUIState(comments);
-    }
+    final id = event.id;
+    comments.removeWhere((item) => item.id == id);
+    yield ReloadUIState(comments);
   }
 
   @protected
@@ -102,7 +100,7 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
     add(SoftAddCommentEvent(item));
   }
 
-  void softDeleteComment(int index) {
-    add(SoftDeleteCommentEvent(index));
+  void softDeleteComment(String id) {
+    add(SoftDeleteCommentEvent(id));
   }
 }
