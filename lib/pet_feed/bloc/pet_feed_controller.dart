@@ -19,7 +19,10 @@ abstract class PetFeedController {
 class PetFeedControllerImpl extends PetFeedController {
   final PetFeedBloc bloc = PetFeedBloc();
   StreamSubscription<PetFeedState> _subscription;
+  StreamSubscription<WorkerState> _subscriptionWorker;
+
   final List<Item> items = <Item>[];
+  final TWorker worker;
 
   @protected
   ValueChanged<PetFeedState> listener;
@@ -27,7 +30,7 @@ class PetFeedControllerImpl extends PetFeedController {
   int get offset => items.length;
   static const int limit = 10;
 
-  PetFeedControllerImpl() {
+  PetFeedControllerImpl(this.worker) {
     _subscribe();
   }
 
@@ -70,12 +73,23 @@ class PetFeedControllerImpl extends PetFeedController {
         _handleLoadPostSucceed(state);
       }
     });
+
+    _subscriptionWorker = worker.skip(1).listen((WorkerState state) {
+      if (state is UploadPostSuccess) {
+        this.listener(CreatePostSuccess());
+      }
+      if (state is UploadFailedEvent) this.listener(CreatePostError());
+    });
   }
 
   void _unsubscribe() {
     bloc.close();
     if (_subscription != null) {
       _subscription.cancel();
+      _subscription = null;
+    }
+    if (_subscriptionWorker != null) {
+      _subscriptionWorker.cancel();
       _subscription = null;
     }
   }

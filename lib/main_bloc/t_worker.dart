@@ -43,7 +43,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
         _commentPost(event);
         break;
       case UploadPostSuccessEvent:
-        yield UploadPostSuccess();
+        yield UploadPostSuccess((event as UploadPostSuccessEvent).item);
         break;
 
       default:
@@ -53,7 +53,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
   }
 
   @override
-  WorkerState get initialState => UploadPostSuccess();
+  WorkerState get initialState => UploadPostSuccess(null);
 
   void _uploadImage(UploadImageEvent event) {
     void _handleError(dynamic ex) {
@@ -93,7 +93,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
 
     postService
         .create(event.postMustUpload)
-        .then((_) => add(UploadPostSuccessEvent()))
+        .then((_) => add(UploadPostSuccessEvent(_)))
         .catchError(_retryUpload)
         .catchError((_) => add(UploadFailedEvent('Upload failed')));
   }
@@ -108,7 +108,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
 
     postService
         .edit(event.postMustUpdate)
-        .then((_) => add(UploadPostSuccessEvent()))
+        .then((_) => _)
         .catchError(_retryUpload)
         .catchError((_) => add(UploadFailedEvent('Upload failed')));
   }
@@ -133,7 +133,8 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
     }
 
     reportService
-        .report(event.postId, event.reason, event.accountId, description: event.description)
+        .report(event.postId, event.reason, event.accountId,
+            description: event.description)
         .then((_) => Log.info('Upload success ${event.runtimeType}'))
         .catchError(retryUpload)
         .catchError((_) => Log.error('Failed upload report'));

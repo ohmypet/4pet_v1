@@ -12,12 +12,15 @@ class _RetrievePostEvent extends PetFeedEvent {
   final String categoryType;
   final String petCategoryId;
 
-  _RetrievePostEvent(this.offset, {this.limit = 10, this.categoryType, this.petCategoryId})
+  _RetrievePostEvent(this.offset,
+      {this.limit = 10, this.categoryType, this.petCategoryId})
       : assert(offset != null, 'Offset must not null');
 
   @override
   String toString() => '$runtimeType offset: $offset - limit: $limit';
 }
+
+
 
 class LoadPostErrorEvent extends BaseErrorEvent implements PetFeedEvent {
   LoadPostErrorEvent(String message) : super(message);

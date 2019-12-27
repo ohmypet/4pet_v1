@@ -11,6 +11,7 @@ class PanelDetail extends Item {
   PostItem postItem;
   CategoryTypeEnum get categoryTypeEnum => PetIslandConstants.getCategoryType(type);
 
+  PanelDetail.post(this.postItem) : type = 'Post';
   PanelDetail.fromJson(Map<String, dynamic> json) {
     type = json['type'];
     final Map<String, dynamic> data = json['data'] ?? <String, dynamic>{};
