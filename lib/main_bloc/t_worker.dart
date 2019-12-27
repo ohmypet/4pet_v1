@@ -65,7 +65,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
 
     void _uploadPostModal(List<PetImage> images) {
       if (event.postModal is PostCreateModal) {
-        final PostCreateModal postMustUpload = event.postModal..newsImages.addAll(images);
+        final PostCreateModal postMustUpload = event.postModal..images.addAll(images);
         add(UploadPostEvent._(postMustUpload: postMustUpload));
       } else {
         final PostEditModal postMustUpload = event.postModal;
@@ -84,8 +84,8 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
   }
 
   void _createPost(UploadPostEvent event) {
-    void _retryUpload(dynamic ex) {
-      Log.error(ex);
+    void _retryUpload(ex, trace) {
+      Log.error(trace);
       final UploadPostEvent newUpload = event.retry();
       Log.debug('Retry ${newUpload.numRetry}');
       add(newUpload);
