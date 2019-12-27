@@ -65,6 +65,6 @@ class _CommentListingWidgetState extends State<CommentListingWidget> {
 
   void _onTapDelete(int index, Comment comment) {
     DI.get<TWorker>(TWorker).deleteComment(bloc.postId, comment.id);
-    bloc.softDeleteComment(index);
+    bloc.softDeleteComment(comment.id);
   }
 }

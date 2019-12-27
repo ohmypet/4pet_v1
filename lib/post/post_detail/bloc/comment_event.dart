@@ -21,7 +21,7 @@ class SoftAddCommentEvent extends CommentEvent {
 }
 
 class SoftDeleteCommentEvent extends CommentEvent {
-  final int index;
+  final String id;
 
-  SoftDeleteCommentEvent(this.index);
+  SoftDeleteCommentEvent(this.id);
 }
