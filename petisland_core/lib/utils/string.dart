@@ -13,6 +13,7 @@ abstract class StringUtils {
 
   static List<TextConfig> getTextConfigs(String text) {
     if (text == null) return [];
+    text = text.trim();
     final List<String> texts = text.split('@{');
     final List<TextConfig> textConfigs = texts
         .where((item) => item?.isNotEmpty)
@@ -27,7 +28,7 @@ abstract class StringUtils {
           if (second?.isNotEmpty == true) list.add(TextConfig.normal(second));
         }
       } else {
-        list.add(TextConfig.normal(text));
+        list.add(TextConfig.normal(word));
       }
       return list;
     });
