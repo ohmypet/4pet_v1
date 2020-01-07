@@ -14,20 +14,23 @@ class PostEditScreen extends TStatelessWidget {
   final OnCreatePostScreen onSendTap;
   final OnEditPostScreen onEditCompleted;
   final PostEditBloc _postEditBloc;
+  final String title;
 
   PostEditScreen.create({@required this.onSendTap})
       : _postEditBloc = PostEditBloc(),
+        title = 'Đăng bài viết',
         onEditCompleted = null;
 
   PostEditScreen.edit(Post post, {@required this.onEditCompleted})
       : _postEditBloc = PostEditBloc.fromPost(post),
+        title = 'Chỉnh sửa bài viết',
         this.onSendTap = null;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Đăng Tin'),
+        title: Text(title),
         centerTitle: true,
         actions: <Widget>[
           Builder(
