@@ -1,5 +1,5 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:petisland_core/utils/utils.dart';
-import 'package:test/test.dart';
 
 void main() {
   test('Test category to string', () {

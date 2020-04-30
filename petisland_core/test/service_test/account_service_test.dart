@@ -1,10 +1,10 @@
 import 'package:ddi/di.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:petisland_core/domain/domain.dart';
 import 'package:petisland_core/module/module.dart';
 import 'package:petisland_core/petisland_core.dart';
 import 'package:petisland_core/service/service.dart';
 import 'package:petisland_core/utils/utils.dart';
-import 'package:test/test.dart';
 
 import 'configuration.dart';
 
