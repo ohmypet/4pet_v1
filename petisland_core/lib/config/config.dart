@@ -3,6 +3,8 @@ library petisland_core.config;
 
 import 'package:firebase_remote_config/firebase_remote_config.dart' as frc;
 import 'package:petisland_core/utils/utils.dart';
+import 'config.dev.dart' as dev;
+import 'config.production.dart' as prod;
 
 part 'firebase_config.dart';
 
@@ -12,12 +14,12 @@ enum Mode { Debug, Production }
 
 class Config {
   static const Map<String, dynamic> _debug = <String, dynamic>{
-    'api_host': 'https://petisland.herokuapp.com',
+    'api_host': dev.api_host,
     'max_image_per_post': 10,
   };
 
   static const Map<String, dynamic> _production = <String, dynamic>{
-    'api_host': 'https://petisland.herokuapp.com',
+    'api_host': prod.api_host,
     'max_image_per_post': 10,
   };
 
