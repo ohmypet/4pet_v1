@@ -15,11 +15,13 @@ enum Mode { Debug, Production }
 class Config {
   static const Map<String, dynamic> _debug = <String, dynamic>{
     'api_host': dev.api_host,
+    'chat_host': dev.chat_host,
     'max_image_per_post': 10,
   };
 
   static const Map<String, dynamic> _production = <String, dynamic>{
     'api_host': prod.api_host,
+    'chat_host': prod.api_host,
     'max_image_per_post': 10,
   };
 
@@ -52,5 +54,9 @@ class Config {
 
   static Map<String, dynamic> getAll() {
     return _config.getAll();
+  }
+
+  static String getChatHost() {
+    return _config.getString('chat_host');
   }
 }
