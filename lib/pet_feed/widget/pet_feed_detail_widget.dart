@@ -24,7 +24,8 @@ class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
     super.initState();
     items = controller.getItems();
     controller.setListener(_onItemChange);
-    refreshController = RefreshController(initialRefresh: controller.getItems().isEmpty);
+    refreshController =
+        RefreshController(initialRefresh: controller.getItems().isEmpty);
   }
 
   @override

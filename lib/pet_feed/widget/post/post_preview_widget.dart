@@ -13,6 +13,7 @@ class PostPreviewWidget extends StatelessWidget {
 
   const PostPreviewWidget({Key key, @required this.item, this.onTapImage})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final Widget image = Flexible(

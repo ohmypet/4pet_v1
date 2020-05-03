@@ -13,7 +13,8 @@ class RegisterEmailScreen extends TStatelessWidget {
     final theme = Theme.of(context);
     return AnimatedPadding(
       duration: timeAnimation,
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Stack(
         children: <Widget>[
           Scaffold(
@@ -49,7 +50,9 @@ class RegisterEmailScreen extends TStatelessWidget {
                   if (state is Failed) _showError(context, state);
                   if (state is EmailSuccessful) {
                     navigateToScreen(
-                        context: context, screen: RegisterCodeScreen(), screenName: RegisterCodeScreen.name);
+                        context: context,
+                        screen: RegisterCodeScreen(),
+                        screenName: RegisterCodeScreen.name);
                   }
                   return true;
                 },

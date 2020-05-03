@@ -56,7 +56,9 @@ class PostRepositoryImpl extends PostRepository {
 
     Log.debug(params);
 
-    return client.get<List<dynamic>>('/api/post', params: params).then(_parseToListItem);
+    return client
+        .get<List<dynamic>>('/api/post', params: params)
+        .then(_parseToListItem);
   }
 
   @override
@@ -122,7 +124,9 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future<Comment> createComment(String postId, String message) {
     final Map<String, String> map = {'message': message};
-    return client.post('/api/post/$postId/comment', map).then((_) => Comment.fromJson(_));
+    return client
+        .post('/api/post/$postId/comment', map)
+        .then((_) => Comment.fromJson(_));
   }
 
   @override
@@ -133,7 +137,8 @@ class PostRepositoryImpl extends PostRepository {
   }
 
   @override
-  Future<List<Comment>> getComments(String postId, {int offset = 0, int limit = 15}) {
+  Future<List<Comment>> getComments(String postId,
+      {int offset = 0, int limit = 15}) {
     return client
         .get<List<dynamic>>('/api/post/$postId/comment')
         .then((_) => _parseToComments(_));

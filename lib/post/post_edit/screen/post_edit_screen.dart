@@ -1,6 +1,7 @@
 part of petisland.post.post_edit.screen;
 
-typedef OnCreatePostScreen = void Function(PostCreateModal post, List<String> urlNeedUpload);
+typedef OnCreatePostScreen = void Function(
+    PostCreateModal post, List<String> urlNeedUpload);
 
 typedef OnEditPostScreen = void Function(
   PostCreateModal post,
@@ -59,7 +60,8 @@ class PostEditScreen extends TStatelessWidget {
       return;
     }
     if (!postModal.locationIsValid) {
-      showErrorSnackBar(context: context, content: 'Vui lòng nhập Vui lòng nhập địa chỉ');
+      showErrorSnackBar(
+          context: context, content: 'Vui lòng nhập Vui lòng nhập địa chỉ');
       return;
     }
 
@@ -76,7 +78,10 @@ class PostEditScreen extends TStatelessWidget {
   }
 
   List<String> _getPathImagesNeedUpload(List<PostImage> images) {
-    return images.where((item) => item.id == null).map((item) => item.image.url).toList();
+    return images
+        .where((item) => item.id == null)
+        .map((item) => item.image.url)
+        .toList();
   }
 
   List<String> _getIdImagesNeedDelete(List<PostImage> images) {

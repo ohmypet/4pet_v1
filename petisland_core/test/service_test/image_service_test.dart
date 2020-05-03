@@ -13,7 +13,8 @@ void main() async {
   test('upload image', () async {
     final String path = 'assets/meow.jpeg';
     try {
-      final List<PetImage> images = await imageService.upload(<String>[path, path]);
+      final List<PetImage> images =
+          await imageService.upload(<String>[path, path]);
 
       for (PetImage item in images) {
         Log.debug(item.toJson());

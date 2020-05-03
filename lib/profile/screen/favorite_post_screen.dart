@@ -20,7 +20,8 @@ class _FavoritePostScreenState extends State<FavoritePostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bài viết bạn đã thích', style: TTextStyles.bold(fontSize: 18)),
+        title: Text('Bài viết bạn đã thích',
+            style: TTextStyles.bold(fontSize: 18)),
         centerTitle: true,
         backgroundColor: TColors.white,
         automaticallyImplyLeading: false,

@@ -15,7 +15,7 @@ class SendWidget extends TStatelessWidget {
           onPressed: _onTapSend,
           // color: T,
         ),
-        // Text('Đăng', style: theme.accentTextTheme.subtitle.co),
+        // Text('Đăng', style: theme.accentTextTheme.subtitle2.co),
       ],
     );
   }

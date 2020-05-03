@@ -5,17 +5,17 @@ environment:
   sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
-  equatable: ^0.5.1
-  shared_preferences: 0.5.3+4
-  dio: 3.0.3
-  firebase_remote_config: 0.2.0+7
-  firebase_analytics: 5.0.2
-  path_provider: 1.2.0
-  flutter_cache_manager: ^1.1.1
-  timeago: ^2.0.22
-  ansicolor: ^1.0.2
-  tiengviet: ^0.3.0
-  intl: ^0.15.8
+  equatable: 1.1.1
+  shared_preferences: 0.5.7
+  dio: 3.0.9
+  firebase_remote_config: 0.3.0+3
+  firebase_analytics: 5.0.11
+  path_provider: 1.6.7
+  flutter_cache_manager: 1.2.2
+  timeago: 2.0.26
+  ansicolor: 1.0.2
+  tiengviet: 0.3.0
+  intl: 0.16.1
 
   ddi:
     path: ../packages/di
@@ -24,6 +24,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   json_annotation: 3.0.0
-  mockito: ^4.0.0
-  test: ^1.3.0
-  json_serializable: ^3.2.2
+  mockito: 4.1.1
+  test: 1.14.3
+  json_serializable: 3.3.0

@@ -13,7 +13,8 @@ abstract class BaseModel {
     id = json['id'];
     createAt = _parseDateTime(json['createdAt']);
     updateAt = _parseDateTime(json['updatedAt']);
-    createBy = json['createdBy'] != null ? Account.fromJson(json['createdBy']) : null;
+    createBy =
+        json['createdBy'] != null ? Account.fromJson(json['createdBy']) : null;
   }
 
   @mustCallSuper

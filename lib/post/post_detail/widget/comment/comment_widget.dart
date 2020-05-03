@@ -4,7 +4,9 @@ class _CommentWidget extends StatelessWidget {
   final Comment item;
   final VoidCallback onTapDelete;
 
-  const _CommentWidget({Key key, @required this.item, @required this.onTapDelete}) : super(key: key);
+  const _CommentWidget(
+      {Key key, @required this.item, @required this.onTapDelete})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,10 @@ class _CommentWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Flexible(child: image, flex: 1),
-        Flexible(child: _CommentDescriptionWidget(item: item, onTapDelete: _onTapDelete), flex: 7),
+        Flexible(
+            child: _CommentDescriptionWidget(
+                item: item, onTapDelete: _onTapDelete),
+            flex: 7),
       ],
     );
   }

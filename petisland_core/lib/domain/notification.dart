@@ -33,6 +33,8 @@ class PetNotification extends BaseModel {
     message = json['message'];
     sender = json['sender'] is Map ? Account.fromJson(json['sender']) : null;
     isRead = json['isRead'] ?? false;
-    type = json['category'] != null ? NotificationType.fromJson(json['category']) : null;
+    type = json['category'] != null
+        ? NotificationType.fromJson(json['category'])
+        : null;
   }
 }

@@ -12,7 +12,8 @@ class LoginScreen extends TStatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedPadding(
       duration: timeAnimation,
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Stack(
@@ -28,7 +29,9 @@ class LoginScreen extends TStatelessWidget {
                     return true;
                   },
                   builder: (_, LoginState state) {
-                    return state is LoggingState ? const LoadingWidget() : SizedBox();
+                    return state is LoggingState
+                        ? const LoadingWidget()
+                        : SizedBox();
                   },
                 );
               },

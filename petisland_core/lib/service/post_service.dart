@@ -43,7 +43,8 @@ class PostServiceImpl extends PostService {
   @override
   Future<List<Item>> getPosts(int offset,
       {int limit = 10, String categoryType, String petCategoryId}) {
-    return repository.getPosts(offset, limit ?? 10, categoryType, petCategoryId);
+    return repository.getPosts(
+        offset, limit ?? 10, categoryType, petCategoryId);
   }
 
   @override
@@ -67,7 +68,8 @@ class PostServiceImpl extends PostService {
   }
 
   @override
-  Future<List<Comment>> getComments(String postId, {int offset = 0, int limit = 15}) {
+  Future<List<Comment>> getComments(String postId,
+      {int offset = 0, int limit = 15}) {
     return repository.getComments(postId, offset: offset, limit: limit);
   }
 

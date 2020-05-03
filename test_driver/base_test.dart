@@ -37,7 +37,8 @@ class BaseTest {
     await driver.scroll(findKey(key), 0, dy, Duration(milliseconds: 100));
   }
 
-  Future<void> scrollVerticalWitget(String widgetName, {double dy = -1000}) async {
+  Future<void> scrollVerticalWitget(String widgetName,
+      {double dy = -1000}) async {
     await driver.scroll(
         findWidget(widgetName), 0, dy, Duration(milliseconds: 100));
   }

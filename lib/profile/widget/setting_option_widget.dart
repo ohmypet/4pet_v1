@@ -11,6 +11,7 @@ class SettingOptionWidget extends StatelessWidget {
       : this.icon = icon ?? const SizedBox(),
         this.trailing = trailing ?? const SizedBox(),
         super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final text = DefaultTextStyle.merge(

@@ -58,7 +58,8 @@ class _LoginDetailWidgetState extends TState<LoginDetailWidget> {
                 ),
                 child: Text(
                   TConstants.text_register,
-                  style: theme.textTheme.body1.copyWith(color: theme.accentColor),
+                  style: theme.textTheme.bodyText2
+                      .copyWith(color: theme.accentColor),
                 ),
               ),
             )

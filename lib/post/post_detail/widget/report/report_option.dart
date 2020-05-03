@@ -47,8 +47,9 @@ class _ReportOptionState extends State<ReportOption> {
         child: Text(
           text,
           style: TTextStyles.semi(
-            color:
-                optionChoosen[index] ? TColors.text_white : TColors.black.withAlpha(200),
+            color: optionChoosen[index]
+                ? TColors.text_white
+                : TColors.black.withAlpha(200),
           ),
         ),
       ),

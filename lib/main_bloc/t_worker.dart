@@ -65,7 +65,8 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
 
     void _uploadPostModal(List<PetImage> images) {
       if (event.postModal is PostCreateModal) {
-        final PostCreateModal postMustUpload = event.postModal..images.addAll(images);
+        final PostCreateModal postMustUpload = event.postModal
+          ..images.addAll(images);
         add(UploadPostEvent._(postMustUpload: postMustUpload));
       } else {
         final PostEditModal postMustUpload = event.postModal;
@@ -148,7 +149,8 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
     }
   }
 
-  void updatePost(Post post, List<String> urlNeedUpload, List<String> idImageNeedDelete) {
+  void updatePost(
+      Post post, List<String> urlNeedUpload, List<String> idImageNeedDelete) {
     final PostEditModal postEditModal = PostEditModal(
       post.id,
       description: post.description,
@@ -191,7 +193,8 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
     add(LikePostEvent(id));
   }
 
-  void report(String postId, String reason, String accountId, {String description}) {
+  void report(String postId, String reason, String accountId,
+      {String description}) {
     add(ReportPostEvent(reason, postId, accountId, description: description));
   }
 

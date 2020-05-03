@@ -1,6 +1,7 @@
 part of petisland.home_page.widget.bottom_bar;
 
-typedef BottomItemBuilder = Widget Function(BuildContext context, int index, bool isSelected);
+typedef BottomItemBuilder = Widget Function(
+    BuildContext context, int index, bool isSelected);
 
 class BottomBarSelector extends StatelessWidget {
   final TabController controller;

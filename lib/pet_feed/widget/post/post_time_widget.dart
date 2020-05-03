@@ -20,7 +20,7 @@ class PostTimeWidget extends StatelessWidget {
               SizedBox(width: 2),
               Text(
                 TimeUtils.getTimeAgo(time),
-                style: theme.textTheme.display4.copyWith(
+                style: theme.textTheme.headline1.copyWith(
                     fontSize: 13,
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w500,

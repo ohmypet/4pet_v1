@@ -8,6 +8,7 @@ class ProfileDetailWidget extends StatelessWidget {
   const ProfileDetailWidget(
       {Key key, this.onTapProfile, this.onTapMyPost, this.onTapPostLiked})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final spacer = SizedBox(height: 5);

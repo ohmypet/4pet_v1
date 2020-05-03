@@ -24,7 +24,8 @@ abstract class ThinId {
   }
 
   static void _writeId(StringBuffer str, int numberCharacter) {
-    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_';
+    const chars =
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_';
     for (int i = 0; i < numberCharacter; ++i) {
       final String char = chars[_random.nextInt(chars.length)];
       str.write(char);

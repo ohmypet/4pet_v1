@@ -10,7 +10,8 @@ import 'package:petisland_core/service/service.dart';
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
-class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState> {
+class AuthenticationBloc
+    extends TBloc<AuthenticationEvent, AuthenticationState> {
   @protected
   static final LocalStorageService storageService = DI.get(LocalStorageService);
 
@@ -60,7 +61,8 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
 
   Future reloadPetCategory() async {
     categories.clear();
-    final List<PetCategory> newCategories = await categoryService.getPetCategories();
+    final List<PetCategory> newCategories =
+        await categoryService.getPetCategories();
     categories.addAll([...?newCategories]);
     Log.info('loaded pet cateogory');
   }

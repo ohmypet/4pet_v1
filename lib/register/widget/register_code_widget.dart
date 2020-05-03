@@ -37,7 +37,9 @@ class _RegisterCodeWidgetState extends TState<RegisterCodeWidget> {
               opacity: isValid(codeController.text.length) ? 1 : 0.2,
               child: PetIslandButtonWidget(
                 text: 'Tiếp',
-                onTap: isValid(codeController.text.length) ? _onCodeSubmitted : null,
+                onTap: isValid(codeController.text.length)
+                    ? _onCodeSubmitted
+                    : null,
               ),
             ),
           ],

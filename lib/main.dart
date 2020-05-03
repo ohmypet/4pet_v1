@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -23,8 +22,9 @@ void main() {
 void initAsync(MainAppBloc bloc) async {
   bloc.loadDependence();
   final Mode mode = kReleaseMode ? Mode.Production : Mode.Debug;
-  final List<Module> modules =
-      kReleaseMode ? <Module>[ProdModuleCore(), ProdModule()] : <Module>[DevModuleCore(), DevModule()];
+  final List<Module> modules = kReleaseMode
+      ? <Module>[ProdModuleCore(), ProdModule()]
+      : <Module>[DevModuleCore(), DevModule()];
 
   Config.initAsync(mode)
       .then((_) => DI.initAsync(modules))

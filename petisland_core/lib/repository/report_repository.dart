@@ -30,6 +30,8 @@ class ReportRepositoryImpl extends ReportRepository {
 
   @override
   Future<List<String>> getReason() {
-    return client.get<List<dynamic>>('/api/report/reason').then((_) => _.cast<String>());
+    return client
+        .get<List<dynamic>>('/api/report/reason')
+        .then((_) => _.cast<String>());
   }
 }

@@ -50,7 +50,8 @@ class UpdatePostEvent extends WorkerEvent {
 
   UpdatePostEvent retry() {
     if (numRetry < PetIslandConstants.max_retry) {
-      return UpdatePostEvent._(numRetry: numRetry + 1, postMustUpdate: postMustUpdate);
+      return UpdatePostEvent._(
+          numRetry: numRetry + 1, postMustUpdate: postMustUpdate);
     } else
       throw LimitRetryException();
   }

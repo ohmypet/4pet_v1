@@ -8,12 +8,12 @@ class TCacheService extends BaseCacheManager {
     this.dictionary, {
     Duration maxAgeCacheObject = const Duration(days: 30),
     int maxNrOfCacheObjects = 200,
-    FileFetcher fileFetcher,
+    FileService fileService,
   }) : super(
           key,
           maxAgeCacheObject: maxAgeCacheObject,
           maxNrOfCacheObjects: maxNrOfCacheObjects,
-          fileFetcher: fileFetcher,
+          fileService: fileService,
         );
 
   @override

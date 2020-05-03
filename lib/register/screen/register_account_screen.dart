@@ -13,7 +13,8 @@ class RegisterAccountScreen extends TStatelessWidget {
     final theme = Theme.of(context);
     return AnimatedPadding(
       duration: timeAnimation,
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Stack(
         children: <Widget>[
           Scaffold(

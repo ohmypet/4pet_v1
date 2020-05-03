@@ -8,7 +8,8 @@ abstract class StringUtils {
   }
 
   static bool isImageUrlFormat(String url) {
-    return url.contains(RegExp('^https?://')) || url.contains(RegExp('^http?://'));
+    return url.contains(RegExp('^https?://')) ||
+        url.contains(RegExp('^http?://'));
   }
 
   static List<TextConfig> getTextConfigs(String text) {

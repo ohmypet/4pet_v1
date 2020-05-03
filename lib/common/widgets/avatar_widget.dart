@@ -9,7 +9,9 @@ class AvatarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget child;
     if (url != null) {
-      final type = StringUtils.isImageUrlFormat(url) ? ImageType.Server : ImageType.Local;
+      final type = StringUtils.isImageUrlFormat(url)
+          ? ImageType.Server
+          : ImageType.Local;
       child = _buildImage(type, url);
     } else {
       child = buildDefaultAvatar();

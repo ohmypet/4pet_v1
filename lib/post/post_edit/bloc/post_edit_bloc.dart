@@ -73,7 +73,8 @@ class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
   }
 
   Stream<PostEditState> _handleAddImageEvent(AddImageEvent event) async* {
-    final PostImage image = PostImage(image: PetImage(url: event.imageLocalPath));
+    final PostImage image =
+        PostImage(image: PetImage(url: event.imageLocalPath));
     postImages.add(image);
     yield ImageState(postImages);
   }

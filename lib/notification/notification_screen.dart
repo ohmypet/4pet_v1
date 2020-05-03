@@ -9,6 +9,7 @@ class _NotificationScreenState extends TState<NotificationScreen> {
   final NotificationBloc bloc = DI.get(NotificationBloc);
   final Random random = DI.get(Random);
   final RefreshController controller = RefreshController();
+
   @override
   void initState() {
     super.initState();
@@ -76,7 +77,8 @@ class _NotificationScreenState extends TState<NotificationScreen> {
   Widget buildDefaultNotification() {
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.symmetric(vertical: kToolbarHeight, horizontal: 20),
+      padding:
+          const EdgeInsets.symmetric(vertical: kToolbarHeight, horizontal: 20),
       itemCount: random.nextInt(15) + 5,
       itemBuilder: (_, index) {
         return NotificationDefaultWidget();
@@ -118,7 +120,8 @@ class _NotificationScreenState extends TState<NotificationScreen> {
       screenName: PostLoadingScreen.name,
     );
     if (data == PopResult.Failure) {
-      showErrorSnackBar(context: context, content: 'Lỗi không tải được bài viết');
+      showErrorSnackBar(
+          context: context, content: 'Lỗi không tải được bài viết');
     }
 
     bloc.startListener();

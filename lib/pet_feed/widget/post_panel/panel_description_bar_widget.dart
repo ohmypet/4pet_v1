@@ -4,11 +4,13 @@ class _PanelDescriptionBar extends StatelessWidget {
   final Panel panel;
   final VoidCallback onTap;
 
-  const _PanelDescriptionBar({Key key, @required this.panel, this.onTap}) : super(key: key);
+  const _PanelDescriptionBar({Key key, @required this.panel, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final String title = PetIslandConstants.getCategoryStringFromType(panel.type);
+    final String title =
+        PetIslandConstants.getCategoryStringFromType(panel.type);
     final Widget titleWidget = _buildTitle(context, title);
     final Widget seeMoreWidget = _buildSeeMore(context, _onTapSeeMore);
     return Flex(
@@ -25,7 +27,7 @@ class _PanelDescriptionBar extends StatelessWidget {
 
   Widget _buildTitle(BuildContext context, String title) {
     final theme = Theme.of(context);
-    final style = theme.textTheme.subtitle.copyWith(
+    final style = theme.textTheme.subtitle2.copyWith(
       fontSize: 20,
       color: theme.accentColor.withAlpha(220),
       letterSpacing: 0.2,
@@ -35,7 +37,7 @@ class _PanelDescriptionBar extends StatelessWidget {
 
   Widget _buildSeeMore(BuildContext context, VoidCallback onTap) {
     final theme = Theme.of(context);
-    final style = theme.textTheme.subtitle.copyWith(
+    final style = theme.textTheme.subtitle2.copyWith(
       fontSize: 14,
       color: theme.primaryColor,
       letterSpacing: 0.2,
