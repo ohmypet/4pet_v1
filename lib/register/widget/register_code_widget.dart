@@ -2,6 +2,7 @@ part of petisland.register.widget;
 
 class RegisterCodeWidget extends TStatefulWidget {
   RegisterCodeWidget({Key key}) : super(key: key);
+
   @override
   _RegisterCodeWidgetState createState() => _RegisterCodeWidgetState();
 }

@@ -29,37 +29,26 @@ class DevModuleCore extends AbstractModule {
     bind(PostService).to(_buildPostService());
     bind(TagService).to(_buildTagService());
     bind(ReportService).to(_buildReportService());
+    bind(NotificationService).to(_buildNotificationService());
   }
 
   Future<LocalStorageService> _buildLocalService() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final LocalStorageRepository repository = LocalStorageRepositoryImpl(preferences);
+    final LocalStorageRepository repository =
+        LocalStorageRepositoryImpl(preferences);
     return LocalStorageServiceImpl(repository);
   }
 
-  FileFetcherResponse _handleErrorCacheImage(dynamic ex, String url) {
-    Log.error('XFileCachedManager:: Error load $url, $ex');
-    return HttpFileFetcherResponse(null);
-  }
-
   Future<BaseCacheManager> _buildCacheImage() async {
-    final Duration connectTimeout = Duration(seconds: 25);
     try {
       final Directory directory = await getTemporaryDirectory();
-      final FileFetcher httpFileFetcher = (String url, {Map<String, String> headers}) {
-        return http
-            .get(url)
-            .timeout(connectTimeout)
-            .then((http.Response response) => HttpFileFetcherResponse(response))
-            .catchError((dynamic ex) => _handleErrorCacheImage(ex, url));
-      };
 
       return TCacheService(
         _KeysCached.image_cache,
         directory,
         maxAgeCacheObject: const Duration(days: 90),
         maxNrOfCacheObjects: 1000,
-        fileFetcher: httpFileFetcher,
+        fileService: HttpFileService(httpClient: http.Client()),
       );
     } catch (ex) {
       Log.error(ex);
@@ -121,7 +110,8 @@ class DevModuleCore extends AbstractModule {
   }
 
   RequestOptions _onRequest(RequestOptions options) {
-    final LocalStorageService service = get<LocalStorageService>(LocalStorageService);
+    final LocalStorageService service =
+        get<LocalStorageService>(LocalStorageService);
     final String token = service.getToken();
     if (token is String) {
       options.headers['x-access-token'] = token;
@@ -165,5 +155,11 @@ class DevModuleCore extends AbstractModule {
     final HttpClient client = get<HttpClient>(api_client);
     final repository = ReportRepositoryImpl(client);
     return ReportServiceImpl(repository);
+  }
+
+  NotificationService _buildNotificationService() {
+    final HttpClient client = get<HttpClient>(api_client);
+    final repository = NotificationRepositoryImpl(client);
+    return NotificationServiceImpl(repository);
   }
 }

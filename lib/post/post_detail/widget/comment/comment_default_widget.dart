@@ -18,7 +18,8 @@ class _CommentLoadingWidget extends StatelessWidget {
   Widget _buildImage(BuildContext context) {
     return XImageLoading(
       child: Container(
-        decoration: BoxDecoration(color: TColors.duck_egg_blue, shape: BoxShape.circle),
+        decoration:
+            BoxDecoration(color: TColors.duck_egg_blue, shape: BoxShape.circle),
         margin: const EdgeInsets.all(5),
         child: AspectRatio(aspectRatio: 1),
       ),

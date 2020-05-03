@@ -31,24 +31,22 @@ class _ImageChoosePopupState extends TState<ImageChoosePopup> {
   }
 
   void onTapGallery() async {
-    //Key is file name, value is file path
-    File imageFile = await FilePicker.getFile(type: FileType.IMAGE);
+    File imageFile = await FilePicker.getFile(type: FileType.image);
     Log.info('Image File Path after get by galery:: ${imageFile?.path}');
-    Navigator.of(context).pop(imageFile.path);
+    Navigator.of(context).pop<File>(imageFile);
   }
 
   void onTapCamera() async {
     File imageFile = await ImagePicker.pickImage(source: ImageSource.camera);
-    imageFile ??= await retrieveLostData();
     Log.info('Image File Path after took:: ${imageFile?.path}');
-    Navigator.of(context).pop(imageFile.path);
+    Navigator.of(context).pop<File>(imageFile);
   }
+}
 
-  Future<File> retrieveLostData() async {
-    if (Platform.isAndroid) {
-      final LostDataResponse response = await ImagePicker.retrieveLostData();
-      return response?.file;
-    }
-    return null;
+Future<File> retrieveLostData() async {
+  if (Platform.isAndroid) {
+    final LostDataResponse response = await ImagePicker.retrieveLostData();
+    return response?.file;
   }
+  return null;
 }

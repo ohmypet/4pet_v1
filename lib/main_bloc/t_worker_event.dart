@@ -50,13 +50,18 @@ class UpdatePostEvent extends WorkerEvent {
 
   UpdatePostEvent retry() {
     if (numRetry < PetIslandConstants.max_retry) {
-      return UpdatePostEvent._(numRetry: numRetry + 1, postMustUpdate: postMustUpdate);
+      return UpdatePostEvent._(
+          numRetry: numRetry + 1, postMustUpdate: postMustUpdate);
     } else
       throw LimitRetryException();
   }
 }
 
-class UploadPostSuccessEvent extends WorkerEvent {}
+class UploadPostSuccessEvent extends WorkerEvent {
+  final Post item;
+
+  UploadPostSuccessEvent(this.item);
+}
 
 class UploadFailedEvent extends BaseErrorEvent implements WorkerEvent {
   UploadFailedEvent(String message) : super(message);
@@ -75,9 +80,11 @@ class ReportPostEvent extends WorkerEvent {
   final String description;
   final int numRetry;
 
-  ReportPostEvent(this.reason, this.postId, this.accountId, {this.description}) : numRetry = 0;
+  ReportPostEvent(this.reason, this.postId, this.accountId, {this.description})
+      : numRetry = 0;
 
-  ReportPostEvent._(this.reason, this.postId, this.accountId, {this.description, @required this.numRetry});
+  ReportPostEvent._(this.reason, this.postId, this.accountId,
+      {this.description, @required this.numRetry});
 
   ReportPostEvent retry() {
     if (numRetry < PetIslandConstants.max_retry) {

@@ -2,7 +2,8 @@ part of petisland.login.bloc;
 
 class LoginBloc extends TBloc<LoginEvent, LoginState> {
   @protected
-  static final AccountService accountService = DI.get<AccountService>(AccountService);
+  static final AccountService accountService =
+      DI.get<AccountService>(AccountService);
 
   @protected
   static final LocalStorageService storageService = DI.get(LocalStorageService);
@@ -33,7 +34,10 @@ class LoginBloc extends TBloc<LoginEvent, LoginState> {
   }
 
   void _logging(LoggingEvent event) {
-    accountService.login(event.username, event.password).then(_handleLoginSuccess).catchError(_handleError);
+    accountService
+        .login(event.username, event.password)
+        .then(_handleLoginSuccess)
+        .catchError(_handleError);
   }
 
   void login(String username, String password) {

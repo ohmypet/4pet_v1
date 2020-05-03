@@ -30,7 +30,8 @@ class MainAppBloc extends TBloc<MainAppEvent, MainAppState> {
         break;
 
       case ThemeAppChangedEvent:
-        themeMode = themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+        themeMode =
+            themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
         yield ThemeAppChanged();
         break;
 

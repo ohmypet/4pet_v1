@@ -3,7 +3,8 @@ part of petisland.pet_feed.widget.post_panel;
 class _PostPanelDescriptionWidget extends StatelessWidget {
   final Post item;
 
-  const _PostPanelDescriptionWidget({Key key, @required this.item}) : super(key: key);
+  const _PostPanelDescriptionWidget({Key key, @required this.item})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class _PostPanelDescriptionWidget extends StatelessWidget {
                 child: PostButtonLikeWidget(item: item),
                 data: theme.copyWith(
                   textTheme: theme.textTheme.copyWith(
-                    display4: theme.textTheme.display4.copyWith(
+                    headline1: theme.textTheme.headline1.copyWith(
                       color: TColors.white,
                     ),
                   ),

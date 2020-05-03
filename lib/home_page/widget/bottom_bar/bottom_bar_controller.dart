@@ -13,7 +13,8 @@ class BottomBarControllerImpl extends BottomBarController {
 
   @override
   void navigateTo(int index) {
-    if (_controller != null) _controller.animateTo(index, duration: const Duration(milliseconds: 150));
+    if (_controller != null)
+      _controller.animateTo(index, duration: const Duration(milliseconds: 150));
   }
 
   @override

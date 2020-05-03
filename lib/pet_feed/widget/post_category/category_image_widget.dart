@@ -4,12 +4,15 @@ class _CategoryImageWidget extends StatelessWidget {
   final PetCategory item;
   final BorderRadius borderRadius;
 
-  const _CategoryImageWidget({Key key, @required this.item, this.borderRadius}) : super(key: key);
+  const _CategoryImageWidget({Key key, @required this.item, this.borderRadius})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final url = _getImageUrl(item.image);
-    return url != null ? TCacheImageWidget(url: url) : _buildImageDefaultWidget(item.name);
+    return url != null
+        ? TCacheImageWidget(url: url)
+        : _buildImageDefaultWidget(item.name);
   }
 
   String _getImageUrl(PetImage image) {
@@ -18,7 +21,8 @@ class _CategoryImageWidget extends StatelessWidget {
   }
 
   Widget _buildImageDefaultWidget(String type) {
-    final BorderRadius borderRadius = this.borderRadius ?? BorderRadius.circular(4);
+    final BorderRadius borderRadius =
+        this.borderRadius ?? BorderRadius.circular(4);
     final assetName = _getSvgPath(type);
     return Container(
       padding: const EdgeInsets.all(15),

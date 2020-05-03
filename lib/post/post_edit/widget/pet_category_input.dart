@@ -1,7 +1,8 @@
 part of petisland.post.post_edit.widget;
 
 class PetCategoryInput extends TStatelessWidget {
-  final List<PetCategory> categories = DI.get<AuthenticationBloc>(AuthenticationBloc).categories;
+  final List<PetCategory> categories =
+      DI.get<AuthenticationBloc>(AuthenticationBloc).categories;
   final PostEditBloc bloc;
 
   PetCategoryInput(this.bloc) {
@@ -22,7 +23,8 @@ class PetCategoryInput extends TStatelessWidget {
             SizedBox(height: 5),
             _TitleWidget(title: 'Chủng loại', isRequired: false),
             TDropDown.builder(
-              initSelectedItem: categories.indexWhere((petCategory) => bloc.petCategory.id == petCategory.id),
+              initSelectedItem: categories.indexWhere(
+                  (petCategory) => bloc.petCategory.id == petCategory.id),
               itemCount: categories.length,
               onSelectedChanged: _onSelectedChanged,
               builder: _builDescription,
@@ -44,7 +46,7 @@ class PetCategoryInput extends TStatelessWidget {
     final PetCategory petCategory = categories[index];
     return Text(
       petCategory.name,
-      style: theme.textTheme.title.copyWith(
+      style: theme.textTheme.headline6.copyWith(
         fontSize: 16,
         color: theme.accentColor,
       ),

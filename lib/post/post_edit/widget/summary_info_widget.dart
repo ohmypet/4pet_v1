@@ -5,6 +5,7 @@ class SummaryInfoWidget extends TStatelessWidget {
   final String title;
   final double price;
   final String location;
+  static const Widget defaultImage = DefaultPetImage();
 
   SummaryInfoWidget(this.title, {this.petImage, this.price, this.location});
 
@@ -31,7 +32,6 @@ class SummaryInfoWidget extends TStatelessWidget {
       petImage = petImages.first;
     }
     bool urlValid = petImage != null && petImage.isNotEmpty;
-    Widget defaultImage = buildDefaultPetImage();
     Widget child;
     if (!urlValid) {
       child = defaultImage;
@@ -42,8 +42,8 @@ class SummaryInfoWidget extends TStatelessWidget {
           url: petImage,
         );
       } else {
-        child = Image.asset(
-          petImage,
+        child = Image.file(
+          File(petImage),
           fit: BoxFit.cover,
         );
       }
@@ -61,7 +61,7 @@ class SummaryInfoWidget extends TStatelessWidget {
   }
 
   Widget _buildInfo(String title, double price, String location) {
-    title = title.isEmpty ? 'Thú cứng của bạn' : title;
+    title = title.isEmpty ? 'Thú cưng của bạn' : title;
     // location = location.isEmpty ? 'HCM' : location;
     return Flexible(
       flex: 2,
@@ -79,6 +79,7 @@ class SummaryInfoWidget extends TStatelessWidget {
   }
 
   bool isImageUrlFormat(String url) {
-    return url.contains(RegExp('^https?://')) || url.contains(RegExp('^http?://'));
+    return url.contains(RegExp('^https?://')) ||
+        url.contains(RegExp('^http?://'));
   }
 }

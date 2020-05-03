@@ -5,7 +5,8 @@ abstract class AccountRepository {
 
   Future<bool> checkCode(String email, String code);
 
-  Future<Account> register(String email, String code, String username, String password,
+  Future<Account> register(
+      String email, String code, String username, String password,
       {User user});
 
   Future<LoginData> login(String username, String password);
@@ -32,7 +33,8 @@ class AccountReposityImpl extends AccountRepository {
   }
 
   @override
-  Future<Account> register(String email, String code, String username, String password,
+  Future<Account> register(
+      String email, String code, String username, String password,
       {User user}) {
     final Map<String, dynamic> params = <String, dynamic>{
       'email': email,
@@ -62,7 +64,9 @@ class AccountReposityImpl extends AccountRepository {
 
   @override
   Future<LoginData> checkToken(String token) {
-    final Map<String, dynamic> headers = <String, dynamic>{'x-access-token': token};
+    final Map<String, dynamic> headers = <String, dynamic>{
+      'x-access-token': token
+    };
     return client
         .get<Map<String, dynamic>>('$path/check-token',
             options: Options(headers: headers))
@@ -71,7 +75,10 @@ class AccountReposityImpl extends AccountRepository {
 
   @override
   Future<bool> checkCode(String email, String code) {
-    final Map<String, dynamic> params = <String, dynamic>{'email': email, 'code': code};
+    final Map<String, dynamic> params = <String, dynamic>{
+      'email': email,
+      'code': code
+    };
     return client.getRaw('$path/check-code', params: params).then((_) => true);
   }
 }

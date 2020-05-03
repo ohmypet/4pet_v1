@@ -9,8 +9,10 @@ abstract class PostItem extends Item {}
 class PanelDetail extends Item {
   String type;
   PostItem postItem;
-  CategoryTypeEnum get categoryTypeEnum => PetIslandConstants.getCategoryType(type);
+  CategoryTypeEnum get categoryTypeEnum =>
+      PetIslandConstants.getCategoryType(type);
 
+  PanelDetail.post(this.postItem) : type = 'Post';
   PanelDetail.fromJson(Map<String, dynamic> json) {
     type = json['type'];
     final Map<String, dynamic> data = json['data'] ?? <String, dynamic>{};

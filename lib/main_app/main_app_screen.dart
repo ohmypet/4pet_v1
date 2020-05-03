@@ -12,7 +12,8 @@ class MainAppScreen extends TStatefulWidget {
 
 class _MainAppScreenState extends TState<MainAppScreen> {
   MainAppBloc get bloc => widget.bloc;
-  final AuthenticationBloc authBloc = DI.get<AuthenticationBloc>(AuthenticationBloc);
+  final AuthenticationBloc authBloc =
+      DI.get<AuthenticationBloc>(AuthenticationBloc);
 
   void initState() {
     super.initState();

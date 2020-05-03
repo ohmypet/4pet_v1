@@ -22,7 +22,7 @@ class PostLocationWidget extends StatelessWidget {
                 location,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.display4.copyWith(
+                style: theme.textTheme.headline1.copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                   color: theme.accentColor.withAlpha(128),

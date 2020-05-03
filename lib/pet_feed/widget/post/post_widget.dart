@@ -62,7 +62,8 @@ void tlaunch(String text, {LaunchMode mode = LaunchMode.Url}) async {
   final String prefix = _getPrefixByMode(mode);
   text = '$prefix$text';
   canLaunch(text)
-      .then((isLaunch) => isLaunch ? launch(text) : throw Exception('cannot launch'))
+      .then((isLaunch) =>
+          isLaunch ? launch(text) : throw Exception('cannot launch'))
       .catchError((ex) => Log.error(ex));
 }
 

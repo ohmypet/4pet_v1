@@ -14,25 +14,14 @@ import 'package:flutter_template/post/post_detail/bloc/bloc.dart';
 import 'package:petisland_core/domain/domain.dart';
 
 part 'comment/comment_default_widget.dart';
-
 part 'comment/comment_description_widget.dart';
-
 part 'comment/comment_input_bar_widget.dart';
-
 part 'comment/comment_input_widget.dart';
-
 part 'comment/comment_listing_widget.dart';
-
 part 'comment/comment_widget.dart';
-
 part 'post/image_slider_widget.dart';
-
 part 'post/post_description_widget.dart';
-
 part 'post/post_detail_app_bar.dart';
-
 part 'post/post_detail_summary_widget.dart';
-
 part 'report/report_option.dart';
-
 part 'report/report_post_widget.dart';

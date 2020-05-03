@@ -2,7 +2,8 @@ part of petisland.common.widgets;
 
 class TBaseCachedImageWidget extends StatelessWidget {
   @protected
-  static final BaseCacheManager cachedManager = DI.get<BaseCacheManager>(DIKeys.cache_image);
+  static final BaseCacheManager cachedManager =
+      DI.get<BaseCacheManager>(DIKeys.cache_image);
 
   final double width;
   final double height;
@@ -39,7 +40,9 @@ class TBaseCachedImageWidget extends StatelessWidget {
             placeholder: placeholder ?? (_, __) => _buildPlaceHolder(),
             errorWidget: errorWidget ?? (_, __, ___) => _buildError(),
           )
-        : errorWidget != null ? errorWidget(context, null, 'url is null') : _buildError();
+        : errorWidget != null
+            ? errorWidget(context, null, 'url is null')
+            : _buildError();
   }
 
   Widget _buildPlaceHolder() {
@@ -102,7 +105,8 @@ class TCacheImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final BoxShape shape = this.shape ?? BoxShape.rectangle;
     BorderRadius borderRadius;
-    if (shape == BoxShape.rectangle) borderRadius = this.borderRadius ?? BorderRadius.circular(4);
+    if (shape == BoxShape.rectangle)
+      borderRadius = this.borderRadius ?? BorderRadius.circular(4);
     return TBaseCachedImageWidget(
       url: url,
       imageBuilder: (_, ImageProvider imageProvider) {

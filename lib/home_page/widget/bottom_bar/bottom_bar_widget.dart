@@ -25,6 +25,7 @@ class _BottomBarWidgetState extends TState<BottomBarWidget>
   double height;
 
   List<Widget> get children => widget.children;
+
   NavigationBarBloc get bloc => widget.bloc;
 
   @protected
@@ -39,7 +40,9 @@ class _BottomBarWidgetState extends TState<BottomBarWidget>
       length: children.length,
     );
 
-    DI.get<BottomBarController>(BottomBarController).addController(tabController);
+    DI
+        .get<BottomBarController>(BottomBarController)
+        .addController(tabController);
   }
 
   @override

@@ -15,7 +15,8 @@ class TPageRoute<T> extends PageRoute<T> {
         super(fullscreenDialog: fullscreenDialog ?? false, settings: settings);
 
   @override
-  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
     final Widget result = builder(context);
     return Semantics(
       scopesRoute: true,

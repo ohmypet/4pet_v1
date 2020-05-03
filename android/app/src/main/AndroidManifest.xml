@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tvc.fluttertemplate">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.tvc.flutter_template">
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -8,8 +9,9 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Flutter Template"
-        android:icon="@mipmap/launcher_icon">
+        android:label="Đảo thú cưng"
+        android:icon="@mipmap/launcher_icon"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

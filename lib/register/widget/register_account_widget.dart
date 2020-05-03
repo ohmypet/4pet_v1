@@ -2,6 +2,7 @@ part of petisland.register.widget;
 
 class RegisterAccountWidget extends TStatefulWidget {
   RegisterAccountWidget({Key key}) : super(key: key);
+
   @override
   _RegisterAccountWidgetState createState() => _RegisterAccountWidgetState();
 }
@@ -22,12 +23,12 @@ class _RegisterAccountWidgetState extends TState<RegisterAccountWidget> {
   final RegisterBloc registerBloc = DI.get(RegisterBloc);
 
   ThemeData get theme => Theme.of(context);
+
   @override
   void dispose() {
     usernameController.dispose();
     passwordController.dispose();
     nameController.dispose();
-    usernameController.dispose();
     locationController.dispose();
     phoneController.dispose();
     usernameFocusNode.dispose();
@@ -209,7 +210,7 @@ class _RegisterAccountWidgetState extends TState<RegisterAccountWidget> {
 
   bool get isValid =>
       usernameController.text.isNotEmpty & passwordController.text.isNotEmpty;
-      
+
   void _onTextChanged(String str) {
     setState(() {});
   }

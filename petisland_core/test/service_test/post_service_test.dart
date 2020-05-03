@@ -24,7 +24,8 @@ void main() async {
   test('upload image', () async {
     final String path = 'assets/meow.jpeg';
     try {
-      final List<PetImage> images = await imageService.upload(<String>[path, path]);
+      final List<PetImage> images =
+          await imageService.upload(<String>[path, path]);
 
       for (PetImage item in images) {
         Log.debug(item.toJson());
@@ -56,7 +57,6 @@ void main() async {
       title: 'Ahihi',
       location: 'Dong nai',
       pet: Pet(type: PetCategory(id: pickOne(categories).id)),
-
     );
     try {
       final Post post = await postService.create(postModal);
@@ -74,7 +74,6 @@ void main() async {
         title: 'Ahihi',
         location: 'Dong nai',
         pet: Pet(type: PetCategory(id: pickOne(categories).id)),
-
         description: 'i\'m supper man',
         images: <PetImage>[PetImage(id: idImage)]);
     try {

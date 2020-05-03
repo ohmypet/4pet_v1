@@ -9,16 +9,12 @@ class LoadingWidget extends TStatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Container(
-      color: TColors.black.withOpacity(0.2),
+      color: TColors.text_white.withOpacity(0.15),
       child: Center(
-        child: SizedBox(
-          width: 70,
-          child: FlareActor(
-            path,
-            animation: 'loading',
-            sizeFromArtboard: true,
-            fit: BoxFit.fitWidth,
-            color: theme.primaryColor,
+        child: FittedBox(
+          child: Theme(
+            data: theme.copyWith(accentColor: theme.primaryColor),
+            child: CircularProgressIndicator(),
           ),
         ),
       ),

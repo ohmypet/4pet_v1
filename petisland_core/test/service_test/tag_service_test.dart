@@ -1,5 +1,5 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:petisland_core/petisland_core.dart';
-import 'package:test/test.dart';
 
 import 'configuration.dart';
 

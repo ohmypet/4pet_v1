@@ -1,6 +1,7 @@
 part of petisland.post.post_edit.screen;
 
-typedef OnCreatePostScreen = void Function(PostCreateModal post, List<String> urlNeedUpload);
+typedef OnCreatePostScreen = void Function(
+    PostCreateModal post, List<String> urlNeedUpload);
 
 typedef OnEditPostScreen = void Function(
   PostCreateModal post,
@@ -14,20 +15,23 @@ class PostEditScreen extends TStatelessWidget {
   final OnCreatePostScreen onSendTap;
   final OnEditPostScreen onEditCompleted;
   final PostEditBloc _postEditBloc;
+  final String title;
 
   PostEditScreen.create({@required this.onSendTap})
       : _postEditBloc = PostEditBloc(),
+        title = 'Đăng bài viết',
         onEditCompleted = null;
 
   PostEditScreen.edit(Post post, {@required this.onEditCompleted})
       : _postEditBloc = PostEditBloc.fromPost(post),
+        title = 'Chỉnh sửa bài viết',
         this.onSendTap = null;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Đăng Tin'),
+        title: Text(title),
         centerTitle: true,
         actions: <Widget>[
           Builder(
@@ -56,7 +60,8 @@ class PostEditScreen extends TStatelessWidget {
       return;
     }
     if (!postModal.locationIsValid) {
-      showErrorSnackBar(context: context, content: 'Vui lòng nhập Vui lòng nhập địa chỉ');
+      showErrorSnackBar(
+          context: context, content: 'Vui lòng nhập Vui lòng nhập địa chỉ');
       return;
     }
 
@@ -73,7 +78,10 @@ class PostEditScreen extends TStatelessWidget {
   }
 
   List<String> _getPathImagesNeedUpload(List<PostImage> images) {
-    return images.where((item) => item.id == null).map((item) => item.image.url).toList();
+    return images
+        .where((item) => item.id == null)
+        .map((item) => item.image.url)
+        .toList();
   }
 
   List<String> _getIdImagesNeedDelete(List<PostImage> images) {

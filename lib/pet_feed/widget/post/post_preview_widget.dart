@@ -13,6 +13,7 @@ class PostPreviewWidget extends StatelessWidget {
 
   const PostPreviewWidget({Key key, @required this.item, this.onTapImage})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final Widget image = Flexible(
@@ -54,7 +55,7 @@ class PostPreviewWidget extends StatelessWidget {
         children: <Widget>[
           Flexible(flex: 3, child: PostTitleWidget(title: title)),
           SizedBox(height: 5),
-          Flexible(child: _PostUserInfoWidget(user: account?.user)),
+          Flexible(child: _PostUserInfoWidget(account: account)),
           Flexible(child: PostMoneyWidget(price: price)),
           Flexible(
             child: Align(

@@ -17,6 +17,12 @@ abstract class PostService {
   Future<List<Comment>> getComments(String postId, {int offset, int limit});
 
   Future<Comment> deleteComment(String postId, String commentId);
+
+  Future<List<PanelDetail>> getMyPost({int offset, int limit});
+
+  Future<List<PanelDetail>> getFavoritePosts({int offset, int limit});
+
+  Future<Post> getPost(String id);
 }
 
 class PostServiceImpl extends PostService {
@@ -37,7 +43,8 @@ class PostServiceImpl extends PostService {
   @override
   Future<List<Item>> getPosts(int offset,
       {int limit = 10, String categoryType, String petCategoryId}) {
-    return repository.getPosts(offset, limit ?? 10, categoryType, petCategoryId);
+    return repository.getPosts(
+        offset, limit ?? 10, categoryType, petCategoryId);
   }
 
   @override
@@ -61,7 +68,23 @@ class PostServiceImpl extends PostService {
   }
 
   @override
-  Future<List<Comment>> getComments(String postId, {int offset = 0, int limit = 15}) {
+  Future<List<Comment>> getComments(String postId,
+      {int offset = 0, int limit = 15}) {
     return repository.getComments(postId, offset: offset, limit: limit);
+  }
+
+  @override
+  Future<List<PanelDetail>> getMyPost({int offset, int limit}) {
+    return repository.getMyPost(offset: offset, limit: limit);
+  }
+
+  @override
+  Future<List<PanelDetail>> getFavoritePosts({int offset, int limit}) {
+    return repository.getFavoritePosts(offset: offset, limit: limit);
+  }
+
+  @override
+  Future<Post> getPost(String id) {
+    return repository.getPost(id);
   }
 }

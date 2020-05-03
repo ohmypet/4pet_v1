@@ -12,7 +12,8 @@ class _RetrievePostEvent extends PetFeedEvent {
   final String categoryType;
   final String petCategoryId;
 
-  _RetrievePostEvent(this.offset, {this.limit = 10, this.categoryType, this.petCategoryId})
+  _RetrievePostEvent(this.offset,
+      {this.limit = 10, this.categoryType, this.petCategoryId})
       : assert(offset != null, 'Offset must not null');
 
   @override
@@ -32,7 +33,8 @@ class _ReloadPostEvent extends PetFeedEvent {
   final String categoryType;
   final String petCategoryId;
 
-  _ReloadPostEvent(this.offset, {this.limit = 10, this.categoryType, this.petCategoryId})
+  _ReloadPostEvent(this.offset,
+      {this.limit = 10, this.categoryType, this.petCategoryId})
       : assert(offset != null, 'Offset must not null');
 
   @override

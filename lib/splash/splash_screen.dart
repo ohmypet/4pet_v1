@@ -10,7 +10,10 @@ class SplashScreen extends TStatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: TColors.water_melon,
+      color: TColors.white,
+      child: Center(
+        child: Image.asset(TAssets.splash),
+      ),
     );
   }
 }

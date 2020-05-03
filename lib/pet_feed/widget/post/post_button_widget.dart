@@ -30,7 +30,7 @@ class _PostButtonWidget extends StatelessWidget {
         padding: EdgeInsets.zero,
         label: Text(
           title,
-          style: theme.textTheme.display4.copyWith(
+          style: theme.textTheme.headline1.copyWith(
             fontWeight: FontWeight.w500,
             fontSize: 16,
           ),

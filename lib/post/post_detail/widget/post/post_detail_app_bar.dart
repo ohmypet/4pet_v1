@@ -49,7 +49,7 @@ class PostDetailAppBar extends StatelessWidget {
           value: item.key,
           enabled: enable,
           child: Text(item.value),
-          textStyle: theme.textTheme.body1,
+          textStyle: theme.textTheme.bodyText2,
         );
       },
     ).toList();

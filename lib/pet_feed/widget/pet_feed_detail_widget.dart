@@ -12,7 +12,7 @@ class PetFeedDetailWidget extends StatefulWidget {
   _PetFeedDetailWidgetState createState() => _PetFeedDetailWidgetState();
 }
 
-class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
+class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
   List<Item> items;
   bool maybeRetrievePost = true;
 
@@ -24,7 +24,8 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
     super.initState();
     items = controller.getItems();
     controller.setListener(_onItemChange);
-    refreshController = RefreshController(initialRefresh: controller.getItems().isEmpty);
+    refreshController =
+        RefreshController(initialRefresh: controller.getItems().isEmpty);
   }
 
   @override
@@ -71,6 +72,14 @@ class _PetFeedDetailWidgetState extends State<PetFeedDetailWidget> {
         items = state.items;
         maybeRetrievePost = state.maybeRetrievePost;
       });
+    }
+
+    if (state is CreatePostSuccess) {
+      showSnackBar(context, 'Tạo bài viết thành công', TColors.green);
+    }
+
+    if (state is CreatePostError) {
+      showErrorSnackBar(content: 'Tạo bài viết thất bại', context: context);
     }
   }
 

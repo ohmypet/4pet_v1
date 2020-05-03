@@ -8,7 +8,9 @@ abstract class RegisterErrorEvent extends BaseErrorEvent {
 
 class SubmitEmail extends RegisterEvent {
   final String email;
+
   SubmitEmail(this.email);
+
   @override
   String toString() {
     return '$runtimeType:: email:: $email';
@@ -19,6 +21,7 @@ class SubmitCode extends RegisterEvent {
   final String requireCode;
 
   SubmitCode(this.requireCode);
+
   @override
   String toString() {
     return '$runtimeType:: requireCode:: $requireCode';
@@ -29,7 +32,9 @@ class SubmitAccount extends RegisterEvent {
   final String userName;
   final String password;
   final User user;
-  SubmitAccount(this.userName, this.password,{this.user});
+
+  SubmitAccount(this.userName, this.password, {this.user});
+
   @override
   String toString() {
     return '$runtimeType:: {userName:: $userName, password:: $password, user:: $user}';

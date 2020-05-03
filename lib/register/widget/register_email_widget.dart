@@ -2,6 +2,7 @@ part of petisland.register.widget;
 
 class RegisterEmailWidget extends TStatefulWidget {
   RegisterEmailWidget({Key key}) : super(key: key);
+
   @override
   _LoginDetailWidgetState createState() => _LoginDetailWidgetState();
 }

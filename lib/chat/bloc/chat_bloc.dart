@@ -3,6 +3,7 @@ part of petisland.chat.bloc;
 class ChatBloc extends TBloc<ChatEvent, ChatState> {
   FlutterWebviewPlugin flutterWebviewPlugin;
   StreamSubscription<double> _onChanged;
+
   String get url => _url;
 
   String _url;
@@ -23,13 +24,15 @@ class ChatBloc extends TBloc<ChatEvent, ChatState> {
   }
 
   String _getChatUrl() {
-    final Account account = DI.get<AuthenticationBloc>(AuthenticationBloc).account;
-    return 'https://chat-plugin.now.sh?firstAccount=${account.id}';
+    final Account account =
+        DI.get<AuthenticationBloc>(AuthenticationBloc).account;
+    return '${Config.getChatHost()}?firstAccount=${account.id}';
   }
 
   String _getChatDetailUrl(String secondAccount) {
-    final Account account = DI.get<AuthenticationBloc>(AuthenticationBloc).account;
-    return 'https://chat-plugin.now.sh/?firstAccount=${account.id}&secondAccount=$secondAccount';
+    final Account account =
+        DI.get<AuthenticationBloc>(AuthenticationBloc).account;
+    return '${Config.getChatHost()}?firstAccount=${account.id}&secondAccount=$secondAccount';
   }
 
   @override

@@ -5,7 +5,8 @@ class PostButtonBar extends TStatelessWidget {
 
   final VoidCallback onTapPost;
 
-  const PostButtonBar({Key key, @required this.item, this.onTapPost}) : super(key: key);
+  const PostButtonBar({Key key, @required this.item, this.onTapPost})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -27,6 +27,8 @@ class _LoginDetailWidgetState extends TState<LoginDetailWidget> {
           direction: Axis.vertical,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+            TextLogo(),
+            const SizedBox(height: 30),
             UserInputWidget(
               usernameController,
               focusNode: usernameFocusNode,
@@ -56,7 +58,8 @@ class _LoginDetailWidgetState extends TState<LoginDetailWidget> {
                 ),
                 child: Text(
                   TConstants.text_register,
-                  style: theme.textTheme.body1.copyWith(color: theme.accentColor),
+                  style: theme.textTheme.bodyText2
+                      .copyWith(color: theme.accentColor),
                 ),
               ),
             )

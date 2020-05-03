@@ -4,7 +4,9 @@ class _CommentDescriptionWidget extends StatelessWidget {
   final Comment item;
   final VoidCallback onTapDelete;
 
-  const _CommentDescriptionWidget({Key key, this.item, @required this.onTapDelete}) : super(key: key);
+  const _CommentDescriptionWidget(
+      {Key key, this.item, @required this.onTapDelete})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +24,10 @@ class _CommentDescriptionWidget extends StatelessWidget {
   }
 
   Widget _buildName(BuildContext context, Account account) {
-    final String name = account.user?.name ?? '@username';
+    final String name = account.getName();
     final isPermission = AccountUtils.grantEditAndDel(account);
     final text = DefaultTextStyle.merge(
-      style: TTextStyles.bold(fontSize: 18, color: TColors.darkSkyBlue),
+      style: TTextStyles.bold(fontSize: 18, color: TColors.dark_sky_blue),
       child: Text(name),
     );
     final time = _buildTime(context, item.createAt);
@@ -50,7 +52,8 @@ class _CommentDescriptionWidget extends StatelessWidget {
   Widget _buildComment(BuildContext context, String message) {
     final String comment = message ?? '';
     return DefaultTextStyle.merge(
-      style: TTextStyles.light(fontSize: 18, color: TColors.black.withAlpha(220)),
+      style:
+          TTextStyles.light(fontSize: 18, color: TColors.black.withAlpha(220)),
       child: Text(comment),
     );
   }
@@ -58,7 +61,8 @@ class _CommentDescriptionWidget extends StatelessWidget {
   Widget _buildTime(BuildContext context, DateTime time) {
     final textTime = TimeUtils.toPm(time);
     return DefaultTextStyle.merge(
-      style: TTextStyles.light(fontSize: 16, color: TColors.duck_egg_blue.withAlpha(220)),
+      style: TTextStyles.light(
+          fontSize: 16, color: TColors.duck_egg_blue.withAlpha(220)),
       child: Text(textTime),
     );
   }

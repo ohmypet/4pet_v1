@@ -4,7 +4,9 @@ class CommentListingWidget extends StatefulWidget {
   final Post item;
   final CommentBloc bloc;
 
-  const CommentListingWidget({Key key, @required this.item, @required this.bloc}) : super(key: key);
+  const CommentListingWidget(
+      {Key key, @required this.item, @required this.bloc})
+      : super(key: key);
 
   @override
   _CommentListingWidgetState createState() => _CommentListingWidgetState();
@@ -58,13 +60,14 @@ class _CommentListingWidgetState extends State<CommentListingWidget> {
   Widget _buildComment(BuildContext context, int index, List<Comment> items) {
     if (index < items.length) {
       final item = items[index];
-      return _CommentWidget(item: item, onTapDelete: () => _onTapDelete(index, item));
+      return _CommentWidget(
+          item: item, onTapDelete: () => _onTapDelete(index, item));
     } else
       return SizedBox(height: 150);
   }
 
   void _onTapDelete(int index, Comment comment) {
     DI.get<TWorker>(TWorker).deleteComment(bloc.postId, comment.id);
-    bloc.softDeleteComment(index);
+    bloc.softDeleteComment(comment.id);
   }
 }
