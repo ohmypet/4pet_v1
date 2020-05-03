@@ -12,7 +12,8 @@ class FireBaseRemoteConfig extends RemoteConfig {
         ..fetch(expiration: Duration(hours: 1))
         ..activateFetched()
         ..addListener(() {
-          getAll().forEach((String key, dynamic value) => Log.debug('Key: $key, value: $value'));
+          getAll().forEach((String key, dynamic value) =>
+              Log.debug('Key: $key, value: $value'));
         });
     }).catchError((dynamic ex) {
       Log.error('Fail to fetch config from firebase: $ex');

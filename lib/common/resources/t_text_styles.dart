@@ -7,7 +7,9 @@ abstract class TTextStyles extends TextStyle {
   /// Font size default is **14**
   ///
   /// **Back** is a color default
-  factory TTextStyles.normal({double fontSize, Color color, double letterSpacing}) => _TTextStyle(
+  factory TTextStyles.normal(
+          {double fontSize, Color color, double letterSpacing}) =>
+      _TTextStyle(
         fontSize: fontSize,
         color: color,
         letterSpacing: letterSpacing,
@@ -17,7 +19,9 @@ abstract class TTextStyles extends TextStyle {
   /// Font size default is **14**
   ///
   /// **Back** is a color default
-  factory TTextStyles.light({double fontSize, Color color, double letterSpacing}) => _TTextStyle(
+  factory TTextStyles.light(
+          {double fontSize, Color color, double letterSpacing}) =>
+      _TTextStyle(
         fontSize: fontSize,
         color: color,
         letterSpacing: letterSpacing,
@@ -27,7 +31,9 @@ abstract class TTextStyles extends TextStyle {
   /// Font size default is **14**
   ///
   /// **Back** is a color default
-  factory TTextStyles.medium({double fontSize, Color color, double letterSpacing}) => _TTextStyle(
+  factory TTextStyles.medium(
+          {double fontSize, Color color, double letterSpacing}) =>
+      _TTextStyle(
         fontSize: fontSize,
         color: color,
         letterSpacing: letterSpacing,
@@ -37,7 +43,9 @@ abstract class TTextStyles extends TextStyle {
   /// Font size default is **14**
   ///
   /// **Back** is a color default
-  factory TTextStyles.semi({double fontSize, Color color, double letterSpacing}) => _TTextStyle(
+  factory TTextStyles.semi(
+          {double fontSize, Color color, double letterSpacing}) =>
+      _TTextStyle(
         fontSize: fontSize,
         color: color,
         letterSpacing: letterSpacing,
@@ -47,7 +55,9 @@ abstract class TTextStyles extends TextStyle {
   /// Font size default is **14**
   ///
   /// **Back** is a color default
-  factory TTextStyles.bold({double fontSize, Color color, double letterSpacing}) => _TTextStyle(
+  factory TTextStyles.bold(
+          {double fontSize, Color color, double letterSpacing}) =>
+      _TTextStyle(
         fontSize: fontSize,
         color: color,
         letterSpacing: letterSpacing,
@@ -57,7 +67,9 @@ abstract class TTextStyles extends TextStyle {
   /// Font size default is **14**
   ///
   /// **Back** is a color default
-  factory TTextStyles.black({double fontSize, Color color, double letterSpacing}) => _TTextStyle(
+  factory TTextStyles.black(
+          {double fontSize, Color color, double letterSpacing}) =>
+      _TTextStyle(
         fontSize: fontSize,
         color: color,
         fontWeight: FontWeight.w900,
@@ -66,7 +78,11 @@ abstract class TTextStyles extends TextStyle {
 }
 
 class _TTextStyle extends TextStyle implements TTextStyles {
-  const _TTextStyle({double fontSize, Color color, FontWeight fontWeight, double letterSpacing})
+  const _TTextStyle(
+      {double fontSize,
+      Color color,
+      FontWeight fontWeight,
+      double letterSpacing})
       : super(
           height: 1.4,
           fontWeight: fontWeight,

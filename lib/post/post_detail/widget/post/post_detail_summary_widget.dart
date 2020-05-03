@@ -3,7 +3,8 @@ part of petisland.post.screen.widget;
 class PostDetailSummaryWidget extends StatelessWidget {
   final Post item;
 
-  const PostDetailSummaryWidget({Key key, @required this.item}) : super(key: key);
+  const PostDetailSummaryWidget({Key key, @required this.item})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

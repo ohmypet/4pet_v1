@@ -2,6 +2,7 @@ part of petisland.notification.widget;
 
 class NotificationDefaultWidget extends StatelessWidget {
   final Random random = DI.get(Random);
+
   @override
   Widget build(BuildContext context) {
     return Container(

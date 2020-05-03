@@ -41,7 +41,8 @@ class _PostUserInfoWidget extends StatelessWidget {
             username,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: theme.textTheme.body2.copyWith(fontWeight: FontWeight.w500),
+            style:
+                theme.textTheme.bodyText1.copyWith(fontWeight: FontWeight.w500),
           )
         : SizedBox();
   }

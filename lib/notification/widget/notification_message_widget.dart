@@ -5,7 +5,8 @@ class NotificationMessageWidget extends StatelessWidget {
   final DateTime createdTime;
   final List<TextConfig> textConfigs;
 
-  NotificationMessageWidget({Key key, @required this.message, @required this.createdTime})
+  NotificationMessageWidget(
+      {Key key, @required this.message, @required this.createdTime})
       : textConfigs = StringUtils.getTextConfigs(message),
         super(key: key);
 
@@ -49,6 +50,8 @@ class NotificationMessageWidget extends StatelessWidget {
     );
   }
 
-  final bold = TTextStyles.bold(fontSize: 15, color: TColors.black.withAlpha(200));
-  final light = TTextStyles.light(fontSize: 15, color: TColors.black.withAlpha(220));
+  final bold =
+      TTextStyles.bold(fontSize: 15, color: TColors.black.withAlpha(200));
+  final light =
+      TTextStyles.light(fontSize: 15, color: TColors.black.withAlpha(220));
 }

@@ -4,6 +4,7 @@ class SvgIconWidget extends StatelessWidget {
   final Widget icon;
 
   const SvgIconWidget({Key key, @required this.icon}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(

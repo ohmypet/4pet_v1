@@ -7,7 +7,8 @@ class ImagePostWidget extends StatelessWidget {
   final void Function(int, ImageType) onTapRemove;
   final ImageType type;
 
-  ImagePostWidget(this.postImage, {@required this.onTapRemove, this.index, Key key})
+  ImagePostWidget(this.postImage,
+      {@required this.onTapRemove, this.index, Key key})
       : type = StringUtils.isImageUrlFormat(postImage.image.url)
             ? ImageType.Server
             : ImageType.Local,
@@ -17,7 +18,8 @@ class ImagePostWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final imageUrl = postImage.image.url;
     Widget child = type == ImageType.Server
-        ? TCacheImageWidget(borderRadius: BorderRadius.circular(0), url: imageUrl)
+        ? TCacheImageWidget(
+            borderRadius: BorderRadius.circular(0), url: imageUrl)
         : Image.file(File(imageUrl), fit: BoxFit.cover);
 
     return ClipRRect(

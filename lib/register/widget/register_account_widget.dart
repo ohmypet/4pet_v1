@@ -204,10 +204,12 @@ class _RegisterAccountWidgetState extends TState<RegisterAccountWidget> {
         phoneNumber: phone,
       );
     }
-    registerBloc.submitAccount(usernameController.text, passwordController.text, user: user);
+    registerBloc.submitAccount(usernameController.text, passwordController.text,
+        user: user);
   }
 
-  bool get isValid => usernameController.text.isNotEmpty & passwordController.text.isNotEmpty;
+  bool get isValid =>
+      usernameController.text.isNotEmpty & passwordController.text.isNotEmpty;
 
   void _onTextChanged(String str) {
     setState(() {});

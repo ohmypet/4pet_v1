@@ -6,14 +6,16 @@ class PostImageWidget extends StatelessWidget {
   final TapImage onTapImage;
   final Widget imageDefault = DefaultPetImage();
 
-  PostImageWidget({Key key, @required this.item, this.isSquare = true, this.onTapImage})
+  PostImageWidget(
+      {Key key, @required this.item, this.isSquare = true, this.onTapImage})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final String imageUrl = getUrlImage(item.postImages);
-    final onTap =
-        onTapImage != null ? () => onTapImage(imageUrl, ImageType.Server) : null;
+    final onTap = onTapImage != null
+        ? () => onTapImage(imageUrl, ImageType.Server)
+        : null;
     final Widget image = imageUrl != null
         ? GestureDetector(
             child: _buildImage(imageUrl),
@@ -24,19 +26,22 @@ class PostImageWidget extends StatelessWidget {
   }
 
   String getUrlImage(List<PostImage> images) {
-    final PostImage image =
-        images.firstWhere((image) => image.image.url != null, orElse: () => null);
+    final PostImage image = images
+        .firstWhere((image) => image.image.url != null, orElse: () => null);
     return image?.image?.url;
   }
 
   Widget _buildImage(String imageUrl) {
     final bool isFromServer = StringUtils.isImageUrlFormat(imageUrl);
-    return isFromServer ? TCacheImageWidget(url: imageUrl) : Image.file(File(imageUrl));
+    return isFromServer
+        ? TCacheImageWidget(url: imageUrl)
+        : Image.file(File(imageUrl));
   }
 }
 
 class DefaultPetImage extends StatelessWidget {
   const DefaultPetImage({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(

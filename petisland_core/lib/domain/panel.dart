@@ -8,7 +8,8 @@ class Panel extends Item {
     type = json['type'];
 
     final List<Map<String, dynamic>> data =
-        json['data']?.cast<Map<String, dynamic>>() ?? const <Map<String, dynamic>>[];
+        json['data']?.cast<Map<String, dynamic>>() ??
+            const <Map<String, dynamic>>[];
 
     items = data
         .map((Map<String, dynamic> item) => PanelDetail.fromJson(item))
@@ -20,7 +21,8 @@ class Panel extends Item {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};
     _addValueToMap('type', type, map);
-    final List<Map<String, dynamic>> dataToJson = items.map((PanelDetail item) => item.toJson()).toList();
+    final List<Map<String, dynamic>> dataToJson =
+        items.map((PanelDetail item) => item.toJson()).toList();
     _addValueToMap('data', dataToJson, map);
     return map;
   }

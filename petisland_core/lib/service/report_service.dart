@@ -15,7 +15,8 @@ class ReportServiceImpl extends ReportService {
   @override
   Future<Report> report(String postId, String reason, String accountId,
       {String description}) {
-    return repository.report(postId, reason, accountId, description: description);
+    return repository.report(postId, reason, accountId,
+        description: description);
   }
 
   @override

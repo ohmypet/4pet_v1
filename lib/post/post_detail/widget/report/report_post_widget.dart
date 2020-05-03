@@ -10,6 +10,7 @@ class KikiReportWidget extends StatefulWidget {
   final ValueChanged<ReportData> onSendReport;
 
   const KikiReportWidget({Key key, this.onSendReport}) : super(key: key);
+
   @override
   _KikiReportWidgetState createState() => _KikiReportWidgetState();
 }

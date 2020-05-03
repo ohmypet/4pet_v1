@@ -5,7 +5,9 @@ class PostDetailScreen extends TStatefulWidget {
   final Post item;
   final VoidCallback onDeletePost;
 
-  const PostDetailScreen({Key key, @required this.item, @required this.onDeletePost}) : super(key: key);
+  const PostDetailScreen(
+      {Key key, @required this.item, @required this.onDeletePost})
+      : super(key: key);
 
   @override
   _PostDetailScreenState createState() => _PostDetailScreenState();
@@ -113,8 +115,8 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
     );
   }
 
-  void _onSendEditPost(PostCreateModal post, List<PostImage> rawPostImage, List<String> urlNeedUpload,
-      List<String> idImageNeedDelete) {
+  void _onSendEditPost(PostCreateModal post, List<PostImage> rawPostImage,
+      List<String> urlNeedUpload, List<String> idImageNeedDelete) {
     reloadUI(post, rawPostImage);
     worker.updatePost(item, urlNeedUpload, idImageNeedDelete);
   }

@@ -1,21 +1,23 @@
 part of petisland.main_bloc;
 
-abstract class TBloc<Event extends BaseEvent, State extends BaseState> extends BaseBloc<Event, State> {
+abstract class TBloc<Event extends BaseEvent, State extends BaseState>
+    extends BaseBloc<Event, State> {
   @protected
   Duration get delayEvent;
 
   @override
   @protected
-  Stream<State> transformEvents(Stream<Event> events, Stream<State> Function(Event event) next) {
-    final Observable<Event> eventsObservable = events;
-    return eventsObservable.debounceTime(delayEvent).switchMap(next);
+  Stream<Transition<Event, State>> transformEvents(
+      Stream<Event> events, TransitionFunction<Event, State> next) {
+    return events.debounceTime(delayEvent).switchMap(next);
   }
 
   @protected
   void add(Event event) => super.add(event);
 }
 
-abstract class BaseBloc<Event extends BaseEvent, State extends BaseState> extends Bloc<Event, State> {
+abstract class BaseBloc<Event extends BaseEvent, State extends BaseState>
+    extends Bloc<Event, State> {
   Stream<State> mapEventToState(Event event) {
     if (event is BaseErrorEvent) {
       Log.debug('event ${event.runtimeType}');

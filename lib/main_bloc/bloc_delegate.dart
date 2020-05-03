@@ -9,13 +9,15 @@ class TBlocDelegate extends BlocDelegate {
 
   @override
   //ignore: must_call_super
-  void onTransition(final Bloc<dynamic, dynamic> bloc, Transition<dynamic, dynamic> transition) {
+  void onTransition(final Bloc<dynamic, dynamic> bloc,
+      Transition<dynamic, dynamic> transition) {
     Log.debug('${bloc.runtimeType}: $transition');
   }
 
   @override
   //ignore: must_call_super
-  void onError(final Bloc<dynamic, dynamic> bloc, Object error, StackTrace stacktrace) {
+  void onError(
+      final Bloc<dynamic, dynamic> bloc, Object error, StackTrace stacktrace) {
     Log.debug(error);
     Log.debug(stacktrace);
   }

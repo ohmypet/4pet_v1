@@ -45,7 +45,10 @@ class MyPostBloc extends TBloc<MyPostEvent, MyPostState> {
       add(_ReloadUIEvent(posts));
     }
 
-    service.getMyPost(offset: event.offset, limit: event.limit).then(_reloadUI).catchError(_handleError);
+    service
+        .getMyPost(offset: event.offset, limit: event.limit)
+        .then(_reloadUI)
+        .catchError(_handleError);
   }
 
   void _retrievePosts(_RetrieveMyPostEvent event) {
@@ -56,7 +59,10 @@ class MyPostBloc extends TBloc<MyPostEvent, MyPostState> {
       add(_ReloadUIEvent(posts));
     }
 
-    service.getMyPost(offset: event.offset, limit: event.limit).then(_reloadUI).catchError(_handleError);
+    service
+        .getMyPost(offset: event.offset, limit: event.limit)
+        .then(_reloadUI)
+        .catchError(_handleError);
   }
 
   void _handleError(dynamic ex) {

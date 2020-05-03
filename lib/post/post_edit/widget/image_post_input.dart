@@ -52,7 +52,9 @@ class _ImagePostInputState extends TState<ImagePostInput> {
   }
 
   List<Widget> _buildImageWidget(List<PostImage> postImages) {
-    List<Widget> result = <Widget>[AddImagePostWidget(onPress: () => chooseImage())];
+    List<Widget> result = <Widget>[
+      AddImagePostWidget(onPress: () => chooseImage())
+    ];
 
     if (postImages == null || postImages.isEmpty) {
       return result;

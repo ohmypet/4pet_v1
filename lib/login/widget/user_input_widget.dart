@@ -34,7 +34,7 @@ class UserInputWidget extends TStatelessWidget {
       child: TextField(
         controller: controller,
         focusNode: focusNode,
-        style: themeData.textTheme.body1,
+        style: themeData.textTheme.bodyText2,
         maxLines: maxLines,
         keyboardType: keyboardType,
         autocorrect: false,

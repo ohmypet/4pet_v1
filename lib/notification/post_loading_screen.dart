@@ -5,6 +5,7 @@ class PostLoadingScreen extends StatefulWidget {
   final String id;
 
   const PostLoadingScreen({Key key, @required this.id}) : super(key: key);
+
   @override
   _PostLoadingScreenState createState() => _PostLoadingScreenState();
 }

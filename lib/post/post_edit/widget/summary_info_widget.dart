@@ -79,6 +79,7 @@ class SummaryInfoWidget extends TStatelessWidget {
   }
 
   bool isImageUrlFormat(String url) {
-    return url.contains(RegExp('^https?://')) || url.contains(RegExp('^http?://'));
+    return url.contains(RegExp('^https?://')) ||
+        url.contains(RegExp('^http?://'));
   }
 }

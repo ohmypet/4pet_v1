@@ -30,7 +30,7 @@ part 'title_post_input.dart';
 
 TextStyle _getTitleTextStyle(BuildContext context) {
   final theme = Theme.of(context);
-  return theme.textTheme.display4.copyWith(
+  return theme.textTheme.headline1.copyWith(
     fontSize: 16,
     fontWeight: FontWeight.w600,
     color: theme.accentColor.withAlpha(225),
@@ -41,7 +41,8 @@ class _TitleWidget extends StatelessWidget {
   final String title;
   final bool isRequired;
 
-  const _TitleWidget({Key key, @required this.title, this.isRequired = false}) : super(key: key);
+  const _TitleWidget({Key key, @required this.title, this.isRequired = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

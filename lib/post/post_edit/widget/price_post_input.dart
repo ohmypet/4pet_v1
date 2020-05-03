@@ -15,7 +15,8 @@ class _PricePostInputState extends State<PricePostInput> {
   @override
   void initState() {
     super.initState();
-    if (widget.bloc.price > 0) textController.text = widget.bloc.price.toString();
+    if (widget.bloc.price > 0)
+      textController.text = widget.bloc.price.toString();
   }
 
   @override
@@ -39,7 +40,9 @@ class _PricePostInputState extends State<PricePostInput> {
               hintText: 'Nhập giá tiền...',
               keyboardType: TextInputType.number,
               onChange: (String text) {
-                if (text.trim() == null || text.trim().isEmpty || double.parse(text.trim()) <= 0) {
+                if (text.trim() == null ||
+                    text.trim().isEmpty ||
+                    double.parse(text.trim()) <= 0) {
                   widget.bloc.priceChange(-1);
                 } else {
                   widget.bloc.priceChange(double.parse(text.trim()));

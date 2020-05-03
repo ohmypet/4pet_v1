@@ -64,7 +64,9 @@ List<Map<String, dynamic>> _tagsToJson(List<Tag> tags) {
 
 List<PetImage> parseImages(List<Map<String, dynamic>> images) {
   images ??= <Map<String, dynamic>>[];
-  return images.map((Map<String, dynamic> item) => PetImage.fromJson(item)).toList();
+  return images
+      .map((Map<String, dynamic> item) => PetImage.fromJson(item))
+      .toList();
 }
 
 DateTime _parseDateTime(String time) {

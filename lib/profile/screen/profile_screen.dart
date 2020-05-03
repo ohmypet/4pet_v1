@@ -16,7 +16,8 @@ class _ProfileScreenState extends TState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final spacer = SizedBox(height: 5);
-    final Account account = DI.get<AuthenticationBloc>(AuthenticationBloc).account;
+    final Account account =
+        DI.get<AuthenticationBloc>(AuthenticationBloc).account;
     final image = account.user?.avatar?.url;
     return Scaffold(
       body: ListView(

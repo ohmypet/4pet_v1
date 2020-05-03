@@ -24,8 +24,8 @@ class NotificationRepositoryImpl extends NotificationRepository {
 
   @override
   Future<PetNotification> readNotification(String id) {
-    return client.put<Map<String, dynamic>>(
-        '/api/notification/$id', {}).then((json) => PetNotification.fromJson(json));
+    return client.put<Map<String, dynamic>>('/api/notification/$id', {}).then(
+        (json) => PetNotification.fromJson(json));
   }
 
   FutureOr<List<PetNotification>> _parseToNotifications(List items) {

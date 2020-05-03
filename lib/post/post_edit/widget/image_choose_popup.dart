@@ -31,7 +31,7 @@ class _ImageChoosePopupState extends TState<ImageChoosePopup> {
   }
 
   void onTapGallery() async {
-    File imageFile = await FilePicker.getFile(type: FileType.IMAGE);
+    File imageFile = await FilePicker.getFile(type: FileType.image);
     Log.info('Image File Path after get by galery:: ${imageFile?.path}');
     Navigator.of(context).pop<File>(imageFile);
   }

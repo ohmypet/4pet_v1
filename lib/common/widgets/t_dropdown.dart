@@ -52,6 +52,7 @@ class _TDropDownState extends State<TDropDown> {
     setState(() {
       currentSelected = value;
     });
-    if (widget.onSelectedChanged != null) widget.onSelectedChanged(currentSelected);
+    if (widget.onSelectedChanged != null)
+      widget.onSelectedChanged(currentSelected);
   }
 }
