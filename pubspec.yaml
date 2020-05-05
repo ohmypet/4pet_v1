@@ -65,7 +65,6 @@ flutter:
         - assets/icons/pet_type/
         - assets/icons/kitty/
         - assets/images/
-        - assets/videos/
         - assets/flare/
 
     fonts:
