@@ -1,8 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_template/common/widgets/widgets.dart';
 import 'package:flutter_template/petisland.dart';
 
 class TSliverAppBar extends SliverPersistentHeaderDelegate {
-  const TSliverAppBar({this.maxExtent = 200, this.minExtent = kToolbarHeight});
+  @override
+  final double maxExtent;
+
+  @override
+  final double minExtent;
+
+  final String avatarUrl;
+
+  final String backgroundUrl;
+
+  const TSliverAppBar(
+      {this.maxExtent = 200,
+      this.minExtent = kToolbarHeight,
+      this.avatarUrl,
+      this.backgroundUrl});
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -10,10 +26,8 @@ class TSliverAppBar extends SliverPersistentHeaderDelegate {
     return Stack(
       fit: StackFit.expand,
       children: [
-        Image.network(
-          "https://github.com/tvc12.png",
-          fit: BoxFit.cover,
-        ),
+        Container(decoration: BoxDecoration(gradient: TGradients.avatarGradient),),
+        _getAvatar(avatarUrl),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
@@ -27,45 +41,56 @@ class TSliverAppBar extends SliverPersistentHeaderDelegate {
             ),
           ),
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Opacity(
-            opacity: (1 - shrinkOffset / maxExtent),
-            child: GestureDetector(
-              onTap: _onTap,
-              child: Card(
-                elevation: 5,
-                child: SizedBox(
-                  width: maxExtent / 2,
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                      child: Image.network(
-                        'https://github.com/tvc12.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+        Flex(
+          direction: Axis.vertical,
+          children: <Widget>[
+            Flexible(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Opacity(
+                  opacity: (1 - shrinkOffset / maxExtent),
+                  child: GestureDetector(
+                    onTap: _onTap,
+                    child: buildAvatar(),
                   ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ],
     );
   }
 
-  @override
-  final double maxExtent;
+  Widget _getAvatar(String avatar) {
+    return avatarUrl != null
+        ? TCacheImageWidget(url: avatarUrl)
+        : SvgPicture.asset(TAssets.user_avatar);
+  }
 
-  @override
-  final double minExtent;
+  Widget buildAvatar() {
+    final image = _getAvatar(avatarUrl);
+    return FittedBox(
+      child: Card(
+        elevation: 1,
+        child: SizedBox(
+          width: maxExtent / 2,
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(4.0)),
+              child: image,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 
   void _onTap() {
-    Log.info("_onTap:: ${DateTime.now()}");
+    Log.info('_onTap:: ${DateTime.now()}');
   }
 }
