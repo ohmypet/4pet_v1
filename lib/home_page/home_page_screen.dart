@@ -32,8 +32,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
         PetFeedScreen(),
         NotificationScreen(),
         ChatScreen(),
-        // NewProfileScreen(),
-        ProfileScreen(bloc: widget.bloc)
+        NewProfileScreen(),
+        // ProfileScreen(bloc: widget.bloc)
       ],
       iconBuilder: (_, int index, bool isSelected) {
         return isSelected

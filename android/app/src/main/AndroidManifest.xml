@@ -11,7 +11,8 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="Đảo thú cưng"
         android:icon="@mipmap/launcher_icon"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

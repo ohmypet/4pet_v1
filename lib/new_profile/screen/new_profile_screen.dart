@@ -31,19 +31,36 @@ class _NewProfileScreenState extends TState<NewProfileScreen> {
             )
           ];
         },
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverFillRemaining(child: _buildUserInfo(), hasScrollBody: false),
-            SliverFillRemaining(child: _buildActionBar()),
-            SliverFillRemaining(
-              child: BlocConsumer<MyPostBloc, MyPostState>(
-                bloc: bloc,
-                listener: _onListChanged,
-                buildWhen: (_, state) => state is ReloadMyPost,
-                builder: _buildUIState,
+        body: SmartRefresher(
+          controller: controller,
+          physics: ClampingScrollPhysics(),
+          primary: true,
+          enablePullDown: true,
+          enablePullUp: true,
+          onLoading: _onLoading,
+          onRefresh: _onRefresh,
+          child: CustomScrollView(
+            primary: true,
+            slivers: <Widget>[
+              // Sliver,
+              SliverFillRemaining(
+                child: _buildUserInfo(),
+                fillOverscroll: false,
               ),
-            ),
-          ],
+              SliverAppBar(),
+              // SliverLayoutBuilder(builder: (_, __) => _buildActionBar()),
+              // SliverFillRemaining(child: _buildActionBar()),
+              SliverFillRemaining(
+                fillOverscroll: false,
+                child: BlocConsumer<MyPostBloc, MyPostState>(
+                  bloc: bloc,
+                  listener: _onListChanged,
+                  buildWhen: (_, state) => state is ReloadMyPost,
+                  builder: _buildUIState,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -61,7 +78,30 @@ class _NewProfileScreenState extends TState<NewProfileScreen> {
   }
 
   Widget _buildActionBar() {
-    return Container(color: TColors.scarlet_gum, height: 50);
+    return Container(color: TColors.scarlet_gum);
+  }
+
+  Widget _buildDisplayName(String displayName) {
+    final theme = Theme.of(context);
+    return Text(
+      displayName,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      style: theme.textTheme.headline1.copyWith(
+        fontSize: 16,
+        fontWeight: FontWeight.w800,
+      ),
+    );
+  }
+
+  Widget _buildLocation(String locationName) {
+    final theme = Theme.of(context);
+
+    return Text(locationName,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: theme.textTheme.bodyText2
+            .copyWith(fontSize: 14, fontWeight: FontWeight.w300));
   }
 
   Widget _buildTabs({List<Widget> tabs}) {
@@ -77,27 +117,18 @@ class _NewProfileScreenState extends TState<NewProfileScreen> {
   Widget _buildUIState(BuildContext context, MyPostState state) {
     if (state is ReloadMyPost) {
       final items = state.items;
-      return SmartRefresher(
-        controller: controller,
-        physics: ClampingScrollPhysics(),
-        enablePullDown: true,
+      return ListView.separated(
         primary: true,
-        enablePullUp: true,
-        onRefresh: _onRefresh,
-        onLoading: _onLoading,
-        child: ListView.separated(
-          primary: false,
-          physics: ClampingScrollPhysics(),
-          padding: const EdgeInsets.all(20),
-          itemCount: state.items.length,
-          itemBuilder: (_, index) {
-            final PanelDetail notification = items[index];
-            return PostWidget(notification.postItem);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return Divider();
-          },
-        ),
+        physics: ClampingScrollPhysics(),
+        padding: const EdgeInsets.all(20),
+        itemCount: state.items.length,
+        itemBuilder: (_, index) {
+          final PanelDetail notification = items[index];
+          return PostWidget(notification.postItem);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return Divider();
+        },
       );
     } else
       return SizedBox();
@@ -105,12 +136,11 @@ class _NewProfileScreenState extends TState<NewProfileScreen> {
 
   Widget _buildUserInfo() {
     return Flex(
-      mainAxisSize: MainAxisSize.max,
+      mainAxisSize: MainAxisSize.min,
       direction: Axis.vertical,
       children: <Widget>[
-        Text(
-            'Meo Meo log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }'),
-        Text('Con Cho Con Meo'),
+        _buildDisplayName('Vi Chi Thien'),
+        _buildLocation('Sông Ray, Đồng Nai'),
       ],
     );
   }
@@ -131,10 +161,5 @@ class _NewProfileScreenState extends TState<NewProfileScreen> {
 
   void _onRefresh() {
     bloc.reload();
-  }
-
-  Widget _buildText() {
-    return Text(
-        'Meo Meo log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 }log_debug:: MyPostBloc: Transition { currentState: InitMyPostState, event: _ReloadUIEvent, nextState: ReloadMyPost-1 abcxyzabcxyzabcxyzabcxyzabcxyzabcxyzabcxyzabcxyzabcxyzabcxyzabcxyzabcxyz}');
   }
 }
