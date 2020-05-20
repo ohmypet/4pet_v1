@@ -8,8 +8,8 @@ class PostWidget extends PostItemRender<Post> {
     return AspectRatio(
       aspectRatio: 16 / 9,
       child: Card(
-        elevation: 2,
-        borderOnForeground: false,
+        elevation: 1,
+        borderOnForeground: true,
         child: Flex(
           mainAxisSize: MainAxisSize.max,
           direction: Axis.vertical,

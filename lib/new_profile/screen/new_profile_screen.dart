@@ -1,6 +1,7 @@
 import 'package:ddi/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/state/state.dart';
+import 'package:flutter_template/home_page/widget/widget.dart';
 import 'package:flutter_template/new_profile/widget/tsliver_appbar.dart';
 import 'package:flutter_template/pet_feed/widget/post/post.dart';
 import 'package:flutter_template/petisland.dart';
@@ -13,9 +14,12 @@ class NewProfileScreen extends StatefulWidget {
   _NewProfileScreenState createState() => _NewProfileScreenState();
 }
 
-class _NewProfileScreenState extends TState<NewProfileScreen> {
+class _NewProfileScreenState extends TState<NewProfileScreen>
+    with SingleTickerProviderStateMixin {
   final MyPostBloc bloc = DI.get(MyPostBloc);
   final RefreshController controller = RefreshController();
+  final tabs = [Text('My post'), Text('Liked post')];
+  TabController tabController;
 
   @override
   Widget build(BuildContext context) {
@@ -42,21 +46,31 @@ class _NewProfileScreenState extends TState<NewProfileScreen> {
           child: CustomScrollView(
             primary: true,
             slivers: <Widget>[
-              // Sliver,
-              SliverFillRemaining(
-                child: _buildUserInfo(),
-                fillOverscroll: false,
-              ),
-              SliverAppBar(),
-              // SliverLayoutBuilder(builder: (_, __) => _buildActionBar()),
-              // SliverFillRemaining(child: _buildActionBar()),
+              SliverToBoxAdapter(child: _buildUserInfo()),
               SliverFillRemaining(
                 fillOverscroll: false,
-                child: BlocConsumer<MyPostBloc, MyPostState>(
-                  bloc: bloc,
-                  listener: _onListChanged,
-                  buildWhen: (_, state) => state is ReloadMyPost,
-                  builder: _buildUIState,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    BottomBarSelector(
+                      controller: tabController,
+                      builder: iconBuilder,
+                    ),
+                    Flexible(
+                      child: TabBarView(
+                        controller: tabController,
+                        children: [
+                          BlocConsumer<MyPostBloc, MyPostState>(
+                            bloc: bloc,
+                            listener: _onListChanged,
+                            buildWhen: (_, state) => state is ReloadMyPost,
+                            builder: _buildUIState,
+                          ),
+                          Container(color: TColors.water_melon)
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -75,6 +89,11 @@ class _NewProfileScreenState extends TState<NewProfileScreen> {
   void initState() {
     super.initState();
     bloc.reload();
+    tabController = TabController(
+      initialIndex: 0,
+      vsync: this,
+      length: 2,
+    );
   }
 
   Widget _buildActionBar() {
@@ -120,11 +139,11 @@ class _NewProfileScreenState extends TState<NewProfileScreen> {
       return ListView.separated(
         primary: true,
         physics: ClampingScrollPhysics(),
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         itemCount: state.items.length,
         itemBuilder: (_, index) {
-          final PanelDetail notification = items[index];
-          return PostWidget(notification.postItem);
+          final PanelDetail postDetail = items[index];
+          return PostWidget(postDetail.postItem);
         },
         separatorBuilder: (BuildContext context, int index) {
           return Divider();
@@ -161,5 +180,15 @@ class _NewProfileScreenState extends TState<NewProfileScreen> {
 
   void _onRefresh() {
     bloc.reload();
+  }
+
+  Widget iconBuilder(BuildContext context, int index, bool isSelected) {
+    final theme = Theme.of(context);
+    return DefaultTextStyle(
+      style: theme.textTheme.headline6.copyWith(
+        color: isSelected ? TColors.water_melon : TColors.black,
+      ),
+      child: tabs[index],
+    );
   }
 }
