@@ -12,8 +12,7 @@ class MainAppScreen extends TStatefulWidget {
 
 class _MainAppScreenState extends TState<MainAppScreen> {
   MainAppBloc get bloc => widget.bloc;
-  final AuthenticationBloc authBloc =
-      DI.get<AuthenticationBloc>(AuthenticationBloc);
+  final AuthenticationBloc authBloc = DI.get<AuthenticationBloc>(AuthenticationBloc);
 
   void initState() {
     super.initState();
@@ -25,6 +24,10 @@ class _MainAppScreenState extends TState<MainAppScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        // this line is important
+        RefreshLocalizations.delegate,
+      ],
       title: TConstants.pet_island,
       theme: bloc.lightTheme.getTheme(),
       darkTheme: bloc.dartTheme.getTheme(),

@@ -160,4 +160,7 @@ class Post extends BaseModel implements PostItem {
   List<Map<String, dynamic>> _postImageToJson(List<PostImage> postImages) {
     return postImages.map((PostImage postImage) => postImage.toJson()).toList();
   }
+
+  @override
+  String get key => id;
 }

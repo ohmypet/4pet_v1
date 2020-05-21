@@ -19,4 +19,7 @@ class PetCategory extends BaseModel implements PostItem {
     description = json['description'];
     image = json['image'] != null ? PetImage.fromJson(json['image']) : null;
   }
+
+  @override
+  String get key => id;
 }

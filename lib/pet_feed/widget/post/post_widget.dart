@@ -1,7 +1,7 @@
 part of petisland.pet_feed.widget.post;
 
 class PostWidget extends PostItemRender<Post> {
-  PostWidget(Post item) : super(item);
+  const PostWidget(Post item, {Key key}) : super(item, key: key);
 
   @override
   Widget build(BuildContext context) {

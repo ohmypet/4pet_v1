@@ -5,7 +5,10 @@ import 'package:flutter_template/home_page/widget/widget.dart';
 import 'package:flutter_template/new_profile/widget/tsliver_appbar.dart';
 import 'package:flutter_template/pet_feed/widget/post/post.dart';
 import 'package:flutter_template/petisland.dart';
+import 'package:flutter_template/profile/bloc/favorite_post/favorite_post.dart';
 import 'package:flutter_template/profile/bloc/my_post/my_post.dart';
+import 'package:flutter_template/profile/widget/favorite_post_component.dart';
+import 'package:flutter_template/profile/widget/my_post_component.dart';
 import 'package:petisland_core/domain/domain.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -16,7 +19,9 @@ class NewProfileScreen extends StatefulWidget {
 
 class _NewProfileScreenState extends TState<NewProfileScreen>
     with SingleTickerProviderStateMixin {
-  final MyPostBloc bloc = DI.get(MyPostBloc);
+  final MyPostBloc myPostbloc = DI.get(MyPostBloc);
+  final FavoritePostBloc favoriteBloc = DI.get(FavoritePostBloc);
+
   final RefreshController controller = RefreshController();
   final tabs = [Text('My post'), Text('Liked post')];
   TabController tabController;
@@ -37,12 +42,10 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
         },
         body: SmartRefresher(
           controller: controller,
-          physics: ClampingScrollPhysics(),
-          primary: true,
           enablePullDown: true,
           enablePullUp: true,
-          onLoading: _onLoading,
           onRefresh: _onRefresh,
+          onLoading: _onLoading,
           child: CustomScrollView(
             primary: true,
             slivers: <Widget>[
@@ -61,12 +64,17 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
                         controller: tabController,
                         children: [
                           BlocConsumer<MyPostBloc, MyPostState>(
-                            bloc: bloc,
-                            listener: _onListChanged,
+                            bloc: myPostbloc,
+                            listener: _onMyListChanged,
                             buildWhen: (_, state) => state is ReloadMyPost,
-                            builder: _buildUIState,
+                            builder: _buildMyPostUIState,
                           ),
-                          Container(color: TColors.water_melon)
+                          BlocConsumer<FavoritePostBloc, FavoritePostState>(
+                            bloc: favoriteBloc,
+                            listener: _onFavoriteListChanged,
+                            buildWhen: (_, state) => state is ReloadFavoritePost,
+                            builder: _buildFavoriteUIState,
+                          )
                         ],
                       ),
                     ),
@@ -80,24 +88,25 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  Widget iconBuilder(BuildContext context, int index, bool isSelected) {
+    final theme = Theme.of(context);
+    return DefaultTextStyle(
+      style: theme.textTheme.headline6.copyWith(
+        color: isSelected ? TColors.water_melon : TColors.black,
+      ),
+      child: tabs[index],
+    );
   }
 
   @override
   void initState() {
     super.initState();
-    bloc.reload();
+    myPostbloc.reload();
     tabController = TabController(
       initialIndex: 0,
       vsync: this,
       length: 2,
     );
-  }
-
-  Widget _buildActionBar() {
-    return Container(color: TColors.scarlet_gum);
   }
 
   Widget _buildDisplayName(String displayName) {
@@ -113,14 +122,63 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
     );
   }
 
+  Widget _buildFavoriteUIState(BuildContext context, FavoritePostState state) {
+    if (state is ReloadFavoritePost) {
+      final items = state.items;
+      return ListView.separated(
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        itemCount: state.items.length,
+        itemBuilder: (_, index) {
+          final PanelDetail panel = items[index];
+          return PostWidget(
+            panel.postItem,
+            key: UniqueKey(),
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return Divider();
+        },
+      );
+    } else
+      return SizedBox();
+  }
+
   Widget _buildLocation(String locationName) {
     final theme = Theme.of(context);
 
-    return Text(locationName,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: theme.textTheme.bodyText2
-            .copyWith(fontSize: 14, fontWeight: FontWeight.w300));
+    return Text(
+      locationName,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: theme.textTheme.bodyText2.copyWith(
+        fontSize: 14,
+        fontWeight: FontWeight.w300,
+      ),
+    );
+  }
+
+  Widget _buildMyPostUIState(BuildContext context, MyPostState state) {
+    if (state is ReloadMyPost) {
+      final items = state.items;
+      return ListView.separated(
+        primary: true,
+        physics: ClampingScrollPhysics(),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        itemCount: state.items.length,
+        itemBuilder: (_, index) {
+          final PanelDetail postDetail = items[index];
+          return PostWidget(
+            postDetail.postItem,
+            key: UniqueKey(),
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return Divider();
+        },
+      );
+    } else
+      return SizedBox();
   }
 
   Widget _buildTabs({List<Widget> tabs}) {
@@ -131,26 +189,6 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
         Flexible(child: tabs.first)
       ],
     );
-  }
-
-  Widget _buildUIState(BuildContext context, MyPostState state) {
-    if (state is ReloadMyPost) {
-      final items = state.items;
-      return ListView.separated(
-        primary: true,
-        physics: ClampingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        itemCount: state.items.length,
-        itemBuilder: (_, index) {
-          final PanelDetail postDetail = items[index];
-          return PostWidget(postDetail.postItem);
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider();
-        },
-      );
-    } else
-      return SizedBox();
   }
 
   Widget _buildUserInfo() {
@@ -164,8 +202,8 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
     );
   }
 
-  void _onListChanged(BuildContext context, MyPostState state) {
-    if (state is! ReloadMyPost) return;
+  void _onFavoriteListChanged(BuildContext context, FavoritePostState state) {
+    if (state is! ReloadFavoritePost) return;
     if (controller.isLoading) {
       controller.loadComplete();
     }
@@ -175,20 +213,30 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
   }
 
   void _onLoading() {
-    bloc.retrievePost();
+    if (tabController.index == MyProfileTab.LikedPost.index) {
+      myPostbloc.retrievePost();
+    } else {
+      favoriteBloc.retrievePost();
+    }
+  }
+
+  void _onMyListChanged(BuildContext context, MyPostState state) {
+    if (state is! ReloadMyPost) return;
+    if (controller.isLoading) {
+      controller.loadComplete();
+    }
+    if (controller.isRefresh) {
+      controller.refreshCompleted();
+    }
   }
 
   void _onRefresh() {
-    bloc.reload();
-  }
-
-  Widget iconBuilder(BuildContext context, int index, bool isSelected) {
-    final theme = Theme.of(context);
-    return DefaultTextStyle(
-      style: theme.textTheme.headline6.copyWith(
-        color: isSelected ? TColors.water_melon : TColors.black,
-      ),
-      child: tabs[index],
-    );
+    if (tabController.index == MyProfileTab.MyPost.index) {
+      myPostbloc.reload();
+    } else {
+      favoriteBloc.reload();
+    }
   }
 }
+
+enum MyProfileTab { MyPost, LikedPost }
