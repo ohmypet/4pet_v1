@@ -4,7 +4,9 @@ abstract class Item {
   Map<String, dynamic> toJson();
 }
 
-abstract class PostItem extends Item {}
+abstract class PostItem extends Item {
+  String get key;
+}
 
 class PanelDetail extends Item {
   String type;

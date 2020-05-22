@@ -1,15 +1,15 @@
 part of petisland.pet_feed.widget.post;
 
 class PostWidget extends PostItemRender<Post> {
-  PostWidget(Post item) : super(item);
+  const PostWidget(Post item, {Key key}) : super(item, key: key);
 
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 16 / 9,
       child: Card(
-        elevation: 2,
-        borderOnForeground: false,
+        elevation: 1,
+        borderOnForeground: true,
         child: Flex(
           mainAxisSize: MainAxisSize.max,
           direction: Axis.vertical,

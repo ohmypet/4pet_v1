@@ -32,6 +32,9 @@ linter:
     - non_constant_identifier_names
     - null_closures
     - only_throw_errors
+    - prefer_is_empty
+    - prefer_if_null_operators
+    - prefer_null_aware_operators
 analyzer:
   errors:
     # avoid_as: error

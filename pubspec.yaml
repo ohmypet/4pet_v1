@@ -49,6 +49,7 @@ dev_dependencies:
     pedantic: 1.9.0
     flutter_native_splash: 0.1.9
 
+
 flutter_icons:
     android: 'launcher_icon'
     ios: true
@@ -65,7 +66,6 @@ flutter:
         - assets/icons/pet_type/
         - assets/icons/kitty/
         - assets/images/
-        - assets/videos/
         - assets/flare/
 
     fonts:
