@@ -2,15 +2,16 @@ import 'package:ddi/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/state/state.dart';
 import 'package:flutter_template/home_page/widget/widget.dart';
+import 'package:flutter_template/new_profile/screen/edit_profile_screen.dart';
 import 'package:flutter_template/new_profile/widget/tsliver_appbar.dart';
 import 'package:flutter_template/pet_feed/widget/post/post.dart';
 import 'package:flutter_template/petisland.dart';
 import 'package:flutter_template/profile/bloc/favorite_post/favorite_post.dart';
 import 'package:flutter_template/profile/bloc/my_post/my_post.dart';
-import 'package:flutter_template/profile/widget/favorite_post_component.dart';
-import 'package:flutter_template/profile/widget/my_post_component.dart';
 import 'package:petisland_core/domain/domain.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+enum MyProfileTab { MyPost, LikedPost }
 
 class NewProfileScreen extends StatefulWidget {
   @override
@@ -19,11 +20,15 @@ class NewProfileScreen extends StatefulWidget {
 
 class _NewProfileScreenState extends TState<NewProfileScreen>
     with SingleTickerProviderStateMixin {
+  final Account account = DI.get<AuthenticationBloc>(AuthenticationBloc).account;
   final MyPostBloc myPostbloc = DI.get(MyPostBloc);
   final FavoritePostBloc favoriteBloc = DI.get(FavoritePostBloc);
 
   final RefreshController controller = RefreshController();
-  final tabs = [Text('My post'), Text('Liked post')];
+  final tabs = [
+    Text('My Post'),
+    Text('Liked Post'),
+  ];
   TabController tabController;
 
   @override
@@ -36,7 +41,10 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
             SliverPersistentHeader(
               pinned: false,
               floating: true,
-              delegate: TSliverAppBar(maxExtent: 200),
+              delegate: TSliverAppBar(
+                maxExtent: 180,
+                avatarUrl: account?.user?.avatar?.url,
+              ),
             )
           ];
         },
@@ -54,7 +62,7 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
                 fillOverscroll: false,
                 child: Column(
                   children: [
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 15),
                     BottomBarSelector(
                       controller: tabController,
                       builder: iconBuilder,
@@ -181,23 +189,34 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
       return SizedBox();
   }
 
-  Widget _buildTabs({List<Widget> tabs}) {
-    return Flex(
-      direction: Axis.vertical,
-      children: <Widget>[
-        Container(color: TColors.sky, height: 35),
-        Flexible(child: tabs.first)
-      ],
-    );
-  }
-
   Widget _buildUserInfo() {
+    final name = account.getName();
+    final address = account?.user?.address;
+    final theme = Theme.of(context);
     return Flex(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       direction: Axis.vertical,
       children: <Widget>[
-        _buildDisplayName('Vi Chi Thien'),
-        _buildLocation('Sông Ray, Đồng Nai'),
+        Flex(
+          direction: Axis.horizontal,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildDisplayName(name),
+            SizedBox(width: 2),
+            GestureDetector(
+              onTap: _onTapEdit,
+              child: Icon(
+                Icons.edit,
+                color: theme.primaryColor,
+                size: 16,
+              ),
+            ),
+          ],
+        ),
+        address != null ? _buildLocation(address) : SizedBox(),
       ],
     );
   }
@@ -237,6 +256,11 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
       favoriteBloc.reload();
     }
   }
-}
 
-enum MyProfileTab { MyPost, LikedPost }
+  void _onTapEdit() {
+    navigateToScreen(
+      context: context,
+      screen: EditProfileScreen(),
+    );
+  }
+}

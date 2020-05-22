@@ -16,8 +16,7 @@ class _ProfileScreenState extends TState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final spacer = SizedBox(height: 5);
-    final Account account =
-        DI.get<AuthenticationBloc>(AuthenticationBloc).account;
+    final Account account = DI.get<AuthenticationBloc>(AuthenticationBloc).account;
     final image = account.user?.avatar?.url;
     return Scaffold(
       body: ListView(
@@ -26,7 +25,10 @@ class _ProfileScreenState extends TState<ProfileScreen> {
         children: <Widget>[
           const SizedBox(height: 25),
           ChooseAvatarWidget(avatar: AvatarWidget(url: image)),
-          _buildName(context, account),
+          GestureDetector(
+            child: _buildName(context, account),
+            onTap: _onTapName,
+          ),
           _buildDarkMode(),
           Divider(),
           ProfileDetailWidget(
@@ -112,5 +114,12 @@ class _ProfileScreenState extends TState<ProfileScreen> {
 
   void _onTapProfile() {
     // TODO(tvc12): navigate to profile
+  }
+
+  void _onTapName() {
+    navigateToScreen(
+      context: context,
+      screen: NewProfileScreen(),
+    );
   }
 }
