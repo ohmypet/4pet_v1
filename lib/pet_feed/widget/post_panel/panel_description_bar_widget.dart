@@ -48,7 +48,7 @@ class _PanelDescriptionBar extends StatelessWidget {
         text: TextSpan(
           children: [
             TextSpan(
-              text: 'Xem thêm',
+              text: 'See more',
               style: style.copyWith(decoration: TextDecoration.underline),
             ),
             TextSpan(text: ' >>', style: style.copyWith(fontSize: 12))

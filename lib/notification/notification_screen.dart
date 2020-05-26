@@ -20,12 +20,15 @@ class _NotificationScreenState extends TState<NotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: TColors.white,
         title: Text(
-          'Thông báo',
-          style: TTextStyles.bold(fontSize: 18),
+          'Notification',
+          style: TTextStyles.bold(
+            fontSize: 18,
+            color: TColors.white
+          ),
           textAlign: TextAlign.start,
         ),
+        elevation: 1,
         centerTitle: true,
       ),
       body: BlocBuilder<NotificationBloc, NotificationState>(

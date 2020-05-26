@@ -31,7 +31,7 @@ class SettingOptionWidget extends StatelessWidget {
           children: <Widget>[
             icon,
             SizedBox(width: 10),
-            Expanded(child: text),
+            Expanded(child: text, flex: 2),
             Spacer(),
             trailing,
           ],

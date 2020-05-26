@@ -13,14 +13,17 @@ class _FavoritePostScreenState extends State<FavoritePostScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Bài viết bạn đã thích',
-          style: TTextStyles.bold(fontSize: 18),
+          'Liked Post',
+          style: TTextStyles.bold(
+            fontSize: 18,
+            color: TColors.white,
+          ),
         ),
         centerTitle: true,
-        backgroundColor: TColors.white,
+        elevation: 1,
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: TColors.black),
+          icon: Icon(Icons.arrow_back_ios, color: TColors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),

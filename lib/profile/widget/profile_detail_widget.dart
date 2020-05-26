@@ -26,7 +26,7 @@ class ProfileDetailWidget extends StatelessWidget {
 
   Widget _buildMyInfo() {
     return SettingOptionWidget(
-      title: 'Thông tin của bạn',
+      title: 'Your Profile',
       onTap: onTapProfile,
       icon: Icon(Icons.person, color: TColors.scarlet_gum),
       trailing: Icon(
@@ -38,7 +38,7 @@ class ProfileDetailWidget extends StatelessWidget {
 
   Widget _buildMyPost() {
     return SettingOptionWidget(
-      title: 'Bài viết của bạn',
+      title: 'Your Post',
       onTap: onTapMyPost,
       icon: SvgIconWidget(
         icon: SvgPicture.asset(
@@ -55,7 +55,7 @@ class ProfileDetailWidget extends StatelessWidget {
 
   Widget _buildLikePost() {
     return SettingOptionWidget(
-      title: 'Bài viết bạn đã thích',
+      title: 'Liked Post',
       onTap: onTapPostLiked,
       icon: Icon(
         Icons.favorite,

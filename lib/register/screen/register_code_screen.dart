@@ -22,8 +22,7 @@ class RegisterCodeScreen extends TStatelessWidget {
             key: scaffoldKey,
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-              backgroundColor: TColors.white,
-              elevation: 2,
+              elevation: 1,
               automaticallyImplyLeading: false,
               leading: Center(
                 child: IconButton(
@@ -31,13 +30,16 @@ class RegisterCodeScreen extends TStatelessWidget {
                   icon: Icon(
                     Icons.arrow_back_ios,
                     size: 24,
-                    color: theme.accentColor,
+                    color: TColors.white,
                   ),
                 ),
               ),
               title: Text(
-                'Nhập mã xác nhận',
-                style: TTextStyles.bold(fontSize: 18),
+                'Verify Email',
+                style: TTextStyles.bold(
+                  fontSize: 18,
+                  color: TColors.white,
+                ),
               ),
               centerTitle: true,
             ),

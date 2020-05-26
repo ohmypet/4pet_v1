@@ -13,30 +13,27 @@ class RegisterEmailScreen extends TStatelessWidget {
     final theme = Theme.of(context);
     return AnimatedPadding(
       duration: timeAnimation,
-      padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Stack(
         children: <Widget>[
           Scaffold(
             key: scaffoldKey,
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-              backgroundColor: TColors.white,
-              elevation: 2,
+              elevation: 1,
               automaticallyImplyLeading: false,
               leading: Center(
                 child: IconButton(
                   onPressed: () => _onTapBack(context),
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    size: 24,
-                    color: theme.accentColor,
-                  ),
+                  icon: Icon(Icons.arrow_back_ios, size: 24, color: TColors.white),
                 ),
               ),
               title: Text(
-                'Đăng ký tài khoản',
-                style: TTextStyles.bold(fontSize: 18),
+                'Register Account',
+                style: TTextStyles.bold(
+                  fontSize: 18,
+                  color: TColors.white,
+                ),
               ),
               centerTitle: true,
             ),

@@ -23,7 +23,7 @@ class _PostButtonLikeWidgetState extends State<PostButtonLikeWidget> {
       padding: EdgeInsets.zero,
       label: Flexible(
         child: Text(
-          '$likes thích',
+          '$likes Like',
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: theme.textTheme.headline1

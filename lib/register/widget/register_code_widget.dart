@@ -26,9 +26,9 @@ class _RegisterCodeWidgetState extends TState<RegisterCodeWidget> {
             UserInputWidget(
               codeController,
               focusNode: codeFocusNode,
-              hintText: 'Nhập mã xác nhận',
+              hintText: 'Confirm code',
               keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.left,
               icon: Icon(Icons.code, size: 22),
               onSubmit: _onCodeSubmitted,
               onChange: _onTextChanged,
@@ -36,7 +36,7 @@ class _RegisterCodeWidgetState extends TState<RegisterCodeWidget> {
             Opacity(
               opacity: isValid(codeController.text.length) ? 1 : 0.2,
               child: PetIslandButtonWidget(
-                text: 'Tiếp',
+                text: 'Next',
                 onTap: isValid(codeController.text.length)
                     ? _onCodeSubmitted
                     : null,
