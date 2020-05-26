@@ -74,3 +74,4 @@ ios/Runner/GoogleService-Info.plist
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 **/build
 .vscode
+.flutter-plugins-dependencies
