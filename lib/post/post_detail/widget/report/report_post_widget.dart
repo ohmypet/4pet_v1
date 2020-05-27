@@ -18,8 +18,7 @@ class KikiReportWidget extends StatefulWidget {
 class _KikiReportWidgetState extends TState<KikiReportWidget> {
   bool isActive = false;
 
-  final List<String> feedbackOption =
-      DI.get<AuthenticationBloc>(AuthenticationBloc).reportContents;
+  final List<String> feedbackOption = DI.get<AuthenticationBloc>(AuthenticationBloc).reportContents;
   List<bool> optionChosen;
 
   void callbackSetState() {
@@ -65,8 +64,7 @@ class _KikiReportWidgetState extends TState<KikiReportWidget> {
   }
 
   Widget _buildTitle() {
-    final String title =
-        'Chúng tôi sẽ ghi nhận phản hồi của bạn về bài viết này. Đó sẽ là cơ sở giúp chúng tôi tìm hiểu vấn đề bài viết này đang gặp phải.';
+    final String title = 'You can report this after selecting a problem. Please note we have fewer reviewers available right now.';
     return ListTile(
       leading: Icon(
         Icons.report,
@@ -74,7 +72,7 @@ class _KikiReportWidgetState extends TState<KikiReportWidget> {
       ),
       title: Text(
         title,
-        style: TTextStyles.bold(fontSize: 16, color: TColors.black),
+        style: TTextStyles.semi(fontSize: 14, color: TColors.black),
       ),
       trailing: SizedBox(width: 15),
     );
@@ -86,10 +84,10 @@ class _KikiReportWidgetState extends TState<KikiReportWidget> {
         isActive ? theme.accentTextTheme.button : theme.textTheme.button;
     final VoidCallback onTap = isActive ? _onTapButton : null;
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       margin: const EdgeInsets.symmetric(horizontal: 15),
       child: FlatButton(
-        child: Text('BÁO CÁO', style: style.copyWith(fontSize: 22)),
+        child: Text('REPORT', style: style.copyWith(fontSize: 22)),
         color: theme.primaryColor,
         onPressed: onTap,
         disabledColor: TColors.duck_egg_blue,
