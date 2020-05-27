@@ -124,7 +124,7 @@ class _NotificationScreenState extends TState<NotificationScreen> {
     );
     if (data == PopResult.Failure) {
       showErrorSnackBar(
-          context: context, content: 'Lỗi không tải được bài viết');
+          context: context, content: 'Can\'t load post, try again later!');
     }
 
     bloc.startListener();

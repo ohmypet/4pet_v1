@@ -51,7 +51,7 @@ Widget buildTextDescription(BuildContext context, String text) {
   return DefaultTextStyle(
     style: TTextStyles.semi(
       letterSpacing: 0.3,
-      fontSize: 20,
+      fontSize: 16,
       color: theme.accentColor.withAlpha(128),
     ),
     child: Text(text),

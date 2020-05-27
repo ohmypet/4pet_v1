@@ -61,7 +61,7 @@ class SummaryInfoWidget extends TStatelessWidget {
   }
 
   Widget _buildInfo(String title, double price, String location) {
-    title = title.isEmpty ? 'Thú cưng của bạn' : title;
+    title = title.isEmpty ? 'I want to sell' : title;
     // location = location.isEmpty ? 'HCM' : location;
     return Flexible(
       flex: 2,

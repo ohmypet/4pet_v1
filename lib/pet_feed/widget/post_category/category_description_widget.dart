@@ -17,7 +17,10 @@ class _CategoryDescriptionWidget extends StatelessWidget {
       child: Container(
         alignment: Alignment.bottomCenter,
         child: DefaultTextStyle(
-          style: TTextStyles.bold(color: TColors.text_white, fontSize: 24),
+          style: TTextStyles.semi(
+            color: TColors.white,
+            fontSize: 22,
+          ),
           overflow: TextOverflow.ellipsis,
           maxLines: 3,
           child: Text(name),

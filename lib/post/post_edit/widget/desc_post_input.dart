@@ -34,11 +34,11 @@ class _DescPostInputState extends State<DescPostInput> {
           crossAxisAlignment: CrossAxisAlignment.start,
           direction: Axis.vertical,
           children: <Widget>[
-            _TitleWidget(title: 'Mô tả', isRequired: false),
+            _TitleWidget(title: 'Description', isRequired: false),
             UserInputWidget(
               textController,
               maxLines: null,
-              hintText: 'Nhập mô tả...',
+              hintText: 'Katty is the best...',
               keyboardType: TextInputType.multiline,
               onChange: (String text) {
                 widget.bloc.description = text;

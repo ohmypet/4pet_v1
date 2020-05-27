@@ -4,8 +4,7 @@ class _CommentDescriptionWidget extends StatelessWidget {
   final Comment item;
   final VoidCallback onTapDelete;
 
-  const _CommentDescriptionWidget(
-      {Key key, this.item, @required this.onTapDelete})
+  const _CommentDescriptionWidget({Key key, this.item, @required this.onTapDelete})
       : super(key: key);
 
   @override
@@ -18,7 +17,7 @@ class _CommentDescriptionWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Flexible(child: nameWidget, flex: 1),
-        Flexible(child: comment, flex: 3),
+        Flexible(child: comment, flex: 5),
       ],
     );
   }
@@ -27,11 +26,10 @@ class _CommentDescriptionWidget extends StatelessWidget {
     final String name = account.getName();
     final isPermission = AccountUtils.grantEditAndDel(account);
     final text = DefaultTextStyle.merge(
-      style: TTextStyles.bold(fontSize: 18, color: TColors.dark_sky_blue),
+      style: TTextStyles.semi(fontSize: 14, color: TColors.dark_sky_blue),
       child: Text(name),
     );
     final time = _buildTime(context, item.createAt);
-//    if () {
     return Flex(
       direction: Axis.horizontal,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,7 +40,7 @@ class _CommentDescriptionWidget extends StatelessWidget {
         isPermission
             ? GestureDetector(
                 onTap: _onTapDelete,
-                child: Icon(Icons.delete, size: 18, color: TColors.water_melon),
+                child: Icon(Icons.delete, size: 16, color: TColors.water_melon),
               )
             : SizedBox()
       ],
@@ -52,8 +50,10 @@ class _CommentDescriptionWidget extends StatelessWidget {
   Widget _buildComment(BuildContext context, String message) {
     final String comment = message ?? '';
     return DefaultTextStyle.merge(
-      style:
-          TTextStyles.light(fontSize: 18, color: TColors.black.withAlpha(220)),
+      style: TTextStyles.medium(
+        fontSize: 14,
+        color: TColors.black.withAlpha(220),
+      ),
       child: Text(comment),
     );
   }
@@ -61,8 +61,7 @@ class _CommentDescriptionWidget extends StatelessWidget {
   Widget _buildTime(BuildContext context, DateTime time) {
     final textTime = TimeUtils.toPm(time);
     return DefaultTextStyle.merge(
-      style: TTextStyles.light(
-          fontSize: 16, color: TColors.duck_egg_blue.withAlpha(220)),
+      style: TTextStyles.light(fontSize: 14, color: TColors.duck_egg_blue.withAlpha(220)),
       child: Text(textTime),
     );
   }

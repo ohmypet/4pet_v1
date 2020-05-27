@@ -11,7 +11,10 @@ class PostDescriptionWidget extends StatelessWidget {
     final theme = Theme.of(context);
     return DefaultTextStyle(
       style: TTextStyles.semi(
-          letterSpacing: 0.3, fontSize: 16, color: theme.accentColor),
+        letterSpacing: 0.3,
+        fontSize: 16,
+        color: theme.accentColor.withAlpha(240),
+      ),
       child: Text(description),
     );
   }
