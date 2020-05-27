@@ -34,7 +34,7 @@ class BasicFunctionWidget extends StatelessWidget {
 
   Widget _buildChangePassword() {
     return SettingOptionWidget(
-      title: 'Đổi mật khẩu',
+      title: 'Change Password',
       onTap: onTapChangePassword,
       icon: Icon(Icons.security),
     );
@@ -42,7 +42,7 @@ class BasicFunctionWidget extends StatelessWidget {
 
   Widget _buildRating() {
     return SettingOptionWidget(
-      title: 'Đánh giá',
+      title: 'Review',
       onTap: onTapRating,
       icon: Icon(Icons.star_half),
     );
@@ -50,7 +50,7 @@ class BasicFunctionWidget extends StatelessWidget {
 
   Widget _buildReport() {
     return SettingOptionWidget(
-      title: 'Báo cáo và đề xuất',
+      title: 'Report and Suggestion',
       onTap: onTapReport,
       icon: Icon(Icons.info_outline),
     );
@@ -58,7 +58,7 @@ class BasicFunctionWidget extends StatelessWidget {
 
   Widget _buildLogout() {
     return SettingOptionWidget(
-      title: 'Đăng xuất',
+      title: 'Log Out',
       onTap: onTapLogout,
       icon: SvgIconWidget(
         icon: Transform.rotate(

@@ -35,9 +35,9 @@ class PostDetailAppBar extends StatelessWidget {
   }
 
   static final items = <MapEntry<SeeMoreType, String>>[
-    MapEntry(SeeMoreType.Edit, 'Chỉnh sửa'),
-    MapEntry(SeeMoreType.Delete, 'Xóa'),
-    MapEntry(SeeMoreType.Report, 'Báo cáo'),
+    MapEntry(SeeMoreType.Edit, 'Edit'),
+    MapEntry(SeeMoreType.Delete, 'Delete'),
+    MapEntry(SeeMoreType.Report, 'Report'),
   ];
 
   List<PopupMenuEntry<SeeMoreType>> _buildMenu(BuildContext context) {

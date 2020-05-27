@@ -67,7 +67,7 @@ class _RegisterAccountWidgetState extends TState<RegisterAccountWidget> {
                       UserInputWidget(
                         usernameController,
                         focusNode: usernameFocusNode,
-                        hintText: 'Nhập tài khoản...',
+                        hintText: 'Username',
                         icon: Icon(Icons.person, size: 22),
                         onSubmit: _onEmailSubmitted,
                         onChange: _onTextChanged,
@@ -75,7 +75,7 @@ class _RegisterAccountWidgetState extends TState<RegisterAccountWidget> {
                       UserInputWidget(
                         passwordController,
                         focusNode: passwordFocusNode,
-                        hintText: 'Nhập mật khẩu...',
+                        hintText: 'Password',
                         icon: Icon(Icons.vpn_key, size: 22),
                         isObscureText: true,
                         onSubmit: _onPasswordSubmitted,
@@ -140,19 +140,19 @@ class _RegisterAccountWidgetState extends TState<RegisterAccountWidget> {
                     children: <Widget>[
                       UserInputWidget(
                         nameController,
-                        hintText: 'Họ và tên',
+                        hintText: 'Full Name',
                         icon: Icon(Icons.perm_identity, size: 22),
                         onChange: _onTextChanged,
                       ),
                       UserInputWidget(
                         locationController,
-                        hintText: 'Địa chỉ',
+                        hintText: 'Location',
                         icon: Icon(Icons.location_on, size: 22),
                         onChange: _onTextChanged,
                       ),
                       UserInputWidget(
                         phoneController,
-                        hintText: 'Số điện thoại',
+                        hintText: 'Phone Number',
                         icon: Icon(Icons.phone, size: 22),
                         onChange: _onTextChanged,
                       ),
@@ -166,7 +166,7 @@ class _RegisterAccountWidgetState extends TState<RegisterAccountWidget> {
               child: Opacity(
                 opacity: isValid ? 1 : 0.2,
                 child: PetIslandButtonWidget(
-                  text: 'Tiếp',
+                  text: 'Next',
                   onTap: isValid ? _onAccountSubmitted : null,
                 ),
               ),

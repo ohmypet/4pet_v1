@@ -11,12 +11,12 @@ class PostMoneyWidget extends StatelessWidget {
     if (price != null && price > 0) {
       FlutterMoneyFormatter formatter = FlutterMoneyFormatter(amount: price);
       return Text(
-        '${formatter.output.withoutFractionDigits} đ',
+        '${formatter.output.withoutFractionDigits} \$',
         style: _buildTextStyle(theme),
       );
     } else {
       return Text(
-        'Miễn phí', //free
+        'Free Now', //free
         style: _buildTextStyle(theme),
       );
     }
@@ -24,7 +24,7 @@ class PostMoneyWidget extends StatelessWidget {
 
   TextStyle _buildTextStyle(ThemeData theme) {
     return theme.textTheme.headline1.copyWith(
-      fontSize: 15,
+      fontSize: 14,
       fontWeight: FontWeight.w700,
       color: theme.primaryColor,
     );

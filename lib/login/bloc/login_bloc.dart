@@ -51,6 +51,6 @@ class LoginBloc extends TBloc<LoginEvent, LoginState> {
   }
 
   FutureOr<void> _handleError(dynamic error) {
-    notifyError(LoginErrorEvent('Tên đăng nhập hoặc mật khẩu không hợp lệ'));
+    notifyError(LoginErrorEvent('Username or password invalid'));
   }
 }

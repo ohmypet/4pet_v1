@@ -4,8 +4,7 @@ class _CommentWidget extends StatelessWidget {
   final Comment item;
   final VoidCallback onTapDelete;
 
-  const _CommentWidget(
-      {Key key, @required this.item, @required this.onTapDelete})
+  const _CommentWidget({Key key, @required this.item, @required this.onTapDelete})
       : super(key: key);
 
   @override
@@ -18,9 +17,12 @@ class _CommentWidget extends StatelessWidget {
       children: <Widget>[
         Flexible(child: image, flex: 1),
         Flexible(
-            child: _CommentDescriptionWidget(
-                item: item, onTapDelete: _onTapDelete),
-            flex: 7),
+          child: _CommentDescriptionWidget(
+            item: item,
+            onTapDelete: _onTapDelete,
+          ),
+          flex: 7,
+        ),
       ],
     );
   }

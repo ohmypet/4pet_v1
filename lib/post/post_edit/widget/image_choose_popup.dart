@@ -10,19 +10,19 @@ class _ImageChoosePopupState extends TState<ImageChoosePopup> {
   Widget build(BuildContext context) {
     return TSheets.bottomSheet(
       context,
-      'Chọn hình ảnh',
+      'Choose your image',
       Flex(
         direction: Axis.vertical,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ListTile(
             leading: Icon(Icons.camera_alt),
-            title: Text('Chọn hình ảnh từ camera'),
+            title: Text('Take a photo'),
             onTap: () => onTapCamera(),
           ),
           ListTile(
             leading: Icon(Icons.image),
-            title: Text('Chọn hình ảnh từ thư viện'),
+            title: Text('Choose from library'),
             onTap: () => onTapGallery(),
           ),
         ],

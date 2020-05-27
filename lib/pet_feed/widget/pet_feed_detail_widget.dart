@@ -75,11 +75,11 @@ class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
     }
 
     if (state is CreatePostSuccess) {
-      showSnackBar(context, 'Tạo bài viết thành công', TColors.green);
+      showSnackBar(context, 'Create the post success', TColors.green);
     }
 
     if (state is CreatePostError) {
-      showErrorSnackBar(content: 'Tạo bài viết thất bại', context: context);
+      showErrorSnackBar(content: 'Create the post failure, try again!', context: context);
     }
   }
 

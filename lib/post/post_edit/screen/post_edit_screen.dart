@@ -19,12 +19,12 @@ class PostEditScreen extends TStatelessWidget {
 
   PostEditScreen.create({@required this.onSendTap})
       : _postEditBloc = PostEditBloc(),
-        title = 'Đăng bài viết',
+        title = 'Create Post',
         onEditCompleted = null;
 
   PostEditScreen.edit(Post post, {@required this.onEditCompleted})
       : _postEditBloc = PostEditBloc.fromPost(post),
-        title = 'Chỉnh sửa bài viết',
+        title = 'Edit Post',
         this.onSendTap = null;
 
   @override
@@ -56,12 +56,12 @@ class PostEditScreen extends TStatelessWidget {
     );
 
     if (!postModal.titleIsValid) {
-      showErrorSnackBar(context: context, content: 'Vui lòng nhập tiêu đề');
+      showErrorSnackBar(context: context, content: 'Title is require');
       return;
     }
     if (!postModal.locationIsValid) {
       showErrorSnackBar(
-          context: context, content: 'Vui lòng nhập Vui lòng nhập địa chỉ');
+          context: context, content: 'Location is require');
       return;
     }
 

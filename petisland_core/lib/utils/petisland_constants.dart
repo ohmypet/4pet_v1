@@ -25,11 +25,11 @@ abstract class PetIslandConstants {
   ];
 
   static final Map<CategoryTypeEnum, String> _categoryMap = {
-    CategoryTypeEnum.Trending: 'Thịnh hành nhất hiện nay',
-    CategoryTypeEnum.Popularity: 'Phổ biến nhất',
-    CategoryTypeEnum.PriceLowToHigh: 'Giá từ thấp đến cao',
-    CategoryTypeEnum.PriceHighToLow: 'Giá từ cao tới thấp',
-    CategoryTypeEnum.PetCategory: 'Loại thú cưng được yêu thích nhất'
+    CategoryTypeEnum.Trending: 'Top Trending',
+    CategoryTypeEnum.Popularity: 'Top Population',
+    CategoryTypeEnum.PriceLowToHigh: 'Price Low To High',
+    CategoryTypeEnum.PriceHighToLow: 'Price High To Low',
+    CategoryTypeEnum.PetCategory: 'Favorite Category Pet'
   };
 
   static CategoryTypeEnum getCategoryType(String type) {

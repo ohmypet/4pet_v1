@@ -34,10 +34,10 @@ class _PricePostInputState extends State<PricePostInput> {
           crossAxisAlignment: CrossAxisAlignment.start,
           direction: Axis.vertical,
           children: <Widget>[
-            _TitleWidget(title: 'Giá', isRequired: false),
+            _TitleWidget(title: 'Price', isRequired: false),
             UserInputWidget(
               textController,
-              hintText: 'Nhập giá tiền...',
+              hintText: 'Free Now',
               keyboardType: TextInputType.number,
               onChange: (String text) {
                 if (text.trim() == null ||

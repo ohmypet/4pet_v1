@@ -58,7 +58,7 @@ class AccountReposityImpl extends AccountRepository {
       'email': email,
     };
     return client
-        .get<Map<String, dynamic>>('$path/require-code', params: params)
+        .get<Map<String, dynamic>>('$path/register/require-code', params: params)
         .then((Map<String, dynamic> json) => Account.fromJson(json));
   }
 
@@ -79,6 +79,6 @@ class AccountReposityImpl extends AccountRepository {
       'email': email,
       'code': code
     };
-    return client.getRaw('$path/check-code', params: params).then((_) => true);
+    return client.getRaw('$path/register/check-code', params: params).then((_) => true);
   }
 }

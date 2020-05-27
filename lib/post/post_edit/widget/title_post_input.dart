@@ -33,10 +33,10 @@ class _TitlePostInputState extends State<TitlePostInput> {
           crossAxisAlignment: CrossAxisAlignment.start,
           direction: Axis.vertical,
           children: <Widget>[
-            _TitleWidget(title: 'Tiêu đề', isRequired: true),
+            _TitleWidget(title: 'Title', isRequired: true),
             UserInputWidget(
               textController,
-              hintText: 'Nhập tiêu đề...',
+              hintText: 'I want to sell...',
               onChange: (String text) {
                 widget.bloc.inputChange(text);
               },

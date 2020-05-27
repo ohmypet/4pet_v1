@@ -4,8 +4,7 @@ class CommentListingWidget extends StatefulWidget {
   final Post item;
   final CommentBloc bloc;
 
-  const CommentListingWidget(
-      {Key key, @required this.item, @required this.bloc})
+  const CommentListingWidget({Key key, @required this.item, @required this.bloc})
       : super(key: key);
 
   @override
@@ -17,31 +16,31 @@ class _CommentListingWidgetState extends State<CommentListingWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Flex(
-      direction: Axis.vertical,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        buildTextDescription(context, 'Bình luận'),
-        BlocBuilder<CommentBloc, CommentState>(
-          bloc: bloc,
-          condition: (_, state) => state is ReloadUIState,
-          builder: _buildCommentUI,
-        ),
-      ],
+    return BlocBuilder<CommentBloc, CommentState>(
+      bloc: bloc,
+      condition: (_, state) => state is ReloadUIState,
+      builder: _buildCommentUI,
     );
   }
 
   Widget _buildCommentUI(BuildContext context, CommentState state) {
     if (state is ReloadUIState) {
       final items = state.items;
-      return ListView.separated(
-        primary: false,
-        shrinkWrap: true,
-        itemCount: items.length + 1,
-        itemBuilder: (_, __) => _buildComment(_, __, items),
-        separatorBuilder: (_, int index) {
-          return Divider();
-        },
+      return Flex(
+        direction: Axis.vertical,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          items.isNotEmpty ? buildTextDescription(context, 'Comment') : const SizedBox(),
+          ListView.separated(
+            primary: false,
+            shrinkWrap: true,
+            itemCount: items.length + 1,
+            itemBuilder: (_, __) => _buildComment(_, __, items),
+            separatorBuilder: (_, int index) {
+              return Divider();
+            },
+          ),
+        ],
       );
     } else {
       final random = DI.get<Random>(Random);
@@ -60,8 +59,7 @@ class _CommentListingWidgetState extends State<CommentListingWidget> {
   Widget _buildComment(BuildContext context, int index, List<Comment> items) {
     if (index < items.length) {
       final item = items[index];
-      return _CommentWidget(
-          item: item, onTapDelete: () => _onTapDelete(index, item));
+      return _CommentWidget(item: item, onTapDelete: () => _onTapDelete(index, item));
     } else
       return SizedBox(height: 150);
   }

@@ -15,7 +15,7 @@ class PostButtonBar extends TStatelessWidget {
     final double messageOpcaity = 1;
     final likeWidget = PostButtonLikeWidget(item: item);
     final messageWidget = _PostButtonWidget(
-      title: 'Nhắn tin',
+      title: 'Messager',
       opacity: messageOpcaity,
       onTap: () => _message(context, item.account),
       icon: Icon(
@@ -24,7 +24,7 @@ class PostButtonBar extends TStatelessWidget {
       ),
     );
     final callWidget = _PostButtonWidget(
-      title: 'Gọi ngay',
+      title: 'Call Now',
       opacity: phoneOpacity,
       onTap: () => _call(phoneNumber),
       icon: Icon(

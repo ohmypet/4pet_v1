@@ -13,16 +13,14 @@ class RegisterAccountScreen extends TStatelessWidget {
     final theme = Theme.of(context);
     return AnimatedPadding(
       duration: timeAnimation,
-      padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Stack(
         children: <Widget>[
           Scaffold(
             key: scaffoldKey,
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-              backgroundColor: TColors.white,
-              elevation: 0,
+              elevation: 1,
               automaticallyImplyLeading: false,
               leading: Center(
                 child: IconButton(
@@ -30,13 +28,16 @@ class RegisterAccountScreen extends TStatelessWidget {
                   icon: Icon(
                     Icons.arrow_back_ios,
                     size: 24,
-                    color: theme.accentColor,
+                    color: TColors.white,
                   ),
                 ),
               ),
               title: Text(
-                'Đăng kí tài khoản',
-                style: TTextStyles.bold(fontSize: 18),
+                'Register Account',
+                style: TTextStyles.bold(
+                  fontSize: 18,
+                  color: TColors.white,
+                ),
               ),
               centerTitle: true,
             ),

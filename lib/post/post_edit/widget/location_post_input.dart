@@ -33,10 +33,10 @@ class _LocationPostInputState extends TState<LocationPostInput> {
           crossAxisAlignment: CrossAxisAlignment.start,
           direction: Axis.vertical,
           children: <Widget>[
-            _TitleWidget(title: 'Địa chỉ', isRequired: true),
+            _TitleWidget(title: 'Location', isRequired: true),
             UserInputWidget(
               textController,
-              hintText: 'Nhập địa chỉ...',
+              hintText: 'Ho Chi Minh City, Viet Nam',
               onChange: (String text) {
                 widget.bloc.location = text;
                 widget.bloc.priceChange(widget.bloc.price);

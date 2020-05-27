@@ -55,7 +55,6 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
           onRefresh: _onRefresh,
           onLoading: _onLoading,
           child: CustomScrollView(
-            primary: true,
             slivers: <Widget>[
               SliverToBoxAdapter(child: _buildUserInfo()),
               SliverFillRemaining(
@@ -134,7 +133,6 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
     if (state is ReloadFavoritePost) {
       final items = state.items;
       return ListView.separated(
-        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         itemCount: state.items.length,
         itemBuilder: (_, index) {
@@ -170,8 +168,6 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
     if (state is ReloadMyPost) {
       final items = state.items;
       return ListView.separated(
-        primary: true,
-        physics: ClampingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         itemCount: state.items.length,
         itemBuilder: (_, index) {

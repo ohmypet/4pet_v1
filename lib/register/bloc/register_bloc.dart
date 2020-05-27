@@ -72,9 +72,9 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
     FutureOr<void> _handleError(dynamic error) {
       if (error is PetApiException) {
         if (error.statusCode == 409)
-          notifyError(EmailError('Email đã tồn tại'));
+          notifyError(EmailError('Email address already in use'));
         else if (error.statusCode == 400) {
-          notifyError(EmailError('Email không hợp lệ'));
+          notifyError(EmailError('Email invalid'));
         } else {
           notifyError(EmailError(error.message));
         }
@@ -84,7 +84,7 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
     }
 
     if (event?.email?.trim()?.isEmpty ?? true) {
-      _handleError('Email không hợp lệ');
+      _handleError('Email invalid');
     }
     accountService
         .requireCode(event.email)
@@ -102,9 +102,9 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
       Log.error('_handleCodeSubmit:: $error');
       if (error is PetApiException) {
         if (error.statusCode == 408)
-          notifyError(CodeError('Mã xác nhận không hợp lệ'));
+          notifyError(CodeError('Code invalid'));
         else if (error.statusCode == 400) {
-          notifyError(CodeError('Mã xác nhận không hợp lệ'));
+          notifyError(CodeError('Code invalid'));
         } else {
           notifyError(CodeError(error.message));
         }
@@ -134,9 +134,9 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
       Log.error('_handleCodeSubmit:: $error');
       if (error is PetApiException) {
         if (error.statusCode == 408)
-          notifyError(CodeError('Mã xác nhận không hợp lệ'));
+          notifyError(CodeError('Code invalid'));
         else if (error.statusCode == 400) {
-          notifyError(CodeError('Mã xác nhận không hợp lệ'));
+          notifyError(CodeError('Code invalid'));
         } else {
           notifyError(CodeError(error.message));
         }
@@ -146,7 +146,7 @@ class RegisterBloc extends TBloc<RegisterEvent, RegisterState> {
     }
 
     if (accountIsNotValid(event)) {
-      _handleError('Tài khoản không hợp lệ');
+      _handleError('Username invalid');
     }
     accountService
         .register(

@@ -29,7 +29,7 @@ class _LoginDetailWidgetState extends TState<RegisterEmailWidget> {
             UserInputWidget(
               emailController,
               focusNode: emailFocusNode,
-              hintText: 'Nhập email...',
+              hintText: 'your-mail@4pet.socail',
               icon: Icon(Icons.person, size: 22),
               onSubmit: _onEmailSubmitted,
               onChange: _onTextChanged,
@@ -37,7 +37,7 @@ class _LoginDetailWidgetState extends TState<RegisterEmailWidget> {
             Opacity(
               opacity: isValid ? 1 : 0.2,
               child: PetIslandButtonWidget(
-                text: 'Tiếp',
+                text: 'Next',
                 onTap: isValid ? _onEmailSubmitted : null,
               ),
             ),

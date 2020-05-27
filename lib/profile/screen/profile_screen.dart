@@ -64,7 +64,7 @@ class _ProfileScreenState extends TState<ProfileScreen> {
     return Opacity(
       opacity: 0.2,
       child: SettingOptionWidget(
-        title: 'Chế độ ban đêm',
+        title: 'Dark Mode',
         icon: SvgIconWidget(
           icon: SvgPicture.asset(
             TAssets.moon,
@@ -113,7 +113,7 @@ class _ProfileScreenState extends TState<ProfileScreen> {
   }
 
   void _onTapProfile() {
-    // TODO(tvc12): navigate to profile
+    _onTapName();
   }
 
   void _onTapName() {

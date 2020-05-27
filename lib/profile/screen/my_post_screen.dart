@@ -20,12 +20,18 @@ class _MyPostScreenState extends State<MyPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bài viết của bạn', style: TTextStyles.bold(fontSize: 18)),
+        title: Text(
+          'Your Post',
+          style: TTextStyles.bold(
+            fontSize: 18,
+            color: TColors.white
+          ),
+        ),
         centerTitle: true,
-        backgroundColor: TColors.white,
+        elevation: 1,
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: TColors.black),
+          icon: Icon(Icons.arrow_back_ios, color: TColors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),

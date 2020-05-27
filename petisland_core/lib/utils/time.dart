@@ -10,7 +10,7 @@ abstract class TimeUtils {
     final now = DateTime.now();
     final Duration diff = now.difference(time);
 
-    return timeAgo.format(now.subtract(diff), locale: 'vi');
+    return timeAgo.format(now.subtract(diff), locale: 'en');
   }
 
   static String toPm(DateTime time) {

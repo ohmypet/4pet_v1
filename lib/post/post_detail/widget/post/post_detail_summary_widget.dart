@@ -3,8 +3,7 @@ part of petisland.post.screen.widget;
 class PostDetailSummaryWidget extends StatelessWidget {
   final Post item;
 
-  const PostDetailSummaryWidget({Key key, @required this.item})
-      : super(key: key);
+  const PostDetailSummaryWidget({Key key, @required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +29,11 @@ class PostDetailSummaryWidget extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 15),
-        buildTextDescription(context, 'Miêu tả'),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: PostDescriptionWidget(description: item.description),
-        ),
+        ...(item.description.isNotEmpty
+            ? _buildDescriptions(description: item.description, context: context)
+            : [SizedBox()]),
         Flexible(child: imageSliderWidget),
-        SizedBox(height: 15),
+        SizedBox(height: 5),
       ],
     );
   }
@@ -48,9 +44,20 @@ class PostDetailSummaryWidget extends StatelessWidget {
             height: 150,
             child: ImageSliderWidget(
               postImages: item.postImages,
-              description: 'Ảnh thú cưng',
+              description: 'Images',
             ),
           )
         : SizedBox();
+  }
+
+  List<Widget> _buildDescriptions({@required BuildContext context, String description}) {
+    return [
+      const SizedBox(height: 15),
+      buildTextDescription(context, 'Description'),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: PostDescriptionWidget(description: description),
+      ),
+    ];
   }
 }
