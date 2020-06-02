@@ -3,8 +3,7 @@ part of petisland_core.service;
 abstract class AccountService {
   Future<Account> requireCode(String email);
 
-  Future<Account> register(
-      String email, String code, String username, String password,
+  Future<Account> register(String email, String code, String username, String password,
       {User user});
 
   Future<LoginData> login(String username, String password);
@@ -12,6 +11,10 @@ abstract class AccountService {
   Future<LoginData> checkToken(String token);
 
   Future<bool> checkCode(String email, String code);
+
+  Future<bool> requireForgotPasswordCode(String email);
+
+  Future<Account> forgotPassword(String email, String code, String password);
 }
 
 class AccountServiceImpl extends AccountService {
@@ -26,8 +29,7 @@ class AccountServiceImpl extends AccountService {
   }
 
   @override
-  Future<Account> register(
-      String email, String code, String username, String password,
+  Future<Account> register(String email, String code, String username, String password,
       {User user}) {
     return repository.register(email, code, username, password, user: user);
   }
@@ -45,5 +47,15 @@ class AccountServiceImpl extends AccountService {
   @override
   Future<bool> checkCode(String email, String code) {
     return repository.checkCode(email, code);
+  }
+
+  @override
+  Future<Account> forgotPassword(String email, String code, String password) {
+    return repository.forgotPassword(email, code, password);
+  }
+
+  @override
+  Future<bool> requireForgotPasswordCode(String email) {
+    return repository.requireForgotPasswordCode(email);
   }
 }
