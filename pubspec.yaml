@@ -22,7 +22,6 @@ dependencies:
     image_picker: 0.6.5+3
     file_picker: 1.9.0
     pull_to_refresh: 1.5.8
-    auro_avatar: 0.1.1
     flutter_svg: 0.17.4
     url_launcher: 5.4.5
     ansicolor: 1.0.2
