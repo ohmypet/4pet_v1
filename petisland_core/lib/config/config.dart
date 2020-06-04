@@ -21,7 +21,7 @@ class Config {
 
   static const Map<String, dynamic> _production = <String, dynamic>{
     'api_host': prod.api_host,
-    'chat_host': prod.api_host,
+    'chat_host': prod.chat_host,
     'max_image_per_post': 10,
   };
 
