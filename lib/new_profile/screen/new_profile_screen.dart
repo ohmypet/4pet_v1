@@ -109,6 +109,7 @@ class _NewProfileScreenState extends TState<NewProfileScreen>
   void initState() {
     super.initState();
     myPostbloc.reload();
+    favoriteBloc.reload();
     tabController = TabController(
       initialIndex: 0,
       vsync: this,
