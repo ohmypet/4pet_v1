@@ -60,7 +60,7 @@ class _NotificationScreenState extends TState<NotificationScreen> {
         onLoading: _onLoading,
         child: ListView.separated(
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(vertical: 20),
           itemCount: items.length,
           itemBuilder: (_, index) {
             final PetNotification notification = items[index];
@@ -80,8 +80,7 @@ class _NotificationScreenState extends TState<NotificationScreen> {
   Widget buildDefaultNotification() {
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
-      padding:
-          const EdgeInsets.symmetric(vertical: kToolbarHeight, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: kToolbarHeight, horizontal: 20),
       itemCount: random.nextInt(15) + 5,
       itemBuilder: (_, index) {
         return NotificationDefaultWidget();
@@ -123,8 +122,7 @@ class _NotificationScreenState extends TState<NotificationScreen> {
       screenName: PostLoadingScreen.name,
     );
     if (data == PopResult.Failure) {
-      showErrorSnackBar(
-          context: context, content: 'Can\'t load post, try again later!');
+      showErrorSnackBar(context: context, content: 'Can\'t load post, try again later!');
     }
 
     bloc.startListener();
