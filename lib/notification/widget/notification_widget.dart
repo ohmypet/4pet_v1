@@ -16,27 +16,31 @@ class NotificationWidget extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(5),
       child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 4),
         height: 85,
-        decoration:
-            BoxDecoration(color: color, borderRadius: BorderRadius.circular(5)),
-        child: Flex(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          direction: Axis.horizontal,
-          children: <Widget>[
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: imageWidget,
+        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(5)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          child: Flex(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            direction: Axis.horizontal,
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: imageWidget,
+                ),
               ),
-            ),
-            Flexible(
-              child: NotificationMessageWidget(
-                message: item.message,
-                createdTime: item.createAt,
+              Expanded(
+                flex: 6,
+                child: NotificationMessageWidget(
+                  message: item.message,
+                  createdTime: item.createAt,
+                ),
               ),
-              flex: 6,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
