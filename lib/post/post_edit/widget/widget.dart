@@ -27,6 +27,7 @@ part 'price_post_input.dart';
 part 'send_widget.dart';
 part 'summary_info_widget.dart';
 part 'title_post_input.dart';
+part 'hero_title_widget.dart';
 
 TextStyle _getTitleTextStyle(BuildContext context) {
   final theme = Theme.of(context);

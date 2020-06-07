@@ -3,7 +3,7 @@ part of petisland.main_bloc;
 abstract class TBloc<Event extends BaseEvent, State extends BaseState>
     extends BaseBloc<Event, State> {
   @protected
-  Duration get delayEvent;
+  Duration get delayEvent => const Duration(milliseconds: 0);
 
   @override
   @protected

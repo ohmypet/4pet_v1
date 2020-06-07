@@ -1,7 +1,7 @@
 part of petisland.post.post_edit.widget;
 
 class SendWidget extends TStatelessWidget {
-  final Function() onPressSend;
+  final void Function() onPressSend;
 
   SendWidget({@required this.onPressSend});
 

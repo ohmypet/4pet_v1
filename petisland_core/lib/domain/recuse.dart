@@ -5,11 +5,12 @@ class Rescue extends BaseModel {
   String description;
   String location;
   String status;
-  int totalCoin;
+  double totalCoin;
   int maxHeroes;
   int likes;
   Account account;
   bool isJoined;
+  List<PetImage> images;
 
   Rescue({
     String id,
@@ -50,5 +51,16 @@ class Rescue extends BaseModel {
     if (json['account'] != null) {
       account = Account.fromJson(json['account']);
     }
+  }
+
+  Rescue.empty() : super(ThinId.randomId(), null, null, null) {
+    title = '';
+    description = '';
+    location = '';
+    status = '';
+    totalCoin = 0;
+    maxHeroes = 3;
+    account = null;
+    images = [];
   }
 }

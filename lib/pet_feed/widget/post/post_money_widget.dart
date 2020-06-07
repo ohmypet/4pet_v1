@@ -2,8 +2,9 @@ part of petisland.pet_feed.widget.post;
 
 class PostMoneyWidget extends StatelessWidget {
   final double price;
+  final String title;
 
-  const PostMoneyWidget({Key key, this.price}) : super(key: key);
+  const PostMoneyWidget({Key key, this.price, this.title = 'Free Now'}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class PostMoneyWidget extends StatelessWidget {
       );
     } else {
       return Text(
-        'Free Now', //free
+        this.title, //free
         style: _buildTextStyle(theme),
       );
     }
