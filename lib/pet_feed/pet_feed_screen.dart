@@ -28,7 +28,20 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
               ),
               SizedBox(width: 15),
             ],
-          )
+          ),
+          SliverPersistentHeader(
+            pinned: true,
+            floating: false,
+            delegate: THeaderWidget(
+              minExtent: 125,
+              maxExtent: 125,
+              autoInsertSafeArea: false,
+              child: RescueListing(
+                onTapRescuePost: _onTapPost,
+              ),
+            ),
+          ),
+          // SliverPersistentHeader(
         ];
       },
       body: PetFeedDetailWidget(controller: controller),
@@ -44,6 +57,13 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
       context: context,
       screen: PostEditScreen.create(onSendTap: _onTapCreatePost),
       screenName: PostEditScreen.name,
+    );
+  }
+
+  void _onTapPost(String value) {
+    navigateToScreen(
+      context: context,
+      screen: RescueCreationPost(),
     );
   }
 }

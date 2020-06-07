@@ -13,6 +13,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 export 'post/post.dart';
 export 'post_category/post_category.dart';
 export 'post_panel/post_panel.dart';
+export 'rescue/rescue.dart';
 
 part 'panel_render.dart';
 part 'pet_feed_detail_widget.dart';
