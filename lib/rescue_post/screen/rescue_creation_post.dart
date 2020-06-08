@@ -7,6 +7,7 @@ class RescueCreationPost extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        elevation: 1,
         centerTitle: true,
         actions: <Widget>[
           Builder(

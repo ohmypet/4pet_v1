@@ -20,12 +20,16 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
         _buildSummaryRescuePost(),
         Expanded(
           child: ListView(
+            physics: const BouncingScrollPhysics(),
             children: [
               const SizedBox(height: 5),
               _buildInputTitle(),
               _buildInputDesciption(),
               _buildReward(),
               _buildLocation(),
+              _buildVolunteer(),
+              _buildImages(),
+              const SizedBox(height: 60),
             ],
           ),
         ),
@@ -80,6 +84,7 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
             title: 'Reward',
             subTitle: ' (maximun 12 coin)',
             hintText: '0',
+            keyboardType: TextInputType.number,
           ),
         ),
         Container(
@@ -102,5 +107,31 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
     );
   }
 
+  Widget _buildVolunteer() {
+    return DropDownInputWidget(
+      title: 'Volunteer',
+      data: [
+        '1 person',
+        '3 person',
+        '5 person',
+        '8 person',
+        '10 person',
+        'Unlimited volunteer'
+      ],
+    );
+  }
+
+  Widget _buildImages() {
+    return ImageInputWidget(
+      images: [
+        'https://github.com/tvc12.png',
+        'https://github.com/tvc12.png',
+        'https://github.com/tvc12.png',
+        'https://github.com/tvc12.png',
+      ],
+    );
+  }
+
   void _onTapMaximun() {}
+
 }

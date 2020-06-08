@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/authentication_bloc/authentication_bloc.dart';
 import 'package:flutter_template/common/common.dart';
 import 'package:flutter_template/common/widgets/widgets.dart';
-import 'package:flutter_template/login/widget/widget.dart';
 import 'package:flutter_template/pet_feed/widget/post/post.dart';
 import 'package:flutter_template/post/post_edit/bloc/bloc.dart';
 import 'package:image_picker/image_picker.dart';

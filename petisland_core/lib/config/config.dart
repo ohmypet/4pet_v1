@@ -59,4 +59,6 @@ class Config {
   static String getChatHost() {
     return _config.getString('chat_host');
   }
+
+  static int getMaxImages() => getInt('max_image_per_post');
 }

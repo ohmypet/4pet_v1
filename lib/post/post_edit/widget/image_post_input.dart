@@ -65,7 +65,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
         result.removeLast();
       postImages.fold(0, (i, postImage) {
         result
-          ..add(ImagePostWidget(postImage, index: i, onTapRemove: _removeImage))
+          ..add(ImagePostWidget(postImage.image.url, index: i, onTapRemove: _removeImage))
           ..add(SizedBox(width: 7));
         return i + 1;
       });

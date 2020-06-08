@@ -12,11 +12,11 @@ class AddImagePostWidget extends StatelessWidget {
       onTap: onPress,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
-        child: Container(
-          height: 100,
-          width: 100,
-          color: theme.primaryColor.withAlpha(50),
-          child: Center(
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: Container(
+            color: theme.primaryColor.withAlpha(50),
+            alignment: Alignment.center,
             child: Icon(
               Icons.add,
               color: TColors.dark_sky_blue,
