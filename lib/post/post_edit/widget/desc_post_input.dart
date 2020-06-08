@@ -34,7 +34,7 @@ class _DescPostInputState extends State<DescPostInput> {
           crossAxisAlignment: CrossAxisAlignment.start,
           direction: Axis.vertical,
           children: <Widget>[
-            _TitleWidget(title: 'Description', isRequired: false),
+            TitleWidget(title: 'Description', isRequired: false),
             UserInputWidget(
               textController,
               maxLines: null,

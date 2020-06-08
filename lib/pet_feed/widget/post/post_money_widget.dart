@@ -2,9 +2,15 @@ part of petisland.pet_feed.widget.post;
 
 class PostMoneyWidget extends StatelessWidget {
   final double price;
+  final String typeMoney;
   final String title;
 
-  const PostMoneyWidget({Key key, this.price, this.title = 'Free Now'}) : super(key: key);
+  const PostMoneyWidget({
+    Key key,
+    this.price,
+    this.title = 'Free Now',
+    this.typeMoney,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +18,7 @@ class PostMoneyWidget extends StatelessWidget {
     if (price != null && price > 0) {
       FlutterMoneyFormatter formatter = FlutterMoneyFormatter(amount: price);
       return Text(
-        '${formatter.output.withoutFractionDigits} \$',
+        '${formatter.output.withoutFractionDigits} $typeMoney',
         style: _buildTextStyle(theme),
       );
     } else {

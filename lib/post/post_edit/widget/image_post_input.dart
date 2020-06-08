@@ -26,7 +26,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
           direction: Axis.vertical,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _TitleWidget(title: 'Images'),
+            TitleWidget(title: 'Images'),
             const SizedBox(height: 5),
             BlocBuilder<PostEditBloc, PostEditState>(
               bloc: widget.bloc,

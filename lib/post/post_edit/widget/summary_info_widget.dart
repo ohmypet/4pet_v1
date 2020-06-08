@@ -5,16 +5,22 @@ class SummaryInfoWidget extends TStatelessWidget {
   final String title;
   final double price;
   final String location;
-  final String customTitlePrice;
+  final String customDefaultMoney;
+  final String customDefaultTitle;
   final int maxHeros;
+  final String typeMoney;
   static const Widget defaultImage = DefaultPetImage();
 
-  SummaryInfoWidget(this.title,
-      {this.petImage,
-      this.price,
-      this.location,
-      this.customTitlePrice = 'Free Now',
-      this.maxHeros});
+  SummaryInfoWidget(
+    this.title, {
+    this.petImage,
+    this.price,
+    this.location,
+    this.customDefaultMoney = 'Free Now',
+    this.maxHeros,
+    this.typeMoney = '\$',
+    this.customDefaultTitle = 'I want to sell ...'
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +75,7 @@ class SummaryInfoWidget extends TStatelessWidget {
   }
 
   Widget _buildInfo(String title, double price, String location) {
-    title = title.isEmpty ? 'I want to ...' : title;
+    title = title.isEmpty ? customDefaultTitle : title;
     // location = location.isEmpty ? 'HCM' : location;
     return Flexible(
       flex: 2,
@@ -78,7 +84,7 @@ class SummaryInfoWidget extends TStatelessWidget {
         direction: Axis.vertical,
         children: <Widget>[
           PostTitleWidget(title: title),
-          PostMoneyWidget(price: price, title: customTitlePrice),
+          PostMoneyWidget(price: price, title: customDefaultMoney, typeMoney: typeMoney),
           PostLocationWidget(location: location),
           maxHeros != null ? HeroTitleWidget(heroes: maxHeros) : const SizedBox(),
         ],

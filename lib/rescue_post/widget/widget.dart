@@ -2,6 +2,8 @@ library petisland.rescue_post.widget;
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/common/state/state.dart';
+import 'package:flutter_template/common/widgets/widgets.dart';
+import 'package:flutter_template/login/widget/widget.dart';
 import 'package:flutter_template/petisland.dart';
 import 'package:flutter_template/post/post.dart';
 import 'package:flutter_template/rescue_post/rescue.dart';
