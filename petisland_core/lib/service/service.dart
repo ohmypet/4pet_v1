@@ -19,3 +19,4 @@ part 'pet_category_service.dart';
 part 'tag_service.dart';
 part 'notification_service.dart';
 part 'report_service.dart';
+part 'location_service.dart';

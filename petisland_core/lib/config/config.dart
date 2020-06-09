@@ -17,12 +17,16 @@ class Config {
     'api_host': dev.api_host,
     'chat_host': dev.chat_host,
     'max_image_per_post': 10,
+    'google_api_key': dev.google_api_key,
+    'google_host': 'https://maps.googleapis.com',
   };
 
   static const Map<String, dynamic> _production = <String, dynamic>{
     'api_host': prod.api_host,
     'chat_host': prod.chat_host,
     'max_image_per_post': 10,
+    'google_api_key': prod.google_api_key,
+    'google_host': 'https://maps.googleapis.com',
   };
 
   static RemoteConfig _config;
@@ -61,4 +65,8 @@ class Config {
   }
 
   static int getMaxImages() => getInt('max_image_per_post');
+
+  static String getGoogleAPIKey() => getString('google_api_key');
+
+  static String getGoogleHost() => getString('google_host');
 }

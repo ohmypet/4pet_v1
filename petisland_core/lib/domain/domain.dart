@@ -47,6 +47,10 @@ part 'recuse.dart';
 
 part 'rescue_image.dart';
 
+part 'location_info.dart';
+
+part 'location_response.dart';
+
 void _addValueToMap(String key, dynamic value, Map<String, dynamic> map) {
   if (value != null) map[key] = value;
 }
