@@ -13,7 +13,7 @@ class DevModuleCore extends AbstractModule {
   static const String normal_client = 'normal_client';
   static const String api_client = 'api_client';
   static const String api_upload_image = 'api_upload_image';
-  static const String google_api = 'google_api';
+  static const String opencagedata_api = 'opencagedata_api';
 
   @override
   void init() async {
@@ -23,7 +23,7 @@ class DevModuleCore extends AbstractModule {
     bind(normal_client).to(_buildClient());
     bind(api_client).to(_buildApiClient());
     bind(api_upload_image).to(_buildClientUpload());
-    bind(google_api).to(_buildGoogleApi());
+    bind(opencagedata_api).to(_buildOpencagedataApi());
 
     bind(AccountService).to(_buildAccountService());
     bind(DIKeys.cache_image).to(await _buildCacheImage());
@@ -73,9 +73,9 @@ class DevModuleCore extends AbstractModule {
     return HttpClient.init(dio);
   }
 
-  HttpClient _buildGoogleApi() {
+  HttpClient _buildOpencagedataApi() {
     final BaseOptions baseOption = BaseOptions(
-      baseUrl: Config.getGoogleHost(),
+      baseUrl: Config.getOpencageHost(),
       connectTimeout: 15000,
       receiveTimeout: 10000,
       headers: <String, dynamic>{
@@ -180,8 +180,8 @@ class DevModuleCore extends AbstractModule {
   }
 
   LocationRepository _buildLocationRepository() {
-    final HttpClient client = get<HttpClient>(google_api);
-    return LocationRepositoryImpl(client);
+    final HttpClient client = get<HttpClient>(opencagedata_api);
+    return OpencagedataLocationRepository(client);
   }
 
   LocationService _buildLocationService() {

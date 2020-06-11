@@ -12,6 +12,7 @@ class RescueCreationDetailWidget extends TStatefulWidget {
 class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget> {
   RescueEditingBloc get editingBloc => widget.rescueEditingBloc;
   final String defaultTitle = 'Can you help my kitten ...';
+
   @override
   Widget build(BuildContext context) {
     return Flex(
@@ -74,36 +75,45 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
   }
 
   Widget _buildReward() {
-    return Flex(
-      direction: Axis.horizontal,
-      mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Flexible(
-          child: TitleInputWidget(
-            title: 'Reward',
-            subTitle: ' (maximun 12 coin)',
-            hintText: '0',
-            keyboardType: TextInputType.number,
+    return Padding(
+      padding: const EdgeInsets.only(right: 5),
+      child: Flex(
+        direction: Axis.horizontal,
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Flexible(
+            child: TitleInputWidget(
+              title: 'Reward',
+              subTitle: ' (maximun 12 coin)',
+              hintText: '0',
+              keyboardType: TextInputType.number,
+            ),
           ),
-        ),
-        Container(
-          width: 55,
-          margin: const EdgeInsets.symmetric(horizontal: 5),
-          child: PetIslandButtonWidget(
-            text: 'Max',
-            onTap: _onTapMaximun,
-          ),
-        )
-      ],
+          Container(
+            width: 55,
+            margin: const EdgeInsets.symmetric(horizontal: 5),
+            child: PetIslandButtonWidget(
+              text: 'Max',
+              onTap: _onTapMaximun,
+            ),
+          )
+        ],
+      ),
     );
   }
 
   Widget _buildLocation() {
-    return TitleInputWidget(
+    // return TitleInputWidget(
+    //   title: 'Location',
+    //   isRequired: true,
+    //   hintText: 'Ho Chi Minh, Viet Nam',
+    // );
+    return DropdownInputWidget(
+      onFind: handleOnFind,
       title: 'Location',
       isRequired: true,
-      hintText: 'Ho Chi Minh, Viet Nam',
+      hintText: 'Ho Chi Minh City',
     );
   }
 
@@ -134,4 +144,9 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
 
   void _onTapMaximun() {}
 
+  Future<List<String>> handleOnFind(String text) {
+    final googleService = DI.get<LocationService>(LocationService);
+    return googleService.getSuggestionLocation(text).then(
+        (resp) => resp.predictions.map((location) => location.description).toList());
+  }
 }

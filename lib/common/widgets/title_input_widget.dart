@@ -26,8 +26,8 @@ class TitleInputWidget extends TStatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 13, right: 5),
+    return Padding(
+      padding: EdgeInsets.only(left: 15, right: 10),
       child: Flex(
         crossAxisAlignment: CrossAxisAlignment.start,
         direction: Axis.vertical,

@@ -7,8 +7,15 @@ class LocationResponse {
   bool get success => status == 'OK';
   
   LocationResponse.fromJson(Map<String, dynamic> json) {
-    final items = json['predictions'] as List ?? [];
-    status = json['status'];
-    predictions = items.map((e) => LocationInfo.fromJson(json)).toList();
+    final items = json['results'] as List ?? [];
+    if (json['status'] != null) {
+      status = json['status']['message'];
+    }
+    predictions = items.map((json) => LocationInfo.fromJson(json)).toList();
+  }
+
+  LocationResponse.empty() {
+    predictions = [];
+    status = 'OK';
   }
 }
