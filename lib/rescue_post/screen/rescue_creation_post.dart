@@ -1,6 +1,7 @@
 part of petisland.rescue_post.sceen;
 
-class RescueCreationPost extends StatelessWidget {
+class RescueCreationPost extends TStatelessWidget {
+  final editingBloc = RescueEditingBloc.create();
   @override
   Widget build(BuildContext context) {
     final title = 'Create Rescue Post';
@@ -12,14 +13,24 @@ class RescueCreationPost extends StatelessWidget {
         actions: <Widget>[
           Builder(
             builder: (context) => SendWidget(
-              onPressSend: () => _conCreateRescuePost(context),
+              onPressSend: () => _onCreateRescuePost(context),
             ),
           )
         ],
       ),
-      body: RescueCreationDetailWidget(RescueEditingBloc.create()),
+      body: RescueCreationDetailWidget(editingBloc),
     );
   }
 
-  void _conCreateRescuePost(BuildContext context) {}
+  void _onCreateRescuePost(BuildContext context) {
+  
+    if (!editingBloc.rescue.titleIsValid) {
+      showErrorSnackBar(context: context, content: 'Title is require');
+      return;
+    }
+    if (!editingBloc.rescue.locatonIsValid) {
+      showErrorSnackBar(context: context, content: 'Location is require');
+      return;
+    }
+  }
 }

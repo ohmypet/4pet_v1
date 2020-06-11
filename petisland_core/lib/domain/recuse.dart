@@ -62,4 +62,8 @@ class Rescue extends BaseModel {
     account = null;
     images = [];
   }
+
+  bool get titleIsValid => title != null && title.isNotEmpty;
+
+  bool get locatonIsValid => location != null && location.isNotEmpty;
 }
