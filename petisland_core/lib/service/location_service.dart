@@ -12,7 +12,9 @@ class LocationServiceImpl extends LocationService {
   @override
   Future<LocationResponse> getSuggestionLocation(String text) {
     if (text?.isNotEmpty == true) {
-      return repository.getSuggestionLocation(text);
+      return repository
+          .getSuggestionLocation(text)
+          .catchError((ex) => LocationResponse.empty());
     } else {
       return Future.value(LocationResponse.empty());
     }

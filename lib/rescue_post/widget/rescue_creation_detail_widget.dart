@@ -104,16 +104,11 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
   }
 
   Widget _buildLocation() {
-    // return TitleInputWidget(
-    //   title: 'Location',
-    //   isRequired: true,
-    //   hintText: 'Ho Chi Minh, Viet Nam',
-    // );
     return DropdownInputWidget(
       onFind: handleOnFind,
       title: 'Location',
       isRequired: true,
-      hintText: 'Ho Chi Minh City',
+      hintText: 'Ho Chi Minh City, Vietnam',
     );
   }
 
@@ -146,7 +141,12 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
 
   Future<List<String>> handleOnFind(String text) {
     final googleService = DI.get<LocationService>(LocationService);
-    return googleService.getSuggestionLocation(text).then(
-        (resp) => resp.predictions.map((location) => location.description).toList());
+    return googleService.getSuggestionLocation(text).then((resp) {
+      if (resp.predictions.isNotEmpty) {
+        return resp.predictions.map((location) => location.description).toList();
+      } else {
+        return [text];
+      }
+    });
   }
 }

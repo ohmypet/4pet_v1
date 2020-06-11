@@ -16,6 +16,11 @@ class PetApiException extends PetException {
     message = json['message'];
   }
 
+  PetApiException.fromDioError(DioError exeception) {
+    statusCode = exeception.response.statusCode;
+    this.error = exeception.error.toString();
+  }
+
   @override
   String toString() => super.toString() + ' status: $statusCode';
 }
