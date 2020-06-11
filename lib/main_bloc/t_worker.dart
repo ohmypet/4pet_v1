@@ -66,7 +66,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
     void _uploadPostModal(List<PetImage> images) {
       if (event.postModal is PostCreateModal) {
         final PostCreateModal postMustUpload = event.postModal
-          ..images.addAll(images);
+          ..oldImages.addAll(images);
         add(UploadPostEvent._(postMustUpload: postMustUpload));
       } else {
         final PostEditModal postMustUpload = event.postModal;

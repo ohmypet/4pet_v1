@@ -13,8 +13,7 @@ class LocationServiceImpl extends LocationService {
   Future<LocationResponse> getSuggestionLocation(String text) {
     if (text?.isNotEmpty == true) {
       return repository
-          .getSuggestionLocation(text)
-          .catchError((ex) => LocationResponse.empty());
+          .getSuggestionLocation(text);
     } else {
       return Future.value(LocationResponse.empty());
     }

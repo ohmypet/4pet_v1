@@ -56,7 +56,7 @@ class PostPreviewWidget extends StatelessWidget {
           Flexible(flex: 3, child: PostTitleWidget(title: title)),
           SizedBox(height: 5),
           Flexible(child: _PostUserInfoWidget(account: account)),
-          Flexible(child: PostMoneyWidget(price: price)),
+          Flexible(child: PostMoneyWidget(money: price)),
           Flexible(
             child: Align(
               alignment: Alignment.bottomCenter,

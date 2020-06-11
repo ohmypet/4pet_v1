@@ -56,7 +56,6 @@ class Rescue extends BaseModel {
   Rescue.empty() : super(ThinId.randomId(), null, null, null) {
     title = '';
     description = '';
-    location = '';
     status = '';
     totalCoin = 0;
     maxHeroes = 3;

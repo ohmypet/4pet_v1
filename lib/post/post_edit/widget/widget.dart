@@ -2,6 +2,7 @@ library petisland.post.post_edit.widget;
 
 import 'dart:io';
 
+import 'package:dashed_container/dashed_container.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

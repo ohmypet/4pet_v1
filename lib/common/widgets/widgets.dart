@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ddi/di.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_svg/svg.dart';
@@ -27,3 +28,5 @@ part 'title_input_widget.dart';
 part 'title_widget.dart';
 part 'user_input_widget.dart';
 part 'dropdown_input_widget.dart';
+part 'enable_widget.dart';
+part 'dropdown_input.dart';

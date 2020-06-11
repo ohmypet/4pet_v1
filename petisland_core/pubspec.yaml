@@ -2,7 +2,7 @@ name: petisland_core
 description: pet_core module
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   equatable: 1.1.1

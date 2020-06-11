@@ -34,8 +34,11 @@ class _ImagePostInputState extends TState<ImagePostInput> {
                 return SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: _buildImageWidget(widget.bloc.postImages),
+                  child: SizedBox(
+                    height: 75,
+                    child: Row(
+                      children: _buildImageWidget(widget.bloc.postImages),
+                    ),
                   ),
                 );
               },
@@ -52,9 +55,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
   }
 
   List<Widget> _buildImageWidget(List<PostImage> postImages) {
-    List<Widget> result = <Widget>[
-      AddImagePostWidget(onPress: () => chooseImage())
-    ];
+    List<Widget> result = <Widget>[AddImagePostWidget(onPress: () => chooseImage())];
 
     if (postImages == null || postImages.isEmpty) {
       return result;

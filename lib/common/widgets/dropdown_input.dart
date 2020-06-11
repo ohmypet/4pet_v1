@@ -1,7 +1,4 @@
-import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_template/common/common.dart';
-import 'package:flutter_template/common/widgets/widgets.dart';
+part of petisland.common.widgets;
 
 class DropdownInputWidget<T> extends StatelessWidget {
   final ValueChanged<T> onSelected;
@@ -10,6 +7,7 @@ class DropdownInputWidget<T> extends StatelessWidget {
   final String title;
   final bool isRequired;
   final String hintText;
+  final T selectedItem;
 
   const DropdownInputWidget({
     Key key,
@@ -19,6 +17,7 @@ class DropdownInputWidget<T> extends StatelessWidget {
     @required this.title,
     this.isRequired = false,
     this.hintText,
+    this.selectedItem,
   }) : super(key: key);
 
   @override
@@ -29,6 +28,7 @@ class DropdownInputWidget<T> extends StatelessWidget {
       contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
     );
+    final style = TTextStyles.medium(fontSize: 15);
     return Padding(
       padding: EdgeInsets.only(left: 15, right: 10),
       child: Flex(
@@ -40,23 +40,21 @@ class DropdownInputWidget<T> extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 5),
             child: Theme(
               data: theme.copyWith(
-                dialogTheme: theme.dialogTheme.copyWith(
-                  contentTextStyle: TTextStyles.medium(fontSize: 14),
-                ),
+                dialogTheme: theme.dialogTheme.copyWith(contentTextStyle: style),
                 textTheme: theme.textTheme.copyWith(
-                  subtitle1: TTextStyles.medium(fontSize: 15),
-                  subtitle2: TTextStyles.medium(fontSize: 14),
-                  headline1: TTextStyles.medium(fontSize: 14),
-                  headline2: TTextStyles.medium(fontSize: 14),
-                  headline3: TTextStyles.medium(fontSize: 14),
-                  headline4: TTextStyles.medium(fontSize: 14),
-                  headline5: TTextStyles.medium(fontSize: 14),
-                  headline6: TTextStyles.medium(fontSize: 14),
-                  bodyText1: TTextStyles.medium(fontSize: 14),
-                  bodyText2: TTextStyles.medium(fontSize: 14),
-                  caption: TTextStyles.medium(fontSize: 14),
-                  button: TTextStyles.medium(fontSize: 14),
-                  overline: TTextStyles.medium(fontSize: 14),
+                  subtitle1: style,
+                  subtitle2: style,
+                  headline1: style,
+                  headline2: style,
+                  headline3: style,
+                  headline4: style,
+                  headline5: style,
+                  headline6: style,
+                  bodyText1: style,
+                  bodyText2: style,
+                  caption: style,
+                  button: style,
+                  overline: style,
                 ),
               ),
               child: DefaultTextStyle(
@@ -72,6 +70,7 @@ class DropdownInputWidget<T> extends StatelessWidget {
                   autoFocusSearchBox: true,
                   searchBoxDecoration: decorator,
                   dropdownSearchDecoration: decorator,
+                  selectedItem: selectedItem,
                 ),
               ),
             ),

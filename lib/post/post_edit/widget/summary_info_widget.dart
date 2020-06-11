@@ -3,7 +3,7 @@ part of petisland.post.post_edit.widget;
 class SummaryInfoWidget extends TStatelessWidget {
   final List<String> petImage;
   final String title;
-  final double price;
+  final double money;
   final String location;
   final String customDefaultMoney;
   final String customDefaultTitle;
@@ -14,7 +14,7 @@ class SummaryInfoWidget extends TStatelessWidget {
   SummaryInfoWidget(
     this.title, {
     this.petImage,
-    this.price,
+    this.money,
     this.location,
     this.customDefaultMoney = 'Free Now',
     this.maxHeros,
@@ -34,7 +34,7 @@ class SummaryInfoWidget extends TStatelessWidget {
         children: <Widget>[
           _buildImageWidget(petImage),
           SizedBox(width: 12),
-          _buildInfo(title, price, location),
+          _buildInfo(title, money, location),
         ],
       ),
     );
@@ -74,7 +74,7 @@ class SummaryInfoWidget extends TStatelessWidget {
     );
   }
 
-  Widget _buildInfo(String title, double price, String location) {
+  Widget _buildInfo(String title, double money, String location) {
     title = title.isEmpty ? customDefaultTitle : title;
     // location = location.isEmpty ? 'HCM' : location;
     return Flexible(
@@ -84,7 +84,7 @@ class SummaryInfoWidget extends TStatelessWidget {
         direction: Axis.vertical,
         children: <Widget>[
           PostTitleWidget(title: title),
-          PostMoneyWidget(price: price, title: customDefaultMoney, typeMoney: typeMoney),
+          PostMoneyWidget(money: money, title: customDefaultMoney, typeMoney: typeMoney),
           PostLocationWidget(location: location),
           maxHeros != null ? HeroTitleWidget(heroes: maxHeros) : const SizedBox(),
         ],
