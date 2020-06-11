@@ -5,7 +5,7 @@ class ImageInputWidget extends TStatelessWidget {
   final String title;
   final bool isRequired;
   final ValueChanged<String> onAddImage;
-  final void Function(int, ImageType) onTapRemove;
+  final void Function(int, ImageSources) onTapRemove;
 
   ImageInputWidget({
     Key key,
@@ -69,7 +69,7 @@ class ImageInputWidget extends TStatelessWidget {
     }
   }
 
-  void _removeImage(int index, ImageType type) {
+  void _removeImage(int index, ImageSources type) {
     if (onTapRemove != null) {
       onTapRemove(index, type);
     }

@@ -9,7 +9,7 @@ class PostMoneyWidget extends StatelessWidget {
     Key key,
     this.money,
     this.title = 'Free Now',
-    this.typeMoney,
+    this.typeMoney = '\$',
   }) : super(key: key);
 
   @override
@@ -20,11 +20,13 @@ class PostMoneyWidget extends StatelessWidget {
       return Text(
         '${formatter.output.withoutFractionDigits} $typeMoney',
         style: _buildTextStyle(theme),
+        overflow: TextOverflow.ellipsis,
       );
     } else {
       return Text(
         this.title, //free
         style: _buildTextStyle(theme),
+        overflow: TextOverflow.ellipsis,
       );
     }
   }

@@ -10,8 +10,8 @@ class AvatarWidget extends StatelessWidget {
     Widget child;
     if (url != null) {
       final type = StringUtils.isImageUrlFormat(url)
-          ? ImageType.Server
-          : ImageType.Local;
+          ? ImageSources.Server
+          : ImageSources.Local;
       child = _buildImage(type, url);
     } else {
       child = buildDefaultAvatar();
@@ -23,8 +23,8 @@ class AvatarWidget extends StatelessWidget {
     return SvgPicture.asset(TAssets.user_avatar);
   }
 
-  Widget _buildImage(ImageType type, String url) {
-    return type == ImageType.Server
+  Widget _buildImage(ImageSources type, String url) {
+    return type == ImageSources.Server
         ? TCacheImageWidget(
             url: url,
             height: 10,

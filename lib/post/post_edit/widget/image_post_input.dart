@@ -97,7 +97,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
     }
   }
 
-  void _removeImage(int index, ImageType type) {
+  void _removeImage(int index, ImageSources type) {
     widget.bloc.removeImage(index, type);
   }
 }

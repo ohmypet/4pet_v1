@@ -4,19 +4,19 @@ class ImagePostWidget extends StatelessWidget {
   ///Index in PetImage List for display Images's Post
   final int index;
   final String url;
-  final void Function(int, ImageType) onTapRemove;
-  final ImageType type;
+  final void Function(int, ImageSources) onTapRemove;
+  final ImageSources type;
 
   ImagePostWidget(this.url,
       {@required this.onTapRemove, this.index, Key key})
       : type = StringUtils.isImageUrlFormat(url)
-            ? ImageType.Server
-            : ImageType.Local,
+            ? ImageSources.Server
+            : ImageSources.Local,
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Widget child = type == ImageType.Server
+    Widget child = type == ImageSources.Server
         ? TCacheImageWidget(borderRadius: BorderRadius.circular(0), url: url)
         : Image.file(File(url), fit: BoxFit.cover);
 

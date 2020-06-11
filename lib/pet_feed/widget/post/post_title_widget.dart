@@ -13,6 +13,7 @@ class PostTitleWidget extends StatelessWidget {
     return Text(
       title,
       maxLines: 2,
+      overflow: TextOverflow.ellipsis,
       style: theme.textTheme.bodyText1.copyWith(
         color: theme.accentColor,
         fontSize: 18,

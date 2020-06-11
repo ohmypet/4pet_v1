@@ -21,8 +21,7 @@ class RescueEditingBloc extends TBloc<RescueEditingEvent, RescueEditingState> {
     oldImages.addAll(images);
   }
 
-  @override
-  Duration get delayEvent => const Duration(milliseconds: 100);
+  final delayEvent = const Duration(milliseconds: 50);
 
   @override
   Stream<RescueEditingState> errorToState(BaseErrorEvent event) {
@@ -40,6 +39,7 @@ class RescueEditingBloc extends TBloc<RescueEditingEvent, RescueEditingState> {
         break;
       case ChangedImage:
         yield ReloadImageSlider();
+        yield ReloadSummaryState();
         break;
       default:
     }
@@ -48,11 +48,11 @@ class RescueEditingBloc extends TBloc<RescueEditingEvent, RescueEditingState> {
   @override
   RescueEditingState get initialState => ReloadSummaryState();
 
-  void notifyChangedValue() {
+  void reloadSummaryInfo() {
     add(ChangedValue());
   }
 
-  void loadImages() {
+  void reloadImageSlider() {
     add(ChangedImage());
   }
 }

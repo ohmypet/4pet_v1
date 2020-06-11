@@ -10,37 +10,16 @@ class RescueCreationDetailWidget extends TStatefulWidget {
 }
 
 class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget> {
-  RescueEditingBloc get editingBloc => widget.rescueEditingBloc;
   final String defaultTitle = 'Can you help my kitten ...';
-
   final List<String> numberHeros = ['Unlimited volunteer'];
+
   final titleEdittingController = TextEditingController();
   final descriptionEdittingController = TextEditingController();
   final rewardEdittingController = TextEditingController();
-
-  bool get isEditMode => editingBloc.mode == RescueMode.Edit;
   final double maxCoin = 12;
 
-  void initState() {
-    super.initState();
-    for (int i = 1; i < 10; ++i) {
-      numberHeros.add('$i volunteer');
-    }
-    if (isEditMode) {
-      titleEdittingController.text = editingBloc.rescue.title ?? '';
-      descriptionEdittingController.text = editingBloc.rescue.description ?? '';
-      rewardEdittingController.text = editingBloc.rescue.totalCoin?.toString() ?? '0';
-    }
-
-    titleEdittingController.addListener(() {
-      editingBloc.rescue.title = titleEdittingController.text;
-      editingBloc.notifyChangedValue();
-    });
-    descriptionEdittingController.addListener(() {
-      editingBloc.rescue.description = descriptionEdittingController.text;
-    });
-    rewardEdittingController.addListener(_handleRewardChanged);
-  }
+  RescueEditingBloc get editingBloc => widget.rescueEditingBloc;
+  bool get isEditMode => editingBloc.mode == RescueMode.Edit;
 
   @override
   Widget build(BuildContext context) {
@@ -67,22 +46,58 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
     );
   }
 
-  Widget _buildSummaryRescuePost() {
+  void dispose() {
+    super.dispose();
+    this.descriptionEdittingController.dispose();
+    this.titleEdittingController.dispose();
+    this.rewardEdittingController.dispose();
+  }
+
+  void initState() {
+    super.initState();
+    for (int i = 1; i < 10; ++i) {
+      numberHeros.add('$i volunteer');
+    }
+    if (isEditMode) {
+      titleEdittingController.text = editingBloc.rescue.title ?? '';
+      descriptionEdittingController.text = editingBloc.rescue.description ?? '';
+      rewardEdittingController.text = editingBloc.rescue.totalCoin?.toString() ?? '0';
+    }
+
+    titleEdittingController.addListener(() {
+      editingBloc.rescue.title = titleEdittingController.text;
+      editingBloc.reloadSummaryInfo();
+    });
+    descriptionEdittingController.addListener(() {
+      editingBloc.rescue.description = descriptionEdittingController.text;
+    });
+    rewardEdittingController.addListener(_handleRewardChanged);
+  }
+
+  Widget _buildImages() {
     return BlocBuilder<RescueEditingBloc, RescueEditingState>(
       bloc: editingBloc,
-      condition: (_, state) => state is ReloadSummaryState,
-      builder: (BuildContext context, RescueEditingState state) {
-        return SummaryInfoWidget(
-          editingBloc.rescue.title,
-          money: editingBloc.rescue.totalCoin,
-          location: editingBloc.rescue.location,
-          petImage: editingBloc.rescue.images.map((e) => e.url).toList(),
-          maxHeros: editingBloc.rescue.maxHeroes,
-          customDefaultMoney: 'Charity',
-          typeMoney: 'coin',
-          customDefaultTitle: defaultTitle,
+      condition: (_, state) => state is ReloadImageSlider,
+      builder: (_, state) {
+        return ImageInputWidget(
+          images: [
+            ...editingBloc.oldImages,
+            ...editingBloc.newImages,
+          ],
+          onAddImage: _handleAddImage,
+          onTapRemove: _handleRemoveImage,
         );
       },
+    );
+  }
+
+  Widget _buildInputDesciption() {
+    return TitleInputWidget(
+      title: 'Description',
+      hintText: 'Description about rescue',
+      isRequired: false,
+      maxLines: 1,
+      editingController: descriptionEdittingController,
     );
   }
 
@@ -95,13 +110,14 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
     );
   }
 
-  Widget _buildInputDesciption() {
-    return TitleInputWidget(
-      title: 'Description',
-      hintText: 'Description about rescue',
-      isRequired: false,
-      maxLines: 1,
-      editingController: descriptionEdittingController,
+  Widget _buildLocation() {
+    return DropdownInputWidget<String>(
+      onFind: _handleOnFind,
+      title: 'Location',
+      isRequired: true,
+      hintText: 'Ho Chi Minh City, Vietnam',
+      selectedItem: editingBloc.rescue.location,
+      onSelected: _handleLocationChanged,
     );
   }
 
@@ -138,14 +154,21 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
     );
   }
 
-  Widget _buildLocation() {
-    return DropdownInputWidget<String>(
-      onFind: _handleOnFind,
-      title: 'Location',
-      isRequired: true,
-      hintText: 'Ho Chi Minh City, Vietnam',
-      selectedItem: editingBloc.rescue.location,
-      onSelected: (text) => editingBloc.rescue.location = text,
+  Widget _buildSummaryRescuePost() {
+    return BlocBuilder<RescueEditingBloc, RescueEditingState>(
+      bloc: editingBloc,
+      condition: (_, state) => state is ReloadSummaryState,
+      builder: (BuildContext context, RescueEditingState state) {
+        return SummaryInfoWidget(
+          editingBloc.rescue.title,
+          money: editingBloc.rescue.totalCoin,
+          location: editingBloc.rescue.location,
+          petImage: [...editingBloc.oldImages, ...editingBloc.newImages],
+          customDefaultMoney: 'Charity',
+          typeMoney: 'coin',
+          customDefaultTitle: defaultTitle,
+        );
+      },
     );
   }
 
@@ -158,24 +181,16 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
     );
   }
 
-  Widget _buildImages() {
-    return BlocBuilder<RescueEditingBloc, RescueEditingState>(
-      bloc: editingBloc,
-      condition: (_, state) => state is ReloadImageSlider,
-      builder: (_, state) {
-        return ImageInputWidget(
-          images: [
-            ...editingBloc.oldImages,
-            ...editingBloc.newImages,
-          ],
-          onAddImage: _handleAddImage,
-        );
-      },
-    );
+  bool _canPaid(num coin, num maxCoin) => coin <= maxCoin;
+
+  void _handleAddImage(String value) {
+    editingBloc.newImages.add(value);
+    editingBloc.reloadImageSlider();
   }
 
-  void _onTapMaximun() {
-    rewardEdittingController.text = maxCoin.toString();
+  void _handleLocationChanged(String text) {
+    editingBloc.rescue.location = text;
+    editingBloc.reloadImageSlider();
   }
 
   Future<List<String>> _handleOnFind(String text) {
@@ -189,31 +204,33 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
     }).catchError((ex) => [text]);
   }
 
-  void _handleAddImage(String value) {
-    editingBloc.newImages.add(value);
-    editingBloc.loadImages();
+  void _handleRemoveImage(int index, ImageSources type) {
+    switch (type) {
+      case ImageSources.Server:
+        editingBloc.oldImages.removeAt(index);
+        break;
+      case ImageSources.Local:
+        editingBloc.newImages.removeAt(index - editingBloc.oldImages.length);
+        break;
+      default:
+    }
+    editingBloc.reloadImageSlider();
   }
-
-  void dispose() {
-    super.dispose();
-    this.descriptionEdittingController.dispose();
-    this.titleEdittingController.dispose();
-    this.rewardEdittingController.dispose();
-  }
-
-  bool _canPaid(num coin, num maxCoin) => coin <= maxCoin;
 
   void _handleRewardChanged() {
     final coin = double.tryParse(rewardEdittingController.text);
     if (coin != null) {
       if (_canPaid(coin, maxCoin)) {
         editingBloc.rescue.totalCoin = coin;
-        editingBloc.notifyChangedValue();
       } else {
         rewardEdittingController.text = maxCoin.toInt().toString();
       }
     } else {
       rewardEdittingController.text = '0';
     }
+  }
+
+  void _onTapMaximun() {
+    rewardEdittingController.text = maxCoin.toInt().toString();
   }
 }

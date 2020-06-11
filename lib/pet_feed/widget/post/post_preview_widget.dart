@@ -1,11 +1,11 @@
 part of petisland.pet_feed.widget.post;
 
-enum ImageType {
+enum ImageSources {
   Local,
   Server,
 }
 
-typedef TapImage = void Function(String, ImageType);
+typedef TapImage = void Function(String, ImageSources);
 
 class PostPreviewWidget extends StatelessWidget {
   final Post item;
