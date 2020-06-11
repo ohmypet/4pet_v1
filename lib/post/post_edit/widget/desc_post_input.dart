@@ -38,7 +38,7 @@ class _DescPostInputState extends State<DescPostInput> {
             UserInputWidget(
               textController,
               maxLines: null,
-              hintText: 'Katty is the best...',
+              hintText: 'Kitten is a small cat...',
               keyboardType: TextInputType.multiline,
               onChange: (String text) {
                 widget.bloc.description = text;

@@ -3,11 +3,13 @@ part of petisland.main_bloc;
 abstract class WorkerEvent extends BaseEvent {}
 
 class UploadImageEvent<T> extends WorkerEvent {
+  final String id;
   final int numRetry;
   final List<String> imagesMustUpload;
   final T postModal;
 
   UploadImageEvent._({
+    @required this.id,
     @required this.imagesMustUpload,
     @required this.postModal,
     this.numRetry = 0,
@@ -16,6 +18,7 @@ class UploadImageEvent<T> extends WorkerEvent {
   UploadImageEvent retry() {
     if (numRetry < PetIslandConstants.max_retry) {
       return UploadImageEvent._(
+        id: this.id,
         numRetry: numRetry + 1,
         imagesMustUpload: imagesMustUpload,
         postModal: postModal,
@@ -26,14 +29,20 @@ class UploadImageEvent<T> extends WorkerEvent {
 }
 
 class UploadPostEvent extends WorkerEvent {
+  final String id;
   final int numRetry;
   final PostCreateModal postMustUpload;
 
-  UploadPostEvent._({@required this.postMustUpload, this.numRetry = 0});
+  UploadPostEvent._({
+    @required this.id,
+    @required this.postMustUpload,
+    this.numRetry = 0,
+  });
 
   UploadPostEvent retry() {
     if (numRetry < PetIslandConstants.max_retry) {
       return UploadPostEvent._(
+        id: this.id,
         numRetry: numRetry + 1,
         postMustUpload: postMustUpload,
       );
@@ -50,8 +59,7 @@ class UpdatePostEvent extends WorkerEvent {
 
   UpdatePostEvent retry() {
     if (numRetry < PetIslandConstants.max_retry) {
-      return UpdatePostEvent._(
-          numRetry: numRetry + 1, postMustUpdate: postMustUpdate);
+      return UpdatePostEvent._(numRetry: numRetry + 1, postMustUpdate: postMustUpdate);
     } else
       throw LimitRetryException();
   }
