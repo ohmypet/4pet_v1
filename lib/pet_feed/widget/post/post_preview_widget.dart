@@ -20,7 +20,7 @@ class PostPreviewWidget extends StatelessWidget {
       flex: 3,
       child: Container(
         margin: const EdgeInsets.only(left: 5),
-        child: PostImageWidget(item: item, onTapImage: onTapImage),
+        child: PostImageWidget(imageUrl: item.firstImage, onTapImage: onTapImage),
         alignment: Alignment.centerLeft,
       ),
     );

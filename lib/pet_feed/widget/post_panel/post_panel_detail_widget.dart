@@ -12,7 +12,7 @@ class _PostTrendingWidget extends StatelessWidget {
       onTap: onTap,
       child: Stack(
         children: <Widget>[
-          PostImageWidget(item: item, isSquare: false),
+          PostImageWidget(imageUrl: item.firstImage, isSquare: false),
           _PostPanelDescriptionWidget(item: item)
         ],
       ),

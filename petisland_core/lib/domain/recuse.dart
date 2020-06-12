@@ -10,7 +10,7 @@ class Rescue extends BaseModel {
   int likes;
   Account account;
   bool isJoined;
-  List<PetImage> images;
+  List<RescueImage> rescueImages;
 
   Rescue({
     String id,
@@ -26,6 +26,7 @@ class Rescue extends BaseModel {
     this.likes = 0,
     this.account,
     this.isJoined = true,
+    this.rescueImages = const [],
   }) : super(id, createAt, updateAt, createBy);
 
   @override
@@ -60,10 +61,20 @@ class Rescue extends BaseModel {
     totalCoin = 0;
     maxHeroes = 3;
     account = null;
-    images = [];
+    rescueImages = [];
   }
 
   bool get titleIsValid => title != null && title.isNotEmpty;
 
   bool get locatonIsValid => location != null && location.isNotEmpty;
+
+  String get firstImage {
+    final RescueImage item = rescueImages
+        .firstWhere((rescueImage) => rescueImage.image?.url != null, orElse: () => null);
+    if (item != null) {
+      return item.image.url;
+    } else {
+      return null;
+    }
+  }
 }

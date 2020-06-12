@@ -1,15 +1,19 @@
 part of petisland.pet_feed.widget.post_panel;
 
-class _PanelDescriptionBar extends StatelessWidget {
-  final Panel panel;
-  final VoidCallback onTap;
+class PanelDescriptionBar extends StatelessWidget {
+  final String title;
+  final VoidCallback onTapSeeMore;
+  final bool enableSeeMore;
 
-  const _PanelDescriptionBar({Key key, @required this.panel, this.onTap})
-      : super(key: key);
+  const PanelDescriptionBar({
+    Key key,
+    @required this.title,
+    this.onTapSeeMore,
+    this.enableSeeMore = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final String title = PetIslandConstants.getCategoryStringFromType(panel.type);
     final Widget titleWidget = _buildTitle(context, title);
     final Widget seeMoreWidget = _buildSeeMore(context, _onTapSeeMore);
     return Flex(
@@ -19,10 +23,9 @@ class _PanelDescriptionBar extends StatelessWidget {
       direction: Axis.horizontal,
       children: <Widget>[
         Flexible(child: titleWidget),
-        // TODO(tvc12): Disable see more feature, open in next version
         EnableWidget(
           child: seeMoreWidget,
-          enable: false,
+          enable: enableSeeMore,
         ),
       ],
     );
@@ -31,10 +34,11 @@ class _PanelDescriptionBar extends StatelessWidget {
   Widget _buildTitle(BuildContext context, String title) {
     final theme = Theme.of(context);
     final style = theme.textTheme.subtitle2.copyWith(
-        fontSize: 18,
-        color: theme.accentColor.withAlpha(220),
-        letterSpacing: 0.2,
-        fontWeight: FontWeight.w700);
+      fontSize: 18,
+      color: theme.accentColor.withAlpha(220),
+      letterSpacing: 0.2,
+      fontWeight: FontWeight.w700,
+    );
     return Text(title, style: style);
   }
 
@@ -62,6 +66,6 @@ class _PanelDescriptionBar extends StatelessWidget {
   }
 
   void _onTapSeeMore() {
-    if (onTap != null) onTap();
+    if (onTapSeeMore != null) onTapSeeMore();
   }
 }
