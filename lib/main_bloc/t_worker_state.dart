@@ -3,9 +3,10 @@ part of petisland.main_bloc;
 abstract class WorkerState extends BaseState {}
 
 class UploadPostSuccess extends WorkerState {
-  final Post item;
+  final Post post;
+  final String message;
 
-  UploadPostSuccess(this.item);
+  UploadPostSuccess(this.post, {this.message = ''});
 }
 
 class UploadFailedState extends BaseErrorState implements WorkerState {

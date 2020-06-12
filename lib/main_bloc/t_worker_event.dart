@@ -66,9 +66,10 @@ class UpdatePostEvent extends WorkerEvent {
 }
 
 class UploadPostSuccessEvent extends WorkerEvent {
-  final Post item;
+  final Post post;
+  final String message;
 
-  UploadPostSuccessEvent(this.item);
+  UploadPostSuccessEvent(this.post, {this.message = ''});
 }
 
 class UploadFailedEvent extends BaseErrorEvent implements WorkerEvent {
