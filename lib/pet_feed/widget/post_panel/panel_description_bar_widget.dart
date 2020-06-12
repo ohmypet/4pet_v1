@@ -19,7 +19,11 @@ class _PanelDescriptionBar extends StatelessWidget {
       direction: Axis.horizontal,
       children: <Widget>[
         Flexible(child: titleWidget),
-        seeMoreWidget,
+        // TODO(tvc12): Disable see more feature, open in next version
+        EnableWidget(
+          child: seeMoreWidget,
+          enable: false,
+        ),
       ],
     );
   }
@@ -27,11 +31,10 @@ class _PanelDescriptionBar extends StatelessWidget {
   Widget _buildTitle(BuildContext context, String title) {
     final theme = Theme.of(context);
     final style = theme.textTheme.subtitle2.copyWith(
-      fontSize: 18,
-      color: theme.accentColor.withAlpha(220),
-      letterSpacing: 0.2,
-      fontWeight: FontWeight.w700
-    );
+        fontSize: 18,
+        color: theme.accentColor.withAlpha(220),
+        letterSpacing: 0.2,
+        fontWeight: FontWeight.w700);
     return Text(title, style: style);
   }
 

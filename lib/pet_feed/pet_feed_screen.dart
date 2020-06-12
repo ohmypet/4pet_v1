@@ -20,7 +20,11 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
             snap: true,
             title: TextLogo(),
             actions: <Widget>[
-              TCircleButton(icon: Icon(Icons.search)),
+              // TODO(tvc12): Disable search feature, open in next version
+              EnableWidget(
+                enable: false,
+                child: TCircleButton(icon: Icon(Icons.search)),
+              ),
               SizedBox(width: 7),
               TCircleButton(
                 icon: Icon(Icons.add),
