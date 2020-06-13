@@ -10,3 +10,6 @@ part 'pet_feed_bloc.dart';
 part 'pet_feed_controller.dart';
 part 'pet_feed_event.dart';
 part 'pet_feed_state.dart';
+part 'rescue_listing_bloc.dart';
+part 'rescue_listing_event.dart';
+part 'rescue_listing_state.dart';
