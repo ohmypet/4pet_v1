@@ -35,6 +35,8 @@ class DevModuleCore extends AbstractModule {
     bind(NotificationService).to(_buildNotificationService());
     bind(LocationRepository).to(_buildLocationRepository());
     bind(LocationService).to(_buildLocationService());
+    bind(RescueRepository).to(_buildRescueRepository());
+    bind(RescueService).to(_buildRescueService());
   }
 
   Future<LocalStorageService> _buildLocalService() async {
@@ -187,5 +189,17 @@ class DevModuleCore extends AbstractModule {
   LocationService _buildLocationService() {
     final LocationRepository repository = get<LocationRepository>(LocationRepository);
     return LocationServiceImpl(repository);
+  }
+
+  RescueRepository _buildRescueRepository() {
+    // final HttpClient client = get<HttpClient>(api_host);
+
+    return MockRescueRepository();
+  }
+
+  RescueService _buildRescueService() {
+    final RescueRepository repository = get<RescueRepository>(RescueRepository);
+
+    return RescueServiceImpl(repository);
   }
 }

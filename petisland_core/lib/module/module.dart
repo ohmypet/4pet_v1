@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:ddi/di.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:petisland_core/config/config.production.dart';
 import 'package:petisland_core/petisland_core.dart';
 import 'package:petisland_core/repository/repository.dart';
 import 'package:petisland_core/service/service.dart';
