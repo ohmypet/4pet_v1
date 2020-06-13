@@ -51,10 +51,10 @@ class _RescueListingState extends TState<RescueListing> {
       shrinkWrap: false,
       scrollDirection: Axis.horizontal,
       physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       itemBuilder: _buildPreviewRescuePost,
       separatorBuilder: (BuildContext context, int index) {
-        return const SizedBox(width: 15);
+        return const SizedBox(width: 10);
       },
     );
   }
@@ -85,12 +85,28 @@ class PreviewRescuePost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final avatar = rescue.avatar;
+    final image = rescue.firstImage;
     return GestureDetector(
       onTap: onTap,
-      child: Stack(
-        children: <Widget>[
-          PostImageWidget(imageUrl: rescue.firstImage, isSquare: false),
-        ],
+      child: AspectRatio(
+        aspectRatio: 3 / 4,
+        child: Stack(
+          children: <Widget>[
+            PostImageWidget(imageUrl: image, isSquare: false),
+            Container(
+              margin: const EdgeInsets.all(4),
+              alignment: Alignment.topRight,
+              child: CircleColorWidget(
+                child: SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: AvatarWidget(url: avatar),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

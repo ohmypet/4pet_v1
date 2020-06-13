@@ -77,4 +77,6 @@ class Rescue extends BaseModel {
       return null;
     }
   }
+
+  String get avatar => account?.user?.avatar?.url;
 }

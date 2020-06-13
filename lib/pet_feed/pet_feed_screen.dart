@@ -37,8 +37,8 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
             pinned: true,
             floating: false,
             delegate: THeaderWidget(
-              minExtent: 125,
-              maxExtent: 125,
+              minExtent: 175,
+              maxExtent: 175,
               autoInsertSafeArea: false,
               child: RescueListing(
                 onTapRescuePost: _onTapPost,

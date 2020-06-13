@@ -28,7 +28,7 @@ part 'post_button_widget.dart';
 part 'post_image_widget.dart';
 part 'post_location_widget.dart';
 part 'post_money_widget.dart';
-part 'post_preview_widget.dart';
+part 'preview_post_widget.dart';
 part 'post_time_widget.dart';
 part 'post_title_widget.dart';
 part 'post_user_info_widget.dart';

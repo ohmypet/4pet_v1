@@ -18,7 +18,7 @@ class PostWidget extends PostItemRender<Post> {
               flex: 7,
               child: InkWell(
                 onTap: () => _onTapPost(context),
-                child: PostPreviewWidget(item: item),
+                child: PreviewPostWidget(item: item),
               ),
             ),
             Expanded(

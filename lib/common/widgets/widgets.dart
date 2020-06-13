@@ -30,3 +30,4 @@ part 'user_input_widget.dart';
 part 'dropdown_input_widget.dart';
 part 'enable_widget.dart';
 part 'dropdown_input.dart';
+part 'circle_color_widget.dart';

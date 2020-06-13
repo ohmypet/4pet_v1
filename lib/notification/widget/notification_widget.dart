@@ -4,14 +4,12 @@ class NotificationWidget extends StatelessWidget {
   final PetNotification item;
   final VoidCallback onTap;
 
-  const NotificationWidget({Key key, @required this.item, this.onTap})
-      : super(key: key);
+  const NotificationWidget({Key key, @required this.item, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final imageWidget = _buildImage(item.sender?.user?.avatar?.url);
-    final color =
-        item.isRead ? TColors.transparent : TColors.brown_grey.withAlpha(25);
+    final color = item.isRead ? TColors.transparent : TColors.brown_grey.withAlpha(25);
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(5),
@@ -49,7 +47,7 @@ class NotificationWidget extends StatelessWidget {
   Widget _buildImage(String url) {
     return AspectRatio(
       aspectRatio: 1,
-      child: FittedBox(child: AvatarWidget(url: url)),
+      child: CircleColorWidget(child: AvatarWidget(url: url)),
     );
   }
 }

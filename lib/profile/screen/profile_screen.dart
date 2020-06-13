@@ -24,7 +24,15 @@ class _ProfileScreenState extends TState<ProfileScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         children: <Widget>[
           const SizedBox(height: 25),
-          ChooseAvatarWidget(avatar: AvatarWidget(url: image)),
+          ChooseAvatarWidget(
+            avatar: CircleColorWidget(
+              padding: const EdgeInsets.all(5),
+              child: AvatarWidget(
+                url: image,
+                paddingDefaultImage: const EdgeInsets.all(5),
+              ),
+            ),
+          ),
           GestureDetector(
             child: _buildName(context, account),
             onTap: _onTapName,
