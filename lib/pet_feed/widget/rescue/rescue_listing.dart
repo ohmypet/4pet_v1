@@ -18,8 +18,18 @@ class RescueListing extends TStatefulWidget {
 
 class _RescueListingState extends TState<RescueListing> {
   RescueListingBloc get bloc => widget.listingBloc;
-  static const ReviewRescueDefaultWidget rescueDefault = const ReviewRescueDefaultWidget();
-  
+  static const defaultLoading = const PreviewRescueDefaultWidget();
+  static const box = SizedBox(width: 10);
+
+  final refreshController = RefreshController();
+
+  void initState() {
+    super.initState();
+    if (bloc.rescues.isEmpty) {
+      bloc.loadMoreRescuePost();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,112 +52,92 @@ class _RescueListingState extends TState<RescueListing> {
     );
   }
 
-  void _handleOnTapClick() {
+  void _handleOnTapClick(String id) {
     if (widget.onTapRescuePost != null) {
-      widget.onTapRescuePost(ThinId.randomId());
+      widget.onTapRescuePost(id);
     }
   }
 
   void _onTapSeeMore() {}
 
   Widget _buildRescuePostSlider() {
-    return BlocBuilder(
+    return BlocConsumer<RescueListingBloc, RescueListingState>(
       bloc: bloc,
-      condition: (_, state) => state is ReloadListingState,
+      listenWhen: (_, state) => state is ReloadRescueListingState,
+      listener: _handleOnStateChange,
+      buildWhen: (_, state) => state is ReloadRescueListingState,
       builder: (BuildContext context, state) {
-        return ListView.separated(
-          itemCount: 20,
-          shrinkWrap: false,
-          scrollDirection: Axis.horizontal,
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-          itemBuilder: (_, index) => rescueDefault,
-          separatorBuilder: (BuildContext context, int index) {
-            return const SizedBox(width: 10);
-          },
-        );
+        switch (state.runtimeType) {
+          case ReloadRescueListingState:
+            return _buildRescueListing(state);
+            break;
+          default:
+            return _buildRescueLoading();
+        }
       },
     );
   }
 
-  Widget _buildPreviewRescuePost(BuildContext context, int index) {
-    return PreviewRescuePostWidget(
-      rescue: Rescue(
-        rescueImages: [
-          RescueImage(
-            id: ThinId.randomId(),
-            image: PetImage(
-              id: ThinId.randomId(),
-              url: 'https://github.com/tvc12.png',
+  Widget _buildRescueListing(ReloadRescueListingState state) {
+    return SmartRefresher(
+      controller: refreshController,
+      enablePullDown: true,
+      scrollDirection: Axis.horizontal,
+      enablePullUp: state.canLoadMore,
+      header: ClassicHeader(
+        iconPos: IconPosition.top,
+        outerBuilder: (child) {
+          return Container(
+            width: 160.0,
+            child: Center(
+              child: child,
             ),
-          ),
-        ],
+          );
+        },
       ),
-    );
-  }
-}
-
-class PreviewRescuePostWidget extends StatelessWidget {
-  final Rescue rescue;
-  final ValueChanged<String> onTapRescuePost;
-
-  const PreviewRescuePostWidget({Key key, @required this.rescue, this.onTapRescuePost})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final avatar = rescue.avatar;
-    final image = rescue.firstImage;
-    return GestureDetector(
-      onTap: onTap,
-      child: AspectRatio(
-        aspectRatio: 0.75, // 3/4
-        child: Stack(
-          children: <Widget>[
-            PostImageWidget(imageUrl: image, isSquare: false),
-            Container(
-              margin: const EdgeInsets.all(4),
-              alignment: Alignment.topRight,
-              child: CircleColorWidget(
-                child: SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: AvatarWidget(url: avatar),
-                ),
-              ),
-            )
-          ],
+      onRefresh: _onRefresh,
+      onLoading: _onLoading,
+      child: ListView.separated(
+        itemCount: bloc.rescues.length,
+        shrinkWrap: false,
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        itemBuilder: (_, index) => PreviewRescuePostWidget(
+          rescue: bloc.rescues[index],
+          onTapRescuePost: _handleOnTapClick,
         ),
+        separatorBuilder: (BuildContext context, int index) => box,
       ),
     );
   }
 
-  void onTap() {}
-}
-
-class ReviewRescueDefaultWidget extends StatelessWidget {
-  const ReviewRescueDefaultWidget({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 0.75, // 3/4
-      child: Stack(
-        children: <Widget>[
-          TShimmerLoading(),
-          Container(
-            margin: const EdgeInsets.all(4),
-            alignment: Alignment.topRight,
-            child: CircleColorWidget(
-              child: SizedBox(
-                width: 24,
-                height: 24,
-                child: TShimmerLoading.circle(),
-              ),
-            ),
-          )
-        ],
-      ),
+  Widget _buildRescueLoading() {
+    return ListView.separated(
+      itemCount: 10,
+      shrinkWrap: false,
+      scrollDirection: Axis.horizontal,
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      itemBuilder: (_, __) => defaultLoading,
+      separatorBuilder: (_, __) => box,
     );
+  }
+
+  void _onRefresh() {
+    bloc.refreshRescuePost();
+  }
+
+  void _onLoading() {
+    bloc.loadMoreRescuePost();
+  }
+
+  void _handleOnStateChange(BuildContext context, RescueListingState state) {
+    if (refreshController.isLoading) {
+      refreshController.loadComplete();
+    }
+    if (refreshController.isRefresh) {
+      refreshController.refreshCompleted();
+    }
   }
 }
