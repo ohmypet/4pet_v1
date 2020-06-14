@@ -14,7 +14,7 @@ class PreviewRescuePostWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AspectRatio(
-        aspectRatio: 0.75, // 3/4
+        aspectRatio: TConstants.ratio4y3, //4.3
         child: Stack(
           children: <Widget>[
             PostImageWidget(imageUrl: image, isSquare: false),

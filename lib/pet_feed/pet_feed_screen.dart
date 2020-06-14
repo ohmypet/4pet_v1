@@ -36,20 +36,25 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
           SliverPersistentHeader(
             pinned: true,
             floating: false,
-            delegate: THeaderWidget(
-              minExtent: 175,
-              maxExtent: 175,
-              autoInsertSafeArea: false,
-              child: RescueListing(
-                onTapRescuePost: _onTapPost,
-                listingBloc: listingBloc,
-              ),
-            ),
+            delegate: _buildRescueHeader(),
           ),
           // SliverPersistentHeader(
         ];
       },
       body: PetFeedDetailWidget(controller: controller),
+    );
+  }
+
+  SliverPersistentHeaderDelegate _buildRescueHeader() {
+    return THeaderWidget(
+      minExtent: 175,
+      maxExtent: 175,
+      autoInsertSafeArea: false,
+      child: RescueListing(
+        onTapRescuePost: _onTapPost,
+        listingBloc: listingBloc,
+        onTapCreateRescuePost: _onTapCreatePost,
+      ),
     );
   }
 
@@ -65,7 +70,9 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
     );
   }
 
-  void _onTapPost(String value) {
+  void _onTapPost(String value) {}
+
+  void _onTapCreatePost() {
     navigateToScreen(
       context: context,
       screen: RescueCreationPost(),

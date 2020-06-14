@@ -46,7 +46,14 @@ class _RescueListingState extends TState<RescueListing> {
             ),
           ),
           const SizedBox(height: 5),
-          Flexible(child: _buildRescuePostSlider()),
+          Flexible(
+            child: Flex(
+              direction: Axis.horizontal,
+              children: [
+                Flexible(child: _buildRescuePostSlider()),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -98,16 +105,31 @@ class _RescueListingState extends TState<RescueListing> {
       onRefresh: _onRefresh,
       onLoading: _onLoading,
       child: ListView.separated(
-        itemCount: bloc.rescues.length,
+        itemCount: bloc.rescues.length + 1,
         shrinkWrap: false,
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        itemBuilder: (_, index) => PreviewRescuePostWidget(
-          rescue: bloc.rescues[index],
-          onTapRescuePost: _handleOnTapClick,
-        ),
+        itemBuilder: (_, index) {
+          if (index == 0)
+            return _buildButtonAdd();
+          else {
+            return PreviewRescuePostWidget(
+              rescue: bloc.rescues[index - 1],
+              onTapRescuePost: _handleOnTapClick,
+            );
+          }
+        },
         separatorBuilder: (BuildContext context, int index) => box,
+      ),
+    );
+  }
+
+  Widget _buildButtonAdd() {
+    return AspectRatio(
+      aspectRatio: TConstants.ratio4y3, //4.3
+      child: AddableWidget(
+        onPress: widget.onTapCreateRescuePost,
       ),
     );
   }
