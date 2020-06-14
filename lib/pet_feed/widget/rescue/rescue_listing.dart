@@ -3,9 +3,11 @@ part of petisland.pet_feed.widget.rescue;
 class RescueListing extends TStatefulWidget {
   final ValueChanged<String> onTapRescuePost;
   final VoidCallback onTapCreateRescuePost;
+  final RescueListingBloc listingBloc;
 
   const RescueListing({
     Key key,
+    @required this.listingBloc,
     this.onTapRescuePost,
     this.onTapCreateRescuePost,
   }) : super(key: key);
@@ -15,6 +17,9 @@ class RescueListing extends TStatefulWidget {
 }
 
 class _RescueListingState extends TState<RescueListing> {
+  RescueListingBloc get bloc => widget.listingBloc;
+  static const ReviewRescueDefaultWidget rescueDefault = const ReviewRescueDefaultWidget();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +31,7 @@ class _RescueListingState extends TState<RescueListing> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: PanelDescriptionBar(
-              title: 'Need rescue',
+              title: 'Need help',
               onTapSeeMore: _onTapSeeMore,
             ),
           ),
@@ -46,21 +51,27 @@ class _RescueListingState extends TState<RescueListing> {
   void _onTapSeeMore() {}
 
   Widget _buildRescuePostSlider() {
-    return ListView.separated(
-      itemCount: 20,
-      shrinkWrap: false,
-      scrollDirection: Axis.horizontal,
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      itemBuilder: _buildPreviewRescuePost,
-      separatorBuilder: (BuildContext context, int index) {
-        return const SizedBox(width: 10);
+    return BlocBuilder(
+      bloc: bloc,
+      condition: (_, state) => state is ReloadListingState,
+      builder: (BuildContext context, state) {
+        return ListView.separated(
+          itemCount: 20,
+          shrinkWrap: false,
+          scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          itemBuilder: (_, index) => rescueDefault,
+          separatorBuilder: (BuildContext context, int index) {
+            return const SizedBox(width: 10);
+          },
+        );
       },
     );
   }
 
   Widget _buildPreviewRescuePost(BuildContext context, int index) {
-    return PreviewRescuePost(
+    return PreviewRescuePostWidget(
       rescue: Rescue(
         rescueImages: [
           RescueImage(
@@ -76,11 +87,11 @@ class _RescueListingState extends TState<RescueListing> {
   }
 }
 
-class PreviewRescuePost extends StatelessWidget {
+class PreviewRescuePostWidget extends StatelessWidget {
   final Rescue rescue;
   final ValueChanged<String> onTapRescuePost;
 
-  const PreviewRescuePost({Key key, @required this.rescue, this.onTapRescuePost})
+  const PreviewRescuePostWidget({Key key, @required this.rescue, this.onTapRescuePost})
       : super(key: key);
 
   @override
@@ -90,7 +101,7 @@ class PreviewRescuePost extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AspectRatio(
-        aspectRatio: 3 / 4,
+        aspectRatio: 0.75, // 3/4
         child: Stack(
           children: <Widget>[
             PostImageWidget(imageUrl: image, isSquare: false),
@@ -112,4 +123,31 @@ class PreviewRescuePost extends StatelessWidget {
   }
 
   void onTap() {}
+}
+
+class ReviewRescueDefaultWidget extends StatelessWidget {
+  const ReviewRescueDefaultWidget({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: 0.75, // 3/4
+      child: Stack(
+        children: <Widget>[
+          TShimmerLoading(),
+          Container(
+            margin: const EdgeInsets.all(4),
+            alignment: Alignment.topRight,
+            child: CircleColorWidget(
+              child: SizedBox(
+                width: 24,
+                height: 24,
+                child: TShimmerLoading.circle(),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }

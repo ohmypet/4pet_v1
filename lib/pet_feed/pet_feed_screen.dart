@@ -7,7 +7,7 @@ class PetFeedScreen extends TStatefulWidget {
 
 class _PetFeedScreenState extends TState<PetFeedScreen> {
   final PetFeedController controller = DI.get(PetFeedController);
-
+  final RescueListingBloc listingBloc = DI.get(RescueListingBloc);
   @override
   Widget build(BuildContext context) {
     return NestedScrollView(
@@ -42,6 +42,7 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
               autoInsertSafeArea: false,
               child: RescueListing(
                 onTapRescuePost: _onTapPost,
+                listingBloc: listingBloc,
               ),
             ),
           ),
