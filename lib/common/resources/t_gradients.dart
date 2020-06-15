@@ -21,6 +21,16 @@ abstract class TGradients {
     end: Alignment.bottomCenter,
   );
 
+  static final darkGradient = LinearGradient(
+    colors: [
+      TColors.black.withOpacity(0.15),
+      TColors.black.withOpacity(0.35),
+    ],
+    stops: [0.55, 0.85],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+
   static final avatarGradient = LinearGradient(
     colors: [
       TColors.light_blue,

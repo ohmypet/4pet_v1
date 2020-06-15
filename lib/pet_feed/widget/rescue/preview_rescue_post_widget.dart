@@ -19,9 +19,6 @@ class PreviewRescuePostWidget extends StatelessWidget {
           children: <Widget>[
             PostImageWidget(imageUrl: image, isSquare: false),
             Container(
-              decoration: BoxDecoration(gradient: TGradients.defaultGradient),
-            ),
-            Container(
               margin: const EdgeInsets.all(4),
               alignment: Alignment.topRight,
               child: CircleColorWidget(
@@ -31,7 +28,16 @@ class PreviewRescuePostWidget extends StatelessWidget {
                   child: AvatarWidget(url: avatar),
                 ),
               ),
-            )
+            ),
+            Container(
+              decoration: BoxDecoration(gradient: TGradients.darkGradient),
+            ),
+            _buildLocation(),
+            Container(
+              alignment: Alignment.bottomCenter,
+              padding: const EdgeInsets.all(5),
+              child: _buildRescueData(),
+            ),
           ],
         ),
       ),
@@ -39,4 +45,93 @@ class PreviewRescuePostWidget extends StatelessWidget {
   }
 
   void onTap() {}
+
+  Widget _buildRescueData() {
+    return Flex(
+      direction: Axis.vertical,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _buildDescription(),
+        _buildLikedAndJoinedIcon(),
+      ],
+    );
+  }
+
+  Widget _buildLikedAndJoinedIcon() {
+    final iconLiked = rescue.isJoined == true
+        ? Icon(Icons.favorite, color: TColors.water_melon, size: 12)
+        : Icon(Icons.favorite_border, color: TColors.text_white, size: 12);
+    final iconVolumteer = rescue.isJoined == true
+        ? Icon(Icons.group, color: TColors.water_melon, size: 14)
+        : Icon(Icons.group, color: TColors.text_white, size: 14);
+    return Flex(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      direction: Axis.horizontal,
+      children: [
+        Flexible(
+          child: _buildIconAndTitle(icon: iconLiked, title: rescue.likeAsString),
+        ),
+        Flexible(
+          child: _buildIconAndTitle(icon: iconVolumteer, title: rescue.maxHeroeAsString),
+        )
+      ],
+    );
+  }
+
+  Widget _buildIconAndTitle({@required Icon icon, @required String title}) {
+    return Flex(
+      direction: Axis.horizontal,
+      children: [
+        icon,
+        const SizedBox(width: 1),
+        Text(
+          title,
+          overflow: TextOverflow.ellipsis,
+          style: TTextStyles.normal(
+            color: TColors.text_white,
+            fontSize: 12,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDescription() {
+    return Text(
+      rescue.title ?? '',
+      maxLines: 3,
+      overflow: TextOverflow.ellipsis,
+      style: TTextStyles.semi(
+        color: TColors.text_white,
+        fontSize: 12,
+      ),
+    );
+  }
+
+  Widget _buildLocation() {
+    return Container(
+      width: 75,
+      height: 26,
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+      decoration: BoxDecoration(
+        color: TColors.water_melon_light.withAlpha(250),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(4),
+          bottomRight: Radius.circular(4),
+        ),
+      ),
+      child: Text(
+        rescue.location,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: TTextStyles.semi(
+          color: TColors.text_white,
+          fontSize: 12,
+        ),
+      ),
+    );
+  }
 }

@@ -29,6 +29,7 @@ class MockRescueRepository extends RescueRepository {
         title: title,
         maxHeroes: ran.nextInt(10),
         totalCoin: ran.nextInt(15000).toDouble(),
+        currentHeroes: ran.nextInt(10),
         status: 'Active',
         createAt: DateTime.now(),
       );

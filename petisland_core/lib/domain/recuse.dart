@@ -7,9 +7,11 @@ class Rescue extends BaseModel {
   String status;
   double totalCoin;
   int maxHeroes;
+  int currentHeroes;
   int likes;
   Account account;
   bool isJoined;
+  bool isLiked;
   List<RescueImage> rescueImages;
 
   Rescue({
@@ -22,11 +24,13 @@ class Rescue extends BaseModel {
     this.location,
     this.status,
     this.totalCoin,
-    this.maxHeroes,
+    this.maxHeroes = 0,
+    this.currentHeroes = 0,
     this.likes = 0,
     this.account,
     this.isJoined = true,
     this.rescueImages = const [],
+
   }) : super(id, createAt, updateAt, createBy);
 
   @override
@@ -52,6 +56,8 @@ class Rescue extends BaseModel {
     if (json['account'] != null) {
       account = Account.fromJson(json['account']);
     }
+    isLiked = json['is_liked'] ?? false;
+    currentHeroes = json['current_heroes'] ?? 0;
   }
 
   Rescue.empty() : super(ThinId.randomId(), null, null, null) {
@@ -79,4 +85,17 @@ class Rescue extends BaseModel {
   }
 
   String get avatar => account?.user?.avatar?.url;
+
+  String get likeAsString => likes?.toString() ?? '0';
+
+  String get maxHeroeAsString {
+    if (maxHeroes != null && maxHeroes > 0) {
+      return '$currentHeroesAsString/${maxHeroes.toString()}';
+    }
+     else {
+       return '$currentHeroesAsString/∞';
+     }
+  }
+
+  String get currentHeroesAsString => currentHeroes?.toString() ?? '0';
 }

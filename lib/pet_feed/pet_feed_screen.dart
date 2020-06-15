@@ -47,8 +47,8 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
 
   SliverPersistentHeaderDelegate _buildRescueHeader() {
     return THeaderWidget(
-      minExtent: 175,
-      maxExtent: 175,
+      minExtent: 205,
+      maxExtent: 205,
       autoInsertSafeArea: false,
       child: RescueListing(
         onTapRescuePost: _onTapPost,
