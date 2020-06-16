@@ -6,3 +6,6 @@ import 'package:flutter_template/petisland.dart';
 part 'rescue_editing_bloc.dart';
 part 'rescue_editing_event.dart';
 part 'rescue_editing_state.dart';
+part 'rescue_comment_bloc.dart';
+part 'rescue_comment_event.dart';
+part 'rescue_comment_state.dart';

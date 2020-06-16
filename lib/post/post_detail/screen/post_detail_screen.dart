@@ -32,7 +32,7 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
         child: PostDetailAppBar(
           hasPermision: AccountUtils.grantEditAndDel(item.account),
           onTapBack: () => _onTapBack(context),
-          onTapSeeMore: (_) => _onTapSeeMore(context, _),
+          onSelected: (_) => _onTapSeeMore(context, _),
         ),
       ),
       body: BlocListener<CommentBloc, CommentState>(
@@ -70,15 +70,15 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
     Navigator.of(context).pop();
   }
 
-  void _onTapSeeMore(BuildContext context, SeeMoreType seeMoreType) {
+  void _onTapSeeMore(BuildContext context, OptionType seeMoreType) {
     switch (seeMoreType) {
-      case SeeMoreType.Report:
+      case OptionType.Report:
         _reportPost(context, item);
         break;
-      case SeeMoreType.Delete:
+      case OptionType.Delete:
         _deletePost(context, item);
         break;
-      case SeeMoreType.Edit:
+      case OptionType.Edit:
         _editPost(context, item);
         break;
       default:
