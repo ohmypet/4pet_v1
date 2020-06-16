@@ -21,7 +21,7 @@ import 'package:petisland_core/domain/domain.dart';
 import 'package:petisland_core/utils/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-part 'post_button_bar.dart';
+part 'action_button_bar.dart';
 part 'post_button_bar_widget.dart';
 part 'post_button_like_widget.dart';
 part 'post_button_widget.dart';
@@ -33,3 +33,4 @@ part 'post_time_widget.dart';
 part 'post_title_widget.dart';
 part 'post_user_info_widget.dart';
 part 'post_widget.dart';
+part 'post_button_bar.dart';

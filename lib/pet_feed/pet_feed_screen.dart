@@ -70,12 +70,14 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
     );
   }
 
-  void _onTapPost(String value) {}
+  void _onTapPost(String id) {
+    
+  }
 
   void _onTapCreatePost() {
     navigateToScreen(
       context: context,
-      screen: RescueCreationPost(),
+      screen: RescueCreationScreen(),
     );
   }
 }

@@ -39,7 +39,7 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
     final PanelDetail item = panel.items[index];
     switch (item.postItem.runtimeType) {
       case Post:
-        child = _PostTrendingWidget(
+        child = _PostWidget(
           item.postItem,
           onTap: () => _onTapPostItem(context, item.postItem),
         );

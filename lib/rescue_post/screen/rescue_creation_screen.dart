@@ -1,6 +1,6 @@
 part of petisland.rescue_post.sceen;
 
-class RescueCreationPost extends TStatelessWidget {
+class RescueCreationScreen extends TStatelessWidget {
   final editingBloc = RescueEditingBloc.create();
   @override
   Widget build(BuildContext context) {
