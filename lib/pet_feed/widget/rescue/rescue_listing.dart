@@ -1,14 +1,12 @@
 part of petisland.pet_feed.widget.rescue;
 
 class RescueListing extends TStatefulWidget {
-  final ValueChanged<String> onTapRescuePost;
   final VoidCallback onTapCreateRescuePost;
   final RescueListingBloc listingBloc;
 
   const RescueListing({
     Key key,
     @required this.listingBloc,
-    this.onTapRescuePost,
     this.onTapCreateRescuePost,
   }) : super(key: key);
 
@@ -57,12 +55,6 @@ class _RescueListingState extends TState<RescueListing> {
         ],
       ),
     );
-  }
-
-  void _handleOnTapClick(String id) {
-    if (widget.onTapRescuePost != null) {
-      widget.onTapRescuePost(id);
-    }
   }
 
   void _onTapSeeMore() {}
@@ -116,7 +108,7 @@ class _RescueListingState extends TState<RescueListing> {
           else {
             return PreviewRescuePostWidget(
               rescue: bloc.rescues[index - 1],
-              onTapRescuePost: _handleOnTapClick,
+              onTapRescuePost: _handleOnTapRescuePost,
             );
           }
         },
@@ -161,5 +153,20 @@ class _RescueListingState extends TState<RescueListing> {
     if (refreshController.isRefresh) {
       refreshController.refreshCompleted();
     }
+  }
+
+  void _handleOnTapRescuePost(Rescue rescue) {
+    navigateToScreen(
+      context: context,
+      screen: RescueDetailScreen(
+        rescue: rescue,
+        onDeleteRescue: _handleDeleteRescue,
+      ),
+      screenName: RescueCreationScreen.name,
+    );
+  }
+
+  void _handleDeleteRescue(Rescue rescue) {
+    // TODO(tvc12): Handle delete rescue
   }
 }

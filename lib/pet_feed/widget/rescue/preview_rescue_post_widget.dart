@@ -2,7 +2,7 @@ part of petisland.pet_feed.widget.rescue;
 
 class PreviewRescuePostWidget extends StatelessWidget {
   final Rescue rescue;
-  final ValueChanged<String> onTapRescuePost;
+  final ValueChanged<Rescue> onTapRescuePost;
 
   const PreviewRescuePostWidget({Key key, @required this.rescue, this.onTapRescuePost})
       : super(key: key);
@@ -44,7 +44,11 @@ class PreviewRescuePostWidget extends StatelessWidget {
     );
   }
 
-  void onTap() {}
+  void onTap() {
+    if (onTapRescuePost != null) {
+      onTapRescuePost(rescue);
+    }
+  }
 
   Widget _buildRescueData() {
     return Flex(
