@@ -9,14 +9,14 @@ class ActionButtonBar extends TStatelessWidget {
   const ActionButtonBar({
     Key key,
     this.account,
-    this.likes,
-    this.isLiked,
+    @required this.likes,
+    @required this.isLiked,
     this.onTapLike,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final String phoneNumber = account.user?.phoneNumber?.trim();
+    final String phoneNumber = account?.user?.phoneNumber?.trim();
     final double phoneOpacity = phoneNumber?.isNotEmpty == true ? 1 : 0.2;
     final double messageOpcaity = 1;
     final likeWidget = PostButtonLikeWidget(
