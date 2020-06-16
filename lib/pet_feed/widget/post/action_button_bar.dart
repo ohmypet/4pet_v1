@@ -29,8 +29,8 @@ class ActionButtonBar extends TStatelessWidget {
       opacity: messageOpcaity,
       onTap: () => _message(context, account),
       icon: Icon(
-        Icons.message,
-        color: TColors.green,
+        Icons.question_answer,
+        color: TColors.light_blue,
       ),
     );
     final callWidget = _PostButtonWidget(
@@ -38,8 +38,8 @@ class ActionButtonBar extends TStatelessWidget {
       opacity: phoneOpacity,
       onTap: () => _call(phoneNumber),
       icon: Icon(
-        Icons.call,
-        color: Colors.blue,
+        Icons.phone_in_talk,
+        color: TColors.dark_sky_blue,
       ),
     );
 
