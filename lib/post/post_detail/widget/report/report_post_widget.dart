@@ -4,6 +4,9 @@ class ReportData {
   final String text;
 
   ReportData(this.text);
+
+  @override
+  String toString() => '$runtimeType:: $text';
 }
 
 class KikiReportWidget extends StatefulWidget {

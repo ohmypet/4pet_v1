@@ -29,7 +29,7 @@ class PetFeedScreen extends TStatelessWidget {
             ],
           ),
           SliverPersistentHeader(
-            pinned: true,
+            pinned: false,
             floating: false,
             delegate: _buildRescueHeader(context),
           ),

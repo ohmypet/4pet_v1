@@ -44,14 +44,7 @@ class _RescueListingState extends TState<RescueListing> {
             ),
           ),
           const SizedBox(height: 5),
-          Flexible(
-            child: Flex(
-              direction: Axis.horizontal,
-              children: [
-                Flexible(child: _buildRescuePostSlider()),
-              ],
-            ),
-          ),
+          Flexible(child: _buildRescuePostSlider()),
         ],
       ),
     );
@@ -162,7 +155,7 @@ class _RescueListingState extends TState<RescueListing> {
         rescue: rescue,
         onDeleteRescue: _handleDeleteRescue,
       ),
-      screenName: RescueCreationScreen.name,
+      screenName: RescueDetailScreen.name,
     );
   }
 

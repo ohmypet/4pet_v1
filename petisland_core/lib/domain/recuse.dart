@@ -30,7 +30,6 @@ class Rescue extends BaseModel {
     this.account,
     this.isJoined = true,
     this.rescueImages = const [],
-
   }) : super(id, createAt, updateAt, createBy);
 
   @override
@@ -91,11 +90,17 @@ class Rescue extends BaseModel {
   String get maxHeroeAsString {
     if (maxHeroes != null && maxHeroes > 0) {
       return '$currentHeroesAsString/${maxHeroes.toString()}';
+    } else {
+      return '$currentHeroesAsString/∞';
     }
-     else {
-       return '$currentHeroesAsString/∞';
-     }
   }
 
   String get currentHeroesAsString => currentHeroes?.toString() ?? '0';
+
+  bool get canJoin {
+    if (maxHeroes != null && maxHeroes > 0) {
+      return currentHeroes < maxHeroes;
+    } else
+      return true;
+  }
 }
