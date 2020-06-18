@@ -93,13 +93,11 @@ class RescueDetailSummaryWidget extends StatelessWidget {
         const SizedBox(height: 5),
         buildTextDescription(context, 'Heroes'),
         const SizedBox(height: 2),
-        // BlocBuilder<RescueHeroBloc, RescueHeroState>(
-        //   bloc: heroBloc,
-        //   condition: (_, state) => state is ReloadListingHeroState,
-        //   builder: (_, state) {
-
-        //   },
-        // )
+        BlocBuilder<RescueHeroBloc, RescueHeroState>(
+          bloc: heroBloc,
+          condition: (_, state) => state is ReloadListingHeroState,
+          builder: (_, state) => AccountGridView(accounts: heroBloc.heroes),
+        ),
       ],
     );
   }

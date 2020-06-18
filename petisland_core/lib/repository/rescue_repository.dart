@@ -10,6 +10,9 @@ abstract class RescueRepository {
   Future<bool> unJoin(String id);
 
   Future<bool> like(String id);
+
+  Future<List<RescueAccount>> getHeroJoined();
+  Future<List<RescueDonate>> getDonaters();
 }
 
 class MockRescueRepository extends RescueRepository {
@@ -34,7 +37,7 @@ class MockRescueRepository extends RescueRepository {
         createAt: DateTime.now(),
       );
 
-  final titles = [
+  final titles = <String>[
     'Cần sự trợ giúp để cứu một chú mèo đang gặp nạn',
     'Giúp mình cứu một con chó đang ngủ',
     'Cần tìm người chữa bệnh cho chó của mình',
@@ -122,5 +125,35 @@ class MockRescueRepository extends RescueRepository {
   @override
   Future<Rescue> update(Rescue rescue) {
     return Future.value(rescue);
+  }
+
+  @override
+  Future<List<RescueDonate>> getDonaters() {
+    return Future.value(
+      List.generate(
+        ran.nextInt(10),
+        (index) => RescueDonate(
+          id: ThinId.randomId(),
+          coin: ran.nextInt(1000) + ran.nextInt(100),
+          account: account,
+          createAt: DateTime.now(),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Future<List<RescueAccount>> getHeroJoined() {
+    return Future.value(
+      List.generate(
+        10,
+        (index) => RescueAccount(
+          id: ThinId.randomId(),
+          hero: account,
+          status: ThinId.randomId(numberCharacter: 5),
+          createAt: DateTime.now(),
+        ),
+      ),
+    );
   }
 }

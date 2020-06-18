@@ -10,6 +10,9 @@ abstract class RescueService {
   Future<bool> unJoin(String id);
 
   Future<bool> like(String id);
+
+  Future<List<RescueAccount>> getHeroJoined();
+  Future<List<RescueDonate>> getDonaters();
 }
 
 class RescueServiceImpl extends RescueService {
@@ -34,4 +37,14 @@ class RescueServiceImpl extends RescueService {
 
   @override
   Future<Rescue> update(Rescue rescue) => repository.update(rescue);
+
+  @override
+  Future<List<RescueDonate>> getDonaters() {
+    return repository.getDonaters();
+  }
+
+  @override
+  Future<List<RescueAccount>> getHeroJoined() {
+    return repository.getHeroJoined();
+  }
 }

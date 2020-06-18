@@ -18,3 +18,4 @@ part 'image_input_widget.dart';
 part 'rescue_detail_summary_widget.dart';
 part 'rescue_action_bar.dart';
 part 'preview_rescue_detail_widget.dart';
+part 'account_grid_view.dart';
