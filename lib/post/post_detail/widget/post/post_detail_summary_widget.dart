@@ -43,7 +43,7 @@ class PostDetailSummaryWidget extends StatelessWidget {
         ? Container(
             height: 150,
             child: ImageSliderWidget(
-              postImages: item.postImages,
+              images: item.postImages.map((e) => e.image.url).toSet().toList(),
               description: 'Images',
             ),
           )

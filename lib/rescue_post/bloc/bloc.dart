@@ -9,3 +9,6 @@ part 'rescue_editing_state.dart';
 part 'rescue_comment_bloc.dart';
 part 'rescue_comment_event.dart';
 part 'rescue_comment_state.dart';
+part 'rescue_hero_bloc.dart';
+part 'rescue_hero_event.dart';
+part 'rescue_hero_state.dart';

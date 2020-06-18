@@ -43,7 +43,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 children: <Widget>[
-                  // PostDetailSummaryWidget(item: item),
+                  RescueDetailSummaryWidget(rescue: widget.rescue),
                   // CommentListingWidget(item: widget.item, bloc: bloc),
                 ],
               ),
@@ -98,21 +98,22 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
   void _handleJoinNow() {}
 
   Widget _buildJoinButton() {
-    return Container(
-      height: 65,
-      decoration: BoxDecoration(
-        boxShadow: TShadows.innerShadow,
-        color: TColors.text_white,
-        borderRadius: TConstants.border_top_left,
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: EnableWidget(
-        enable: canJoin,
-        child: PetIslandButtonWidget(
-          text: TConstants.join_now,
-          onTap: _handleJoinNow,
-        ),
-      ),
-    );
+    if (canJoin) {
+      return Container(
+            height: 65,
+            decoration: BoxDecoration(
+              boxShadow: TShadows.innerShadow,
+              color: TColors.text_white,
+              borderRadius: TConstants.border_top_left,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: PetIslandButtonWidget(
+              text: TConstants.join_now,
+              onTap: _handleJoinNow,
+            ),
+          );
+    } else {
+      return const SizedBox();
+    }
   }
 }

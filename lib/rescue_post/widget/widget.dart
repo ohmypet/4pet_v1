@@ -10,7 +10,11 @@ import 'package:flutter_template/login/widget/widget.dart';
 import 'package:flutter_template/pet_feed/widget/post/post.dart';
 import 'package:flutter_template/petisland.dart' hide Mode;
 import 'package:flutter_template/post/post.dart';
+import 'package:flutter_template/post/post_detail/widget/widget.dart';
 import 'package:flutter_template/rescue_post/rescue.dart';
 
 part 'rescue_creation_detail_widget.dart';
 part 'image_input_widget.dart';
+part 'rescue_detail_summary_widget.dart';
+part 'rescue_action_bar.dart';
+part 'preview_rescue_detail_widget.dart';
