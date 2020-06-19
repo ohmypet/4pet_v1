@@ -20,7 +20,13 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
   Account get account => widget.rescue.account;
   bool get isJoined => widget.rescue.isJoined ?? false;
   bool get canJoin => widget.rescue.canJoin;
+  String get id => widget.rescue.id;
   final ScrollController controller = ScrollController();
+  RescueHeroBloc heroBloc;
+  void initState() {
+    super.initState();
+    heroBloc = RescueHeroBloc(id)..reload();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +49,12 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 children: <Widget>[
-                  RescueDetailSummaryWidget(rescue: widget.rescue),
+                  RescueDetailSummaryWidget(
+                    rescue: widget.rescue,
+                    heroBloc: heroBloc,
+                  ),
                   // CommentListingWidget(item: widget.item, bloc: bloc),
+                  const SizedBox(height: 150),
                 ],
               ),
             ),
@@ -100,18 +110,18 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
   Widget _buildJoinButton() {
     if (canJoin) {
       return Container(
-            height: 65,
-            decoration: BoxDecoration(
-              boxShadow: TShadows.innerShadow,
-              color: TColors.text_white,
-              borderRadius: TConstants.border_top_left,
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: PetIslandButtonWidget(
-              text: TConstants.join_now,
-              onTap: _handleJoinNow,
-            ),
-          );
+        height: 65,
+        decoration: BoxDecoration(
+          boxShadow: TShadows.innerShadow,
+          color: TColors.text_white,
+          borderRadius: TConstants.border_top_left,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: PetIslandButtonWidget(
+          text: TConstants.join_now,
+          onTap: _handleJoinNow,
+        ),
+      );
     } else {
       return const SizedBox();
     }

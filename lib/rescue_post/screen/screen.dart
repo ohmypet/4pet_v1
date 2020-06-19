@@ -3,7 +3,6 @@ library petisland.rescue_post.sceen;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/common/common.dart';
-import 'package:flutter_template/common/widgets/widgets.dart';
 import 'package:flutter_template/login/widget/widget.dart';
 import 'package:flutter_template/petisland.dart';
 import 'package:flutter_template/post/post.dart';
