@@ -12,3 +12,4 @@ part 'rescue_comment_state.dart';
 part 'rescue_hero_bloc.dart';
 part 'rescue_hero_event.dart';
 part 'rescue_hero_state.dart';
+part 'rescue_donate_bloc.dart';

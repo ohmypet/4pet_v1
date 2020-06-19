@@ -40,7 +40,7 @@ class _RescueListingState extends TState<RescueListing> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: PanelDescriptionBar(
               title: 'Need help',
-              onTapSeeMore: _onTapSeeMore,
+              onTapSubTitle: _onTapSeeMore,
             ),
           ),
           const SizedBox(height: 5),

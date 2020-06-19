@@ -23,9 +23,12 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
   String get id => widget.rescue.id;
   final ScrollController controller = ScrollController();
   RescueHeroBloc heroBloc;
+  RescueDonateBloc donateBloc;
+
   void initState() {
     super.initState();
     heroBloc = RescueHeroBloc(id)..reload();
+    donateBloc = RescueDonateBloc(id)..reload();
   }
 
   @override
@@ -52,6 +55,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
                   RescueDetailSummaryWidget(
                     rescue: widget.rescue,
                     heroBloc: heroBloc,
+                    donateBloc: donateBloc,
                   ),
                   // CommentListingWidget(item: widget.item, bloc: bloc),
                   const SizedBox(height: 150),

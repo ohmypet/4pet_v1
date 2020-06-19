@@ -2,8 +2,8 @@ part of petisland.rescue_post.bloc;
 
 abstract class RescueHeroState extends BaseState {}
 
-class ReloadListingHeroState extends RescueHeroState {
+class ReloadListingState extends RescueHeroState {
   final bool canLoadMore;
 
-  ReloadListingHeroState(this.canLoadMore);
+  ReloadListingState(this.canLoadMore);
 }

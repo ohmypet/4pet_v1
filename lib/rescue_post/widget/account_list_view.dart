@@ -1,9 +1,9 @@
 part of petisland.rescue_post.widget;
 
-class AccountGridView extends StatelessWidget {
+class AccountListView extends StatelessWidget {
   final List<Account> accounts;
 
-  const AccountGridView({
+  const AccountListView({
     Key key,
     @required this.accounts,
   }) : super(key: key);

@@ -1,15 +1,12 @@
 part of petisland.rescue_post.bloc;
 
-class RescueHeroBloc extends TBloc<RescueHeroEvent, RescueHeroState> {
+class RescueDonateBloc extends TBloc<RescueHeroEvent, RescueHeroState> {
   final String id;
+  final List<RescueDonate> rescueDonates = [];
 
-  final List<RescueAccount> rescueAccounts = [];
-
-  List<Account> get heroes => rescueAccounts.map((e) => e.hero).toList();
-
+  RescueDonateBloc(this.id);
+  
   RescueService get service => DI.get(RescueService);
-
-  RescueHeroBloc(this.id);
 
   @override
   Stream<RescueHeroState> errorToState(BaseErrorEvent event) async* {}
@@ -24,18 +21,15 @@ class RescueHeroBloc extends TBloc<RescueHeroEvent, RescueHeroState> {
     }
   }
 
-  @override
-  RescueHeroState get initialState => ReloadListingState(heroes.isNotEmpty);
-
   Stream<RescueHeroState> _handleLoadHeroEvent(
     LoadHeroEvent event, {
     bool clearOldData,
   }) async* {
-    final heroes = await service.getHeroJoined();
+    final heroes = await service.getDonaters();
     if (clearOldData == true) {
-      this.rescueAccounts.clear();
+      this.rescueDonates.clear();
     }
-    this.rescueAccounts.addAll(heroes);
+    this.rescueDonates.addAll(heroes);
     yield ReloadListingState(heroes.isNotEmpty);
   }
 
@@ -44,6 +38,9 @@ class RescueHeroBloc extends TBloc<RescueHeroEvent, RescueHeroState> {
   }
 
   void loadMore() {
-    add(LoadHeroEvent(offset: rescueAccounts.length, limit: 10));
+    add(LoadHeroEvent(offset: rescueDonates.length, limit: 10));
   }
+
+  @override
+  RescueHeroState get initialState => ReloadListingState(true);
 }

@@ -12,7 +12,7 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
         Flexible(
           child: PanelDescriptionBar(
             title: PetIslandConstants.getCategoryStringFromType(panel.type),
-            onTapSeeMore: () => _onTapSeeMore(context),
+            onTapSubTitle: () => _onTapSeeMore(context),
             // TODO(tvc12): Disable see more feature, open in next version
             enableSeeMore: false,
           ),

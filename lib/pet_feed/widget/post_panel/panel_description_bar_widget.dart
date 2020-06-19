@@ -2,20 +2,24 @@ part of petisland.pet_feed.widget.post_panel;
 
 class PanelDescriptionBar extends StatelessWidget {
   final String title;
-  final VoidCallback onTapSeeMore;
+  final String customSubTitle;
+  final String customStringIcon;
+  final VoidCallback onTapSubTitle;
   final bool enableSeeMore;
 
   const PanelDescriptionBar({
     Key key,
     @required this.title,
-    this.onTapSeeMore,
+    this.onTapSubTitle,
     this.enableSeeMore = true,
+    this.customSubTitle = 'See more',
+    this.customStringIcon = ' >>'
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final Widget titleWidget = _buildTitle(context, title);
-    final Widget seeMoreWidget = _buildSeeMore(context, _onTapSeeMore);
+    final Widget seeMoreWidget = _buildSubTitle(context, _onTapSeeMore);
     return Flex(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,7 +46,7 @@ class PanelDescriptionBar extends StatelessWidget {
     return Text(title, style: style);
   }
 
-  Widget _buildSeeMore(BuildContext context, VoidCallback onTap) {
+  Widget _buildSubTitle(BuildContext context, VoidCallback onTap) {
     final theme = Theme.of(context);
     final style = theme.textTheme.subtitle2.copyWith(
       fontSize: 14,
@@ -55,10 +59,10 @@ class PanelDescriptionBar extends StatelessWidget {
         text: TextSpan(
           children: [
             TextSpan(
-              text: 'See more',
+              text: this.customSubTitle,
               style: style.copyWith(decoration: TextDecoration.underline),
             ),
-            TextSpan(text: ' >>', style: style.copyWith(fontSize: 12))
+            TextSpan(text: this.customStringIcon, style: style.copyWith(fontSize: 12))
           ],
         ),
       ),
@@ -66,6 +70,6 @@ class PanelDescriptionBar extends StatelessWidget {
   }
 
   void _onTapSeeMore() {
-    if (onTapSeeMore != null) onTapSeeMore();
+    if (onTapSubTitle != null) onTapSubTitle();
   }
 }
