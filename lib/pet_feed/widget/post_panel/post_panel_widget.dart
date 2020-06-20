@@ -19,7 +19,7 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
             title: PetIslandConstants.getCategoryStringFromType(panel.type),
             onTapSubTitle: () => _onTapSeeMore(context),
             // TODO(tvc12): Disable see more feature, open in next version
-            enableSeeMore: false,
+            enableSubtitle: false,
           ),
         ),
         const SizedBox(height: 5),

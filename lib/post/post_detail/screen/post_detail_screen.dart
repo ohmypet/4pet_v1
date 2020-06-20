@@ -5,8 +5,7 @@ class PostDetailScreen extends TStatefulWidget {
   final Post item;
   final VoidCallback onDeletePost;
 
-  const PostDetailScreen(
-      {Key key, @required this.item, @required this.onDeletePost})
+  const PostDetailScreen({Key key, @required this.item, @required this.onDeletePost})
       : super(key: key);
 
   @override
@@ -41,17 +40,15 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
         child: SafeArea(
           child: Stack(
             children: <Widget>[
-              Padding(
+              ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: ListView(
-                  controller: controller,
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  children: <Widget>[
-                    PostDetailSummaryWidget(item: item),
-                    CommentListingWidget(item: widget.item, bloc: bloc),
-                  ],
-                ),
+                controller: controller,
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                children: <Widget>[
+                  PostDetailSummaryWidget(item: item),
+                  CommentListingWidget(item: widget.item, bloc: bloc),
+                ],
               ),
               Align(
                 alignment: Alignment.bottomCenter,

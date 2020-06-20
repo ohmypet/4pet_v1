@@ -45,22 +45,20 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
       body: SafeArea(
         child: Stack(
           children: <Widget>[
-            Padding(
+            ListView(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: ListView(
-                controller: controller,
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                children: <Widget>[
-                  RescueDetailSummaryWidget(
-                    rescue: widget.rescue,
-                    heroBloc: heroBloc,
-                    donateBloc: donateBloc,
-                  ),
-                  // CommentListingWidget(item: widget.item, bloc: bloc),
-                  const SizedBox(height: 150),
-                ],
-              ),
+              controller: controller,
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              children: <Widget>[
+                RescueDetailSummaryWidget(
+                  rescue: widget.rescue,
+                  heroBloc: heroBloc,
+                  donateBloc: donateBloc,
+                ),
+                // CommentListingWidget(item: widget.item, bloc: bloc),
+                const SizedBox(height: 150),
+              ],
             ),
             Align(
               alignment: Alignment.bottomCenter,

@@ -41,6 +41,7 @@ class _RescueListingState extends TState<RescueListing> {
             child: PanelDescriptionBar(
               title: 'Need help',
               onTapSubTitle: _onTapSeeMore,
+              showSubtitle: false,
             ),
           ),
           const SizedBox(height: 5),

@@ -5,21 +5,24 @@ class PanelDescriptionBar extends StatelessWidget {
   final String customSubTitle;
   final String customStringIcon;
   final VoidCallback onTapSubTitle;
-  final bool enableSeeMore;
+  final bool enableSubtitle;
+  final bool showSubtitle;
 
   const PanelDescriptionBar({
     Key key,
     @required this.title,
     this.onTapSubTitle,
-    this.enableSeeMore = true,
+    this.enableSubtitle = true,
     this.customSubTitle = 'See more',
-    this.customStringIcon = ' >>'
+    this.customStringIcon = ' >>',
+    this.showSubtitle = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Widget titleWidget = _buildTitle(context, title);
-    final Widget seeMoreWidget = _buildSubTitle(context, _onTapSeeMore);
+    final titleWidget = _buildTitle(context, title);
+    final seeMoreWidget =
+        showSubtitle == true ? _buildSubTitle(context, _onTapSeeMore) : const SizedBox();
     return Flex(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -29,7 +32,7 @@ class PanelDescriptionBar extends StatelessWidget {
         Flexible(child: titleWidget),
         EnableWidget(
           child: seeMoreWidget,
-          enable: enableSeeMore,
+          enable: enableSubtitle,
         ),
       ],
     );
