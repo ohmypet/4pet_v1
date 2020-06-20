@@ -10,15 +10,32 @@ class RescueActionBar extends StatefulWidget {
 }
 
 class _RescueActionBarState extends State<RescueActionBar> {
+  TWorker get worker => DI.get(TWorker);
+  bool isLock = false;
+
   @override
   Widget build(BuildContext context) {
     return ActionButtonBar(
-      likes: widget.rescue.likes ?? 0,
-      isLiked: widget.rescue.isLiked ?? false,
+      likes: widget.rescue.getLikes(),
+      isLiked: widget.rescue.isReacted ?? false,
       account: widget.rescue.account,
-      onTapLike: _onTapLike,
+      onTapLike: _handleOnTapLike,
     );
   }
 
-  void _onTapLike() {}
+  void _handleOnTapLike() {
+    if (isLock) return;
+    isLock = true;
+    worker.likeRescuePost(widget.rescue.id);
+    setState(() {
+      if (widget.rescue.isReacted == true) {
+        widget.rescue.unLike();
+      } else {
+        widget.rescue.like();
+      }
+    });
+    Future.delayed(const Duration(milliseconds: 600)).whenComplete(() {
+      isLock = false;
+    });
+  }
 }

@@ -24,7 +24,7 @@ class AccountListView extends StatelessWidget {
 
   Widget _buildUserInfo(BuildContext context, int index) {
     return SizedBox(
-      width: 105,
+      width: 125,
       child: UserInfoWidget(account: accounts[index]),
     );
   }

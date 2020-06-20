@@ -62,7 +62,7 @@ class PreviewRescuePostWidget extends StatelessWidget {
   }
 
   Widget _buildLikedAndJoinedIcon() {
-    final iconLiked = rescue.isJoined == true
+    final iconLiked = rescue.isReacted == true
         ? Icon(Icons.favorite, color: TColors.water_melon, size: 12)
         : Icon(Icons.favorite_border, color: TColors.text_white, size: 12);
     final iconVolumteer = rescue.isJoined == true

@@ -14,6 +14,7 @@ import 'package:flutter_template/petisland.dart' hide Mode;
 import 'package:flutter_template/post/post.dart';
 import 'package:flutter_template/post/post_detail/widget/widget.dart';
 import 'package:flutter_template/rescue_post/rescue.dart';
+import 'package:shimmer/shimmer.dart';
 
 part 'rescue_creation_detail_widget.dart';
 part 'image_input_widget.dart';

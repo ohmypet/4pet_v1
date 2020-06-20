@@ -10,14 +10,14 @@ abstract class PanelRender<T extends Panel> extends TStatelessWidget {
   const PanelRender(this.panel, {Key key}) : super(key: key);
 }
 
-Widget renderPostDetail(PanelDetail postDetail) {
+Widget renderPostDetail(PanelDetail postDetail, {VoidCallback reRender}) {
   final PostItem item = postDetail.postItem;
   final dynamic render = PanelRender.renders[item.runtimeType];
-  return render != null ? render(item) : SizedBox();
+  return render != null ? render(item, reRender: reRender) : SizedBox();
 }
 
-Widget renderPost(Post item) {
-  return PostWidget(item);
+Widget renderPost(Post item, {VoidCallback reRender}) {
+  return PostWidget(item, reRender: reRender);
 }
 
 Widget renderPetCategory(PetCategory item) {

@@ -71,6 +71,9 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
       case CommentPostEvent:
         _commentPost(event);
         break;
+      case LikeRescuePostEvent:
+        _likeRescuePost(event);
+        break;
       case UploadPostSuccessEvent:
         final e = event as UploadPostSuccessEvent;
         yield UploadPostSuccess(e.post, message: e.message);
@@ -84,6 +87,10 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
 
   void likePost(String id) {
     add(LikePostEvent(id));
+  }
+
+  void likeRescuePost(String id) {
+    add(LikeRescuePostEvent(id));
   }
 
   void report(String postId, String reason, String accountId, {String description}) {
@@ -215,5 +222,9 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
         .then(_uploadPostModal)
         .catchError(_handleError)
         .catchError((_) => add(UploadFailedEvent('Upload failed')));
+  }
+
+  void _likeRescuePost(BaseEvent event) {
+    // TODO(tvc12): Rescue handle like
   }
 }

@@ -1,7 +1,12 @@
 part of petisland.pet_feed.widget.post_panel;
 
 class PostPanelDetailWidget extends PanelRender<Panel> {
-  PostPanelDetailWidget(Panel panel, {Key key}) : super(panel, key: key);
+  final VoidCallback reRender;
+  PostPanelDetailWidget(
+    Panel panel, {
+    Key key,
+    this.reRender,
+  }) : super(panel, key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +74,11 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
         onDeletePost: () => _removePost(item.id),
       ),
       screenName: PostDetailScreen.name,
-    );
+    ).whenComplete(() {
+      if (reRender != null) {
+        reRender();
+      }
+    });
   }
 
   void _onTapSeeMore(BuildContext context) {

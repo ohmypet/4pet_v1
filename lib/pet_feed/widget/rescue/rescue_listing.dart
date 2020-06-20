@@ -156,7 +156,9 @@ class _RescueListingState extends TState<RescueListing> {
         onDeleteRescue: _handleDeleteRescue,
       ),
       screenName: RescueDetailScreen.name,
-    );
+    ).whenComplete(() {
+      setState(() {});
+    });
   }
 
   void _handleDeleteRescue(Rescue rescue) {

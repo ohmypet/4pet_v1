@@ -74,7 +74,7 @@ class DonationInfoWidget extends StatelessWidget {
             style: TTextStyles.bold(color: TColors.water_melon_light),
           ),
           TextSpan(
-            text: ' coin',
+            text: ' coins',
             style: TTextStyles.medium(color: TColors.brown_grey),
           ),
         ]),

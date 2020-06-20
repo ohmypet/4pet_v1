@@ -127,3 +127,9 @@ class DeleteCommentPostEvent extends WorkerEvent {
 
   DeleteCommentPostEvent(this.postId, this.commentId);
 }
+
+class LikeRescuePostEvent extends WorkerEvent {
+  final String id;
+
+  LikeRescuePostEvent(this.id);
+}

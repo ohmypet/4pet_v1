@@ -24,8 +24,7 @@ class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
     super.initState();
     items = controller.getItems();
     controller.setListener(_onItemChange);
-    refreshController =
-        RefreshController(initialRefresh: controller.getItems().isEmpty);
+    refreshController = RefreshController(initialRefresh: controller.getItems().isEmpty);
   }
 
   @override
@@ -45,9 +44,9 @@ class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
           if (index < items.length) {
             final Item item = items[index];
             if (item is Panel) {
-              return renderPanel(item);
+              return renderPanel(item, reRender: reRender);
             } else {
-              return renderPostDetail(item);
+              return renderPostDetail(item, reRender: reRender);
             }
           } else
             return const SizedBox(height: 75);
@@ -79,7 +78,8 @@ class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
     }
 
     if (state is CreatePostError) {
-      showErrorSnackBar(content: 'Something went wrong, try again later!', context: context);
+      showErrorSnackBar(
+          content: 'Something went wrong, try again later!', context: context);
     }
   }
 
@@ -91,7 +91,11 @@ class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
     controller.retrievePosts();
   }
 
-  Widget renderPanel(Panel item) {
-    return PostPanelDetailWidget(item);
+  Widget renderPanel(Panel item, {VoidCallback reRender}) {
+    return PostPanelDetailWidget(item, reRender: reRender);
+  }
+
+  void reRender() {
+    setState(() {});
   }
 }

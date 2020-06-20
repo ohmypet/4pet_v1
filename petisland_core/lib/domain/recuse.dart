@@ -11,7 +11,7 @@ class Rescue extends BaseModel {
   int likes;
   Account account;
   bool isJoined;
-  bool isLiked;
+  bool isReacted;
   List<RescueImage> rescueImages;
 
   Rescue({
@@ -30,6 +30,7 @@ class Rescue extends BaseModel {
     this.account,
     this.isJoined = true,
     this.rescueImages = const [],
+    this.isReacted = false,
   }) : super(id, createAt, updateAt, createBy);
 
   @override
@@ -55,7 +56,7 @@ class Rescue extends BaseModel {
     if (json['account'] != null) {
       account = Account.fromJson(json['account']);
     }
-    isLiked = json['is_liked'] ?? false;
+    isReacted = json['is_liked'] ?? false;
     currentHeroes = json['current_heroes'] ?? 0;
   }
 
@@ -102,5 +103,32 @@ class Rescue extends BaseModel {
       return currentHeroes < maxHeroes;
     } else
       return true;
+  }
+
+  int getLikes() {
+    if (likes != null && likes > 0)
+      return likes;
+    else
+      return 0;
+  }
+
+  int like() {
+    final likes = getLikes();
+    if (isReacted == true) {
+      return likes;
+    } else {
+      isReacted = true;
+      return this.likes = likes + 1;
+    }
+  }
+
+  int unLike() {
+    final likes = getLikes();
+    if (isReacted == false) {
+      return likes;
+    } else {
+      isReacted = false;
+      return this.likes = likes > 0 ? likes - 1 : 0;
+    }
   }
 }

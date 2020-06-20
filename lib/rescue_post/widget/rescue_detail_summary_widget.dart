@@ -44,8 +44,9 @@ class RescueDetailSummaryWidget extends StatelessWidget {
         Flexible(child: imageSliderWidget),
         const SizedBox(height: 5),
         _buildHero(context),
-        const SizedBox(height: 5),
-        _buildDonator(context),
+        Divider(),
+        _buildSponsors(context),
+        Divider(),
       ],
     );
   }
@@ -53,7 +54,7 @@ class RescueDetailSummaryWidget extends StatelessWidget {
   Widget _buildImageSlider(List<RescueImage> postImages) {
     return postImages?.isNotEmpty == true
         ? Container(
-            height: 150,
+            height: 105,
             child: ImageSliderWidget(
               images: rescue.rescueImages.map((e) => e.image.url).toSet().toList(),
               description: 'Images',
@@ -112,7 +113,7 @@ class RescueDetailSummaryWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildDonator(BuildContext context) {
+  Widget _buildSponsors(BuildContext context) {
     return BlocBuilder<RescueDonateBloc, RescueHeroState>(
       bloc: donateBloc,
       condition: (_, state) => state is ReloadListingState,
@@ -123,12 +124,13 @@ class RescueDetailSummaryWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 5),
-              PanelDescriptionBar(
-                title: 'Sponsorships',
-                customSubTitle: 'Donate',
-                customStringIcon: ' <<',
-                onTapSubTitle: _handleDonate,
+              Center(
+                child: PanelDescriptionBar(
+                  title: 'Sponsors',
+                  customSubTitle: 'Donate',
+                  customStringIcon: ' <<',
+                  onTapSubTitle: _handleOnDonate,
+                ),
               ),
               const SizedBox(height: 5),
               Flexible(child: AccountSponsorshipWidget(rescueDonates: donateBloc.rescueDonates))
@@ -140,5 +142,5 @@ class RescueDetailSummaryWidget extends StatelessWidget {
     );
   }
 
-  void _handleDonate() {}
+  void _handleOnDonate() {}
 }

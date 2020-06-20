@@ -35,6 +35,7 @@ class MockRescueRepository extends RescueRepository {
         currentHeroes: ran.nextInt(10),
         status: 'Active',
         createAt: DateTime.now(),
+        isReacted: ran.nextBool(),
       );
 
   final titles = <String>[
