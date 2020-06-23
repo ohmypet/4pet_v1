@@ -1,24 +1,22 @@
 part of petisland.pet_feed.widget.post;
 
-class PostButtonLikeWidget extends StatefulWidget {
-  final Post item;
+class PostButtonLikeWidget extends StatelessWidget {
+  final bool isReacted;
+  final int likes;
+  final VoidCallback onTapLike;
 
-  const PostButtonLikeWidget({Key key, @required this.item}) : super(key: key);
-
-  @override
-  _PostButtonLikeWidgetState createState() => _PostButtonLikeWidgetState();
-}
-
-class _PostButtonLikeWidgetState extends State<PostButtonLikeWidget> {
-  bool isLook = false;
-  final TWorker worker = DI.get(TWorker);
+  PostButtonLikeWidget({
+    Key key,
+    @required this.isReacted,
+    @required this.likes,
+    this.onTapLike,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final bool isLike = widget.item.isReacted;
-    final int likes = widget.item.getLikes();
-    final Widget icon = isLike ? animationLike() : defaultIcon();
+
+    final Widget icon = this.isReacted ? animationLike(context) : defaultIcon(context);
     return FlatButton.icon(
       padding: EdgeInsets.zero,
       label: Flexible(
@@ -31,11 +29,11 @@ class _PostButtonLikeWidgetState extends State<PostButtonLikeWidget> {
         ),
       ),
       icon: icon,
-      onPressed: _onTapLikes,
+      onPressed: onTapLike,
     );
   }
 
-  Widget defaultIcon() {
+  Widget defaultIcon(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Icon(
       Icons.favorite_border,
@@ -43,7 +41,7 @@ class _PostButtonLikeWidgetState extends State<PostButtonLikeWidget> {
     );
   }
 
-  Widget animationLike() {
+  Widget animationLike(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return SizedBox(
       width: 24,
@@ -60,21 +58,5 @@ class _PostButtonLikeWidgetState extends State<PostButtonLikeWidget> {
         ),
       ),
     );
-  }
-
-  void _onTapLikes() {
-    if (isLook) return;
-    isLook = true;
-    worker.likePost(widget.item.id);
-    setState(() {
-      if (widget.item.isReacted) {
-        widget.item.unLike();
-      } else {
-        widget.item.like();
-      }
-    });
-    Future.delayed(const Duration(milliseconds: 600)).whenComplete(() {
-      isLook = false;
-    });
   }
 }

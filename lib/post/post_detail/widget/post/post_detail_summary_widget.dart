@@ -41,9 +41,9 @@ class PostDetailSummaryWidget extends StatelessWidget {
   Widget _buildImageSlider(List<PostImage> postImages) {
     return postImages?.isNotEmpty == true
         ? Container(
-            height: 150,
+            height: 105,
             child: ImageSliderWidget(
-              postImages: item.postImages,
+              images: item.postImages.map((e) => e.image.url).toSet().toList(),
               description: 'Images',
             ),
           )

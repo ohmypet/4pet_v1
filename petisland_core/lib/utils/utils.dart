@@ -9,11 +9,7 @@ import 'package:tiengviet/tiengviet.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 
 part 'log.dart';
-
 part 'petisland_constants.dart';
-
 part 'string.dart';
-
-part 'time.dart';
-
 part 'thin_id.dart';
+part 'time.dart';

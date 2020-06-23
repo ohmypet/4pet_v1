@@ -2,7 +2,7 @@ part of petisland.pet_feed.widget.rescue;
 
 class PreviewRescuePostWidget extends StatelessWidget {
   final Rescue rescue;
-  final ValueChanged<String> onTapRescuePost;
+  final ValueChanged<Rescue> onTapRescuePost;
 
   const PreviewRescuePostWidget({Key key, @required this.rescue, this.onTapRescuePost})
       : super(key: key);
@@ -44,39 +44,21 @@ class PreviewRescuePostWidget extends StatelessWidget {
     );
   }
 
-  void onTap() {}
-
-  Widget _buildRescueData() {
-    return Flex(
-      direction: Axis.vertical,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _buildDescription(),
-        _buildLikedAndJoinedIcon(),
-      ],
-    );
+  void onTap() {
+    if (onTapRescuePost != null) {
+      onTapRescuePost(rescue);
+    }
   }
 
-  Widget _buildLikedAndJoinedIcon() {
-    final iconLiked = rescue.isJoined == true
-        ? Icon(Icons.favorite, color: TColors.water_melon, size: 12)
-        : Icon(Icons.favorite_border, color: TColors.text_white, size: 12);
-    final iconVolumteer = rescue.isJoined == true
-        ? Icon(Icons.group, color: TColors.water_melon, size: 14)
-        : Icon(Icons.group, color: TColors.text_white, size: 14);
-    return Flex(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      direction: Axis.horizontal,
-      children: [
-        Flexible(
-          child: _buildIconAndTitle(icon: iconLiked, title: rescue.likeAsString),
-        ),
-        Flexible(
-          child: _buildIconAndTitle(icon: iconVolumteer, title: rescue.maxHeroeAsString),
-        )
-      ],
+  Widget _buildDescription() {
+    return Text(
+      rescue.title ?? '',
+      maxLines: 3,
+      overflow: TextOverflow.ellipsis,
+      style: TTextStyles.semi(
+        color: TColors.text_white,
+        fontSize: 12,
+      ),
     );
   }
 
@@ -98,15 +80,26 @@ class PreviewRescuePostWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildDescription() {
-    return Text(
-      rescue.title ?? '',
-      maxLines: 3,
-      overflow: TextOverflow.ellipsis,
-      style: TTextStyles.semi(
-        color: TColors.text_white,
-        fontSize: 12,
-      ),
+  Widget _buildLikedAndJoinedIcon() {
+    final iconLiked = rescue.isReacted == true
+        ? Icon(Icons.favorite, color: TColors.water_melon, size: 12)
+        : Icon(Icons.favorite_border, color: TColors.text_white, size: 12);
+    final iconVolumteer = rescue.isJoined == true
+        ? Icon(Icons.group, color: TColors.water_melon, size: 14)
+        : Icon(Icons.group, color: TColors.text_white, size: 14);
+    return Flex(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      direction: Axis.horizontal,
+      children: [
+        Flexible(
+          child: _buildIconAndTitle(icon: iconLiked, title: rescue.likeAsString),
+        ),
+        Flexible(
+          child: _buildIconAndTitle(icon: iconVolumteer, title: rescue.maxHeroeAsString),
+        )
+      ],
     );
   }
 
@@ -132,6 +125,17 @@ class PreviewRescuePostWidget extends StatelessWidget {
           fontSize: 12,
         ),
       ),
+    );
+  }
+
+  Widget _buildRescueData() {
+    return Flex(
+      direction: Axis.vertical,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _buildDescription(),
+        _buildLikedAndJoinedIcon(),
+      ],
     );
   }
 }

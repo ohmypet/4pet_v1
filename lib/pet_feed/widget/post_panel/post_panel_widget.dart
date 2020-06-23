@@ -1,7 +1,12 @@
 part of petisland.pet_feed.widget.post_panel;
 
 class PostPanelDetailWidget extends PanelRender<Panel> {
-  PostPanelDetailWidget(Panel panel, {Key key}) : super(panel, key: key);
+  final VoidCallback reRender;
+  PostPanelDetailWidget(
+    Panel panel, {
+    Key key,
+    this.reRender,
+  }) : super(panel, key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +17,9 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
         Flexible(
           child: PanelDescriptionBar(
             title: PetIslandConstants.getCategoryStringFromType(panel.type),
-            onTapSeeMore: () => _onTapSeeMore(context),
+            onTapSubTitle: () => _onTapSeeMore(context),
             // TODO(tvc12): Disable see more feature, open in next version
-            enableSeeMore: false,
+            enableSubtitle: false,
           ),
         ),
         const SizedBox(height: 5),
@@ -39,7 +44,7 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
     final PanelDetail item = panel.items[index];
     switch (item.postItem.runtimeType) {
       case Post:
-        child = _PostTrendingWidget(
+        child = _PostWidget(
           item.postItem,
           onTap: () => _onTapPostItem(context, item.postItem),
         );
@@ -61,6 +66,11 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
     );
   }
 
+  void _onTapPetCategory(BuildContext context, PanelDetail item) {
+    Log.info('_onTapPetCategory:: $item');
+    // TODO(tvc12): navigate to search
+  }
+
   void _onTapPostItem(BuildContext context, Post item) {
     navigateToScreen(
       context: context,
@@ -69,15 +79,14 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
         onDeletePost: () => _removePost(item.id),
       ),
       screenName: PostDetailScreen.name,
-    );
+    ).whenComplete(() {
+      if (reRender != null) {
+        reRender();
+      }
+    });
   }
 
   void _onTapSeeMore(BuildContext context) {
-    // TODO(tvc12): navigate to search
-  }
-
-  void _onTapPetCategory(BuildContext context, PanelDetail item) {
-    Log.info('_onTapPetCategory:: $item');
     // TODO(tvc12): navigate to search
   }
 

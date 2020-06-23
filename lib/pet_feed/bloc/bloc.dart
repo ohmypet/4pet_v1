@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_template/main_bloc/main_bloc.dart';
-import 'package:flutter_template/petisland.dart';
+import 'package:petisland_core/petisland_core.dart';
 
 part 'pet_feed_bloc.dart';
 part 'pet_feed_controller.dart';

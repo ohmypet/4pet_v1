@@ -11,7 +11,7 @@ class Rescue extends BaseModel {
   int likes;
   Account account;
   bool isJoined;
-  bool isLiked;
+  bool isReacted;
   List<RescueImage> rescueImages;
 
   Rescue({
@@ -30,8 +30,84 @@ class Rescue extends BaseModel {
     this.account,
     this.isJoined = true,
     this.rescueImages = const [],
-
+    this.isReacted = false,
   }) : super(id, createAt, updateAt, createBy);
+
+  Rescue.empty() : super(ThinId.randomId(), null, null, null) {
+    title = '';
+    description = '';
+    status = '';
+    totalCoin = 0;
+    maxHeroes = 3;
+    account = null;
+    rescueImages = [];
+  }
+
+  Rescue.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    title = json['title'];
+    description = json['description'];
+    location = json['location'];
+    status = json['status'];
+    totalCoin = json['total_coin'] ?? 0;
+    maxHeroes = json['max_heroes'] ?? 0;
+    if (json['account'] != null) {
+      account = Account.fromJson(json['account']);
+    }
+    isReacted = json['is_liked'] ?? false;
+    currentHeroes = json['current_heroes'] ?? 0;
+  }
+
+  String get avatar => account?.user?.avatar?.url;
+
+  bool get canJoin {
+    if (maxHeroes != null && maxHeroes > 0) {
+      return currentHeroes < maxHeroes;
+    } else
+      return true;
+  }
+
+  String get currentHeroesAsString => currentHeroes?.toString() ?? '0';
+
+  String get firstImage {
+    final RescueImage item = rescueImages
+        .firstWhere((rescueImage) => rescueImage.image?.url != null, orElse: () => null);
+    if (item != null) {
+      return item.image.url;
+    } else {
+      return null;
+    }
+  }
+
+  String get likeAsString => likes?.toString() ?? '0';
+
+  bool get locatonIsValid => location != null && location.isNotEmpty;
+
+  String get maxHeroeAsString {
+    if (maxHeroes != null && maxHeroes > 0) {
+      return '$currentHeroesAsString/${maxHeroes.toString()}';
+    } else {
+      return '$currentHeroesAsString/∞';
+    }
+  }
+
+  bool get titleIsValid => title != null && title.isNotEmpty;
+
+  int getLikes() {
+    if (likes != null && likes > 0)
+      return likes;
+    else
+      return 0;
+  }
+
+  int like() {
+    final likes = getLikes();
+    if (isReacted == true) {
+      return likes;
+    } else {
+      isReacted = true;
+      return this.likes = likes + 1;
+    }
+  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -46,56 +122,13 @@ class Rescue extends BaseModel {
     return map;
   }
 
-  Rescue.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
-    title = json['title'];
-    description = json['description'];
-    location = json['location'];
-    status = json['status'];
-    totalCoin = json['total_coin'] ?? 0;
-    maxHeroes = json['max_heroes'] ?? 0;
-    if (json['account'] != null) {
-      account = Account.fromJson(json['account']);
-    }
-    isLiked = json['is_liked'] ?? false;
-    currentHeroes = json['current_heroes'] ?? 0;
-  }
-
-  Rescue.empty() : super(ThinId.randomId(), null, null, null) {
-    title = '';
-    description = '';
-    status = '';
-    totalCoin = 0;
-    maxHeroes = 3;
-    account = null;
-    rescueImages = [];
-  }
-
-  bool get titleIsValid => title != null && title.isNotEmpty;
-
-  bool get locatonIsValid => location != null && location.isNotEmpty;
-
-  String get firstImage {
-    final RescueImage item = rescueImages
-        .firstWhere((rescueImage) => rescueImage.image?.url != null, orElse: () => null);
-    if (item != null) {
-      return item.image.url;
+  int unLike() {
+    final likes = getLikes();
+    if (isReacted == false) {
+      return likes;
     } else {
-      return null;
+      isReacted = false;
+      return this.likes = likes > 0 ? likes - 1 : 0;
     }
   }
-
-  String get avatar => account?.user?.avatar?.url;
-
-  String get likeAsString => likes?.toString() ?? '0';
-
-  String get maxHeroeAsString {
-    if (maxHeroes != null && maxHeroes > 0) {
-      return '$currentHeroesAsString/${maxHeroes.toString()}';
-    }
-     else {
-       return '$currentHeroesAsString/∞';
-     }
-  }
-
-  String get currentHeroesAsString => currentHeroes?.toString() ?? '0';
 }

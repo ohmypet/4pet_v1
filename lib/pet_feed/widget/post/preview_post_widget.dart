@@ -1,11 +1,11 @@
 part of petisland.pet_feed.widget.post;
 
+typedef TapImage = void Function(String, ImageSources);
+
 enum ImageSources {
   Local,
   Server,
 }
-
-typedef TapImage = void Function(String, ImageSources);
 
 class PreviewPostWidget extends StatelessWidget {
   final Post item;
@@ -55,7 +55,7 @@ class PreviewPostWidget extends StatelessWidget {
         children: <Widget>[
           Flexible(flex: 3, child: PostTitleWidget(title: title)),
           const SizedBox(height: 5),
-          Flexible(child: _PostUserInfoWidget(account: account)),
+          Flexible(child: UserInfoWidget(account: account)),
           Flexible(child: PostMoneyWidget(money: price)),
           Flexible(
             child: Align(

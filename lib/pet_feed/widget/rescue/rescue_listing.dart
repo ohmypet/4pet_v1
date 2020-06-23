@@ -1,14 +1,12 @@
 part of petisland.pet_feed.widget.rescue;
 
 class RescueListing extends TStatefulWidget {
-  final ValueChanged<String> onTapRescuePost;
   final VoidCallback onTapCreateRescuePost;
   final RescueListingBloc listingBloc;
 
   const RescueListing({
     Key key,
     @required this.listingBloc,
-    this.onTapRescuePost,
     this.onTapCreateRescuePost,
   }) : super(key: key);
 
@@ -17,18 +15,11 @@ class RescueListing extends TStatefulWidget {
 }
 
 class _RescueListingState extends TState<RescueListing> {
-  RescueListingBloc get bloc => widget.listingBloc;
   static const defaultLoading = const PreviewRescueDefaultWidget();
   static const box = SizedBox(width: 10);
-
   final refreshController = RefreshController();
 
-  void initState() {
-    super.initState();
-    if (bloc.rescues.isEmpty) {
-      bloc.loadMoreRescuePost();
-    }
-  }
+  RescueListingBloc get bloc => widget.listingBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -42,46 +33,30 @@ class _RescueListingState extends TState<RescueListing> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: PanelDescriptionBar(
               title: 'Need help',
-              onTapSeeMore: _onTapSeeMore,
+              onTapSubTitle: _onTapSeeMore,
+              showSubtitle: false,
             ),
           ),
           const SizedBox(height: 5),
-          Flexible(
-            child: Flex(
-              direction: Axis.horizontal,
-              children: [
-                Flexible(child: _buildRescuePostSlider()),
-              ],
-            ),
-          ),
+          Flexible(child: _buildRescuePostSlider()),
         ],
       ),
     );
   }
 
-  void _handleOnTapClick(String id) {
-    if (widget.onTapRescuePost != null) {
-      widget.onTapRescuePost(id);
+  void initState() {
+    super.initState();
+    if (bloc.rescues.isEmpty) {
+      bloc.loadMoreRescuePost();
     }
   }
 
-  void _onTapSeeMore() {}
-
-  Widget _buildRescuePostSlider() {
-    return BlocConsumer<RescueListingBloc, RescueListingState>(
-      bloc: bloc,
-      listenWhen: (_, state) => state is ReloadRescueListingState,
-      listener: _handleOnStateChange,
-      buildWhen: (_, state) => state is ReloadRescueListingState,
-      builder: (BuildContext context, state) {
-        switch (state.runtimeType) {
-          case ReloadRescueListingState:
-            return _buildRescueListing(state);
-            break;
-          default:
-            return _buildRescueLoading();
-        }
-      },
+  Widget _buildButtonAdd() {
+    return AspectRatio(
+      aspectRatio: TConstants.ratio4y3, //4.3
+      child: AddableWidget(
+        onPress: widget.onTapCreateRescuePost,
+      ),
     );
   }
 
@@ -116,20 +91,11 @@ class _RescueListingState extends TState<RescueListing> {
           else {
             return PreviewRescuePostWidget(
               rescue: bloc.rescues[index - 1],
-              onTapRescuePost: _handleOnTapClick,
+              onTapRescuePost: _handleOnTapRescuePost,
             );
           }
         },
         separatorBuilder: (BuildContext context, int index) => box,
-      ),
-    );
-  }
-
-  Widget _buildButtonAdd() {
-    return AspectRatio(
-      aspectRatio: TConstants.ratio4y3, //4.3
-      child: AddableWidget(
-        onPress: widget.onTapCreateRescuePost,
       ),
     );
   }
@@ -146,12 +112,26 @@ class _RescueListingState extends TState<RescueListing> {
     );
   }
 
-  void _onRefresh() {
-    bloc.refreshRescuePost();
+  Widget _buildRescuePostSlider() {
+    return BlocConsumer<RescueListingBloc, RescueListingState>(
+      bloc: bloc,
+      listenWhen: (_, state) => state is ReloadRescueListingState,
+      listener: _handleOnStateChange,
+      buildWhen: (_, state) => state is ReloadRescueListingState,
+      builder: (BuildContext context, state) {
+        switch (state.runtimeType) {
+          case ReloadRescueListingState:
+            return _buildRescueListing(state);
+            break;
+          default:
+            return _buildRescueLoading();
+        }
+      },
+    );
   }
 
-  void _onLoading() {
-    bloc.loadMoreRescuePost();
+  void _handleDeleteRescue(Rescue rescue) {
+    // TODO(tvc12): Handle delete rescue
   }
 
   void _handleOnStateChange(BuildContext context, RescueListingState state) {
@@ -162,4 +142,27 @@ class _RescueListingState extends TState<RescueListing> {
       refreshController.refreshCompleted();
     }
   }
+
+  void _handleOnTapRescuePost(Rescue rescue) {
+    navigateToScreen(
+      context: context,
+      screen: RescueDetailScreen(
+        rescue: rescue,
+        onDeleteRescue: _handleDeleteRescue,
+      ),
+      screenName: RescueDetailScreen.name,
+    ).whenComplete(() {
+      setState(() {});
+    });
+  }
+
+  void _onLoading() {
+    bloc.loadMoreRescuePost();
+  }
+
+  void _onRefresh() {
+    bloc.refreshRescuePost();
+  }
+
+  void _onTapSeeMore() {}
 }

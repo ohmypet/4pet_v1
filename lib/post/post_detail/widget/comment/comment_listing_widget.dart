@@ -1,10 +1,9 @@
 part of petisland.post.screen.widget;
 
 class CommentListingWidget extends StatefulWidget {
-  final Post item;
   final CommentBloc bloc;
-
-  const CommentListingWidget({Key key, @required this.item, @required this.bloc})
+  final ValueChanged<String> onDeleteComment;
+  const CommentListingWidget({Key key, @required this.bloc, this.onDeleteComment})
       : super(key: key);
 
   @override
@@ -23,9 +22,18 @@ class _CommentListingWidgetState extends State<CommentListingWidget> {
     );
   }
 
+  Widget _buildComment(BuildContext context, int index, List<Comment> items) {
+    if (index < items.length) {
+      final item = items[index];
+      return CommentWidget(item: item, onTapDelete: () => _onTapDelete(index, item));
+    } else
+      return SizedBox(height: 150);
+  }
+
   Widget _buildCommentUI(BuildContext context, CommentState state) {
     if (state is ReloadUIState) {
       final items = state.items;
+      final divider = const Divider();
       return Flex(
         direction: Axis.vertical,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +45,7 @@ class _CommentListingWidgetState extends State<CommentListingWidget> {
             itemCount: items.length + 1,
             itemBuilder: (_, __) => _buildComment(_, __, items),
             separatorBuilder: (_, int index) {
-              return Divider();
+              return divider;
             },
           ),
         ],
@@ -56,16 +64,10 @@ class _CommentListingWidgetState extends State<CommentListingWidget> {
     }
   }
 
-  Widget _buildComment(BuildContext context, int index, List<Comment> items) {
-    if (index < items.length) {
-      final item = items[index];
-      return _CommentWidget(item: item, onTapDelete: () => _onTapDelete(index, item));
-    } else
-      return SizedBox(height: 150);
-  }
-
   void _onTapDelete(int index, Comment comment) {
-    DI.get<TWorker>(TWorker).deleteComment(bloc.postId, comment.id);
+    if (widget.onDeleteComment != null) {
+      widget.onDeleteComment(comment.id);
+    }
     bloc.softDeleteComment(comment.id);
   }
 }

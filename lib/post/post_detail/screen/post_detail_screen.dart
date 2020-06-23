@@ -5,8 +5,7 @@ class PostDetailScreen extends TStatefulWidget {
   final Post item;
   final VoidCallback onDeletePost;
 
-  const PostDetailScreen(
-      {Key key, @required this.item, @required this.onDeletePost})
+  const PostDetailScreen({Key key, @required this.item, @required this.onDeletePost})
       : super(key: key);
 
   @override
@@ -14,15 +13,10 @@ class PostDetailScreen extends TStatefulWidget {
 }
 
 class _PostDetailScreenState extends TState<PostDetailScreen> {
-  Post get item => widget.item;
   final TWorker worker = DI.get<TWorker>(TWorker);
   CommentBloc bloc;
   final ScrollController controller = ScrollController();
-
-  void initState() {
-    super.initState();
-    bloc = CommentBloc(item.id)..startListener();
-  }
+  Post get item => widget.item;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +26,7 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
         child: PostDetailAppBar(
           hasPermision: AccountUtils.grantEditAndDel(item.account),
           onTapBack: () => _onTapBack(context),
-          onTapSeeMore: (_) => _onTapSeeMore(context, _),
+          onSelected: (_) => _onTapSeeMore(context, _),
         ),
       ),
       body: BlocListener<CommentBloc, CommentState>(
@@ -41,17 +35,18 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
         child: SafeArea(
           child: Stack(
             children: <Widget>[
-              Padding(
+              ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: ListView(
-                  controller: controller,
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  children: <Widget>[
-                    PostDetailSummaryWidget(item: item),
-                    CommentListingWidget(item: widget.item, bloc: bloc),
-                  ],
-                ),
+                controller: controller,
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                children: <Widget>[
+                  PostDetailSummaryWidget(item: item),
+                  CommentListingWidget(
+                    bloc: bloc,
+                    onDeleteComment: handleDeleteCommnet,
+                  ),
+                ],
               ),
               Align(
                 alignment: Alignment.bottomCenter,
@@ -66,39 +61,32 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
     );
   }
 
-  void _onTapBack(BuildContext context) {
-    Navigator.of(context).pop();
+  @override
+  void dispose() {
+    super.dispose();
+    bloc.stopListener();
   }
 
-  void _onTapSeeMore(BuildContext context, SeeMoreType seeMoreType) {
-    switch (seeMoreType) {
-      case SeeMoreType.Report:
-        _reportPost(context, item);
-        break;
-      case SeeMoreType.Delete:
-        _deletePost(context, item);
-        break;
-      case SeeMoreType.Edit:
-        _editPost(context, item);
-        break;
-      default:
-    }
+  void handleDeleteCommnet(String id) {
+    DI.get<TWorker>(TWorker).deleteComment(bloc.id, id);
   }
 
-  void _reportPost(BuildContext context, Post item) {
-    showModalBottomSheet(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      context: context,
-      builder: (_) => KikiReportWidget(
-        onSendReport: _sendReport,
-      ),
-    );
+  void initState() {
+    super.initState();
+    bloc = CommentBloc(item.id)..startListener();
   }
 
-  void _sendReport(ReportData reportData) {
-    final AuthenticationBloc bloc = DI.get(AuthenticationBloc);
-
-    worker.report(item.id, reportData.text, bloc.account.id);
+  void reloadUI(PostCreateModal post, List<PostImage> rawPostImage) {
+    setState(() {
+      item
+        ..title = post.title
+        ..description = post.description
+        ..price = post.price
+        ..location = post.location
+        ..postImages.clear()
+        ..postImages.addAll(rawPostImage)
+        ..pet = post.pet;
+    });
   }
 
   void _deletePost(BuildContext context, Post item) {
@@ -115,30 +103,6 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
     );
   }
 
-  void _onSendEditPost(PostCreateModal post, List<PostImage> rawPostImage,
-      List<String> urlNeedUpload, List<String> idImageNeedDelete) {
-    reloadUI(post, rawPostImage);
-    worker.updatePost(item, urlNeedUpload, idImageNeedDelete);
-  }
-
-  void reloadUI(PostCreateModal post, List<PostImage> rawPostImage) {
-    setState(() {
-      item
-        ..title = post.title
-        ..description = post.description
-        ..price = post.price
-        ..location = post.location
-        ..postImages.clear()
-        ..postImages.addAll(rawPostImage)
-        ..pet = post.pet;
-    });
-  }
-
-  void _onTapSend(String message) {
-    worker.commentPost(item.id, message);
-    bloc.softAddComment(message);
-  }
-
   void _onCommentChanged(BuildContext context, CommentState state) {
     if (state is ScrollToBottom) {
       controller.animateTo(
@@ -149,9 +113,49 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
     }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    bloc.stopListener();
+  void _onSendEditPost(PostCreateModal post, List<PostImage> rawPostImage,
+      List<String> urlNeedUpload, List<String> idImageNeedDelete) {
+    reloadUI(post, rawPostImage);
+    worker.updatePost(item, urlNeedUpload, idImageNeedDelete);
+  }
+
+  void _onTapBack(BuildContext context) {
+    Navigator.of(context).pop();
+  }
+
+  void _onTapSeeMore(BuildContext context, OptionType seeMoreType) {
+    switch (seeMoreType) {
+      case OptionType.Report:
+        _reportPost(context, item);
+        break;
+      case OptionType.Delete:
+        _deletePost(context, item);
+        break;
+      case OptionType.Edit:
+        _editPost(context, item);
+        break;
+      default:
+    }
+  }
+
+  void _onTapSend(String message) {
+    worker.commentPost(item.id, message);
+    bloc.softAddComment(message);
+  }
+
+  void _reportPost(BuildContext context, Post item) {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      context: context,
+      builder: (_) => KikiReportWidget(
+        onSendReport: _sendReport,
+      ),
+    );
+  }
+
+  void _sendReport(ReportData reportData) {
+    final AuthenticationBloc bloc = DI.get(AuthenticationBloc);
+
+    worker.report(item.id, reportData.text, bloc.account.id);
   }
 }

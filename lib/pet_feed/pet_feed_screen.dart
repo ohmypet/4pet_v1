@@ -1,11 +1,6 @@
 part of petisland.pet_feed;
 
-class PetFeedScreen extends TStatefulWidget {
-  @override
-  _PetFeedScreenState createState() => _PetFeedScreenState();
-}
-
-class _PetFeedScreenState extends TState<PetFeedScreen> {
+class PetFeedScreen extends TStatelessWidget {
   final PetFeedController controller = DI.get(PetFeedController);
   final RescueListingBloc listingBloc = DI.get(RescueListingBloc);
   @override
@@ -34,9 +29,9 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
             ],
           ),
           SliverPersistentHeader(
-            pinned: true,
+            pinned: false,
             floating: false,
-            delegate: _buildRescueHeader(),
+            delegate: _buildRescueHeader(context),
           ),
           // SliverPersistentHeader(
         ];
@@ -45,15 +40,14 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
     );
   }
 
-  SliverPersistentHeaderDelegate _buildRescueHeader() {
+  SliverPersistentHeaderDelegate _buildRescueHeader(BuildContext context) {
     return THeaderWidget(
       minExtent: 205,
       maxExtent: 205,
       autoInsertSafeArea: false,
       child: RescueListing(
-        onTapRescuePost: _onTapPost,
         listingBloc: listingBloc,
-        onTapCreateRescuePost: _onTapCreatePost,
+        onTapCreateRescuePost: () => _onCreateRescue(context),
       ),
     );
   }
@@ -70,12 +64,11 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
     );
   }
 
-  void _onTapPost(String value) {}
-
-  void _onTapCreatePost() {
+  void _onCreateRescue(BuildContext context) {
     navigateToScreen(
       context: context,
-      screen: RescueCreationPost(),
+      screen: RescueCreationScreen(),
+      screenName: RescueCreationScreen.name,
     );
   }
 }

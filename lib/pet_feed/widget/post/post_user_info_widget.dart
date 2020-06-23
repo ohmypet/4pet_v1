@@ -1,9 +1,9 @@
 part of petisland.pet_feed.widget.post;
 
-class _PostUserInfoWidget extends StatelessWidget {
+class UserInfoWidget extends StatelessWidget {
   final Account account;
 
-  const _PostUserInfoWidget({Key key, this.account}) : super(key: key);
+  const UserInfoWidget({Key key, this.account}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -9,10 +9,10 @@ class LoginBloc extends TBloc<LoginEvent, LoginState> {
   static final LocalStorageService storageService = DI.get(LocalStorageService);
 
   @override
-  LoginState get initialState => InitLoginState();
+  final Duration delayEvent = const Duration(milliseconds: 50);
 
   @override
-  final Duration delayEvent = const Duration(milliseconds: 50);
+  LoginState get initialState => InitLoginState();
 
   @override
   Stream<LoginState> errorToState(BaseErrorEvent event) async* {
@@ -33,16 +33,13 @@ class LoginBloc extends TBloc<LoginEvent, LoginState> {
     }
   }
 
-  void _logging(LoggingEvent event) {
-    accountService
-        .login(event.username, event.password)
-        .then(_handleLoginSuccess)
-        .catchError(_handleError);
-  }
-
   void login(String username, String password) {
     final LoginEvent event = LoggingEvent(username, password);
     add(event);
+  }
+
+  FutureOr<void> _handleError(dynamic error) {
+    notifyError(LoginErrorEvent('Username or password invalid'));
   }
 
   FutureOr<void> _handleLoginSuccess(LoginData value) {
@@ -50,7 +47,10 @@ class LoginBloc extends TBloc<LoginEvent, LoginState> {
     add(LoginSucceedEvent());
   }
 
-  FutureOr<void> _handleError(dynamic error) {
-    notifyError(LoginErrorEvent('Username or password invalid'));
+  void _logging(LoggingEvent event) {
+    accountService
+        .login(event.username, event.password)
+        .then(_handleLoginSuccess)
+        .catchError(_handleError);
   }
 }

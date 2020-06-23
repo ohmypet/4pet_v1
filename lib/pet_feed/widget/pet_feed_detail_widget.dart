@@ -16,17 +16,8 @@ class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
   List<Item> items;
   bool maybeRetrievePost = true;
 
-  PetFeedController get controller => widget.controller;
   RefreshController refreshController;
-
-  @override
-  void initState() {
-    super.initState();
-    items = controller.getItems();
-    controller.setListener(_onItemChange);
-    refreshController =
-        RefreshController(initialRefresh: controller.getItems().isEmpty);
-  }
+  PetFeedController get controller => widget.controller;
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +36,9 @@ class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
           if (index < items.length) {
             final Item item = items[index];
             if (item is Panel) {
-              return renderPanel(item);
+              return renderPanel(item, reRender: reRender);
             } else {
-              return renderPostDetail(item);
+              return renderPostDetail(item, reRender: reRender);
             }
           } else
             return const SizedBox(height: 75);
@@ -57,6 +48,22 @@ class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
         },
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    items = controller.getItems();
+    controller.setListener(_onItemChange);
+    refreshController = RefreshController(initialRefresh: controller.getItems().isEmpty);
+  }
+
+  Widget renderPanel(Panel item, {VoidCallback reRender}) {
+    return PostPanelDetailWidget(item, reRender: reRender);
+  }
+
+  void reRender() {
+    setState(() {});
   }
 
   void _onItemChange(PetFeedState state) {
@@ -83,15 +90,11 @@ class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
     }
   }
 
-  void _onRefresh() {
-    controller.reload();
-  }
-
   void _onLoading() {
     controller.retrievePosts();
   }
 
-  Widget renderPanel(Panel item) {
-    return PostPanelDetailWidget(item);
+  void _onRefresh() {
+    controller.reload();
   }
 }

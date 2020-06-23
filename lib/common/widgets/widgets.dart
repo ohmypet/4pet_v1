@@ -16,6 +16,10 @@ import 'package:petisland_core/utils/utils.dart';
 import 'package:shimmer/shimmer.dart';
 
 part 'avatar_widget.dart';
+part 'circle_color_widget.dart';
+part 'dropdown_input.dart';
+part 'dropdown_input_widget.dart';
+part 'enable_widget.dart';
 part 'svg_icon_widget.dart';
 part 't_cached_image_widget.dart';
 part 't_circle_button.dart';
@@ -27,7 +31,3 @@ part 'theader_widget.dart';
 part 'title_input_widget.dart';
 part 'title_widget.dart';
 part 'user_input_widget.dart';
-part 'dropdown_input_widget.dart';
-part 'enable_widget.dart';
-part 'dropdown_input.dart';
-part 'circle_color_widget.dart';

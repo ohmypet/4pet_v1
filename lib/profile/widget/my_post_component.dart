@@ -2,8 +2,8 @@ import 'package:ddi/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/pet_feed/widget/widget.dart';
-import 'package:flutter_template/petisland.dart';
 import 'package:flutter_template/profile/bloc/bloc.dart';
+import 'package:petisland_core/petisland_core.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MyPostWidget extends StatefulWidget {
@@ -14,11 +14,6 @@ class MyPostWidget extends StatefulWidget {
 class _MyPostWidgetState extends State<MyPostWidget> {
   final MyPostBloc bloc = DI.get(MyPostBloc);
   final RefreshController controller = RefreshController();
-
-  void initState() {
-    super.initState();
-    bloc.reload();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +26,11 @@ class _MyPostWidgetState extends State<MyPostWidget> {
         builder: _buildUIState,
       ),
     );
+  }
+
+  void initState() {
+    super.initState();
+    bloc.reload();
   }
 
   Widget _buildUIState(BuildContext context, MyPostState state) {
@@ -61,14 +61,6 @@ class _MyPostWidgetState extends State<MyPostWidget> {
       return SizedBox();
   }
 
-  void _onRefresh() {
-    bloc.reload();
-  }
-
-  void _onLoading() {
-    bloc.retrievePost();
-  }
-
   void _onListChanged(BuildContext context, MyPostState state) {
     if (state is! ReloadMyPost) return;
     if (controller.isLoading) {
@@ -77,5 +69,13 @@ class _MyPostWidgetState extends State<MyPostWidget> {
     if (controller.isRefresh) {
       controller.refreshCompleted();
     }
+  }
+
+  void _onLoading() {
+    bloc.retrievePost();
+  }
+
+  void _onRefresh() {
+    bloc.reload();
   }
 }

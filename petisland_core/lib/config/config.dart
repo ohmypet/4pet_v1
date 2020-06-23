@@ -3,14 +3,12 @@ library petisland_core.config;
 
 import 'package:firebase_remote_config/firebase_remote_config.dart' as frc;
 import 'package:petisland_core/utils/utils.dart';
+
 import 'config.dev.dart' as dev;
 import 'config.production.dart' as prod;
 
 part 'firebase_config.dart';
-
 part 'remote_config.dart';
-
-enum Mode { Debug, Production }
 
 class Config {
   static const Map<String, dynamic> _debug = <String, dynamic>{
@@ -35,6 +33,40 @@ class Config {
 
   static RemoteConfig _config;
 
+  static Map<String, dynamic> getAll() {
+    return _config.getAll();
+  }
+
+  static bool getBool(String key) {
+    return _config.getBool(key);
+  }
+
+  static String getChatHost() {
+    return _config.getString('chat_host');
+  }
+
+  static double getDouble(String key) {
+    return _config.getDouble(key);
+  }
+
+  static String getGoogleAPIKey() => getString('google_api_key');
+
+  static String getGoogleHost() => getString('google_host');
+
+  static int getInt(String key) {
+    return _config.getInt(key);
+  }
+
+  static int getMaxImages() => getInt('max_image_per_post');
+
+  static String getOpencagedataAPIKey() => getString('opencagedata_api_key');
+
+  static String getOpencageHost() => getString('opencagedata_host');
+
+  static String getString(String key) {
+    return _config.getString(key);
+  }
+
   static Future<void> initAsync(Mode mode) async {
     if (Mode.Debug == mode) {
       _config = RemoteConfig(_debug);
@@ -43,38 +75,6 @@ class Config {
         ..init();
     }
   }
-
-  static int getInt(String key) {
-    return _config.getInt(key);
-  }
-
-  static String getString(String key) {
-    return _config.getString(key);
-  }
-
-  static double getDouble(String key) {
-    return _config.getDouble(key);
-  }
-
-  static bool getBool(String key) {
-    return _config.getBool(key);
-  }
-
-  static Map<String, dynamic> getAll() {
-    return _config.getAll();
-  }
-
-  static String getChatHost() {
-    return _config.getString('chat_host');
-  }
-
-  static int getMaxImages() => getInt('max_image_per_post');
-
-  static String getGoogleAPIKey() => getString('google_api_key');
-
-  static String getOpencagedataAPIKey() => getString('opencagedata_api_key');
-
-  static String getOpencageHost() => getString('opencagedata_host');
-
-  static String getGoogleHost() => getString('google_host');
 }
+
+enum Mode { Debug, Production }

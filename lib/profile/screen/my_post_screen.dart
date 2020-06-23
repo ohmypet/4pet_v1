@@ -11,21 +11,13 @@ class _MyPostScreenState extends State<MyPostScreen> {
   final MyPostBloc bloc = DI.get(MyPostBloc);
   final RefreshController controller = RefreshController();
 
-  void initState() {
-    super.initState();
-    bloc.reload();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Your Post',
-          style: TTextStyles.bold(
-            fontSize: 18,
-            color: TColors.white
-          ),
+          style: TTextStyles.bold(fontSize: 18, color: TColors.white),
         ),
         centerTitle: true,
         elevation: 1,
@@ -45,6 +37,11 @@ class _MyPostScreenState extends State<MyPostScreen> {
         ),
       ),
     );
+  }
+
+  void initState() {
+    super.initState();
+    bloc.reload();
   }
 
   Widget _buildUIState(BuildContext context, MyPostState state) {
@@ -73,14 +70,6 @@ class _MyPostScreenState extends State<MyPostScreen> {
       return SizedBox();
   }
 
-  void _onRefresh() {
-    bloc.reload();
-  }
-
-  void _onLoading() {
-    bloc.retrievePost();
-  }
-
   void _onListChanged(BuildContext context, MyPostState state) {
     if (state is! ReloadMyPost) return;
     if (controller.isLoading) {
@@ -89,5 +78,13 @@ class _MyPostScreenState extends State<MyPostScreen> {
     if (controller.isRefresh) {
       controller.refreshCompleted();
     }
+  }
+
+  void _onLoading() {
+    bloc.retrievePost();
+  }
+
+  void _onRefresh() {
+    bloc.reload();
   }
 }

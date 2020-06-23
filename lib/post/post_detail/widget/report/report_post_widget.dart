@@ -1,11 +1,5 @@
 part of petisland.post.screen.widget;
 
-class ReportData {
-  final String text;
-
-  ReportData(this.text);
-}
-
 class KikiReportWidget extends StatefulWidget {
   final ValueChanged<ReportData> onSendReport;
 
@@ -15,22 +9,20 @@ class KikiReportWidget extends StatefulWidget {
   _KikiReportWidgetState createState() => _KikiReportWidgetState();
 }
 
+class ReportData {
+  final String text;
+
+  ReportData(this.text);
+
+  @override
+  String toString() => '$runtimeType:: $text';
+}
+
 class _KikiReportWidgetState extends TState<KikiReportWidget> {
   bool isActive = false;
 
   final List<String> feedbackOption = DI.get<AuthenticationBloc>(AuthenticationBloc).reportContents;
   List<bool> optionChosen;
-
-  void callbackSetState() {
-    isActive = hasFeedback();
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    optionChosen = List.generate(feedbackOption.length, (index) => false);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,19 +55,42 @@ class _KikiReportWidgetState extends TState<KikiReportWidget> {
     );
   }
 
-  Widget _buildTitle() {
-    final String title = 'You can report this after selecting a problem. Please note we have fewer reviewers available right now.';
-    return ListTile(
-      leading: Icon(
-        Icons.report,
-        color: TColors.water_melon,
-      ),
-      title: Text(
-        title,
-        style: TTextStyles.semi(fontSize: 14, color: TColors.black),
-      ),
-      trailing: SizedBox(width: 15),
-    );
+  void callbackSetState() {
+    isActive = hasFeedback();
+    setState(() {});
+  }
+
+  List<String> getFeedbacks() {
+    final List<String> feedbacks = [];
+    for (int i = 0; i < optionChosen.length; i++) {
+      final bool choose = optionChosen[i];
+      final String feedback = feedbackOption[i];
+      if (choose) feedbacks.add(feedback);
+    }
+    return feedbacks;
+  }
+
+  bool hasFeedback() {
+    return optionChosen.contains(true);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    optionChosen = List.generate(feedbackOption.length, (index) => false);
+  }
+
+  String makeReport(List<String> feedbacks) {
+    if (feedbacks.isNotEmpty) {
+      final StringBuffer buffer = StringBuffer();
+      final firstString = feedbacks.removeAt(0);
+
+      final completedBuffer = feedbacks.fold<StringBuffer>(
+          buffer, (buffer, feedback) => buffer..write('|$feedback'));
+
+      return firstString + completedBuffer.toString();
+    } else
+      return '';
   }
 
   Widget _buildButton(bool isActive, BuildContext context) {
@@ -95,6 +110,21 @@ class _KikiReportWidgetState extends TState<KikiReportWidget> {
     );
   }
 
+  Widget _buildTitle() {
+    final String title = 'You can report this after selecting a problem. Please note we have fewer reviewers available right now.';
+    return ListTile(
+      leading: Icon(
+        Icons.report,
+        color: TColors.water_melon,
+      ),
+      title: Text(
+        title,
+        style: TTextStyles.semi(fontSize: 14, color: TColors.black),
+      ),
+      trailing: SizedBox(width: 15),
+    );
+  }
+
   void _onTapButton() {
     final feedbacks = getFeedbacks();
     final report = makeReport(feedbacks);
@@ -103,32 +133,5 @@ class _KikiReportWidgetState extends TState<KikiReportWidget> {
     if (widget.onSendReport != null) {
       widget.onSendReport(ReportData(report));
     }
-  }
-
-  List<String> getFeedbacks() {
-    final List<String> feedbacks = [];
-    for (int i = 0; i < optionChosen.length; i++) {
-      final bool choose = optionChosen[i];
-      final String feedback = feedbackOption[i];
-      if (choose) feedbacks.add(feedback);
-    }
-    return feedbacks;
-  }
-
-  String makeReport(List<String> feedbacks) {
-    if (feedbacks.isNotEmpty) {
-      final StringBuffer buffer = StringBuffer();
-      final firstString = feedbacks.removeAt(0);
-
-      final completedBuffer = feedbacks.fold<StringBuffer>(
-          buffer, (buffer, feedback) => buffer..write('|$feedback'));
-
-      return firstString + completedBuffer.toString();
-    } else
-      return '';
-  }
-
-  bool hasFeedback() {
-    return optionChosen.contains(true);
   }
 }

@@ -2,20 +2,27 @@ part of petisland.pet_feed.widget.post_panel;
 
 class PanelDescriptionBar extends StatelessWidget {
   final String title;
-  final VoidCallback onTapSeeMore;
-  final bool enableSeeMore;
+  final String customSubTitle;
+  final String customStringIcon;
+  final VoidCallback onTapSubTitle;
+  final bool enableSubtitle;
+  final bool showSubtitle;
 
   const PanelDescriptionBar({
     Key key,
     @required this.title,
-    this.onTapSeeMore,
-    this.enableSeeMore = true,
+    this.onTapSubTitle,
+    this.enableSubtitle = true,
+    this.customSubTitle = 'See more',
+    this.customStringIcon = ' >>',
+    this.showSubtitle = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Widget titleWidget = _buildTitle(context, title);
-    final Widget seeMoreWidget = _buildSeeMore(context, _onTapSeeMore);
+    final titleWidget = _buildTitle(context, title);
+    final seeMoreWidget =
+        showSubtitle == true ? _buildSubTitle(context, _onTapSeeMore) : const SizedBox();
     return Flex(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -25,9 +32,32 @@ class PanelDescriptionBar extends StatelessWidget {
         Flexible(child: titleWidget),
         EnableWidget(
           child: seeMoreWidget,
-          enable: enableSeeMore,
+          enable: enableSubtitle,
         ),
       ],
+    );
+  }
+
+  Widget _buildSubTitle(BuildContext context, VoidCallback onTap) {
+    final theme = Theme.of(context);
+    final style = theme.textTheme.subtitle2.copyWith(
+      fontSize: 14,
+      color: theme.primaryColor,
+      letterSpacing: 0.2,
+    );
+    return GestureDetector(
+      onTap: onTap,
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: this.customSubTitle,
+              style: style.copyWith(decoration: TextDecoration.underline),
+            ),
+            TextSpan(text: this.customStringIcon, style: style.copyWith(fontSize: 12))
+          ],
+        ),
+      ),
     );
   }
 
@@ -42,30 +72,7 @@ class PanelDescriptionBar extends StatelessWidget {
     return Text(title, style: style);
   }
 
-  Widget _buildSeeMore(BuildContext context, VoidCallback onTap) {
-    final theme = Theme.of(context);
-    final style = theme.textTheme.subtitle2.copyWith(
-      fontSize: 14,
-      color: theme.primaryColor,
-      letterSpacing: 0.2,
-    );
-    return GestureDetector(
-      onTap: onTap,
-      child: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: 'See more',
-              style: style.copyWith(decoration: TextDecoration.underline),
-            ),
-            TextSpan(text: ' >>', style: style.copyWith(fontSize: 12))
-          ],
-        ),
-      ),
-    );
-  }
-
   void _onTapSeeMore() {
-    if (onTapSeeMore != null) onTapSeeMore();
+    if (onTapSubTitle != null) onTapSubTitle();
   }
 }

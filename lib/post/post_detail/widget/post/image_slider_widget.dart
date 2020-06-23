@@ -1,11 +1,11 @@
 part of petisland.post.screen.widget;
 
 class ImageSliderWidget extends StatelessWidget {
-  final List<PostImage> postImages;
+  final List<String> images;
   final String description;
 
   const ImageSliderWidget(
-      {Key key, @required this.postImages, @required this.description})
+      {Key key, @required this.images, @required this.description})
       : super(key: key);
 
   @override
@@ -22,13 +22,13 @@ class ImageSliderWidget extends StatelessWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 5),
-            itemCount: postImages.length,
+            itemCount: images.length,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (_, index) {
-              final postImage = postImages[index];
+              final url = images[index];
               return AspectRatio(
                 aspectRatio: 1,
-                child: _buildImage(postImage.image.url),
+                child: _buildImage(url),
               );
             },
             separatorBuilder: (BuildContext context, int index) {
