@@ -16,7 +16,7 @@ class _CommentLoadingWidget extends StatelessWidget {
   }
 
   Widget _buildImage(BuildContext context) {
-    return XImageLoading(
+    return TImageLoading(
       child: Container(
         decoration:
             BoxDecoration(color: TColors.duck_egg_blue, shape: BoxShape.circle),
@@ -42,7 +42,7 @@ class _CommentLoadingWidget extends StatelessWidget {
   Widget _buildLoadingName() {
     final random = DI.get<Random>(Random);
 
-    return XImageLoading(
+    return TImageLoading(
       child: Container(
         width: random.nextInt(75) + 85.0,
         height: 20.0,
@@ -57,7 +57,7 @@ class _CommentLoadingWidget extends StatelessWidget {
   Widget _buildLoadingComment() {
     final random = DI.get<Random>(Random);
 
-    return XImageLoading(
+    return TImageLoading(
       child: Container(
         height: random.nextInt(35) + 35.0,
         decoration: BoxDecoration(

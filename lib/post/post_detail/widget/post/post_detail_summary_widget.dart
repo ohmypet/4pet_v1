@@ -20,7 +20,7 @@ class PostDetailSummaryWidget extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 flex: 7,
-                child: PostPreviewWidget(item: item),
+                child: PreviewPostWidget(item: item),
               ),
               Expanded(
                 flex: 1,

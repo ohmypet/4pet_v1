@@ -7,11 +7,11 @@ enum ImageSources {
 
 typedef TapImage = void Function(String, ImageSources);
 
-class PostPreviewWidget extends StatelessWidget {
+class PreviewPostWidget extends StatelessWidget {
   final Post item;
   final TapImage onTapImage;
 
-  const PostPreviewWidget({Key key, @required this.item, this.onTapImage})
+  const PreviewPostWidget({Key key, @required this.item, this.onTapImage})
       : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class PostPreviewWidget extends StatelessWidget {
       flex: 3,
       child: Container(
         margin: const EdgeInsets.only(left: 5),
-        child: PostImageWidget(item: item, onTapImage: onTapImage),
+        child: PostImageWidget(imageUrl: item.firstImage, onTapImage: onTapImage),
         alignment: Alignment.centerLeft,
       ),
     );
@@ -54,7 +54,7 @@ class PostPreviewWidget extends StatelessWidget {
         direction: Axis.vertical,
         children: <Widget>[
           Flexible(flex: 3, child: PostTitleWidget(title: title)),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Flexible(child: _PostUserInfoWidget(account: account)),
           Flexible(child: PostMoneyWidget(money: price)),
           Flexible(

@@ -78,13 +78,13 @@ class ImageInputWidget extends TStatelessWidget {
   Widget _buildImageSlider(BuildContext context) {
     final images = this.images ?? [];
     if (images.isEmpty) {
-      return AddImagePostWidget(onPress: () => chooseImage(context));
+      return AddableWidget(onPress: () => chooseImage(context));
     } else if (canAddImage(images.length)) {
       return Flex(
         direction: Axis.horizontal,
         mainAxisSize: MainAxisSize.min,
         children: [
-          AddImagePostWidget(onPress: () => chooseImage(context)),
+          AddableWidget(onPress: () => chooseImage(context)),
           const SizedBox(width: 5),
           Expanded(child: _buildSliderImage(images)),
         ],

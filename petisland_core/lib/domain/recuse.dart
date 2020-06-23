@@ -7,10 +7,12 @@ class Rescue extends BaseModel {
   String status;
   double totalCoin;
   int maxHeroes;
+  int currentHeroes;
   int likes;
   Account account;
   bool isJoined;
-  List<PetImage> images;
+  bool isLiked;
+  List<RescueImage> rescueImages;
 
   Rescue({
     String id,
@@ -22,10 +24,13 @@ class Rescue extends BaseModel {
     this.location,
     this.status,
     this.totalCoin,
-    this.maxHeroes,
+    this.maxHeroes = 0,
+    this.currentHeroes = 0,
     this.likes = 0,
     this.account,
     this.isJoined = true,
+    this.rescueImages = const [],
+
   }) : super(id, createAt, updateAt, createBy);
 
   @override
@@ -51,6 +56,8 @@ class Rescue extends BaseModel {
     if (json['account'] != null) {
       account = Account.fromJson(json['account']);
     }
+    isLiked = json['is_liked'] ?? false;
+    currentHeroes = json['current_heroes'] ?? 0;
   }
 
   Rescue.empty() : super(ThinId.randomId(), null, null, null) {
@@ -60,10 +67,35 @@ class Rescue extends BaseModel {
     totalCoin = 0;
     maxHeroes = 3;
     account = null;
-    images = [];
+    rescueImages = [];
   }
 
   bool get titleIsValid => title != null && title.isNotEmpty;
 
   bool get locatonIsValid => location != null && location.isNotEmpty;
+
+  String get firstImage {
+    final RescueImage item = rescueImages
+        .firstWhere((rescueImage) => rescueImage.image?.url != null, orElse: () => null);
+    if (item != null) {
+      return item.image.url;
+    } else {
+      return null;
+    }
+  }
+
+  String get avatar => account?.user?.avatar?.url;
+
+  String get likeAsString => likes?.toString() ?? '0';
+
+  String get maxHeroeAsString {
+    if (maxHeroes != null && maxHeroes > 0) {
+      return '$currentHeroesAsString/${maxHeroes.toString()}';
+    }
+     else {
+       return '$currentHeroesAsString/∞';
+     }
+  }
+
+  String get currentHeroesAsString => currentHeroes?.toString() ?? '0';
 }

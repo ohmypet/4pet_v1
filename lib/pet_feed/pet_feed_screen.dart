@@ -7,7 +7,7 @@ class PetFeedScreen extends TStatefulWidget {
 
 class _PetFeedScreenState extends TState<PetFeedScreen> {
   final PetFeedController controller = DI.get(PetFeedController);
-
+  final RescueListingBloc listingBloc = DI.get(RescueListingBloc);
   @override
   Widget build(BuildContext context) {
     return NestedScrollView(
@@ -20,7 +20,11 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
             snap: true,
             title: TextLogo(),
             actions: <Widget>[
-              TCircleButton(icon: Icon(Icons.search)),
+              // TODO(tvc12): Disable search feature, open in next version
+              EnableWidget(
+                enable: false,
+                child: TCircleButton(icon: Icon(Icons.search)),
+              ),
               SizedBox(width: 7),
               TCircleButton(
                 icon: Icon(Icons.add),
@@ -32,19 +36,25 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
           SliverPersistentHeader(
             pinned: true,
             floating: false,
-            delegate: THeaderWidget(
-              minExtent: 125,
-              maxExtent: 125,
-              autoInsertSafeArea: false,
-              child: RescueListing(
-                onTapRescuePost: _onTapPost,
-              ),
-            ),
+            delegate: _buildRescueHeader(),
           ),
           // SliverPersistentHeader(
         ];
       },
       body: PetFeedDetailWidget(controller: controller),
+    );
+  }
+
+  SliverPersistentHeaderDelegate _buildRescueHeader() {
+    return THeaderWidget(
+      minExtent: 205,
+      maxExtent: 205,
+      autoInsertSafeArea: false,
+      child: RescueListing(
+        onTapRescuePost: _onTapPost,
+        listingBloc: listingBloc,
+        onTapCreateRescuePost: _onTapCreatePost,
+      ),
     );
   }
 
@@ -60,7 +70,9 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
     );
   }
 
-  void _onTapPost(String value) {
+  void _onTapPost(String value) {}
+
+  void _onTapCreatePost() {
     navigateToScreen(
       context: context,
       screen: RescueCreationPost(),

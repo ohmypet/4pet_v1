@@ -10,4 +10,6 @@ abstract class TConstants {
   static const String text_login = 'LOGIN';
 
   static const String text_register = 'I don\'t have account? Sign Up';
+
+  static const double ratio4y3 = 0.75;
 }

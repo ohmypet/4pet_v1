@@ -1,6 +1,7 @@
 library petisland_core.repository;
 
 import 'dart:async';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
@@ -21,3 +22,4 @@ part 'tag_repository.dart';
 part 'report_repository.dart';
 part 'notification_repository.dart';
 part 'location_repository.dart';
+part 'rescue_repository.dart';

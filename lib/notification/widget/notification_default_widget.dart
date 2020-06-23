@@ -28,7 +28,7 @@ class NotificationDefaultWidget extends StatelessWidget {
   }
 
   Widget _buildCircle() {
-    return XImageLoading(
+    return TImageLoading(
       child: Container(
         alignment: Alignment.topLeft,
         decoration: BoxDecoration(
@@ -60,7 +60,7 @@ class NotificationDefaultWidget extends StatelessWidget {
   }
 
   Widget _buildMessageLoading() {
-    return XImageLoading(
+    return TImageLoading(
       child: Container(
         height: random.nextInt(35) + 35.0,
         decoration: BoxDecoration(
@@ -72,7 +72,7 @@ class NotificationDefaultWidget extends StatelessWidget {
   }
 
   Widget _buildTimeLoading() {
-    return XImageLoading(
+    return TImageLoading(
       child: Container(
         width: random.nextInt(55) + 55.0,
         decoration: BoxDecoration(

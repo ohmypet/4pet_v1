@@ -71,7 +71,8 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
         _commentPost(event);
         break;
       case UploadPostSuccessEvent:
-        yield UploadPostSuccess((event as UploadPostSuccessEvent).item);
+        final e = event as UploadPostSuccessEvent;
+        yield UploadPostSuccess(e.post, message: e.message);
         break;
 
       default:
@@ -130,7 +131,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
 
     postService
         .create(event.postMustUpload)
-        .then((_) => add(UploadPostSuccessEvent(_)))
+        .then((_) => add(UploadPostSuccessEvent(_, message: 'Create the post success')))
         .catchError(_retryUpload)
         .catchError((_) => add(UploadFailedEvent('Upload failed')));
   }
@@ -181,7 +182,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
 
     postService
         .edit(event.postMustUpdate)
-        .then((_) => _)
+        .then((_) => add(UploadPostSuccessEvent(_, message: 'Update the post success')))
         .catchError(_retryUpload)
         .catchError((_) => add(UploadFailedEvent('Upload failed')));
   }
@@ -198,7 +199,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
       if (event.postModal is PostCreateModal) {
         final post = event.postModal as PostCreateModal;
         final PostCreateModal postMustUpload = post..images.addAll(images);
-        add(UploadPostEvent._(id: ThinId.randomId(),postMustUpload: postMustUpload));
+        add(UploadPostEvent._(id: ThinId.randomId(), postMustUpload: postMustUpload));
       } else {
         final PostEditModal postMustUpload = event.postModal;
         final idImages = images.map((item) => item.id).toList();

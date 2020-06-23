@@ -4,6 +4,7 @@ import 'package:ddi/di.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/common.dart';
+import 'package:flutter_template/common/widgets/widgets.dart';
 import 'package:flutter_template/pet_feed/bloc/bloc.dart';
 import 'package:flutter_template/pet_feed/widget/widget.dart';
 import 'package:flutter_template/post/post.dart';

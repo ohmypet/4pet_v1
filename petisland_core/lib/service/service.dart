@@ -20,3 +20,4 @@ part 'tag_service.dart';
 part 'notification_service.dart';
 part 'report_service.dart';
 part 'location_service.dart';
+part 'rescue_service.dart';

@@ -29,7 +29,6 @@ dependencies:
     dropdown_search: 0.4.3
     dashed_container: 1.0.1
 
-
     ddi: any
     petisland_core:
         path: petisland_core
@@ -38,8 +37,8 @@ dependency_overrides:
     ddi:
         path: packages/di
     flutter_money_formatter:
-      git:
-        url: git://github.com/anisalibegic/flutter_money_formatter.git
+        git:
+            url: git://github.com/anisalibegic/flutter_money_formatter.git
 
 dev_dependencies:
     flutter_driver:
@@ -50,7 +49,6 @@ dev_dependencies:
     json_serializable: 3.3.0
     pedantic: 1.9.0
     flutter_native_splash: 0.1.9
-
 
 flutter_icons:
     android: 'launcher_icon'

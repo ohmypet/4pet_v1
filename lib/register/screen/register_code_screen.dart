@@ -10,7 +10,6 @@ class RegisterCodeScreen extends TStatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return AnimatedPadding(
       duration: timeAnimation,
       padding: EdgeInsets.only(

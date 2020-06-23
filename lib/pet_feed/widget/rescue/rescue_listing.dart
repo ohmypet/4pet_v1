@@ -2,30 +2,164 @@ part of petisland.pet_feed.widget.rescue;
 
 class RescueListing extends TStatefulWidget {
   final ValueChanged<String> onTapRescuePost;
+  final VoidCallback onTapCreateRescuePost;
+  final RescueListingBloc listingBloc;
 
-  const RescueListing({this.onTapRescuePost, Key key}) : super(key: key);
+  const RescueListing({
+    Key key,
+    @required this.listingBloc,
+    this.onTapRescuePost,
+    this.onTapCreateRescuePost,
+  }) : super(key: key);
 
   @override
   TState<RescueListing> createState() => _RescueListingState();
 }
 
 class _RescueListingState extends TState<RescueListing> {
+  RescueListingBloc get bloc => widget.listingBloc;
+  static const defaultLoading = const PreviewRescueDefaultWidget();
+  static const box = SizedBox(width: 10);
+
+  final refreshController = RefreshController();
+
+  void initState() {
+    super.initState();
+    if (bloc.rescues.isEmpty) {
+      bloc.loadMoreRescuePost();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: TColors.white,
-      body: GestureDetector(
-        onTap: _handleOnTapClick,
-        child: Container(
-          color: TColors.red,
-        ),
+      body: Flex(
+        direction: Axis.vertical,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: PanelDescriptionBar(
+              title: 'Need help',
+              onTapSeeMore: _onTapSeeMore,
+            ),
+          ),
+          const SizedBox(height: 5),
+          Flexible(
+            child: Flex(
+              direction: Axis.horizontal,
+              children: [
+                Flexible(child: _buildRescuePostSlider()),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  void _handleOnTapClick() {
+  void _handleOnTapClick(String id) {
     if (widget.onTapRescuePost != null) {
-      widget.onTapRescuePost(ThinId.randomId());
+      widget.onTapRescuePost(id);
+    }
+  }
+
+  void _onTapSeeMore() {}
+
+  Widget _buildRescuePostSlider() {
+    return BlocConsumer<RescueListingBloc, RescueListingState>(
+      bloc: bloc,
+      listenWhen: (_, state) => state is ReloadRescueListingState,
+      listener: _handleOnStateChange,
+      buildWhen: (_, state) => state is ReloadRescueListingState,
+      builder: (BuildContext context, state) {
+        switch (state.runtimeType) {
+          case ReloadRescueListingState:
+            return _buildRescueListing(state);
+            break;
+          default:
+            return _buildRescueLoading();
+        }
+      },
+    );
+  }
+
+  Widget _buildRescueListing(ReloadRescueListingState state) {
+    return SmartRefresher(
+      controller: refreshController,
+      enablePullDown: true,
+      scrollDirection: Axis.horizontal,
+      enablePullUp: state.canLoadMore,
+      header: ClassicHeader(
+        iconPos: IconPosition.top,
+        outerBuilder: (child) {
+          return Container(
+            width: 160.0,
+            child: Center(
+              child: child,
+            ),
+          );
+        },
+      ),
+      onRefresh: _onRefresh,
+      onLoading: _onLoading,
+      child: ListView.separated(
+        itemCount: bloc.rescues.length + 1,
+        shrinkWrap: false,
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        itemBuilder: (_, index) {
+          if (index == 0)
+            return _buildButtonAdd();
+          else {
+            return PreviewRescuePostWidget(
+              rescue: bloc.rescues[index - 1],
+              onTapRescuePost: _handleOnTapClick,
+            );
+          }
+        },
+        separatorBuilder: (BuildContext context, int index) => box,
+      ),
+    );
+  }
+
+  Widget _buildButtonAdd() {
+    return AspectRatio(
+      aspectRatio: TConstants.ratio4y3, //4.3
+      child: AddableWidget(
+        onPress: widget.onTapCreateRescuePost,
+      ),
+    );
+  }
+
+  Widget _buildRescueLoading() {
+    return ListView.separated(
+      itemCount: 10,
+      shrinkWrap: false,
+      scrollDirection: Axis.horizontal,
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      itemBuilder: (_, __) => defaultLoading,
+      separatorBuilder: (_, __) => box,
+    );
+  }
+
+  void _onRefresh() {
+    bloc.refreshRescuePost();
+  }
+
+  void _onLoading() {
+    bloc.loadMoreRescuePost();
+  }
+
+  void _handleOnStateChange(BuildContext context, RescueListingState state) {
+    if (refreshController.isLoading) {
+      refreshController.loadComplete();
+    }
+    if (refreshController.isRefresh) {
+      refreshController.refreshCompleted();
     }
   }
 }

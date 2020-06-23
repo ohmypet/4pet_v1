@@ -40,13 +40,11 @@ class TBaseCachedImageWidget extends StatelessWidget {
             placeholder: placeholder ?? (_, __) => _buildPlaceHolder(),
             errorWidget: errorWidget ?? (_, __, ___) => _buildError(),
           )
-        : errorWidget != null
-            ? errorWidget(context, null, 'url is null')
-            : _buildError();
+        : errorWidget != null ? errorWidget(context, null, 'url is null') : _buildError();
   }
 
   Widget _buildPlaceHolder() {
-    return XImageLoading(
+    return TImageLoading(
       child: Container(
         height: height,
         width: width,
@@ -66,10 +64,10 @@ class TBaseCachedImageWidget extends StatelessWidget {
   }
 }
 
-class XImageLoading extends StatelessWidget {
+class TImageLoading extends StatelessWidget {
   final Widget child;
 
-  const XImageLoading({Key key, this.child}) : super(key: key);
+  const TImageLoading({Key key, this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +75,25 @@ class XImageLoading extends StatelessWidget {
       baseColor: Colors.grey[300],
       highlightColor: Colors.grey[100],
       child: child,
+    );
+  }
+}
+
+class TShimmerLoading extends StatelessWidget {
+  final BoxShape shape;
+  TShimmerLoading() : shape = BoxShape.rectangle;
+  TShimmerLoading.circle() : shape = BoxShape.circle;
+
+  @override
+  Widget build(BuildContext context) {
+    return TImageLoading(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: shape == BoxShape.rectangle ? BorderRadius.circular(5.0) : null,
+          shape: shape,
+          color: TColors.black,
+        ),
+      ),
     );
   }
 }
@@ -122,7 +139,7 @@ class TCacheImageWidget extends StatelessWidget {
         );
       },
       placeholder: (_, __) {
-        return XImageLoading(
+        return TImageLoading(
           child: Container(
             width: width,
             height: height,

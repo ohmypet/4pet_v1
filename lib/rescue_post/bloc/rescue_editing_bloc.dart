@@ -17,7 +17,7 @@ class RescueEditingBloc extends TBloc<RescueEditingEvent, RescueEditingState> {
         rescue = Rescue.empty();
 
   RescueEditingBloc.edit(this.rescue) : mode = RescueMode.Edit {
-    final images = rescue.images?.map((image) => image.url)?.toList() ?? [];
+    final images = rescue.rescueImages?.map((rescueImage) => rescueImage.image.url)?.toList() ?? [];
     oldImages.addAll(images);
   }
 

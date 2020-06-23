@@ -75,11 +75,11 @@ class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
     }
 
     if (state is CreatePostSuccess) {
-      showSnackBar(context, 'Create the post success', TColors.green);
+      showSnackBar(context, state.message, TColors.green);
     }
 
     if (state is CreatePostError) {
-      showErrorSnackBar(content: 'Create the post failure, try again!', context: context);
+      showErrorSnackBar(content: 'Something went wrong, try again later!', context: context);
     }
   }
 

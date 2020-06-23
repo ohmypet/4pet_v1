@@ -10,9 +10,11 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Flexible(
-          child: _PanelDescriptionBar(
-            panel: panel,
-            onTap: () => _onTapSeeMore(context),
+          child: PanelDescriptionBar(
+            title: PetIslandConstants.getCategoryStringFromType(panel.type),
+            onTapSeeMore: () => _onTapSeeMore(context),
+            // TODO(tvc12): Disable see more feature, open in next version
+            enableSeeMore: false,
           ),
         ),
         const SizedBox(height: 5),

@@ -4,9 +4,9 @@ abstract class TGradients {
   static final defaultGradient = LinearGradient(
     colors: [
       TColors.black.withOpacity(0.10),
-      TColors.black.withOpacity(0.2),
+      TColors.black.withOpacity(0.15),
     ],
-    stops: [0.5, 0.75],
+    stops: [0.2, 1],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
@@ -17,6 +17,16 @@ abstract class TGradients {
       TColors.black.withOpacity(0.15),
     ],
     stops: [0.5, 0.85],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+
+  static final darkGradient = LinearGradient(
+    colors: [
+      TColors.black.withOpacity(0.15),
+      TColors.black.withOpacity(0.35),
+    ],
+    stops: [0.55, 0.85],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
