@@ -2,6 +2,7 @@ library petisland_core.domain;
 
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
+import 'package:petisland_core/petisland_core.dart';
 import 'package:petisland_core/utils/utils.dart';
 
 part 'account.dart';
@@ -41,6 +42,14 @@ part 'user.dart';
 part 'report.dart';
 
 part 'notification.dart';
+
+part 'recuse.dart';
+
+part 'rescue_image.dart';
+
+part 'location_info.dart';
+
+part 'location_response.dart';
 
 void _addValueToMap(String key, dynamic value, Map<String, dynamic> map) {
   if (value != null) map[key] = value;

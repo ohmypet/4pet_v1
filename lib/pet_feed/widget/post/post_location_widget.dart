@@ -18,14 +18,16 @@ class PostLocationWidget extends StatelessWidget {
                 color: theme.accentColor.withAlpha(128),
               ),
               SizedBox(width: 2),
-              Text(
-                location,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.headline1.copyWith(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: theme.accentColor.withAlpha(128),
+              Flexible(
+                child: Text(
+                  location,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.headline1.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: theme.accentColor.withAlpha(128),
+                  ),
                 ),
               ),
             ],

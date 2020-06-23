@@ -17,7 +17,7 @@ class PostTimeWidget extends StatelessWidget {
                 size: 14,
                 color: theme.accentColor.withAlpha(128),
               ),
-              SizedBox(width: 2),
+              const SizedBox(width: 2),
               Text(
                 TimeUtils.getTimeAgo(time),
                 style: theme.textTheme.headline1.copyWith(

@@ -77,6 +77,7 @@ class PetFeedControllerImpl extends PetFeedController {
     _subscriptionWorker = worker.skip(1).listen((WorkerState state) {
       if (state is UploadPostSuccess) {
         this.listener(CreatePostSuccess());
+        reload();
       }
       if (state is UploadFailedEvent) this.listener(CreatePostError());
     });

@@ -3,7 +3,7 @@ description: A new project template with Flutter.
 version: 1.0.0+1
 
 environment:
-    sdk: '>=2.2.2 <3.0.0'
+    sdk: '>=2.7.0 <3.0.0'
 
 dependencies:
     flutter:
@@ -19,13 +19,16 @@ dependencies:
     shimmer: 1.1.1
     cached_network_image: 2.2.0
     flutter_money_formatter: 0.8.3
-    image_picker: 0.6.5+3
+    image_picker: 0.6.6+1
     file_picker: 1.9.0
     pull_to_refresh: 1.5.8
     flutter_svg: 0.17.4
     url_launcher: 5.4.5
     ansicolor: 1.0.2
     flutter_webview_plugin: 0.3.11
+    dropdown_search: 0.4.3
+    dashed_container: 1.0.1
+
 
     ddi: any
     petisland_core:

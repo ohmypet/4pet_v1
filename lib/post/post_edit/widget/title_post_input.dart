@@ -33,7 +33,7 @@ class _TitlePostInputState extends State<TitlePostInput> {
           crossAxisAlignment: CrossAxisAlignment.start,
           direction: Axis.vertical,
           children: <Widget>[
-            _TitleWidget(title: 'Title', isRequired: true),
+            TitleWidget(title: 'Title', isRequired: true),
             UserInputWidget(
               textController,
               hintText: 'I want to sell...',

@@ -34,7 +34,7 @@ class AddImageEvent extends PostEditEvent {
 
 class RemoveImageEvent extends PostEditEvent {
   final int index;
-  final ImageType type;
+  final ImageSources type;
 
   RemoveImageEvent(this.index, this.type);
 

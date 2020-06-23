@@ -14,7 +14,7 @@ class PostImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final String imageUrl = getUrlImage(item.postImages);
     final onTap = onTapImage != null
-        ? () => onTapImage(imageUrl, ImageType.Server)
+        ? () => onTapImage(imageUrl, ImageSources.Server)
         : null;
     final Widget image = imageUrl != null
         ? GestureDetector(
