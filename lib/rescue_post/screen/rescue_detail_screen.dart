@@ -24,11 +24,13 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
   final ScrollController controller = ScrollController();
   RescueHeroBloc heroBloc;
   RescueDonateBloc donateBloc;
+  RescueCommentBloc rescueCommentBloc;
 
   void initState() {
     super.initState();
     heroBloc = RescueHeroBloc(id)..reload();
     donateBloc = RescueDonateBloc(id)..reload();
+    rescueCommentBloc = RescueCommentBloc(id)..startListener();
   }
 
   @override
@@ -42,31 +44,39 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
           onSelected: (_) => _onTapSeeMore(context, _),
         ),
       ),
-      body: SafeArea(
-        child: Stack(
-          children: <Widget>[
-            ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              controller: controller,
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
-              children: <Widget>[
-                RescueDetailSummaryWidget(
-                  rescue: widget.rescue,
-                  heroBloc: heroBloc,
-                  donateBloc: donateBloc,
-                ),
-                // CommentListingWidget(item: widget.item, bloc: bloc),
-                const SizedBox(height: 150),
-              ],
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: isJoined
-                  ? CommentInputBarWidget(onTapSend: _onTapSend)
-                  : _buildJoinButton(),
-            ),
-          ],
+      body: BlocListener<RescueCommentBloc, CommentState>(
+        bloc: rescueCommentBloc,
+        condition: (_, state) => state is ScrollToBottom,
+        listener: _onCommentChanged,
+        child: SafeArea(
+          child: Stack(
+            children: <Widget>[
+              ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                controller: controller,
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                children: <Widget>[
+                  RescueDetailSummaryWidget(
+                    rescue: widget.rescue,
+                    heroBloc: heroBloc,
+                    donateBloc: donateBloc,
+                  ),
+                  CommentListingWidget(
+                    bloc: rescueCommentBloc,
+                    onDeleteComment: _handleDeleteComment,
+                  ),
+                  const SizedBox(height: 150),
+                ],
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: isJoined
+                    ? CommentInputBarWidget(onTapSend: _onTapSend)
+                    : _buildJoinButton(),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -127,5 +137,25 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
     } else {
       return const SizedBox();
     }
+  }
+
+  void _onCommentChanged(BuildContext context, state) {
+    if (mounted)
+      controller.animateTo(
+        controller.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 150),
+        curve: Curves.bounceIn,
+      );
+  }
+
+  void _handleDeleteComment(String id) {
+    Log.debug('handleDeleteComment:: $id');
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+    rescueCommentBloc.stopListener();
   }
 }

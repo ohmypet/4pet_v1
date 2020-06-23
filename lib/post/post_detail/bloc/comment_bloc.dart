@@ -1,21 +1,19 @@
 part of petisland.post.post_detail.bloc;
 
 class CommentBloc extends TBloc<CommentEvent, CommentState> {
-  static final PostService service = DI.get(PostService);
-
   final List<Comment> comments = <Comment>[];
 
-  final String postId;
+  final String id;
 
   @protected
   Timer timer;
 
-  CommentBloc(this.postId);
+  CommentBloc(this.id);
 
   void startListener() {
     reload();
     if (timer?.isActive == true) timer.cancel();
-    timer = Timer.periodic(const Duration(seconds: 5), (_) => reload());
+    timer = Timer.periodic(const Duration(seconds: 2), (_) => reload());
   }
 
   void stopListener() {
@@ -34,7 +32,7 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   Stream<CommentState> eventToState(BaseEvent event) async* {
     switch (event.runtimeType) {
       case LoadCommentEvent:
-        _loadComment(event);
+        loadComment(event);
         break;
       case ReloadCommentUIEvent:
         yield* _reloadUI(event);
@@ -49,7 +47,9 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
     }
   }
 
-  void _loadComment(LoadCommentEvent event) {
+  @protected
+  void loadComment(LoadCommentEvent event) {
+    final PostService service = DI.get(PostService);
     service.getComments(event.postId).then((items) {
       if (items != null) {
         if (items.isNotEmpty) {
@@ -59,13 +59,14 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
         }
         add(ReloadCommentUIEvent(comments));
       }
-    }).catchError(_handleError);
+    }).catchError(handleOnError);
   }
 
   @override
   CommentState get initialState => CommentStateInit();
 
-  FutureOr _handleError(dynamic ex) {
+  @protected
+  FutureOr handleOnError(dynamic ex) {
     Log.error(ex);
   }
 
@@ -74,20 +75,25 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   }
 
   Stream<CommentState> _softAdd(SoftAddCommentEvent event) async* {
+    stopListener();
     yield ScrollToBottom();
     comments.add(event.item);
     yield ReloadUIState(comments);
+    Future.delayed(const Duration(seconds: 2)).whenComplete(() => startListener());
   }
 
   Stream<CommentState> _softDelete(SoftDeleteCommentEvent event) async* {
+    stopListener();
+
     final id = event.id;
     comments.removeWhere((item) => item.id == id);
     yield ReloadUIState(comments);
+    Future.delayed(const Duration(seconds: 2)).whenComplete(() => startListener());
   }
 
   @protected
   void reload() {
-    add(LoadCommentEvent(postId));
+    add(LoadCommentEvent(id));
   }
 
   void softAddComment(String message) {

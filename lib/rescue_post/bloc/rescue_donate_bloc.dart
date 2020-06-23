@@ -25,7 +25,7 @@ class RescueDonateBloc extends TBloc<RescueHeroEvent, RescueHeroState> {
     LoadHeroEvent event, {
     bool clearOldData,
   }) async* {
-    final heroes = await service.getDonaters();
+    final heroes = await service.getDonaters(id);
     if (clearOldData == true) {
       this.rescueDonates.clear();
     }

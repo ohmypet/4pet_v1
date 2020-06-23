@@ -11,8 +11,9 @@ abstract class RescueRepository {
 
   Future<bool> like(String id);
 
-  Future<List<RescueAccount>> getHeroJoined();
-  Future<List<RescueDonate>> getDonaters();
+  Future<List<RescueAccount>> getHeroJoined(String id);
+  Future<List<RescueDonate>> getDonaters(String id);
+  Future<List<Comment>> getComments(String id);
 }
 
 class MockRescueRepository extends RescueRepository {
@@ -54,7 +55,7 @@ class MockRescueRepository extends RescueRepository {
     );
   }
 
-  Account get account => Account(
+  static Account get account => Account(
         id: ThinId.randomId(),
         createAt: DateTime.now(),
         createBy: null,
@@ -65,16 +66,16 @@ class MockRescueRepository extends RescueRepository {
         username: ThinId.randomId(),
         user: user,
       );
-  User get user => User(
+  static User get user => User(
         id: ThinId.randomId(),
         name: ThinId.randomId(numberCharacter: 5),
         phoneNumber: '0966144938',
         avatar: avatar,
       );
 
-  PetImage get avatar => PetImage(id: ThinId.randomId(), url: image);
+  static PetImage get avatar => PetImage(id: ThinId.randomId(), url: image);
 
-  final images = [
+  static final images = [
     'https://github.com/tvc12.png',
     'https://http.cat/100',
     'https://http.cat/101',
@@ -91,9 +92,9 @@ class MockRescueRepository extends RescueRepository {
     'https://http.cat/304',
     'https://http.cat/305',
   ];
-  final ran = Random();
+  static final ran = Random();
 
-  String get image {
+  static String get image {
     return images[ran.nextInt(images.length - 1)];
   }
 
@@ -129,10 +130,10 @@ class MockRescueRepository extends RescueRepository {
   }
 
   @override
-  Future<List<RescueDonate>> getDonaters() {
+  Future<List<RescueDonate>> getDonaters(String id) {
     return Future.value(
       List.generate(
-        ran.nextInt(10),
+        ran.nextInt(20),
         (index) => RescueDonate(
           id: ThinId.randomId(),
           coin: ran.nextInt(1000) + ran.nextInt(100),
@@ -144,10 +145,10 @@ class MockRescueRepository extends RescueRepository {
   }
 
   @override
-  Future<List<RescueAccount>> getHeroJoined() {
+  Future<List<RescueAccount>> getHeroJoined(String id) {
     return Future.value(
       List.generate(
-        10,
+        ran.nextInt(12),
         (index) => RescueAccount(
           id: ThinId.randomId(),
           hero: account,
@@ -157,4 +158,17 @@ class MockRescueRepository extends RescueRepository {
       ),
     );
   }
+
+  @override
+  Future<List<Comment>> getComments(String id) {
+    return Future.value(comments);
+  }
+
+  final comments = List.generate(ran.nextInt(12), (index) => comment);
+
+  static Comment get comment => Comment(
+        createAt: DateTime.now(),
+        message: ThinId.randomId(numberCharacter: 5),
+        createBy: account,
+      );
 }

@@ -6,6 +6,7 @@ import 'package:flutter_template/common/common.dart';
 import 'package:flutter_template/login/widget/widget.dart';
 import 'package:flutter_template/petisland.dart';
 import 'package:flutter_template/post/post.dart';
+import 'package:flutter_template/post/post_detail/bloc/bloc.dart';
 import 'package:flutter_template/post/post_detail/widget/widget.dart';
 import 'package:flutter_template/rescue_post/rescue.dart';
 import 'package:flutter_template/rescue_post/widget/widget.dart';

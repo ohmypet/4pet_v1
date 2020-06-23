@@ -31,7 +31,7 @@ class RescueHeroBloc extends TBloc<RescueHeroEvent, RescueHeroState> {
     LoadHeroEvent event, {
     bool clearOldData,
   }) async* {
-    final heroes = await service.getHeroJoined();
+    final heroes = await service.getHeroJoined(id);
     if (clearOldData == true) {
       this.rescueAccounts.clear();
     }
