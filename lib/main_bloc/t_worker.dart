@@ -16,8 +16,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
     add(CommentPostEvent(postId, message));
   }
 
-  void createPost(PostCreateModal modal, List<String> images,
-      {VoidCallback onCompleted}) {
+  void createPost(PostCreateModal modal, List<String> images, {VoidCallback onCompleted}) {
     final id = ThinId.randomId();
     if (images?.isNotEmpty == true) {
       add(UploadImageEvent._(id: id, postModal: modal, imagesMustUpload: images));
