@@ -11,7 +11,7 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   CommentBloc(this.id);
 
   @override
-  Duration get delayEvent => const Duration(milliseconds: 250);
+  Duration get delayEvent => const Duration(milliseconds: 150);
 
   @override
   CommentState get initialState => CommentStateInit();
@@ -82,7 +82,7 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   void startListener() {
     reload();
     if (timer?.isActive == true) timer.cancel();
-    timer = Timer.periodic(const Duration(seconds: 2), (_) => reload());
+    timer = Timer.periodic(const Duration(seconds: 3), (_) => reload());
   }
 
   void stopListener() {

@@ -150,6 +150,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
 
   void _handleDeleteComment(String id) {
     Log.debug('handleDeleteComment:: $id');
+    // TODO(tvc12): handle delete comment
   }
 
   @override
