@@ -33,17 +33,14 @@ class Rescue extends BaseModel {
     this.isReacted = false,
   }) : super(id, createAt, updateAt, createBy);
 
-  @override
-  Map<String, dynamic> toJson() {
-    final map = super.toJson();
-    _addValueToMap('title', title, map);
-    _addValueToMap('description', description, map);
-    _addValueToMap('location', location, map);
-    _addValueToMap('status', status, map);
-    _addValueToMap('total_coin', totalCoin, map);
-    _addValueToMap('max_heroes', maxHeroes, map);
-    _addValueToMap('account', account?.toJson(), map);
-    return map;
+  Rescue.empty() : super(ThinId.randomId(), null, null, null) {
+    title = '';
+    description = '';
+    status = '';
+    totalCoin = 0;
+    maxHeroes = 3;
+    account = null;
+    rescueImages = [];
   }
 
   Rescue.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
@@ -60,19 +57,16 @@ class Rescue extends BaseModel {
     currentHeroes = json['current_heroes'] ?? 0;
   }
 
-  Rescue.empty() : super(ThinId.randomId(), null, null, null) {
-    title = '';
-    description = '';
-    status = '';
-    totalCoin = 0;
-    maxHeroes = 3;
-    account = null;
-    rescueImages = [];
+  String get avatar => account?.user?.avatar?.url;
+
+  bool get canJoin {
+    if (maxHeroes != null && maxHeroes > 0) {
+      return currentHeroes < maxHeroes;
+    } else
+      return true;
   }
 
-  bool get titleIsValid => title != null && title.isNotEmpty;
-
-  bool get locatonIsValid => location != null && location.isNotEmpty;
+  String get currentHeroesAsString => currentHeroes?.toString() ?? '0';
 
   String get firstImage {
     final RescueImage item = rescueImages
@@ -84,9 +78,9 @@ class Rescue extends BaseModel {
     }
   }
 
-  String get avatar => account?.user?.avatar?.url;
-
   String get likeAsString => likes?.toString() ?? '0';
+
+  bool get locatonIsValid => location != null && location.isNotEmpty;
 
   String get maxHeroeAsString {
     if (maxHeroes != null && maxHeroes > 0) {
@@ -96,14 +90,7 @@ class Rescue extends BaseModel {
     }
   }
 
-  String get currentHeroesAsString => currentHeroes?.toString() ?? '0';
-
-  bool get canJoin {
-    if (maxHeroes != null && maxHeroes > 0) {
-      return currentHeroes < maxHeroes;
-    } else
-      return true;
-  }
+  bool get titleIsValid => title != null && title.isNotEmpty;
 
   int getLikes() {
     if (likes != null && likes > 0)
@@ -120,6 +107,19 @@ class Rescue extends BaseModel {
       isReacted = true;
       return this.likes = likes + 1;
     }
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    final map = super.toJson();
+    _addValueToMap('title', title, map);
+    _addValueToMap('description', description, map);
+    _addValueToMap('location', location, map);
+    _addValueToMap('status', status, map);
+    _addValueToMap('total_coin', totalCoin, map);
+    _addValueToMap('max_heroes', maxHeroes, map);
+    _addValueToMap('account', account?.toJson(), map);
+    return map;
   }
 
   int unLike() {

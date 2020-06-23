@@ -15,18 +15,11 @@ class RescueListing extends TStatefulWidget {
 }
 
 class _RescueListingState extends TState<RescueListing> {
-  RescueListingBloc get bloc => widget.listingBloc;
   static const defaultLoading = const PreviewRescueDefaultWidget();
   static const box = SizedBox(width: 10);
-
   final refreshController = RefreshController();
 
-  void initState() {
-    super.initState();
-    if (bloc.rescues.isEmpty) {
-      bloc.loadMoreRescuePost();
-    }
-  }
+  RescueListingBloc get bloc => widget.listingBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -51,23 +44,19 @@ class _RescueListingState extends TState<RescueListing> {
     );
   }
 
-  void _onTapSeeMore() {}
+  void initState() {
+    super.initState();
+    if (bloc.rescues.isEmpty) {
+      bloc.loadMoreRescuePost();
+    }
+  }
 
-  Widget _buildRescuePostSlider() {
-    return BlocConsumer<RescueListingBloc, RescueListingState>(
-      bloc: bloc,
-      listenWhen: (_, state) => state is ReloadRescueListingState,
-      listener: _handleOnStateChange,
-      buildWhen: (_, state) => state is ReloadRescueListingState,
-      builder: (BuildContext context, state) {
-        switch (state.runtimeType) {
-          case ReloadRescueListingState:
-            return _buildRescueListing(state);
-            break;
-          default:
-            return _buildRescueLoading();
-        }
-      },
+  Widget _buildButtonAdd() {
+    return AspectRatio(
+      aspectRatio: TConstants.ratio4y3, //4.3
+      child: AddableWidget(
+        onPress: widget.onTapCreateRescuePost,
+      ),
     );
   }
 
@@ -111,15 +100,6 @@ class _RescueListingState extends TState<RescueListing> {
     );
   }
 
-  Widget _buildButtonAdd() {
-    return AspectRatio(
-      aspectRatio: TConstants.ratio4y3, //4.3
-      child: AddableWidget(
-        onPress: widget.onTapCreateRescuePost,
-      ),
-    );
-  }
-
   Widget _buildRescueLoading() {
     return ListView.separated(
       itemCount: 10,
@@ -132,12 +112,26 @@ class _RescueListingState extends TState<RescueListing> {
     );
   }
 
-  void _onRefresh() {
-    bloc.refreshRescuePost();
+  Widget _buildRescuePostSlider() {
+    return BlocConsumer<RescueListingBloc, RescueListingState>(
+      bloc: bloc,
+      listenWhen: (_, state) => state is ReloadRescueListingState,
+      listener: _handleOnStateChange,
+      buildWhen: (_, state) => state is ReloadRescueListingState,
+      builder: (BuildContext context, state) {
+        switch (state.runtimeType) {
+          case ReloadRescueListingState:
+            return _buildRescueListing(state);
+            break;
+          default:
+            return _buildRescueLoading();
+        }
+      },
+    );
   }
 
-  void _onLoading() {
-    bloc.loadMoreRescuePost();
+  void _handleDeleteRescue(Rescue rescue) {
+    // TODO(tvc12): Handle delete rescue
   }
 
   void _handleOnStateChange(BuildContext context, RescueListingState state) {
@@ -162,7 +156,13 @@ class _RescueListingState extends TState<RescueListing> {
     });
   }
 
-  void _handleDeleteRescue(Rescue rescue) {
-    // TODO(tvc12): Handle delete rescue
+  void _onLoading() {
+    bloc.loadMoreRescuePost();
   }
+
+  void _onRefresh() {
+    bloc.refreshRescuePost();
+  }
+
+  void _onTapSeeMore() {}
 }

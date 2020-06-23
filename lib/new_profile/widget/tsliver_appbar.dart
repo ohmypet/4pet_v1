@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_template/common/common.dart';
 import 'package:flutter_template/common/widgets/widgets.dart';
-import 'package:flutter_template/petisland.dart';
+import 'package:petisland_core/petisland_core.dart';
 
 class TSliverAppBar extends SliverPersistentHeaderDelegate {
   @override
@@ -62,12 +63,6 @@ class TSliverAppBar extends SliverPersistentHeaderDelegate {
     );
   }
 
-  Widget _getAvatar(String avatar) {
-    return avatarUrl != null
-        ? TCacheImageWidget(url: avatarUrl)
-        : SvgPicture.asset(TAssets.user_avatar);
-  }
-
   Widget buildAvatar() {
     final image = _getAvatar(avatarUrl);
     return FittedBox(
@@ -89,6 +84,12 @@ class TSliverAppBar extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
+
+  Widget _getAvatar(String avatar) {
+    return avatarUrl != null
+        ? TCacheImageWidget(url: avatarUrl)
+        : SvgPicture.asset(TAssets.user_avatar);
+  }
 
   void _onTap() {
     Log.info('_onTap:: ${DateTime.now()}');

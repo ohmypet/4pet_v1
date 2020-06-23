@@ -10,18 +10,11 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
 
   CommentBloc(this.id);
 
-  void startListener() {
-    reload();
-    if (timer?.isActive == true) timer.cancel();
-    timer = Timer.periodic(const Duration(seconds: 2), (_) => reload());
-  }
-
-  void stopListener() {
-    if (timer?.isActive == true) timer.cancel();
-  }
-
   @override
   Duration get delayEvent => const Duration(milliseconds: 250);
+
+  @override
+  CommentState get initialState => CommentStateInit();
 
   @override
   Stream<CommentState> errorToState(BaseErrorEvent event) {
@@ -48,6 +41,11 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   }
 
   @protected
+  FutureOr handleOnError(dynamic ex) {
+    Log.error(ex);
+  }
+
+  @protected
   void loadComment(LoadCommentEvent event) {
     final PostService service = DI.get(PostService);
     service.getComments(event.postId).then((items) {
@@ -62,12 +60,33 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
     }).catchError(handleOnError);
   }
 
-  @override
-  CommentState get initialState => CommentStateInit();
-
   @protected
-  FutureOr handleOnError(dynamic ex) {
-    Log.error(ex);
+  void reload() {
+    add(LoadCommentEvent(id));
+  }
+
+  void softAddComment(String message) {
+    final account = DI.get<AuthenticationBloc>(AuthenticationBloc).account;
+    final Comment item = Comment(
+      createBy: account,
+      createAt: DateTime.now(),
+      message: message,
+    );
+    add(SoftAddCommentEvent(item));
+  }
+
+  void softDeleteComment(String id) {
+    add(SoftDeleteCommentEvent(id));
+  }
+
+  void startListener() {
+    reload();
+    if (timer?.isActive == true) timer.cancel();
+    timer = Timer.periodic(const Duration(seconds: 2), (_) => reload());
+  }
+
+  void stopListener() {
+    if (timer?.isActive == true) timer.cancel();
   }
 
   Stream<CommentState> _reloadUI(ReloadCommentUIEvent event) async* {
@@ -89,24 +108,5 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
     comments.removeWhere((item) => item.id == id);
     yield ReloadUIState(comments);
     Future.delayed(const Duration(seconds: 2)).whenComplete(() => startListener());
-  }
-
-  @protected
-  void reload() {
-    add(LoadCommentEvent(id));
-  }
-
-  void softAddComment(String message) {
-    final account = DI.get<AuthenticationBloc>(AuthenticationBloc).account;
-    final Comment item = Comment(
-      createBy: account,
-      createAt: DateTime.now(),
-      message: message,
-    );
-    add(SoftAddCommentEvent(item));
-  }
-
-  void softDeleteComment(String id) {
-    add(SoftDeleteCommentEvent(id));
   }
 }

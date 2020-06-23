@@ -5,11 +5,14 @@ class FavoritePostBloc extends TBloc<FavoritePostEvent, FavoritePostState> {
   final List<PanelDetail> posts = [];
   final int limit = 15;
 
-  @protected
-  int get offset => posts.length;
-
   @override
   Duration get delayEvent => const Duration(milliseconds: 150);
+
+  @override
+  FavoritePostState get initialState => IniFavoritePostState();
+
+  @protected
+  int get offset => posts.length;
 
   @override
   Stream<FavoritePostState> errorToState(BaseErrorEvent event) {
@@ -32,8 +35,18 @@ class FavoritePostBloc extends TBloc<FavoritePostEvent, FavoritePostState> {
     }
   }
 
-  @override
-  FavoritePostState get initialState => IniFavoritePostState();
+  void reload() {
+    add(_ReloadFavoritePostEvent(offset, limit));
+  }
+
+  void retrievePost() {
+    add(_RetrieveFavoritePostEvent(offset, limit));
+  }
+
+  void _handleError(dynamic ex) {
+    Log.error(ex);
+    add(_ReloadUIEvent(posts));
+  }
 
   void _reloadMyPost(_ReloadFavoritePostEvent event) {
     FutureOr _reloadUI(List<PanelDetail> value) {
@@ -63,18 +76,5 @@ class FavoritePostBloc extends TBloc<FavoritePostEvent, FavoritePostState> {
         .getFavoritePosts(offset: event.offset, limit: event.limit)
         .then(_reloadUI)
         .catchError(_handleError);
-  }
-
-  void _handleError(dynamic ex) {
-    Log.error(ex);
-    add(_ReloadUIEvent(posts));
-  }
-
-  void reload() {
-    add(_ReloadFavoritePostEvent(offset, limit));
-  }
-
-  void retrievePost() {
-    add(_RetrieveFavoritePostEvent(offset, limit));
   }
 }

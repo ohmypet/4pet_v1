@@ -16,16 +16,8 @@ class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
   List<Item> items;
   bool maybeRetrievePost = true;
 
-  PetFeedController get controller => widget.controller;
   RefreshController refreshController;
-
-  @override
-  void initState() {
-    super.initState();
-    items = controller.getItems();
-    controller.setListener(_onItemChange);
-    refreshController = RefreshController(initialRefresh: controller.getItems().isEmpty);
-  }
+  PetFeedController get controller => widget.controller;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +50,22 @@ class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    items = controller.getItems();
+    controller.setListener(_onItemChange);
+    refreshController = RefreshController(initialRefresh: controller.getItems().isEmpty);
+  }
+
+  Widget renderPanel(Panel item, {VoidCallback reRender}) {
+    return PostPanelDetailWidget(item, reRender: reRender);
+  }
+
+  void reRender() {
+    setState(() {});
+  }
+
   void _onItemChange(PetFeedState state) {
     if (refreshController.isLoading) {
       refreshController.loadComplete();
@@ -78,24 +86,15 @@ class _PetFeedDetailWidgetState extends TState<PetFeedDetailWidget> {
     }
 
     if (state is CreatePostError) {
-      showErrorSnackBar(
-          content: 'Something went wrong, try again later!', context: context);
+      showErrorSnackBar(content: 'Something went wrong, try again later!', context: context);
     }
-  }
-
-  void _onRefresh() {
-    controller.reload();
   }
 
   void _onLoading() {
     controller.retrievePosts();
   }
 
-  Widget renderPanel(Panel item, {VoidCallback reRender}) {
-    return PostPanelDetailWidget(item, reRender: reRender);
-  }
-
-  void reRender() {
-    setState(() {});
+  void _onRefresh() {
+    controller.reload();
   }
 }

@@ -38,17 +38,6 @@ class PanelDescriptionBar extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle(BuildContext context, String title) {
-    final theme = Theme.of(context);
-    final style = theme.textTheme.subtitle2.copyWith(
-      fontSize: 18,
-      color: theme.accentColor.withAlpha(220),
-      letterSpacing: 0.2,
-      fontWeight: FontWeight.w700,
-    );
-    return Text(title, style: style);
-  }
-
   Widget _buildSubTitle(BuildContext context, VoidCallback onTap) {
     final theme = Theme.of(context);
     final style = theme.textTheme.subtitle2.copyWith(
@@ -70,6 +59,17 @@ class PanelDescriptionBar extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildTitle(BuildContext context, String title) {
+    final theme = Theme.of(context);
+    final style = theme.textTheme.subtitle2.copyWith(
+      fontSize: 18,
+      color: theme.accentColor.withAlpha(220),
+      letterSpacing: 0.2,
+      fontWeight: FontWeight.w700,
+    );
+    return Text(title, style: style);
   }
 
   void _onTapSeeMore() {

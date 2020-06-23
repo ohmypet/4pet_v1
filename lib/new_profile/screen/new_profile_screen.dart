@@ -1,11 +1,13 @@
 import 'package:ddi/di.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_template/authentication_bloc/authentication_bloc.dart';
+import 'package:flutter_template/common/common.dart';
 import 'package:flutter_template/common/state/state.dart';
 import 'package:flutter_template/home_page/widget/widget.dart';
 import 'package:flutter_template/new_profile/screen/edit_profile_screen.dart';
 import 'package:flutter_template/new_profile/widget/tsliver_appbar.dart';
 import 'package:flutter_template/pet_feed/widget/post/post.dart';
-import 'package:flutter_template/petisland.dart';
 import 'package:flutter_template/profile/bloc/favorite_post/favorite_post.dart';
 import 'package:flutter_template/profile/bloc/my_post/my_post.dart';
 import 'package:petisland_core/domain/domain.dart';

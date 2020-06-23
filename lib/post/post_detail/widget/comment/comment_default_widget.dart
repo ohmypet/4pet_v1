@@ -15,17 +15,6 @@ class _CommentLoadingWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildImage(BuildContext context) {
-    return TImageLoading(
-      child: Container(
-        decoration:
-            BoxDecoration(color: TColors.duck_egg_blue, shape: BoxShape.circle),
-        margin: const EdgeInsets.all(5),
-        child: AspectRatio(aspectRatio: 1),
-      ),
-    );
-  }
-
   Widget _buildCommentDescription() {
     return Flex(
       direction: Axis.vertical,
@@ -39,17 +28,12 @@ class _CommentLoadingWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildLoadingName() {
-    final random = DI.get<Random>(Random);
-
+  Widget _buildImage(BuildContext context) {
     return TImageLoading(
       child: Container(
-        width: random.nextInt(75) + 85.0,
-        height: 20.0,
-        decoration: BoxDecoration(
-          color: TColors.duck_egg_blue,
-          borderRadius: BorderRadius.circular(3),
-        ),
+        decoration: BoxDecoration(color: TColors.duck_egg_blue, shape: BoxShape.circle),
+        margin: const EdgeInsets.all(5),
+        child: AspectRatio(aspectRatio: 1),
       ),
     );
   }
@@ -60,6 +44,21 @@ class _CommentLoadingWidget extends StatelessWidget {
     return TImageLoading(
       child: Container(
         height: random.nextInt(35) + 35.0,
+        decoration: BoxDecoration(
+          color: TColors.duck_egg_blue,
+          borderRadius: BorderRadius.circular(3),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoadingName() {
+    final random = DI.get<Random>(Random);
+
+    return TImageLoading(
+      child: Container(
+        width: random.nextInt(75) + 85.0,
+        height: 20.0,
         decoration: BoxDecoration(
           color: TColors.duck_egg_blue,
           borderRadius: BorderRadius.circular(3),

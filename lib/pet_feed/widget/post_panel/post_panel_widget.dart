@@ -66,6 +66,11 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
     );
   }
 
+  void _onTapPetCategory(BuildContext context, PanelDetail item) {
+    Log.info('_onTapPetCategory:: $item');
+    // TODO(tvc12): navigate to search
+  }
+
   void _onTapPostItem(BuildContext context, Post item) {
     navigateToScreen(
       context: context,
@@ -82,11 +87,6 @@ class PostPanelDetailWidget extends PanelRender<Panel> {
   }
 
   void _onTapSeeMore(BuildContext context) {
-    // TODO(tvc12): navigate to search
-  }
-
-  void _onTapPetCategory(BuildContext context, PanelDetail item) {
-    Log.info('_onTapPetCategory:: $item');
     // TODO(tvc12): navigate to search
   }
 

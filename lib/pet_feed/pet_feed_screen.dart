@@ -47,7 +47,7 @@ class PetFeedScreen extends TStatelessWidget {
       autoInsertSafeArea: false,
       child: RescueListing(
         listingBloc: listingBloc,
-        onTapCreateRescuePost: () => _onTapCreatePost(context),
+        onTapCreateRescuePost: () => _onCreateRescue(context),
       ),
     );
   }
@@ -64,7 +64,7 @@ class PetFeedScreen extends TStatelessWidget {
     );
   }
 
-  void _onTapCreatePost(BuildContext context) {
+  void _onCreateRescue(BuildContext context) {
     navigateToScreen(
       context: context,
       screen: RescueCreationScreen(),

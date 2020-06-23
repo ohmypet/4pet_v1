@@ -50,13 +50,32 @@ class PreviewRescuePostWidget extends StatelessWidget {
     }
   }
 
-  Widget _buildRescueData() {
+  Widget _buildDescription() {
+    return Text(
+      rescue.title ?? '',
+      maxLines: 3,
+      overflow: TextOverflow.ellipsis,
+      style: TTextStyles.semi(
+        color: TColors.text_white,
+        fontSize: 12,
+      ),
+    );
+  }
+
+  Widget _buildIconAndTitle({@required Icon icon, @required String title}) {
     return Flex(
-      direction: Axis.vertical,
-      mainAxisSize: MainAxisSize.min,
+      direction: Axis.horizontal,
       children: [
-        _buildDescription(),
-        _buildLikedAndJoinedIcon(),
+        icon,
+        const SizedBox(width: 1),
+        Text(
+          title,
+          overflow: TextOverflow.ellipsis,
+          style: TTextStyles.normal(
+            color: TColors.text_white,
+            fontSize: 12,
+          ),
+        ),
       ],
     );
   }
@@ -84,36 +103,6 @@ class PreviewRescuePostWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildIconAndTitle({@required Icon icon, @required String title}) {
-    return Flex(
-      direction: Axis.horizontal,
-      children: [
-        icon,
-        const SizedBox(width: 1),
-        Text(
-          title,
-          overflow: TextOverflow.ellipsis,
-          style: TTextStyles.normal(
-            color: TColors.text_white,
-            fontSize: 12,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildDescription() {
-    return Text(
-      rescue.title ?? '',
-      maxLines: 3,
-      overflow: TextOverflow.ellipsis,
-      style: TTextStyles.semi(
-        color: TColors.text_white,
-        fontSize: 12,
-      ),
-    );
-  }
-
   Widget _buildLocation() {
     return Container(
       width: 75,
@@ -136,6 +125,17 @@ class PreviewRescuePostWidget extends StatelessWidget {
           fontSize: 12,
         ),
       ),
+    );
+  }
+
+  Widget _buildRescueData() {
+    return Flex(
+      direction: Axis.vertical,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _buildDescription(),
+        _buildLikedAndJoinedIcon(),
+      ],
     );
   }
 }

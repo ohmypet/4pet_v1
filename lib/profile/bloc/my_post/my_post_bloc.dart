@@ -5,11 +5,14 @@ class MyPostBloc extends TBloc<MyPostEvent, MyPostState> {
   final List<PanelDetail> posts = [];
   final int limit = 15;
 
-  @protected
-  int get offset => posts.length;
-
   @override
   Duration get delayEvent => const Duration(milliseconds: 150);
+
+  @override
+  MyPostState get initialState => InitMyPostState();
+
+  @protected
+  int get offset => posts.length;
 
   @override
   Stream<MyPostState> errorToState(BaseErrorEvent event) {
@@ -32,8 +35,18 @@ class MyPostBloc extends TBloc<MyPostEvent, MyPostState> {
     }
   }
 
-  @override
-  MyPostState get initialState => InitMyPostState();
+  void reload() {
+    add(_ReloadMyPostEvent(offset, limit));
+  }
+
+  void retrievePost() {
+    add(_RetrieveMyPostEvent(offset, limit));
+  }
+
+  void _handleError(dynamic ex) {
+    Log.error(ex);
+    add(_ReloadUIEvent(posts));
+  }
 
   void _reloadMyPost(_ReloadMyPostEvent event) {
     FutureOr _reloadUI(List<PanelDetail> value) {
@@ -63,18 +76,5 @@ class MyPostBloc extends TBloc<MyPostEvent, MyPostState> {
         .getMyPost(offset: event.offset, limit: event.limit)
         .then(_reloadUI)
         .catchError(_handleError);
-  }
-
-  void _handleError(dynamic ex) {
-    Log.error(ex);
-    add(_ReloadUIEvent(posts));
-  }
-
-  void reload() {
-    add(_ReloadMyPostEvent(offset, limit));
-  }
-
-  void retrievePost() {
-    add(_RetrieveMyPostEvent(offset, limit));
   }
 }

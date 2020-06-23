@@ -16,8 +16,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
     add(CommentPostEvent(postId, message));
   }
 
-  void createPost(PostCreateModal modal, List<String> images,
-      {VoidCallback onCompleted}) {
+  void createPost(PostCreateModal modal, List<String> images, {VoidCallback onCompleted}) {
     final id = ThinId.randomId();
     if (images?.isNotEmpty == true) {
       add(UploadImageEvent._(id: id, postModal: modal, imagesMustUpload: images));
@@ -164,6 +163,10 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
     postService.like(event.id).catchError((_) => Log.error(_));
   }
 
+  void _likeRescuePost(BaseEvent event) {
+    // TODO(tvc12): Rescue handle like
+  }
+
   void _reportPost(ReportPostEvent event) {
     void retryUpload(dynamic ex) {
       Log.error('Fail upload:: $ex');
@@ -222,9 +225,5 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
         .then(_uploadPostModal)
         .catchError(_handleError)
         .catchError((_) => add(UploadFailedEvent('Upload failed')));
-  }
-
-  void _likeRescuePost(BaseEvent event) {
-    // TODO(tvc12): Rescue handle like
   }
 }

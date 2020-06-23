@@ -22,6 +22,14 @@ class _CommentListingWidgetState extends State<CommentListingWidget> {
     );
   }
 
+  Widget _buildComment(BuildContext context, int index, List<Comment> items) {
+    if (index < items.length) {
+      final item = items[index];
+      return CommentWidget(item: item, onTapDelete: () => _onTapDelete(index, item));
+    } else
+      return SizedBox(height: 150);
+  }
+
   Widget _buildCommentUI(BuildContext context, CommentState state) {
     if (state is ReloadUIState) {
       final items = state.items;
@@ -54,14 +62,6 @@ class _CommentListingWidgetState extends State<CommentListingWidget> {
         },
       );
     }
-  }
-
-  Widget _buildComment(BuildContext context, int index, List<Comment> items) {
-    if (index < items.length) {
-      final item = items[index];
-      return CommentWidget(item: item, onTapDelete: () => _onTapDelete(index, item));
-    } else
-      return SizedBox(height: 150);
   }
 
   void _onTapDelete(int index, Comment comment) {
