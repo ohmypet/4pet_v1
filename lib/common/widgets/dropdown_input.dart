@@ -8,6 +8,7 @@ class DropdownInputWidget<T> extends StatelessWidget {
   final bool isRequired;
   final String hintText;
   final T selectedItem;
+  final EdgeInsetsGeometry padding;
 
   const DropdownInputWidget({
     Key key,
@@ -18,6 +19,7 @@ class DropdownInputWidget<T> extends StatelessWidget {
     this.isRequired = false,
     this.hintText,
     this.selectedItem,
+    this.padding = const EdgeInsets.only(left: 15, right: 10),
   }) : super(key: key);
 
   @override
@@ -30,7 +32,7 @@ class DropdownInputWidget<T> extends StatelessWidget {
     );
     final style = TTextStyles.medium(fontSize: 15);
     return Padding(
-      padding: EdgeInsets.only(left: 15, right: 10),
+      padding: padding,
       child: Flex(
         crossAxisAlignment: CrossAxisAlignment.start,
         direction: Axis.vertical,

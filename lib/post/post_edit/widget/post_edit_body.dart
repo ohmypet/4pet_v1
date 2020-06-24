@@ -31,7 +31,15 @@ class PostEditBody extends TStatelessWidget {
                     TitlePostInput(postEditBloc),
                     DescPostInput(postEditBloc),
                     PricePostInput(postEditBloc),
-                    LocationPostInput(postEditBloc),
+                    LocationSelectorWidget(
+                      isRequired: true,
+                      selectedItem: postEditBloc.location.isNotEmpty ? postEditBloc.location : null,
+                      onSelected: (String text) {
+                        postEditBloc
+                          ..location = text
+                          ..priceChange(postEditBloc.price);
+                      },
+                    ),
                     ImagePostInput(postEditBloc),
                     PetCategoryInput(postEditBloc),
                     const SizedBox(height: 150),

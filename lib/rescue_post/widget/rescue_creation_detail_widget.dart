@@ -111,11 +111,8 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
   }
 
   Widget _buildLocation() {
-    return DropdownInputWidget<String>(
-      onFind: _handleOnFind,
-      title: 'Location',
+    return LocationSelectorWidget(
       isRequired: true,
-      hintText: 'Ho Chi Minh City, Vietnam',
       selectedItem: editingBloc.rescue.location,
       onSelected: _handleLocationChanged,
     );
@@ -191,17 +188,6 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
   void _handleLocationChanged(String text) {
     editingBloc.rescue.location = text;
     editingBloc.reloadImageSlider();
-  }
-
-  Future<List<String>> _handleOnFind(String text) {
-    final googleService = DI.get<LocationService>(LocationService);
-    return googleService.getSuggestionLocation(text).then((resp) {
-      if (resp.predictions.isNotEmpty) {
-        return resp.predictions.map((location) => location.description).toList();
-      } else {
-        return [text];
-      }
-    }).catchError((ex) => [text]);
   }
 
   void _handleRemoveImage(int index, ImageSources type) {
