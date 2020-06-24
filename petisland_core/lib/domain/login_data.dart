@@ -15,8 +15,7 @@ class LoginData extends BaseModel {
 
   LoginData.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     token = json['token'];
-    account =
-        json['account'] != null ? Account.fromJson(json['account']) : null;
+    account = json['account'] != null ? Account.fromJson(json['account']) : null;
   }
 
   @override

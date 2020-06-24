@@ -15,6 +15,8 @@ abstract class AccountRepository {
   Future<bool> requireForgotPasswordCode(String email);
 
   Future<Account> forgotPassword(String email, String code, String password);
+
+  Future<Account> getDetails();
 }
 
 class AccountReposityImpl extends AccountRepository {
@@ -95,5 +97,12 @@ class AccountReposityImpl extends AccountRepository {
     return client
         .get<Map<String, dynamic>>('$path/forgot-password/require-code', params: params)
         .then((_) => true);
+  }
+
+  @override
+  Future<Account> getDetails() {
+    return client
+        .get<Map<String, dynamic>>('$path/details')
+        .then((json) => Account.fromJson(json));
   }
 }
