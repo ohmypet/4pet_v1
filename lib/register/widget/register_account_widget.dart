@@ -145,17 +145,17 @@ class _RegisterAccountWidgetState extends TState<RegisterAccountWidget> {
                         onChange: _onTextChanged,
                       ),
                       UserInputWidget(
-                        locationController,
-                        hintText: 'Location',
-                        icon: Icon(Icons.location_on, size: 22),
-                        onChange: _onTextChanged,
-                      ),
-                      UserInputWidget(
                         phoneController,
                         hintText: 'Phone Number',
                         icon: Icon(Icons.phone, size: 22),
                         onChange: _onTextChanged,
                       ),
+                      LocationSelectorWidget(
+                        isRequired: true,
+                        onSelected: _onTextChanged,
+                        padding: EdgeInsets.zero,
+                        selectedItem: locationController.text.isNotEmpty ? locationController.text : null,
+                      )
                     ],
                   ),
                 ),
@@ -212,6 +212,7 @@ class _RegisterAccountWidgetState extends TState<RegisterAccountWidget> {
       usernameController.text.isNotEmpty & passwordController.text.isNotEmpty;
 
   void _onTextChanged(String str) {
+    locationController.text = str;
     setState(() {});
   }
 }

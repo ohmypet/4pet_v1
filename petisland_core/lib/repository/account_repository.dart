@@ -76,6 +76,7 @@ class AccountReposityImpl extends AccountRepository {
   @override
   Future<bool> checkCode(String email, String code) {
     final Map<String, dynamic> params = <String, dynamic>{'email': email, 'code': code};
+    Log.info('params: $params');
     return client.getRaw('$path/register/check-code', params: params).then((_) => true);
   }
 
