@@ -186,16 +186,16 @@ class _ProfileScreenState extends TState<ProfileScreen> {
     final userId = authenBloc.account.user?.id;
     final oldAvatar = authenBloc.account.user?.avatar?.id;
     if (userId != null) {
-      return  userService.updateAvatar(userId, image.id, deleteImage: oldAvatar);
+      return userService.updateAvatar(userId, image.id, deleteImage: oldAvatar);
     } else {
       throw PetException('Can\t update profile');
     }
   }
 
   Widget _buildLoading() {
-    return Container(
-      alignment: Alignment.center,
-      child: CircularProgressIndicator(),
+    return Scaffold(
+      backgroundColor: TColors.transparent,
+      body: Center(child: CircularProgressIndicator()),
     );
   }
 }
