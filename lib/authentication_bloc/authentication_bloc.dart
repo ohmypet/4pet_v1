@@ -18,6 +18,9 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
   @protected
   static final AccountService accountService = DI.get(AccountService);
 
+  static final AccountService accountServiceAuthenticated =
+      DI.get(DevModuleCore.account_service_authenticated);
+
   @protected
   static final PetCategoryService categoryService = DI.get(PetCategoryService);
 
@@ -59,7 +62,6 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
 
       case LoggedIn:
         _clearData();
-        
         await updateCurrentAccount();
         await reloadPetCategory();
         await reloadReportContent();
@@ -96,8 +98,8 @@ class AuthenticationBloc extends TBloc<AuthenticationEvent, AuthenticationState>
     Log.info('loaded report');
   }
 
-  Future updateCurrentAccount() async{
-    _currentAccount = await accountService.getDetails();
+  Future updateCurrentAccount() async {
+    _currentAccount = await accountServiceAuthenticated.getDetails();
   }
 
   void _clearData() {

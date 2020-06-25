@@ -14,6 +14,7 @@ class DevModuleCore extends AbstractModule {
   static const String api_client = 'api_client';
   static const String api_upload_image = 'api_upload_image';
   static const String opencagedata_api = 'opencagedata_api';
+  static const String account_service_authenticated = 'account_service_authenticated';
 
   @override
   void init() async {
@@ -26,6 +27,7 @@ class DevModuleCore extends AbstractModule {
     bind(opencagedata_api).to(_buildOpencagedataApi());
 
     bind(AccountService).to(_buildAccountService());
+    bind(account_service_authenticated).to(_buildAccountServiceAuthenticated());
     bind(DIKeys.cache_image).to(await _buildCacheImage());
     bind(ImageService).to(_buildImageService());
     bind(PetCategoryService).to(_buildPetCategoryService());
@@ -141,6 +143,12 @@ class DevModuleCore extends AbstractModule {
 
   AccountService _buildAccountService() {
     final HttpClient client = get<HttpClient>(normal_client);
+    final AccountRepository repository = AccountReposityImpl(client);
+    return AccountServiceImpl(repository);
+  }
+
+  AccountService _buildAccountServiceAuthenticated() {
+    final HttpClient client = get<HttpClient>(api_client);
     final AccountRepository repository = AccountReposityImpl(client);
     return AccountServiceImpl(repository);
   }
