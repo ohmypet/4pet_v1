@@ -13,45 +13,53 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends TState<ProfileScreen> {
+  bool isLoading = false;
+  final authen = DI.get<AuthenticationBloc>(AuthenticationBloc);
   @override
   Widget build(BuildContext context) {
     final spacer = SizedBox(height: 5);
-    final Account account = DI.get<AuthenticationBloc>(AuthenticationBloc).account;
+    final Account account = authen.account;
     final image = account.user?.avatar?.url;
     return Scaffold(
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-        children: <Widget>[
-          const SizedBox(height: 25),
-          ChooseAvatarWidget(
-            avatar: CircleColorWidget(
-              padding: const EdgeInsets.all(5),
-              child: AvatarWidget(
-                url: image,
-                paddingDefaultImage: const EdgeInsets.all(5),
+      body: Stack(
+        children: [
+          ListView(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            children: <Widget>[
+              const SizedBox(height: 25),
+              ChooseAvatarWidget(
+                avatar: CircleColorWidget(
+                  padding: const EdgeInsets.all(5),
+                  child: AvatarWidget(
+                    url: image,
+                    paddingDefaultImage: const EdgeInsets.all(15),
+                  ),
+                ),
+                onTapCamera: _handleOnTapCamera,
               ),
-            ),
+              GestureDetector(
+                child: _buildName(context, account),
+                onTap: _onTapName,
+              ),
+              _buildDarkMode(),
+              Divider(),
+              ProfileDetailWidget(
+                onTapMyPost: _onTapMyPost,
+                onTapPostLiked: _onTapPostLiked,
+                onTapProfile: _onTapProfile,
+              ),
+              spacer,
+              Divider(),
+              BasicFunctionWidget(
+                onTapLogout: _onTapLogout,
+                onTapChangePassword: _onTapChangePassword,
+                onTapRating: _onTapRating,
+                onTapReport: _onTapReport,
+              ),
+            ],
           ),
-          GestureDetector(
-            child: _buildName(context, account),
-            onTap: _onTapName,
-          ),
-          _buildDarkMode(),
-          Divider(),
-          ProfileDetailWidget(
-            onTapMyPost: _onTapMyPost,
-            onTapPostLiked: _onTapPostLiked,
-            onTapProfile: _onTapProfile,
-          ),
-          spacer,
-          Divider(),
-          BasicFunctionWidget(
-            onTapLogout: _onTapLogout,
-            onTapChangePassword: _onTapChangePassword,
-            onTapRating: _onTapRating,
-            onTapReport: _onTapReport,
-          ),
+          isLoading ? _buildLoading() : const SizedBox()
         ],
       ),
     );
@@ -128,6 +136,66 @@ class _ProfileScreenState extends TState<ProfileScreen> {
     navigateToScreen(
       context: context,
       screen: NewProfileScreen(),
+    );
+  }
+
+  void _handleOnTapCamera() {
+    chooseImage()
+        .whenComplete(() => setState(() => isLoading = true))
+        .then((value) => uploadImage(value))
+        .then((value) => updateProfile(image: value))
+        .then((value) => authen.account.user = value)
+        .catchError((ex) => Log.error('ChooseImageError ${ex.toString()}'))
+        .whenComplete(() => setState(() => isLoading = false));
+  }
+
+  Future<File> chooseImage() {
+    return showModalBottomSheet<File>(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (_) => ImageChoosePopup(),
+    ).then((File file) {
+      if (file != null) {
+        return Future.value(file);
+      } else {
+        return retrieveLostData();
+      }
+    }).then((value) {
+      if (value == null) {
+        throw Exception('Can\'t get image');
+      } else
+        return value;
+    });
+  }
+
+  Future<PetImage> uploadImage(File value) async {
+    // TODO(TVC12): Move to bloc in the feature
+    final ImageService imageService = DI.get(ImageService);
+    final petImages = await imageService.upload([value.absolute.path]);
+    if (petImages?.isNotEmpty == true) {
+      return petImages.first;
+    } else {
+      throw PetException('Can\'t upload image');
+    }
+  }
+
+  Future<User> updateProfile({PetImage image}) {
+    // TODO(TVC12): Move to bloc in the feature
+    final UserService userService = DI.get(UserService);
+    final AuthenticationBloc authenBloc = DI.get(AuthenticationBloc);
+    final userId = authenBloc.account.user?.id;
+    final oldAvatar = authenBloc.account.user?.avatar?.id;
+    if (userId != null) {
+      return userService.updateAvatar(userId, image.id, deleteImage: oldAvatar);
+    } else {
+      throw PetException('Can\t update profile');
+    }
+  }
+
+  Widget _buildLoading() {
+    return Scaffold(
+      backgroundColor: TColors.transparent,
+      body: Center(child: CircularProgressIndicator()),
     );
   }
 }

@@ -15,6 +15,8 @@ abstract class AccountService {
   Future<bool> requireForgotPasswordCode(String email);
 
   Future<Account> forgotPassword(String email, String code, String password);
+
+  Future<Account> getDetails();
 }
 
 class AccountServiceImpl extends AccountService {
@@ -57,5 +59,10 @@ class AccountServiceImpl extends AccountService {
   @override
   Future<bool> requireForgotPasswordCode(String email) {
     return repository.requireForgotPasswordCode(email);
+  }
+
+  @override
+  Future<Account> getDetails() {
+    return repository.getDetails();
   }
 }

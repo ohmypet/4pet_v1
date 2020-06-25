@@ -152,7 +152,7 @@ class _RegisterAccountWidgetState extends TState<RegisterAccountWidget> {
                       ),
                       LocationSelectorWidget(
                         isRequired: true,
-                        onSelected: _onTextChanged,
+                        onSelected: _onLocationChanged,
                         padding: EdgeInsets.zero,
                         selectedItem: locationController.text.isNotEmpty ? locationController.text : null,
                       )
@@ -211,8 +211,10 @@ class _RegisterAccountWidgetState extends TState<RegisterAccountWidget> {
   bool get isValid =>
       usernameController.text.isNotEmpty & passwordController.text.isNotEmpty;
 
-  void _onTextChanged(String str) {
+  void _onLocationChanged(String str) {
     locationController.text = str;
+  }
+  void _onTextChanged(String str) {
     setState(() {});
   }
 }
