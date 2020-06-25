@@ -14,10 +14,11 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends TState<ProfileScreen> {
   bool isLoading = false;
+  final authen = DI.get<AuthenticationBloc>(AuthenticationBloc);
   @override
   Widget build(BuildContext context) {
     final spacer = SizedBox(height: 5);
-    final Account account = DI.get<AuthenticationBloc>(AuthenticationBloc).account;
+    final Account account = authen.account;
     final image = account.user?.avatar?.url;
     return Scaffold(
       body: Stack(
@@ -143,6 +144,7 @@ class _ProfileScreenState extends TState<ProfileScreen> {
         .whenComplete(() => setState(() => isLoading = true))
         .then((value) => uploadImage(value))
         .then((value) => updateProfile(image: value))
+        .then((value) => authen.account.user = value)
         .catchError((ex) => Log.error('ChooseImageError ${ex.toString()}'))
         .whenComplete(() => setState(() => isLoading = false));
   }
@@ -184,7 +186,7 @@ class _ProfileScreenState extends TState<ProfileScreen> {
     final userId = authenBloc.account.user?.id;
     final oldAvatar = authenBloc.account.user?.avatar?.id;
     if (userId != null) {
-      return userService.updateAvatar(userId, image.id, deleteImage: oldAvatar);
+      return  userService.updateAvatar(userId, image.id, deleteImage: oldAvatar);
     } else {
       throw PetException('Can\t update profile');
     }
