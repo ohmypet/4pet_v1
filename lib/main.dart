@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_template/common/common.dart';
 import 'package:flutter_template/main_app/main_app.dart';
 import 'package:flutter_template/main_bloc/main_bloc.dart';
 import 'package:flutter_template/module/module.dart';
@@ -12,6 +14,7 @@ import 'package:petisland_core/petisland_core.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: TColors.water_melon));
   handleError();
   final MainAppBloc bloc = MainAppBloc();
   initAsync(bloc);
