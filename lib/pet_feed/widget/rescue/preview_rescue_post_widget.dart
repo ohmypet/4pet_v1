@@ -30,7 +30,10 @@ class PreviewRescuePostWidget extends StatelessWidget {
               ),
             ),
             Container(
-              decoration: BoxDecoration(gradient: TGradients.darkGradient),
+              decoration: BoxDecoration(
+                gradient: TGradients.darkGradient,
+                borderRadius: BorderRadius.circular(4),
+              ),
             ),
             _buildLocation(),
             Container(
