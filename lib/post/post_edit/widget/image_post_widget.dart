@@ -7,11 +7,9 @@ class ImagePostWidget extends StatelessWidget {
   final void Function(int, ImageSources) onTapRemove;
   final ImageSources type;
 
-  ImagePostWidget(this.url,
-      {@required this.onTapRemove, this.index, Key key})
-      : type = StringUtils.isImageUrlFormat(url)
-            ? ImageSources.Server
-            : ImageSources.Local,
+  ImagePostWidget(this.url, {@required this.onTapRemove, this.index, Key key})
+      : type =
+            StringUtils.isImageUrlFormat(url) ? ImageSources.Server : ImageSources.Local,
         super(key: key);
 
   @override
@@ -26,7 +24,8 @@ class ImagePostWidget extends StatelessWidget {
         aspectRatio: 1,
         child: Stack(
           children: <Widget>[
-            child,
+            imageDefaultWidget(),
+            AspectRatio(aspectRatio: 1, child: child),
             Positioned(
               top: 2,
               right: 2,
@@ -54,8 +53,8 @@ class ImagePostWidget extends StatelessWidget {
 
   Widget imageDefaultWidget() {
     return Container(
-      height: 100,
-      width: 100,
+      height: 75,
+      width: 75,
       color: TColors.duck_egg_blue,
     );
   }

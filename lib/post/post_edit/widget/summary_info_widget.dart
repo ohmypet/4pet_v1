@@ -61,6 +61,15 @@ class SummaryInfoWidget extends TStatelessWidget {
           fit: BoxFit.cover,
         );
       }
+
+      child = Stack(
+        children: [
+          Container(
+            color: TColors.duck_egg_blue,
+          ),
+          AspectRatio(child: child, aspectRatio: 1),
+        ],
+      );
     }
     return Flexible(
       flex: 1,
