@@ -34,6 +34,7 @@ class _ProfileScreenState extends TState<ProfileScreen> {
                   child: AvatarWidget(
                     url: image,
                     paddingDefaultImage: const EdgeInsets.all(15),
+                    fullScreenOnTap: true,
                   ),
                 ),
                 onTapCamera: _handleOnTapCamera,

@@ -14,10 +14,6 @@ class ImagePostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget child = type == ImageSources.Server
-        ? TCacheImageWidget(borderRadius: BorderRadius.circular(0), url: url)
-        : Image.file(File(url), fit: BoxFit.cover);
-
     return ClipRRect(
       borderRadius: BorderRadius.circular(4),
       child: AspectRatio(
@@ -25,7 +21,7 @@ class ImagePostWidget extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             imageDefaultWidget(),
-            AspectRatio(aspectRatio: 1, child: child),
+            PostImageWidget(imageUrl: url, fit: BoxFit.cover),
             Positioned(
               top: 2,
               right: 2,

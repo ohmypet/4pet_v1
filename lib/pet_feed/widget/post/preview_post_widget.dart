@@ -9,9 +9,8 @@ enum ImageSources {
 
 class PreviewPostWidget extends StatelessWidget {
   final Post item;
-  final TapImage onTapImage;
 
-  const PreviewPostWidget({Key key, @required this.item, this.onTapImage})
+  const PreviewPostWidget({Key key, @required this.item})
       : super(key: key);
 
   @override
@@ -20,7 +19,7 @@ class PreviewPostWidget extends StatelessWidget {
       flex: 3,
       child: Container(
         margin: const EdgeInsets.only(left: 5),
-        child: PostImageWidget(imageUrl: item.firstImage, onTapImage: onTapImage),
+        child: PostImageWidget(imageUrl: item.firstImage),
         alignment: Alignment.centerLeft,
       ),
     );

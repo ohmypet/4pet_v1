@@ -14,7 +14,6 @@ class RescueDetailSummaryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageSliderWidget = _buildImageSlider(rescue.rescueImages);
     return Flex(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +40,7 @@ class RescueDetailSummaryWidget extends StatelessWidget {
             : [SizedBox()]),
         _buildLocation(context),
         const SizedBox(height: 5),
-        Flexible(child: imageSliderWidget),
+        Flexible(child: _buildImageSlider(rescue.rescueImages)),
         const SizedBox(height: 5),
         _buildHero(context),
         Divider(),

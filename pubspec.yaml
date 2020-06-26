@@ -28,7 +28,7 @@ dependencies:
     flutter_webview_plugin: 0.3.11
     dropdown_search: 0.4.3
     dashed_container: 1.0.1
-    typicons_flutter: ^0.3.1
+    photo_view: 0.9.2
 
     ddi: any
     petisland_core:

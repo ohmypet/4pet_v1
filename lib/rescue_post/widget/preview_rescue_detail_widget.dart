@@ -13,7 +13,7 @@ class PreviewRescueDetailWidget extends StatelessWidget {
       flex: 3,
       child: Container(
         margin: const EdgeInsets.only(left: 5),
-        child: PostImageWidget(imageUrl: rescue.firstImage, onTapImage: onTapImage),
+        child: PostImageWidget(imageUrl: rescue.firstImage),
         alignment: Alignment.center,
       ),
     );
