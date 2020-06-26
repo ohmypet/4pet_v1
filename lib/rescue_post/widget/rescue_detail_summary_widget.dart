@@ -2,8 +2,17 @@ part of petisland.rescue_post.widget;
 
 class RescueDetailSummaryWidget extends StatelessWidget {
   final Rescue rescue;
+  final bool hideDescription;
+  final bool hideLocation;
+  final bool hideImageSlider;
 
-  const RescueDetailSummaryWidget({Key key, @required this.rescue}) : super(key: key);
+  const RescueDetailSummaryWidget({
+    Key key,
+    @required this.rescue,
+    this.hideDescription,
+    this.hideLocation,
+    this.hideImageSlider,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +37,14 @@ class RescueDetailSummaryWidget extends StatelessWidget {
             ],
           ),
         ),
-        ...(rescue.description.isNotEmpty
-            ? _buildDescriptions(description: rescue.description, context: context)
-            : [SizedBox()]),
-        _buildLocation(context),
+        hideDescription == true || rescue.description.isEmpty
+            ? const SizedBox()
+            : _buildDescriptions(description: rescue.description, context: context),
+        hideLocation == true ? const SizedBox() : _buildLocation(context),
         const SizedBox(height: 5),
-        Flexible(child: _buildImageSlider(rescue.rescueImages)),
+        hideImageSlider == true
+            ? const SizedBox()
+            : Flexible(child: _buildImageSlider(rescue.rescueImages)),
       ],
     );
   }
@@ -50,15 +61,19 @@ class RescueDetailSummaryWidget extends StatelessWidget {
         : SizedBox();
   }
 
-  List<Widget> _buildDescriptions({@required BuildContext context, String description}) {
-    return [
-      const SizedBox(height: 15),
-      buildTextDescription(context, 'Description'),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: PostDescriptionWidget(description: description),
-      ),
-    ];
+  Widget _buildDescriptions({@required BuildContext context, String description}) {
+    return Flex(
+      direction: Axis.vertical,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 15),
+        buildTextDescription(context, 'Description'),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: PostDescriptionWidget(description: description),
+        ),
+      ],
+    );
   }
 
   Widget _buildLocation(BuildContext context) {

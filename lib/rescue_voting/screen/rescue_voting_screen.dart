@@ -29,7 +29,13 @@ class RescueVotingScreen extends TStatelessWidget {
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               children: <Widget>[
-                RescueDetailSummaryWidget(rescue: rescue),
+                RescueDetailSummaryWidget(
+                  rescue: rescue,
+                  hideDescription: true,
+                  hideImageSlider: true,
+                  hideLocation: true,
+                ),
+                Text('Heroes', style: TTextStyles.bold()),
               ],
             ),
           ],
