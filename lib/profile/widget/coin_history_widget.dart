@@ -1,17 +1,11 @@
-import 'package:ddi/di.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/pet_feed/widget/post/post.dart';
-import 'package:flutter_template/profile/bloc/bloc.dart';
-import 'package:petisland_core/domain/domain.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+part of petisland.profile.widget;
 
-class FavoritePostComponent extends StatefulWidget {
+class CoinHistoryWidget extends StatefulWidget {
   @override
-  _FavoritePostComponentState createState() => _FavoritePostComponentState();
+  _CoinHistoryWidgetState createState() => _CoinHistoryWidgetState();
 }
 
-class _FavoritePostComponentState extends State<FavoritePostComponent> {
+class _CoinHistoryWidgetState extends State<CoinHistoryWidget> {
   final FavoritePostBloc bloc = DI.get(FavoritePostBloc);
   final RefreshController controller = RefreshController();
 
@@ -22,17 +16,16 @@ class _FavoritePostComponentState extends State<FavoritePostComponent> {
 
   @override
   Widget build(BuildContext context) {
-    return  BlocListener<FavoritePostBloc, FavoritePostState>(
+    return BlocListener<FavoritePostBloc, FavoritePostState>(
+      bloc: bloc,
+      listener: _onListChanged,
+      child: BlocBuilder<FavoritePostBloc, FavoritePostState>(
         bloc: bloc,
-        listener: _onListChanged,
-        child: BlocBuilder<FavoritePostBloc, FavoritePostState>(
-          bloc: bloc,
-          condition: (_, state) => state is ReloadMyPost,
-          builder: _buildUIState,
-        ),
-      );
+        condition: (_, state) => state is ReloadMyPost,
+        builder: _buildUIState,
+      ),
+    );
   }
-
 
   Widget _buildUIState(BuildContext context, FavoritePostState state) {
     if (state is ReloadFavoritePost) {

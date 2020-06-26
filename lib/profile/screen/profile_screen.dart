@@ -51,6 +51,7 @@ class _ProfileScreenState extends TState<ProfileScreen> {
                 onTapMyPost: _onTapMyPost,
                 onTapPostLiked: _onTapPostLiked,
                 onTapProfile: _onTapProfile,
+                onTapCoinHistory: _onTapCoinHistory,
               ),
               spacer,
               Divider(),
@@ -68,15 +69,47 @@ class _ProfileScreenState extends TState<ProfileScreen> {
     );
   }
 
-  Widget _buildName(BuildContext context, Account account) {
-    final String name = account.getName();
-    return DefaultTextStyle.merge(
-      style: TTextStyles.bold(
-        fontSize: 20,
-      ),
-      textAlign: TextAlign.center,
-      child: Text(name),
-    );
+  Future<File> chooseImage() {
+    return showModalBottomSheet<File>(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (_) => ImageChoosePopup(),
+    ).then((File file) {
+      if (file != null) {
+        return Future.value(file);
+      } else {
+        return retrieveLostData();
+      }
+    }).then((value) {
+      if (value == null) {
+        throw Exception('Can\'t get image');
+      } else
+        return value;
+    });
+  }
+
+  Future<User> updateProfile({PetImage image}) {
+    // TODO(TVC12): Move to bloc in the feature
+    final UserService userService = DI.get(UserService);
+    final AuthenticationBloc authenBloc = DI.get(AuthenticationBloc);
+    final userId = authenBloc.account.user?.id;
+    final oldAvatar = authenBloc.account.user?.avatar?.id;
+    if (userId != null) {
+      return userService.updateAvatar(userId, image.id, deleteImage: oldAvatar);
+    } else {
+      throw PetException('Can\t update profile');
+    }
+  }
+
+  Future<PetImage> uploadImage(File value) async {
+    // TODO(TVC12): Move to bloc in the feature
+    final ImageService imageService = DI.get(ImageService);
+    final petImages = await imageService.upload([value.absolute.path]);
+    if (petImages?.isNotEmpty == true) {
+      return petImages.first;
+    } else {
+      throw PetException('Can\'t upload image');
+    }
   }
 
   Widget _buildDarkMode() {
@@ -99,106 +132,21 @@ class _ProfileScreenState extends TState<ProfileScreen> {
     );
   }
 
-  void _onTapLogout() {
-    widget.bloc.logout();
-  }
-
-  void _onTapChangePassword() {
-    // TODO(tvc12): change password
-  }
-
-  void _onTapRating() {
-    // TODO(tvc12): navigate to rating
-  }
-
-  void _onTapReport() {
-    // TODO(tvc12): navigate to report
-  }
-
-  void _onTapMyPost() {
-    navigateToScreen(
-      context: context,
-      screen: MyPostScreen(),
-      screenName: MyPostScreen.name,
-    );
-  }
-
-  void _onTapPostLiked() {
-    navigateToScreen(
-      context: context,
-      screen: FavoritePostScreen(),
-      screenName: FavoritePostScreen.name,
-    );
-  }
-
-  void _onTapProfile() {
-    _onTapName();
-  }
-
-  void _onTapName() {
-    navigateToScreen(
-      context: context,
-      screen: NewProfileScreen(),
-    );
-  }
-
-  void _handleOnTapCamera() {
-    chooseImage()
-        .whenComplete(() => setState(() => isLoading = true))
-        .then((value) => uploadImage(value))
-        .then((value) => updateProfile(image: value))
-        .then((value) => authen.account.user = value)
-        .catchError((ex) => Log.error('ChooseImageError ${ex.toString()}'))
-        .whenComplete(() => setState(() => isLoading = false));
-  }
-
-  Future<File> chooseImage() {
-    return showModalBottomSheet<File>(
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (_) => ImageChoosePopup(),
-    ).then((File file) {
-      if (file != null) {
-        return Future.value(file);
-      } else {
-        return retrieveLostData();
-      }
-    }).then((value) {
-      if (value == null) {
-        throw Exception('Can\'t get image');
-      } else
-        return value;
-    });
-  }
-
-  Future<PetImage> uploadImage(File value) async {
-    // TODO(TVC12): Move to bloc in the feature
-    final ImageService imageService = DI.get(ImageService);
-    final petImages = await imageService.upload([value.absolute.path]);
-    if (petImages?.isNotEmpty == true) {
-      return petImages.first;
-    } else {
-      throw PetException('Can\'t upload image');
-    }
-  }
-
-  Future<User> updateProfile({PetImage image}) {
-    // TODO(TVC12): Move to bloc in the feature
-    final UserService userService = DI.get(UserService);
-    final AuthenticationBloc authenBloc = DI.get(AuthenticationBloc);
-    final userId = authenBloc.account.user?.id;
-    final oldAvatar = authenBloc.account.user?.avatar?.id;
-    if (userId != null) {
-      return userService.updateAvatar(userId, image.id, deleteImage: oldAvatar);
-    } else {
-      throw PetException('Can\t update profile');
-    }
-  }
-
   Widget _buildLoading() {
     return Scaffold(
       backgroundColor: TColors.transparent,
       body: Center(child: CircularProgressIndicator()),
+    );
+  }
+
+  Widget _buildName(BuildContext context, Account account) {
+    final String name = account.getName();
+    return DefaultTextStyle.merge(
+      style: TTextStyles.bold(
+        fontSize: 20,
+      ),
+      textAlign: TextAlign.center,
+      child: Text(name),
     );
   }
 
@@ -215,14 +163,69 @@ class _ProfileScreenState extends TState<ProfileScreen> {
           ),
           TextSpan(
             text: ' coins',
-            style: TTextStyles.normal(
-              color: TColors.black,
-              fontSize: 16
-            ).copyWith(fontStyle: FontStyle.italic),
+            style: TTextStyles.normal(color: TColors.black, fontSize: 16)
+                .copyWith(fontStyle: FontStyle.italic),
           ),
         ],
       ),
       textAlign: TextAlign.center,
     );
+  }
+
+  void _handleOnTapCamera() {
+    chooseImage()
+        .whenComplete(() => setState(() => isLoading = true))
+        .then((value) => uploadImage(value))
+        .then((value) => updateProfile(image: value))
+        .then((value) => authen.account.user = value)
+        .catchError((ex) => Log.error('ChooseImageError ${ex.toString()}'))
+        .whenComplete(() => setState(() => isLoading = false));
+  }
+
+  void _onTapChangePassword() {
+    // TODO(tvc12): change password
+  }
+
+  void _onTapCoinHistory() {
+    navigateToScreen(context: context, screen: null);
+  }
+
+  void _onTapLogout() {
+    widget.bloc.logout();
+  }
+
+  void _onTapMyPost() {
+    navigateToScreen(
+      context: context,
+      screen: MyPostScreen(),
+      screenName: MyPostScreen.name,
+    );
+  }
+
+  void _onTapName() {
+    navigateToScreen(
+      context: context,
+      screen: NewProfileScreen(),
+    );
+  }
+
+  void _onTapPostLiked() {
+    navigateToScreen(
+      context: context,
+      screen: FavoritePostScreen(),
+      screenName: FavoritePostScreen.name,
+    );
+  }
+
+  void _onTapProfile() {
+    _onTapName();
+  }
+
+  void _onTapRating() {
+    // TODO(tvc12): navigate to rating
+  }
+
+  void _onTapReport() {
+    // TODO(tvc12): navigate to report
   }
 }

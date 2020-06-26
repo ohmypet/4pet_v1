@@ -17,6 +17,8 @@ abstract class AccountRepository {
   Future<Account> forgotPassword(String email, String code, String password);
 
   Future<Account> getDetails();
+
+  Future<List<CoinHistory>> getCoinHistory(int offset, int limit);
 }
 
 class AccountReposityImpl extends AccountRepository {
@@ -104,5 +106,13 @@ class AccountReposityImpl extends AccountRepository {
     return client
         .get<Map<String, dynamic>>('$path/details')
         .then((json) => Account.fromJson(json));
+  }
+
+  @override
+  Future<List<CoinHistory>> getCoinHistory(int offset, int limit) {
+    return client.get<Map<String, dynamic>>('/api/coins-history').then((value) {
+      Log.info('getCoinHistory:: ${json.encode(value)}');
+      return value;
+    }).then((json) => []);
   }
 }

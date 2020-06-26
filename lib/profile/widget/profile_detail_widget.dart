@@ -4,10 +4,15 @@ class ProfileDetailWidget extends StatelessWidget {
   final VoidCallback onTapProfile;
   final VoidCallback onTapMyPost;
   final VoidCallback onTapPostLiked;
+  final VoidCallback onTapCoinHistory;
 
-  const ProfileDetailWidget(
-      {Key key, this.onTapProfile, this.onTapMyPost, this.onTapPostLiked})
-      : super(key: key);
+  const ProfileDetailWidget({
+    Key key,
+    this.onTapProfile,
+    this.onTapMyPost,
+    this.onTapPostLiked,
+    this.onTapCoinHistory
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +25,8 @@ class ProfileDetailWidget extends StatelessWidget {
         _buildMyPost(),
         spacer,
         _buildLikePost(),
+        spacer,
+        _buildCoinHistory(),
       ],
     );
   }
@@ -60,6 +67,21 @@ class ProfileDetailWidget extends StatelessWidget {
       icon: Icon(
         Icons.favorite,
         color: TColors.water_melon,
+      ),
+      trailing: Icon(
+        Icons.keyboard_arrow_right,
+        color: TColors.brown_grey,
+      ),
+    );
+  }
+
+  Widget _buildCoinHistory() {
+    return SettingOptionWidget(
+      title: 'Coin History',
+      onTap: onTapCoinHistory,
+      icon: Icon(
+        Icons.history,
+        color: TColors.brown_grey,
       ),
       trailing: Icon(
         Icons.keyboard_arrow_right,

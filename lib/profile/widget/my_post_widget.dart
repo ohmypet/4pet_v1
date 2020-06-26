@@ -1,10 +1,4 @@
-import 'package:ddi/di.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/pet_feed/widget/widget.dart';
-import 'package:flutter_template/profile/bloc/bloc.dart';
-import 'package:petisland_core/petisland_core.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+part of petisland.profile.widget;
 
 class MyPostWidget extends StatefulWidget {
   @override

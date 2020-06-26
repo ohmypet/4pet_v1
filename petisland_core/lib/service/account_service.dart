@@ -17,6 +17,8 @@ abstract class AccountService {
   Future<Account> forgotPassword(String email, String code, String password);
 
   Future<Account> getDetails();
+
+  Future<List<CoinHistory>> getCoinHistory(int offset, int limit);
 }
 
 class AccountServiceImpl extends AccountService {
@@ -64,5 +66,9 @@ class AccountServiceImpl extends AccountService {
   @override
   Future<Account> getDetails() {
     return repository.getDetails();
+  }
+
+  Future<List<CoinHistory>> getCoinHistory(int offset, int limit) {
+    return repository.getCoinHistory(offset, limit);
   }
 }
