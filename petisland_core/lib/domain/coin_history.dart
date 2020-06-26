@@ -5,6 +5,8 @@ class CoinHistory extends BaseModel {
   String description;
   int change;
 
+  int get coin => change ?? 0;
+
   CoinHistory(
       {String id,
       DateTime createAt,

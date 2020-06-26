@@ -8,9 +8,10 @@ class CoinHistoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final primaryColor = coinHistory.change > 0 ? TColors.green : TColors.red;
-    final coinAsText = coinHistory.change > 0
-        ? '+${coinHistory.change} coins'
-        : '${coinHistory.change} coins';
+    final coinAsString = formatMoney(coinHistory.coin.toDouble());
+    final coinAsText = coinHistory.coin > 0
+        ? '+$coinAsString coins'
+        : '$coinAsString coins';
     return Container(
       height: 105,
       decoration: BoxDecoration(
