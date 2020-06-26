@@ -43,6 +43,7 @@ class _ProfileScreenState extends TState<ProfileScreen> {
                 child: _buildName(context, account),
                 onTap: _onTapName,
               ),
+              _buildTotalCoin(account),
               _buildDarkMode(),
               Divider(),
               ProfileDetailWidget(
@@ -198,5 +199,9 @@ class _ProfileScreenState extends TState<ProfileScreen> {
       backgroundColor: TColors.transparent,
       body: Center(child: CircularProgressIndicator()),
     );
+  }
+
+  Widget _buildTotalCoin(Account account) {
+    return SizedBox();
   }
 }
