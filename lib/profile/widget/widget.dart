@@ -19,3 +19,4 @@ part 'setting_option_widget.dart';
 part 'my_post_widget.dart';
 part 'favorite_post_widget.dart';
 part 'coin_history_listing_widget.dart';
+part 'coin_history_widget.dart';

@@ -1,7 +1,6 @@
 library petisland_core.repository;
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:dio/dio.dart';

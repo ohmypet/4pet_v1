@@ -41,14 +41,11 @@ class _CoinHistoryListingWidgetState extends State<CoinHistoryListingWidget> {
         onLoading: _onLoading,
         child: ListView.separated(
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(15),
           itemCount: coinHistories.length,
           itemBuilder: (_, index) {
-            final coinhistory = coinHistories[index];
-            return Container(
-              height: 32,
-              color: TColors.water_melon,
-            );
+            final coinHistory = coinHistories[index];
+            return CoinHistoryWidget(coinHistory: coinHistory);
           },
           separatorBuilder: (_, int index) => divider,
         ),
