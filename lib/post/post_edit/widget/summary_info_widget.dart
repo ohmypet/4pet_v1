@@ -9,7 +9,6 @@ class SummaryInfoWidget extends TStatelessWidget {
   final String customDefaultTitle;
   final int maxHeros;
   final String typeMoney;
-  static const Widget defaultImage = DefaultPetImage();
 
   SummaryInfoWidget(
     this.title, {
@@ -41,46 +40,12 @@ class SummaryInfoWidget extends TStatelessWidget {
   }
 
   Widget _buildImageWidget(List<String> petImages) {
-    String petImage;
+    String url;
     if (petImages != null && petImages.isNotEmpty) {
-      petImage = petImages.first;
+      url = petImages.first;
     }
-    bool urlValid = petImage != null && petImage.isNotEmpty;
-    Widget child;
-    if (!urlValid) {
-      child = defaultImage;
-    } else {
-      if (isImageUrlFormat(petImage)) {
-        child = TCacheImageWidget(
-          borderRadius: BorderRadius.circular(0),
-          url: petImage,
-        );
-      } else {
-        child = Image.file(
-          File(petImage),
-          fit: BoxFit.cover,
-        );
-      }
 
-      child = Stack(
-        children: [
-          Container(
-            color: TColors.duck_egg_blue,
-          ),
-          AspectRatio(child: child, aspectRatio: 1),
-        ],
-      );
-    }
-    return Flexible(
-      flex: 1,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(4),
-        child: AspectRatio(
-          aspectRatio: 1 / 1,
-          child: child,
-        ),
-      ),
-    );
+    return PostImageWidget(imageUrl: url);
   }
 
   Widget _buildInfo(String title, double money, String location) {

@@ -3,25 +3,31 @@ part of petisland.common.widgets;
 class AvatarWidget extends StatelessWidget {
   final String url;
   final EdgeInsetsGeometry paddingDefaultImage;
-
-  const AvatarWidget({
+  final bool fullScreenOnTap;
+  AvatarWidget({
     Key key,
     this.url,
     this.paddingDefaultImage = const EdgeInsets.all(2.0),
+    this.fullScreenOnTap = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Widget child;
     if (url != null) {
-      final type = StringUtils.isImageUrlFormat(url)
-          ? ImageSources.Server
-          : ImageSources.Local;
-      child = _buildImage(type, url);
+      if (fullScreenOnTap == true) {
+        return PostImageWidget(
+          isSquare: false,
+          imageUrl: url,
+          shape: BoxShape.circle,
+          backGroundColor: TColors.white,
+        );
+      } else {
+        ImageSources type = StringUtils.isImageUrlFormat(url) ? ImageSources.Server : ImageSources.Local;
+        return _buildImage(type, url);
+      }
     } else {
-      child = buildDefaultAvatar();
+      return buildDefaultAvatar();
     }
-    return child;
   }
 
   Widget buildDefaultAvatar() {
@@ -38,11 +44,13 @@ class AvatarWidget extends StatelessWidget {
   }
 
   Widget _buildImage(ImageSources type, String url) {
-    return type == ImageSources.Server
-        ? TCacheImageWidget(
-            url: url,
-            shape: BoxShape.circle,
-          )
-        : Image.file(File(url));
+    if (type == ImageSources.Server) {
+      return TCacheImageWidget(
+        url: url,
+        shape: BoxShape.circle,
+      );
+    } else {
+      return Image.file(File(url));
+    }
   }
 }
