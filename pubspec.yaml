@@ -1,6 +1,6 @@
 name: flutter_template
 description: A new project template with Flutter.
-version: 1.0.0+1
+version: 1.1.0
 
 environment:
     sdk: '>=2.7.0 <3.0.0'
