@@ -41,6 +41,6 @@ class CoinHistoryBloc extends TBloc<CoinHistoryEvent, CoinHistoryState> {
   }
 
   void refresh() {
-    add(LoadCoinHistory(from: 0));
+    add(LoadCoinHistory(from: 0, clearOldData: true));
   }
 }

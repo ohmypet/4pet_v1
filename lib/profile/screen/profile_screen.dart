@@ -40,7 +40,10 @@ class _ProfileScreenState extends TState<ProfileScreen> {
                 onTapCamera: _handleOnTapCamera,
               ),
               const SizedBox(height: 5),
-              _buildTotalCoin(account),
+              GestureDetector(
+                onTap: _onTapCoinHistory,
+                child: _buildTotalCoin(account),
+              ),
               GestureDetector(
                 child: _buildName(context, account),
                 onTap: _onTapName,
@@ -187,7 +190,11 @@ class _ProfileScreenState extends TState<ProfileScreen> {
   }
 
   void _onTapCoinHistory() {
-    navigateToScreen(context: context, screen: null);
+    navigateToScreen(
+      context: context,
+      screen: CoinHistoryScreen(),
+      screenName: CoinHistoryScreen.name,
+    );
   }
 
   void _onTapLogout() {

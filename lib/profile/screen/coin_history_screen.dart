@@ -1,13 +1,8 @@
 part of petisland.profile.screen;
 
-class CoinHistoryScreen extends StatefulWidget {
+class CoinHistoryScreen extends StatelessWidget {
   static const String name = '/CoinHistoryScreen';
-
-  @override
-  _CoinHistoryScreenState createState() => _CoinHistoryScreenState();
-}
-
-class _CoinHistoryScreenState extends State<CoinHistoryScreen> {
+  final CoinHistoryBloc coinHistoryBloc = DI.get(CoinHistoryBloc);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +22,7 @@ class _CoinHistoryScreenState extends State<CoinHistoryScreen> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: CoinHistoryWidget(),
+      body: CoinHistoryListingWidget(bloc: coinHistoryBloc),
     );
   }
 }

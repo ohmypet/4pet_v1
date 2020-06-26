@@ -110,9 +110,9 @@ class AccountReposityImpl extends AccountRepository {
 
   @override
   Future<List<CoinHistory>> getCoinHistory(int offset, int limit) {
-    return client.get<Map<String, dynamic>>('/api/coins-history').then((value) {
-      Log.info('getCoinHistory:: ${json.encode(value)}');
-      return value;
-    }).then((json) => []);
+    final params = {'offset': offset, 'limit': limit}
+      ..removeWhere((key, value) => value == null);
+    return client.get<List<dynamic>>('/api/coins-history', params: params).then(
+        (histories) => histories.map((json) => CoinHistory.fromJson(json)).toList());
   }
 }
