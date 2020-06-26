@@ -1,7 +1,7 @@
 part of petisland_core.domain;
 
 class Coin extends BaseModel {
-  int coin;
+  int coins;
   List<CoinHistory> coinHistories;
 
   Coin({
@@ -9,15 +9,15 @@ class Coin extends BaseModel {
     DateTime createAt,
     DateTime updateAt,
     Account createBy,
-    this.coin = 0,
+    this.coins = 0,
     this.coinHistories = const [],
   }) : super(id, createAt, updateAt, createBy);
 
   Coin.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
-    if (json['coin'] != null) {
-      coin = int.tryParse(json['coin'].toString()) ?? 0;
+    if (json['coins'] != null) {
+      coins = int.tryParse(json['coins'].toString()) ?? 0;
     } else
-      coin = 0;
+      coins = 0;
 
     if (json['coinHistories'] != null) {
       coinHistories = (json['coinHistories'] as List)
@@ -28,7 +28,7 @@ class Coin extends BaseModel {
   }
 
   Coin.empty() : super(ThinId.randomId(), DateTime.now(), DateTime.now(), null) {
-    this.coin = 0;
+    this.coins = 0;
     coinHistories = [];
   }
 }

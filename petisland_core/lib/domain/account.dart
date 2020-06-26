@@ -52,4 +52,7 @@ class Account extends BaseModel {
     _addValueToMap('settings', settings, map);
     return map;
   }
+
+  int get coin => coins?.coins ?? 0;
 }
+

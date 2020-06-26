@@ -39,11 +39,12 @@ class _ProfileScreenState extends TState<ProfileScreen> {
                 ),
                 onTapCamera: _handleOnTapCamera,
               ),
+              const SizedBox(height: 5),
+              _buildTotalCoin(account),
               GestureDetector(
                 child: _buildName(context, account),
                 onTap: _onTapName,
               ),
-              _buildTotalCoin(account),
               _buildDarkMode(),
               Divider(),
               ProfileDetailWidget(
@@ -202,6 +203,26 @@ class _ProfileScreenState extends TState<ProfileScreen> {
   }
 
   Widget _buildTotalCoin(Account account) {
-    return SizedBox();
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: formatMoney(account.coin.toDouble()),
+            style: TTextStyles.semi(
+              color: TColors.water_melon_dark,
+              fontSize: 16,
+            ),
+          ),
+          TextSpan(
+            text: ' coins',
+            style: TTextStyles.normal(
+              color: TColors.black,
+              fontSize: 16
+            ).copyWith(fontStyle: FontStyle.italic),
+          ),
+        ],
+      ),
+      textAlign: TextAlign.center,
+    );
   }
 }
