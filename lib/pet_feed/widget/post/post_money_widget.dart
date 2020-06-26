@@ -16,9 +16,8 @@ class PostMoneyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     if (money != null && money > 0) {
-      FlutterMoneyFormatter formatter = FlutterMoneyFormatter(amount: money);
       return Text(
-        '${formatter.output.withoutFractionDigits} $typeMoney',
+        '${formatMoney(money)} $typeMoney',
         style: _buildTextStyle(theme),
         overflow: TextOverflow.ellipsis,
       );
@@ -38,4 +37,9 @@ class PostMoneyWidget extends StatelessWidget {
       color: theme.primaryColor,
     );
   }
+}
+
+String formatMoney(double money) {
+  FlutterMoneyFormatter formatter = FlutterMoneyFormatter(amount: money);
+  return formatter.output.withoutFractionDigits;
 }

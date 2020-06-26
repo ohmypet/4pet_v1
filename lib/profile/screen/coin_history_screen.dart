@@ -1,19 +1,14 @@
 part of petisland.profile.screen;
 
-class FavoritePostScreen extends StatefulWidget {
-  static const String name = '/FavoritePostScreen';
-
-  @override
-  _FavoritePostScreenState createState() => _FavoritePostScreenState();
-}
-
-class _FavoritePostScreenState extends State<FavoritePostScreen> {
+class CoinHistoryScreen extends StatelessWidget {
+  static const String name = '/CoinHistoryScreen';
+  final CoinHistoryBloc coinHistoryBloc = DI.get(CoinHistoryBloc);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Liked Post',
+          'Coin History',
           style: TTextStyles.bold(
             fontSize: 18,
             color: TColors.white,
@@ -27,7 +22,7 @@ class _FavoritePostScreenState extends State<FavoritePostScreen> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: FavoritePostWidget(),
+      body: CoinHistoryListingWidget(bloc: coinHistoryBloc),
     );
   }
 }

@@ -7,6 +7,7 @@ class Account extends BaseModel {
   String status;
   Map<String, dynamic> settings;
   User user;
+  Coin coins;
 
   Account({
     String id,
@@ -19,6 +20,7 @@ class Account extends BaseModel {
     this.status,
     this.settings,
     this.user,
+    this.coins,
   }) : super(id, createAt, updateAt, createBy);
 
   String getName() {
@@ -34,6 +36,10 @@ class Account extends BaseModel {
     status = json['status'];
     settings = json['settings'];
     user = json['user'] != null ? User.fromJson(json['user']) : null;
+    if (json['coins'] != null)
+      coins = Coin.fromJson(json['coins']);
+    else
+      coins = Coin.empty();
   }
 
   @override
@@ -46,4 +52,7 @@ class Account extends BaseModel {
     _addValueToMap('settings', settings, map);
     return map;
   }
+
+  int get coin => coins?.coins ?? 0;
 }
+
