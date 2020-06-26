@@ -57,11 +57,10 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 children: <Widget>[
-                  RescueDetailSummaryWidget(
-                    rescue: widget.rescue,
-                    heroBloc: heroBloc,
-                    donateBloc: donateBloc,
-                  ),
+                  RescueDetailSummaryWidget(rescue: widget.rescue),
+                  const SizedBox(height: 5),
+                  HeroListingWidget(heroBloc: heroBloc),
+                  SponsorListingWidget(donateBloc: donateBloc),
                   CommentListingWidget(
                     bloc: rescueCommentBloc,
                     onDeleteComment: _handleDeleteComment,

@@ -2,15 +2,8 @@ part of petisland.rescue_post.widget;
 
 class RescueDetailSummaryWidget extends StatelessWidget {
   final Rescue rescue;
-  final RescueHeroBloc heroBloc;
-  final RescueDonateBloc donateBloc;
 
-  const RescueDetailSummaryWidget({
-    Key key,
-    @required this.rescue,
-    @required this.heroBloc,
-    @required this.donateBloc,
-  }) : super(key: key);
+  const RescueDetailSummaryWidget({Key key, @required this.rescue}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +34,6 @@ class RescueDetailSummaryWidget extends StatelessWidget {
         _buildLocation(context),
         const SizedBox(height: 5),
         Flexible(child: _buildImageSlider(rescue.rescueImages)),
-        const SizedBox(height: 5),
-        _buildHero(context),
-        Divider(),
-        _buildSponsors(context),
-        Divider(),
       ],
     );
   }
@@ -88,58 +76,4 @@ class RescueDetailSummaryWidget extends StatelessWidget {
       ],
     );
   }
-
-  Widget _buildHero(BuildContext context) {
-    return BlocBuilder<RescueHeroBloc, RescueHeroState>(
-      bloc: heroBloc,
-      condition: (_, state) => state is ReloadListingState,
-      builder: (_, state) {
-        if (heroBloc.heroes.isNotEmpty) {
-          return Flex(
-            direction: Axis.vertical,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 5),
-              buildTextDescription(context, 'Heroes'),
-              const SizedBox(height: 2),
-              Flexible(child: AccountListView(accounts: heroBloc.heroes)),
-            ],
-          );
-        } else
-          return const SizedBox();
-      },
-    );
-  }
-
-  Widget _buildSponsors(BuildContext context) {
-    return BlocBuilder<RescueDonateBloc, RescueHeroState>(
-      bloc: donateBloc,
-      condition: (_, state) => state is ReloadListingState,
-      builder: (_, state) {
-        if (donateBloc.rescueDonates.isNotEmpty) {
-          return Flex(
-            direction: Axis.vertical,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: PanelDescriptionBar(
-                  title: 'Sponsors',
-                  customSubTitle: 'Donate',
-                  customStringIcon: ' <<',
-                  onTapSubTitle: _handleOnDonate,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Flexible(child: AccountSponsorshipWidget(rescueDonates: donateBloc.rescueDonates))
-            ],
-          );
-        } else
-          return const SizedBox();
-      },
-    );
-  }
-
-  void _handleOnDonate() {}
 }
