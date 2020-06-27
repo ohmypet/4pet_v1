@@ -34,6 +34,7 @@ part 'tag.dart';
 part 'user.dart';
 part 'coin.dart';
 part 'coin_history.dart';
+part 'hero_voting.dart';
 
 List<PetImage> parseImages(List<Map<String, dynamic>> images) {
   images ??= <Map<String, dynamic>>[];

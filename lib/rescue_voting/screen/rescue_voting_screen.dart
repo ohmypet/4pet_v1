@@ -36,6 +36,7 @@ class RescueVotingScreen extends TStatelessWidget {
                   hideLocation: true,
                 ),
                 Text('Heroes', style: TTextStyles.bold()),
+                // HeroVotingListingWidget(),
               ],
             ),
           ],
