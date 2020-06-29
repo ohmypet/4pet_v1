@@ -43,6 +43,7 @@ class MockRescueRepository extends RescueRepository {
   static String get image {
     return images[ran.nextInt(images.length - 1)];
   }
+
   static User get user => User(
         id: ThinId.randomId(),
         name: ThinId.randomId(numberCharacter: 5),
@@ -91,7 +92,7 @@ class MockRescueRepository extends RescueRepository {
   String get title => titles[ran.nextInt(titles.length - 1)];
 
   @override
-  Future<Rescue> create(Rescue rescue) {
+  Future<Rescue> create(Rescue rescue, List<String> images) {
     return Future.value(rescue);
   }
 
@@ -141,7 +142,7 @@ class MockRescueRepository extends RescueRepository {
   }
 
   @override
-  Future<List<Rescue>> search() async {
+  Future<List<Rescue>> search(int from, int limit) async {
     final size = ran.nextInt(20);
     return List.generate(size, (_) => rescue);
   }
@@ -155,10 +156,22 @@ class MockRescueRepository extends RescueRepository {
   Future<Rescue> update(Rescue rescue) {
     return Future.value(rescue);
   }
+
+  @override
+  Future<bool> delete(String id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Rescue> edit(Rescue id, List<String> newImages, List<String> oldImages) {
+    throw UnimplementedError();
+  }
 }
 
 abstract class RescueRepository {
-  Future<Rescue> create(Rescue rescue);
+  Future<Rescue> create(Rescue rescue, List<String> images);
+  Future<Rescue> edit(Rescue rescue, List<String> newImages, List<String> oldImages);
+  Future<bool> delete(String id);
 
   Future<List<Comment>> getComments(String id);
   Future<List<RescueDonate>> getDonaters(String id);
@@ -168,7 +181,86 @@ abstract class RescueRepository {
 
   Future<bool> like(String id);
 
-  Future<List<Rescue>> search();
+  Future<List<Rescue>> search(int from, int limit);
   Future<bool> unJoin(String id);
   Future<Rescue> update(Rescue rescue);
+}
+
+class RescueRepositoryImpl extends RescueRepository {
+  @protected
+  final HttpClient client;
+
+  RescueRepositoryImpl(this.client);
+
+  @override
+  Future<Rescue> create(Rescue rescue, List<String> images) {
+    final body = {
+      ...rescue.toJson(),
+      'imagesId': images,
+    }..removeWhere((key, value) => value == null);
+
+    return client
+        .post<Map<String, dynamic>>('/rescue-service/rescue-posts', body)
+        .then((json) => Rescue.fromJson(json));
+  }
+
+  @override
+  Future<bool> delete(String id) {
+    return client
+        .delete<Map<String, dynamic>>('/rescue-service/rescue-posts/${id}')
+        .then((json) => Rescue.fromJson(json))
+        .then((value) => value != null);
+  }
+
+  @override
+  Future<Rescue> edit(Rescue id, List<String> newImages, List<String> oldImages) {
+    final body = {};
+    return client
+        .put<Map<String, dynamic>>('/rescue-service/rescue-posts', body)
+        .then((json) => Rescue.fromJson(json));
+  }
+
+  @override
+  Future<List<Rescue>> search(int from, int limit) {
+    final params = {'offset': from, 'limit': limit};
+    return client
+        .get<Map<String, dynamic>>('/rescue-service/rescue-posts', params: params)
+        .then((value) => (value as List) ?? [])
+        .then((value) => value.map((json) => Rescue.fromJson(json)).toList());
+  }
+
+  @override
+  Future<List<Comment>> getComments(String id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<RescueDonate>> getDonaters(String id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<RescueAccount>> getHeroJoined(String id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> join(String id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> like(String id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> unJoin(String id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Rescue> update(Rescue rescue) {
+    throw UnimplementedError();
+  }
 }
