@@ -51,4 +51,12 @@ class HeroVotingBloc extends TBloc<HeroVotingEvent, HeroVotingState> {
       yield ReloadHeroVotingListing(true);
     }
   }
+
+  void loadHeroes() {
+    add(LoadHeroVoting(clearOldData: false));
+  }
+
+  void vote(String heroId) {
+    add(VoteHeroEvent(heroId));
+  }
 }
