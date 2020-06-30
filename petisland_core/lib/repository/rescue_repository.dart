@@ -184,6 +184,8 @@ abstract class RescueRepository {
   Future<List<Rescue>> search(int from, int limit);
   Future<bool> unJoin(String id);
   Future<Rescue> update(Rescue rescue);
+
+  // Future<List<Hero
 }
 
 class RescueRepositoryImpl extends RescueRepository {

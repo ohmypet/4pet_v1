@@ -26,3 +26,5 @@ part 'preview_rescue_detail_widget.dart';
 part 'rescue_action_bar.dart';
 part 'rescue_creation_detail_widget.dart';
 part 'rescue_detail_summary_widget.dart';
+part 'hero_listing_widget.dart';
+part 'sponsor_listing_widget.dart';
