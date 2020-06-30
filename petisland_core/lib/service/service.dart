@@ -18,5 +18,6 @@ part 'pet_category_service.dart';
 part 'post_service.dart';
 part 'report_service.dart';
 part 'rescue_service.dart';
+part 'rescue_voting_service.dart';
 part 'tag_service.dart';
 part 'user_service.dart';

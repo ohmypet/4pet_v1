@@ -40,6 +40,8 @@ class DevModuleCore extends AbstractModule {
     bind(RescueRepository).to(_buildRescueRepository());
     bind(RescueService).to(_buildRescueService());
     bind(UserService).to(_buildUserService());
+    bind(RescueVotingRepository).to(_buidRescueVotingRepository());
+    bind(RescueVotingService).to(_buildRescueVotingService());
   }
 
   Future<LocalStorageService> _buildLocalService() async {
@@ -217,5 +219,14 @@ class DevModuleCore extends AbstractModule {
 
     final userRepository = UserRepositoryImpl(client);
     return UserServiceImpl(userRepository);
+  }
+
+  RescueVotingRepository _buidRescueVotingRepository() {
+    return MockRescueVotingRepository();
+  }
+
+  RescueVotingService _buildRescueVotingService() {
+    final repository = get<RescueVotingRepository>(RescueVotingRepository);
+    return RescueVotingServiceImpl(repository);
   }
 }

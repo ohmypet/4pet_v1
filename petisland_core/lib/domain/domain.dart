@@ -7,7 +7,10 @@ import 'package:petisland_core/utils/utils.dart';
 
 part 'account.dart';
 part 'base_model.dart';
+part 'coin.dart';
+part 'coin_history.dart';
 part 'comment.dart';
+part 'hero_voting_info.dart';
 part 'image.dart';
 part 'location_info.dart';
 part 'location_response.dart';
@@ -32,8 +35,6 @@ part 'rescue_voting.dart';
 part 'review.dart';
 part 'tag.dart';
 part 'user.dart';
-part 'coin.dart';
-part 'coin_history.dart';
 
 List<PetImage> parseImages(List<Map<String, dynamic>> images) {
   images ??= <Map<String, dynamic>>[];
