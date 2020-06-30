@@ -21,5 +21,6 @@ part 'pet_category_repository.dart';
 part 'post_repository.dart';
 part 'report_repository.dart';
 part 'rescue_repository.dart';
+part 'rescue_voting_repository.dart';
 part 'tag_repository.dart';
 part 'user_repository.dart';

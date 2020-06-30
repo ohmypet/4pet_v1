@@ -1,8 +1,6 @@
 part of petisland.rescue_voting.bloc;
 
 class HeroVotingBloc extends TBloc<HeroVotingEvent, HeroVotingState> {
-  
-
   @override
   Stream<HeroVotingState> errorToState(BaseErrorEvent event) async* {}
 
