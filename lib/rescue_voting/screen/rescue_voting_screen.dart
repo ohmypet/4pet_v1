@@ -20,27 +20,30 @@ class RescueVotingScreen extends TStatelessWidget {
           onSelected: (_) => _onTapSeeMore(context, _),
         ),
       ),
-      body: SafeArea(
-        child: Stack(
-          children: <Widget>[
-            ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              controller: controller,
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
-              children: <Widget>[
-                RescueDetailSummaryWidget(
-                  rescue: rescue,
-                  hideDescription: true,
-                  hideImageSlider: true,
-                  hideLocation: true,
-                ),
-                Text('Heroes', style: TTextStyles.bold()),
-                HeroVotingListingWidget(rescueId: rescue.id),
-              ],
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        controller: controller,
+        shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
+        children: <Widget>[
+          RescueDetailSummaryWidget(
+            rescue: rescue,
+            hideDescription: true,
+            hideImageSlider: true,
+            hideLocation: true,
+          ),
+          const SizedBox(height: 5),
+          Text(
+            'Vote for the best of the rescue',
+            style: TTextStyles.bold(
+              fontSize: 16,
+              color: TColors.dark_pink,
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 5),
+          HeroVotingListingWidget(rescueId: rescue.id),
+          const SizedBox(height: 50),
+        ],
       ),
     );
   }

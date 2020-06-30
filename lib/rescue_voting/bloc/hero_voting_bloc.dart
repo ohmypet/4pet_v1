@@ -41,15 +41,17 @@ class HeroVotingBloc extends TBloc<HeroVotingEvent, HeroVotingState> {
 
   Stream<HeroVotingState> _handleVoteHero(VoteHeroEvent event) async* {
     final heroVotingInfo = await votingService.vote(rescueId, event.heroId);
-    final itemNeedUpdate = heroes.firstWhere((element) => element.id == heroVotingInfo.id,
-        orElse: () => null);
+    final itemNeedUpdate = heroes.firstWhere(
+      (element) => element.hero.id == heroVotingInfo.hero.id,
+      orElse: () => null,
+    );
     if (itemNeedUpdate != null) {
       itemNeedUpdate
         ..hero = heroVotingInfo.hero
         ..isVoted = heroVotingInfo.isVoted
         ..vote = heroVotingInfo.vote;
-      yield ReloadHeroVotingListing(true);
     }
+    yield ReloadHeroVotingListing(true);
   }
 
   void loadHeroes() {

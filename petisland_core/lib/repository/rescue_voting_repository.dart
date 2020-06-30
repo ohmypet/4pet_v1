@@ -8,12 +8,14 @@ abstract class RescueVotingRepository {
 class MockRescueVotingRepository extends RescueVotingRepository {
   @override
   Future<List<HeroVotingInfo>> getHeroVotings() async {
+    await Future.delayed(Duration(milliseconds: MockRescueRepository.ran.nextInt(10000)));
     return List.generate(MockRescueRepository.ran.nextInt(20), (index) => heroVotingInfo);
   }
 
   @override
   Future<HeroVotingInfo> vote(String rescueId, String heroId) async {
-    return heroVotingInfo;
+    await Future.delayed(Duration(milliseconds: MockRescueRepository.ran.nextInt(5000)));
+    return heroVotingInfo..hero.id = heroId;
   }
 
   HeroVotingInfo get heroVotingInfo {

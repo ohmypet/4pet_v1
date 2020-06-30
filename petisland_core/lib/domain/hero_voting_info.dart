@@ -5,6 +5,7 @@ class HeroVotingInfo extends BaseModel {
   int vote;
   bool isVoted;
 
+  String get voteAsString => '${vote ?? 0}';
   HeroVotingInfo(
       {String id,
       DateTime createAt,
