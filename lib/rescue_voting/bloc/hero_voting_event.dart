@@ -15,7 +15,7 @@ class LoadHeroVoting extends HeroVotingEvent {
 }
 
 class VoteHeroEvent extends HeroVotingEvent {
-  final int heroId;
+  final String heroId;
 
   VoteHeroEvent(this.heroId);
 }

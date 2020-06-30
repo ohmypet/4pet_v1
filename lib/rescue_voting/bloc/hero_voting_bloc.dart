@@ -1,6 +1,15 @@
 part of petisland.rescue_voting.bloc;
 
 class HeroVotingBloc extends TBloc<HeroVotingEvent, HeroVotingState> {
+  final String rescueId;
+  final heroes = <HeroVotingInfo>[];
+
+  HeroVotingBloc(this.rescueId);
+
+  @override
+  HeroVotingState get initialState => ReloadHeroVotingListing(true);
+  RescueVotingService get votingService => DI.get(RescueVotingService);
+
   @override
   Stream<HeroVotingState> errorToState(BaseErrorEvent event) async* {}
 
@@ -17,10 +26,29 @@ class HeroVotingBloc extends TBloc<HeroVotingEvent, HeroVotingState> {
     }
   }
 
-  @override
-  HeroVotingState get initialState => ReloadHeroVotingListing(true);
+  Stream<HeroVotingState> _handleLoadHeroVoting(LoadHeroVoting event) async* {
+    final heroes = await votingService.getHeroVotings();
+    if (heroes?.isNotEmpty == true) {
+      if (event.clearOldData == true) {
+        this.heroes.clear();
+      }
+      this.heroes.addAll(heroes);
+      yield ReloadHeroVotingListing(true);
+    } else {
+      yield ReloadHeroVotingListing(false);
+    }
+  }
 
-  Stream<HeroVotingState> _handleLoadHeroVoting(LoadHeroVoting event) {}
-
-  Stream<HeroVotingState> _handleVoteHero(VoteHeroEvent event) {}
+  Stream<HeroVotingState> _handleVoteHero(VoteHeroEvent event) async* {
+    final heroVotingInfo = await votingService.vote(rescueId, event.heroId);
+    final itemNeedUpdate = heroes.firstWhere((element) => element.id == heroVotingInfo.id,
+        orElse: () => null);
+    if (itemNeedUpdate != null) {
+      itemNeedUpdate
+        ..hero = heroVotingInfo.hero
+        ..isVoted = heroVotingInfo.isVoted
+        ..vote = heroVotingInfo.vote;
+      yield ReloadHeroVotingListing(true);
+    }
+  }
 }
