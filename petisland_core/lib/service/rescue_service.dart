@@ -49,7 +49,7 @@ class RescueServiceImpl extends RescueService {
   Future<bool> like(String id) => repository.like(id);
 
   @override
-  Future<List<Rescue>> search({int from, int limit}) =>
+  Future<List<Rescue>> search({int from = 0, int limit = 10}) =>
       repository.search(from ?? 0, limit ?? 10);
 
   @override
