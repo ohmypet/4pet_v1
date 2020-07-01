@@ -76,7 +76,7 @@ class MockRescueRepository extends RescueRepository {
         maxHeroes: ran.nextInt(10),
         totalCoin: ran.nextInt(15000).toDouble(),
         currentHeroes: ran.nextInt(10),
-        status: 'Active',
+        status: RescueStatus.Open.index,
         createAt: DateTime.now(),
         isReacted: ran.nextBool(),
       );
@@ -225,9 +225,9 @@ class RescueRepositoryImpl extends RescueRepository {
   @override
   Future<List<Rescue>> search(int from, int limit) {
     final params = {'offset': from, 'limit': limit};
+    Log.info(params);
     return client
-        .get<Map<String, dynamic>>('/rescue-service/rescue-posts', params: params)
-        .then((value) => (value as List) ?? [])
+        .get<List<dynamic>>('/rescue-service/rescue-posts', params: params)
         .then((value) => value.map((json) => Rescue.fromJson(json)).toList());
   }
 

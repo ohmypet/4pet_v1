@@ -4,7 +4,7 @@ class Rescue extends BaseModel {
   String title;
   String description;
   String location;
-  String status;
+  int status;
   double totalCoin;
   int maxHeroes;
   int currentHeroes;
@@ -36,7 +36,7 @@ class Rescue extends BaseModel {
   Rescue.empty() : super(ThinId.randomId(), null, null, null) {
     title = '';
     description = '';
-    status = '';
+    status = RescueStatus.Open.index;
     totalCoin = 0;
     maxHeroes = 3;
     account = null;
@@ -71,7 +71,7 @@ class Rescue extends BaseModel {
 
   String get firstImage {
     final RescueImage item = rescueImages
-        .firstWhere((rescueImage) => rescueImage.image?.url != null, orElse: () => null);
+        ?.firstWhere((rescueImage) => rescueImage.image?.url != null, orElse: () => null);
     if (item != null) {
       return item.image.url;
     } else {
