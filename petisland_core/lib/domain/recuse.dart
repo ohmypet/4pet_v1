@@ -4,7 +4,7 @@ class Rescue extends BaseModel {
   String title;
   String description;
   String location;
-  String status;
+  int status;
   double totalCoin;
   int maxHeroes;
   int currentHeroes;
@@ -36,7 +36,7 @@ class Rescue extends BaseModel {
   Rescue.empty() : super(ThinId.randomId(), null, null, null) {
     title = '';
     description = '';
-    status = '';
+    status = RescueStatus.Open.index;
     totalCoin = 0;
     maxHeroes = 3;
     account = null;
@@ -48,13 +48,14 @@ class Rescue extends BaseModel {
     description = json['description'];
     location = json['location'];
     status = json['status'];
-    totalCoin = json['total_coin'] ?? 0;
-    maxHeroes = json['max_heroes'] ?? 0;
+    totalCoin = json['totalCoin'] ?? 0;
+    maxHeroes = json['maxHeroes'] ?? 0;
     if (json['account'] != null) {
       account = Account.fromJson(json['account']);
     }
     isReacted = json['is_liked'] ?? false;
-    currentHeroes = json['current_heroes'] ?? 0;
+    currentHeroes = json['currentHeroes'] ?? 0;
+    likes = json['likes'] ?? 0;
   }
 
   String get avatar => account?.user?.avatar?.url;
@@ -70,7 +71,7 @@ class Rescue extends BaseModel {
 
   String get firstImage {
     final RescueImage item = rescueImages
-        .firstWhere((rescueImage) => rescueImage.image?.url != null, orElse: () => null);
+        ?.firstWhere((rescueImage) => rescueImage.image?.url != null, orElse: () => null);
     if (item != null) {
       return item.image.url;
     } else {
@@ -115,9 +116,8 @@ class Rescue extends BaseModel {
     _addValueToMap('title', title, map);
     _addValueToMap('description', description, map);
     _addValueToMap('location', location, map);
-    _addValueToMap('status', status, map);
-    _addValueToMap('total_coin', totalCoin, map);
-    _addValueToMap('max_heroes', maxHeroes, map);
+    _addValueToMap('totalCoins', totalCoin, map);
+    _addValueToMap('maxHeroes', maxHeroes, map);
     _addValueToMap('account', account?.toJson(), map);
     return map;
   }

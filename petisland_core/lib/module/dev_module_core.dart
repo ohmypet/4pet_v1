@@ -12,6 +12,7 @@ abstract class DIKeys {
 class DevModuleCore extends AbstractModule {
   static const String normal_client = 'normal_client';
   static const String api_client = 'api_client';
+  static const String rescue_api_client = 'rescue_api_client';
   static const String api_upload_image = 'api_upload_image';
   static const String opencagedata_api = 'opencagedata_api';
   static const String account_service_authenticated = 'account_service_authenticated';
@@ -23,6 +24,7 @@ class DevModuleCore extends AbstractModule {
     bind(LocalStorageService).to(await _buildLocalService());
     bind(normal_client).to(_buildClient());
     bind(api_client).to(_buildApiClient());
+    bind(rescue_api_client).to(_buildRescueApiClient());
     bind(api_upload_image).to(_buildClientUpload());
     bind(opencagedata_api).to(_buildOpencagedataApi());
 
@@ -96,6 +98,26 @@ class DevModuleCore extends AbstractModule {
   HttpClient _buildApiClient() {
     final BaseOptions baseOption = BaseOptions(
       baseUrl: Config.getString('api_host'),
+      connectTimeout: 15000,
+      receiveTimeout: 10000,
+      headers: <String, dynamic>{
+        HttpHeaders.contentTypeHeader: Headers.formUrlEncodedContentType,
+      },
+    );
+    Dio dio = Dio(baseOption);
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: _onRequest,
+        onError: (DioError ex) => ex,
+        onResponse: (Response<dynamic> reponse) => reponse,
+      ),
+    );
+    return HttpClient.init(dio);
+  }
+
+  HttpClient _buildRescueApiClient() {
+    final BaseOptions baseOption = BaseOptions(
+      baseUrl: Config.getString('rescue_api_host'),
       connectTimeout: 15000,
       receiveTimeout: 10000,
       headers: <String, dynamic>{
@@ -203,9 +225,9 @@ class DevModuleCore extends AbstractModule {
   }
 
   RescueRepository _buildRescueRepository() {
-    // final HttpClient client = get<HttpClient>(api_host);
+    final HttpClient client = get<HttpClient>(rescue_api_client);
 
-    return MockRescueRepository();
+    return RescueRepositoryImpl(client);
   }
 
   RescueService _buildRescueService() {

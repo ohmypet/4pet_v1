@@ -79,7 +79,7 @@ enum PostStatus { Pending, New, Done, Expired }
 
 enum PetType { Dog, Cat, Bird, Fish, Snake, Hare, Hamster, Other }
 
-enum RescueStatus { Open, Ready, Success, Failure }
+enum RescueStatus { Open, Ready, Close, Done }
 
 enum RescueAccountStatus { Joined, Blocked }
 
