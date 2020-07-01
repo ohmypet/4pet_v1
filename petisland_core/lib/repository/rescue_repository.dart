@@ -74,7 +74,7 @@ class MockRescueRepository extends RescueRepository {
         rescueImages: rescueImages,
         title: title,
         maxHeroes: ran.nextInt(10),
-        totalCoin: ran.nextInt(15000).toDouble(),
+        totalCoin: ran.nextInt(15000),
         currentHeroes: ran.nextInt(10),
         status: RescueStatus.Open.index,
         createAt: DateTime.now(),
@@ -169,7 +169,7 @@ class MockRescueRepository extends RescueRepository {
 }
 
 abstract class RescueRepository {
-  Future<Rescue> create(Rescue rescue, List<String> images);
+  Future<Rescue> create(Rescue rescue, List<String> imageIds);
   Future<Rescue> edit(Rescue rescue, List<String> newImages, List<String> oldImages);
   Future<bool> delete(String id);
 
@@ -195,10 +195,10 @@ class RescueRepositoryImpl extends RescueRepository {
   RescueRepositoryImpl(this.client);
 
   @override
-  Future<Rescue> create(Rescue rescue, List<String> images) {
+  Future<Rescue> create(Rescue rescue, List<String> imageIds) {
     final body = {
       ...rescue.toJson(),
-      'imagesId': images,
+      'imagesId': imageIds,
     }..removeWhere((key, value) => value == null);
 
     return client

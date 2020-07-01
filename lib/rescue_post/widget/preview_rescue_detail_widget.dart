@@ -36,7 +36,7 @@ class PreviewRescueDetailWidget extends StatelessWidget {
   Widget _buildInfo(BuildContext context, Rescue item) {
     final String title = item.title;
     final Account account = item.account;
-    final double coin = item.totalCoin;
+    final int coin = item.totalCoin;
     final DateTime time = item.createAt;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -51,7 +51,7 @@ class PreviewRescueDetailWidget extends StatelessWidget {
           Flexible(child: UserInfoWidget(account: account)),
           Flexible(
             child: PostMoneyWidget(
-              money: coin,
+              money: coin.toDouble(),
               typeMoney: 'coins',
             ),
           ),

@@ -5,7 +5,7 @@ class Rescue extends BaseModel {
   String description;
   String location;
   int status;
-  double totalCoin;
+  int totalCoin;
   int maxHeroes;
   int currentHeroes;
   int likes;
@@ -53,9 +53,10 @@ class Rescue extends BaseModel {
     if (json['account'] != null) {
       account = Account.fromJson(json['account']);
     }
-    isReacted = json['is_liked'] ?? false;
+    isReacted = json['isReacted'] ?? false;
     currentHeroes = json['currentHeroes'] ?? 0;
     likes = json['likes'] ?? 0;
+    isJoined = json['isJoined'] ?? false;
   }
 
   String get avatar => account?.user?.avatar?.url;

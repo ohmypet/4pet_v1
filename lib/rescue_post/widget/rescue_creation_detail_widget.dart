@@ -16,7 +16,8 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
   final titleEdittingController = TextEditingController();
   final descriptionEdittingController = TextEditingController();
   final rewardEdittingController = TextEditingController();
-  final double maxCoin = 12;
+  Account get account => DI.get<AuthenticationBloc>(AuthenticationBloc).account;
+  int get maxCoin => account.coin;
 
   RescueEditingBloc get editingBloc => widget.rescueEditingBloc;
   bool get isEditMode => editingBloc.mode == RescueMode.Edit;
@@ -158,7 +159,7 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
       builder: (BuildContext context, RescueEditingState state) {
         return SummaryInfoWidget(
           editingBloc.rescue.title,
-          money: editingBloc.rescue.totalCoin,
+          money: editingBloc.rescue.totalCoin.toDouble(),
           location: editingBloc.rescue.location,
           petImage: [...editingBloc.oldImages, ...editingBloc.newImages],
           customDefaultMoney: 'Charity',
@@ -204,10 +205,11 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
   }
 
   void _handleRewardChanged() {
-    final coin = double.tryParse(rewardEdittingController.text);
+    final coin = int.tryParse(rewardEdittingController.text);
     if (coin != null) {
       if (_canPaid(coin, maxCoin)) {
         editingBloc.rescue.totalCoin = coin;
+        editingBloc.reloadSummaryInfo();
       } else {
         rewardEdittingController.text = maxCoin.toInt().toString();
       }

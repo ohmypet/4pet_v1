@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/common/common.dart';
 import 'package:flutter_template/login/widget/widget.dart';
+import 'package:flutter_template/pet_feed/bloc/bloc.dart';
 import 'package:flutter_template/post/post.dart';
 import 'package:flutter_template/post/post_detail/bloc/bloc.dart';
 import 'package:flutter_template/post/post_detail/widget/widget.dart';
