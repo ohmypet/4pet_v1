@@ -32,7 +32,8 @@ class RescueListingBloc extends TBloc<RescueListingEvent, RescueListingState> {
     assert(clearOldData != null, 'clearOldData must not null');
     await Future.delayed(const Duration(seconds: 2));
     final rescueService = DI.get<RescueService>(RescueService);
-    final newRescuePosts = await rescueService.search();
+    final newRescuePosts =
+        await rescueService.search(from: event.from, limit: event.limit);
     if (newRescuePosts.isEmpty) {
       yield ReloadRescueListingState(false);
     } else {
