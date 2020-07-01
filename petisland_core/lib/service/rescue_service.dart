@@ -2,6 +2,8 @@ part of petisland_core.service;
 
 abstract class RescueService {
   Future<Rescue> create(Rescue rescue, List<String> imageIds);
+  Future<Rescue> update(Rescue rescue);
+  Future<bool> delete(String rescueId);
 
   Future<List<Comment>> getComments(String id);
   Future<List<RescueDonate>> getDonaters(String id);
@@ -14,8 +16,6 @@ abstract class RescueService {
   Future<List<Rescue>> search({int from = 0, int limit = 10});
 
   Future<bool> unJoin(String id);
-
-  Future<Rescue> update(Rescue rescue);
 }
 
 class RescueServiceImpl extends RescueService {
@@ -57,4 +57,9 @@ class RescueServiceImpl extends RescueService {
 
   @override
   Future<Rescue> update(Rescue rescue) => repository.update(rescue);
+
+  @override
+  Future<bool> delete(String rescueId) {
+    return repository.delete(rescueId);
+  }
 }

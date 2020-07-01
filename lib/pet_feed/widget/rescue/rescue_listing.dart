@@ -146,10 +146,7 @@ class _RescueListingState extends TState<RescueListing> {
   void _handleOnTapRescuePost(Rescue rescue) {
     navigateToScreen(
       context: context,
-      screen: RescueDetailScreen(
-        rescue: rescue,
-        onDeleteRescue: _handleDeleteRescue,
-      ),
+      screen: RescueDetailScreen(rescue: rescue),
       screenName: RescueDetailScreen.name,
     ).whenComplete(() {
       setState(() {});

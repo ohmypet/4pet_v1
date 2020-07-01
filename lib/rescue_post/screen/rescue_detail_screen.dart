@@ -4,13 +4,8 @@ class RescueDetailScreen extends StatefulWidget {
   static const name = '/RescueDetailScreen';
 
   final Rescue rescue;
-  final ValueChanged<Rescue> onDeleteRescue;
 
-  const RescueDetailScreen({
-    Key key,
-    @required this.rescue,
-    this.onDeleteRescue,
-  }) : super(key: key);
+  const RescueDetailScreen({Key key, @required this.rescue}) : super(key: key);
 
   @override
   _RescueDetailScreenState createState() => _RescueDetailScreenState();
@@ -25,6 +20,10 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
   RescueHeroBloc heroBloc;
   RescueDonateBloc donateBloc;
   RescueCommentBloc rescueCommentBloc;
+  RescueService get rescueService => DI.get(RescueService);
+  RescueListingBloc get listingBloc => DI.get(RescueListingBloc);
+
+  bool isLoading = false;
 
   void initState() {
     super.initState();
@@ -35,49 +34,56 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(32),
-        child: PostDetailAppBar(
-          hasPermision: AccountUtils.grantEditAndDel(account),
-          onTapBack: () => _onTapBack(context),
-          onSelected: (_) => _onTapSeeMore(context, _),
-        ),
-      ),
-      body: BlocListener<RescueCommentBloc, CommentState>(
-        bloc: rescueCommentBloc,
-        condition: (_, state) => state is ScrollToBottom,
-        listener: _onCommentChanged,
-        child: SafeArea(
-          child: Stack(
-            children: <Widget>[
-              ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                controller: controller,
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(32),
+            child: Builder(
+              builder: (context) => PostDetailAppBar(
+                hasPermision: AccountUtils.grantEditAndDel(account),
+                onTapBack: () => _onTapBack(context),
+                onSelected: (_) => _onTapSeeMore(context, _),
+              ),
+            ),
+          ),
+          body: BlocListener<RescueCommentBloc, CommentState>(
+            bloc: rescueCommentBloc,
+            condition: (_, state) => state is ScrollToBottom,
+            listener: _onCommentChanged,
+            child: SafeArea(
+              child: Stack(
                 children: <Widget>[
-                  RescueDetailSummaryWidget(rescue: widget.rescue),
-                  const SizedBox(height: 5),
-                  HeroListingWidget(heroBloc: heroBloc),
-                  SponsorListingWidget(donateBloc: donateBloc),
-                  CommentListingWidget(
-                    bloc: rescueCommentBloc,
-                    onDeleteComment: _handleDeleteComment,
+                  ListView(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    controller: controller,
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    children: <Widget>[
+                      RescueDetailSummaryWidget(rescue: widget.rescue),
+                      const SizedBox(height: 5),
+                      HeroListingWidget(heroBloc: heroBloc),
+                      SponsorListingWidget(donateBloc: donateBloc),
+                      CommentListingWidget(
+                        bloc: rescueCommentBloc,
+                        onDeleteComment: _handleDeleteComment,
+                      ),
+                      const SizedBox(height: 150),
+                    ],
                   ),
-                  const SizedBox(height: 150),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: isJoined
+                        ? CommentInputBarWidget(onTapSend: _onTapSend)
+                        : _buildJoinButton(),
+                  ),
                 ],
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: isJoined
-                    ? CommentInputBarWidget(onTapSend: _onTapSend)
-                    : _buildJoinButton(),
-              ),
-            ],
+            ),
           ),
         ),
-      ),
+        isLoading ? LoadingWidget() : const SizedBox()
+      ],
     );
   }
 
@@ -87,10 +93,11 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
 
   void _onTapSeeMore(BuildContext context, OptionType seeMoreType) {
     switch (seeMoreType) {
-      case OptionType.Report:
-        _reportPost(context);
-        break;
+      // case OptionType.Report:
+      //   _reportPost(context);
+      //   break;
       case OptionType.Delete:
+        _deleteRescue(context);
         break;
       case OptionType.Edit:
         break;
@@ -98,15 +105,15 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
     }
   }
 
-  void _reportPost(BuildContext context) {
-    showModalBottomSheet(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      context: context,
-      builder: (_) => KikiReportWidget(
-        onSendReport: _sendReport,
-      ),
-    );
-  }
+  // void _reportPost(BuildContext context) {
+  //   showModalBottomSheet(
+  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+  //     context: context,
+  //     builder: (_) => KikiReportWidget(
+  //       onSendReport: _sendReport,
+  //     ),
+  //   );
+  // }
 
   void _sendReport(ReportData value) {
     Log.debug('Seleted:: $value');
@@ -157,5 +164,23 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
     super.dispose();
     controller.dispose();
     rescueCommentBloc.stopListener();
+  }
+
+  void _deleteRescue(BuildContext context) async {
+    this.setState(() => isLoading = true);
+
+    rescueService
+        .delete(widget.rescue.id)
+        .then((value) => listingBloc.refreshRescuePost())
+        .then((value) => this.closeScreen(context, RescueDetailScreen.name))
+        .catchError(
+          (ex) => {
+            this.setState(() => isLoading = false),
+            this.showErrorSnackBar(
+              context: context,
+              content: 'Something went wrong, try again!',
+            )
+          },
+        );
   }
 }
