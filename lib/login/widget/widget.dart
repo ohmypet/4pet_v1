@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/common.dart';
 import 'package:flutter_template/common/widgets/widgets.dart';
+import 'package:flutter_template/forget_password/screen/forget_password_screen.dart';
 import 'package:flutter_template/login/bloc/bloc.dart';
 import 'package:flutter_template/register/register.dart';
 
