@@ -1,14 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter_template/petisland.dart';
 import 'package:meta/meta.dart';
+import 'package:petisland_core/petisland_core.dart';
 
 part 'forget_password_event.dart';
 part 'forget_password_state.dart';
 
-class ForgetPasswordBloc
-    extends Bloc<ForgetPasswordEvent, ForgetPasswordState> {
+class ForgetPasswordBloc extends Bloc<ForgetPasswordEvent, ForgetPasswordState> {
   String email;
   String code;
   String password;
@@ -60,14 +59,12 @@ class ForgetPasswordBloc
     yield StepTwoState();
   }
 
-  Stream<ForgetPasswordState> _handleTypingNewPassword(
-      TypingNewPassword event) async* {
+  Stream<ForgetPasswordState> _handleTypingNewPassword(TypingNewPassword event) async* {
     password = event.password;
     yield StepThreeState();
   }
 
-  Stream<ForgetPasswordState> _handleTypingRePassword(
-      TypingRePassword event) async* {
+  Stream<ForgetPasswordState> _handleTypingRePassword(TypingRePassword event) async* {
     rePassword = event.rePassword;
     yield StepThreeState();
   }
@@ -93,8 +90,7 @@ class ForgetPasswordBloc
     }
   }
 
-  Stream<ForgetPasswordState> _handleSubmitNewPassword(
-      SubmitNewPassword event) async* {
+  Stream<ForgetPasswordState> _handleSubmitNewPassword(SubmitNewPassword event) async* {
     try {
       bool emailIsValid = email.trim().isNotEmpty;
       bool passwordIsValid = password == rePassword;

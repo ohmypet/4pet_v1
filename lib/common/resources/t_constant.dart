@@ -13,7 +13,7 @@ abstract class TConstants {
 
   static const String hint_new_password = 'New Password';
 
-  static const String hint_re_password = 'RePassword';
+  static const String hint_re_password = 'Re-Password';
 
   static const String text_login = 'LOGIN';
 

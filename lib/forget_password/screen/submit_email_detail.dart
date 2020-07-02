@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/common.dart';
+import 'package:flutter_template/common/widgets/widgets.dart';
 import 'package:flutter_template/login/widget/widget.dart';
 
 class SubmitEmailDetail extends StatefulWidget {
@@ -31,6 +32,7 @@ class _SubmitEmailDetailState extends State<SubmitEmailDetail> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         UserInputWidget(
           emailController,
