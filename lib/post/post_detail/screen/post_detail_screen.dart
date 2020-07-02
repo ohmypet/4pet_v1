@@ -24,7 +24,7 @@ class _PostDetailScreenState extends TState<PostDetailScreen> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(32),
         child: PostDetailAppBar(
-          hasPermision: AccountUtils.grantEditAndDel(item.account),
+          isOwner: AccountUtils.isOwner(item.account),
           onTapBack: () => _onTapBack(context),
           onSelected: (_) => _onTapSeeMore(context, _),
         ),

@@ -41,7 +41,8 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
             preferredSize: Size.fromHeight(32),
             child: Builder(
               builder: (context) => PostDetailAppBar(
-                hasPermision: true || AccountUtils.grantEditAndDel(account),
+                showLeave: !canJoin,
+                isOwner: AccountUtils.isOwner(account),
                 onTapBack: () => _onTapBack(context),
                 onSelected: (_) => _onTapSeeMore(context, _),
               ),
@@ -51,33 +52,38 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
             bloc: rescueCommentBloc,
             condition: (_, state) => state is ScrollToBottom,
             listener: _onCommentChanged,
-            child: SafeArea(
-              child: Stack(
-                children: <Widget>[
-                  ListView(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    controller: controller,
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    children: <Widget>[
-                      RescueDetailSummaryWidget(rescue: widget.rescue),
-                      const SizedBox(height: 5),
-                      HeroListingWidget(heroBloc: heroBloc),
-                      SponsorListingWidget(donateBloc: donateBloc),
-                      CommentListingWidget(
-                        bloc: rescueCommentBloc,
-                        onDeleteComment: _handleDeleteComment,
-                      ),
-                      const SizedBox(height: 150),
-                    ],
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: isJoined
-                        ? CommentInputBarWidget(onTapSend: _onTapSend)
-                        : _buildJoinButton(),
-                  ),
-                ],
+            child: Builder(
+              builder: (context) => SafeArea(
+                child: Stack(
+                  children: <Widget>[
+                    ListView(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      controller: controller,
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      children: <Widget>[
+                        RescueDetailSummaryWidget(rescue: widget.rescue),
+                        const SizedBox(height: 5),
+                        HeroListingWidget(
+                          heroBloc: heroBloc,
+                          maxHeroeAsString: widget.rescue.maxHeroeAsString,
+                        ),
+                        SponsorListingWidget(donateBloc: donateBloc),
+                        CommentListingWidget(
+                          bloc: rescueCommentBloc,
+                          onDeleteComment: (_) => _handleDeleteComment(context, _),
+                        ),
+                        const SizedBox(height: 150),
+                      ],
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: isJoined
+                          ? CommentInputBarWidget(onTapSend: _onTapSend)
+                          : _buildJoinButton(context),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -102,6 +108,9 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
       case OptionType.Edit:
         _editRescue(context);
         break;
+      case OptionType.Leave:
+        _handleLeaveRescue(context);
+        break;
       default:
     }
   }
@@ -116,19 +125,30 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
   //   );
   // }
 
-  void _sendReport(ReportData value) {
-    Log.debug('Seleted:: $value');
-  }
+  // void _sendReport(ReportData value) {
+  //   Log.debug('Seleted:: $value');
+  // }
 
   void _onTapSend(String message) {
     Log.debug('SendMessage:: $message');
   }
 
-  void _handleJoinNow() {
+  void _handleJoinNow(BuildContext context) async {
     // TODO(tvc12): Join here
+    setState(() => isLoading = true);
+    rescueService
+        .join(widget.rescue.id)
+        .then((value) => widget.rescue.join())
+        .catchError(
+          (ex) => this.showErrorSnackBar(
+            context: context,
+            content: TConstants.error,
+          ),
+        )
+        .whenComplete(() => this.setState(() => isLoading = false));
   }
 
-  Widget _buildJoinButton() {
+  Widget _buildJoinButton(BuildContext context) {
     if (canJoin) {
       return Container(
         height: 65,
@@ -140,7 +160,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: PetIslandButtonWidget(
           text: TConstants.join_now,
-          onTap: _handleJoinNow,
+          onTap: () => _handleJoinNow(context),
         ),
       );
     } else {
@@ -157,7 +177,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
       );
   }
 
-  void _handleDeleteComment(String id) {
+  void _handleDeleteComment(BuildContext context, String id) {
     Log.debug('handleDeleteComment:: $id');
     // TODO(tvc12): handle delete comment
   }
@@ -181,7 +201,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
             this.setState(() => isLoading = false),
             this.showErrorSnackBar(
               context: context,
-              content: 'Something went wrong, try again!',
+              content: TConstants.error,
             )
           },
         );
@@ -192,5 +212,20 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
       context: context,
       screen: RescueEditorScreen.edit(rescue: widget.rescue),
     );
+  }
+
+  void _handleLeaveRescue(BuildContext context) {
+    this.setState(() => isLoading = true);
+
+    rescueService
+        .unJoin(widget.rescue.id)
+        .then((value) => widget.rescue.unJoin())
+        .catchError(
+          (ex) => this.showErrorSnackBar(
+            context: context,
+            content: TConstants.error,
+          ),
+        )
+        .whenComplete(() => this.setState(() => isLoading = false));
   }
 }

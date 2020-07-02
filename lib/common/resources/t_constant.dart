@@ -17,6 +17,8 @@ abstract class TConstants {
 
   static const String donate = 'Donate';
 
+  static const String error = 'Something went wrong, try again later!';
+
   static const border_top_left = BorderRadius.only(
     topLeft: Radius.circular(10),
     topRight: Radius.circular(10),

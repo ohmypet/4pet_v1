@@ -1,15 +1,22 @@
 part of petisland.post.screen.widget;
 
-enum OptionType { Edit, Delete, Click, Report }
+enum OptionType { Edit, Delete, Leave, Report }
 
 class PostDetailAppBar extends StatelessWidget {
   final VoidCallback onTapBack;
   final ValueChanged<OptionType> onSelected;
-  final bool hasPermision;
+  final bool isOwner;
+  final bool showReport;
+  final bool showLeave;
 
-  const PostDetailAppBar(
-      {Key key, this.onTapBack, this.onSelected, this.hasPermision = false})
-      : super(key: key);
+  const PostDetailAppBar({
+    Key key,
+    this.onTapBack,
+    this.onSelected,
+    this.isOwner = false,
+    this.showReport = true,
+    this.showLeave = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +42,7 @@ class PostDetailAppBar extends StatelessWidget {
   }
 
   static final items = <MapEntry<OptionType, String>>[
+    MapEntry(OptionType.Leave, 'Leave'),
     MapEntry(OptionType.Edit, 'Edit'),
     MapEntry(OptionType.Delete, 'Delete'),
     MapEntry(OptionType.Report, 'Report'),
@@ -44,7 +52,20 @@ class PostDetailAppBar extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return items.map(
       (item) {
-        bool enable = item.key != OptionType.Report ? hasPermision : true;
+        bool enable = true;
+        switch (item.key) {
+          case OptionType.Report:
+            enable = !isOwner && showReport; //Can't report myself!!
+            break;
+          case OptionType.Edit:
+          case OptionType.Delete:
+            enable = isOwner;
+            break;
+          case OptionType.Leave:
+            enable = !isOwner && showLeave; //Can't leave my post!!
+            break;
+          default:
+        }
         return PopupMenuItem<OptionType>(
           value: item.key,
           enabled: enable,

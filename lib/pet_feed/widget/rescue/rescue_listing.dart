@@ -130,10 +130,6 @@ class _RescueListingState extends TState<RescueListing> {
     );
   }
 
-  void _handleDeleteRescue(Rescue rescue) {
-    // TODO(tvc12): Handle delete rescue
-  }
-
   void _handleOnStateChange(BuildContext context, RescueListingState state) {
     if (refreshController.isLoading) {
       refreshController.loadComplete();

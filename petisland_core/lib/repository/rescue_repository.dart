@@ -133,7 +133,7 @@ class MockRescueRepository extends RescueRepository {
 
   @override
   Future<bool> join(String id) {
-    return Future.value(true);
+    return Future.delayed(const Duration(seconds: 1), () => true);
   }
 
   @override
@@ -149,7 +149,7 @@ class MockRescueRepository extends RescueRepository {
 
   @override
   Future<bool> unJoin(String id) {
-    return Future.value(true);
+    return Future.delayed(const Duration(seconds: 1), () => true);
   }
 
   @override

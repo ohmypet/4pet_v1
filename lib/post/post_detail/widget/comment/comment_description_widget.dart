@@ -24,7 +24,7 @@ class _CommentDescriptionWidget extends StatelessWidget {
 
   Widget _buildName(BuildContext context, Account account) {
     final String name = account.getName();
-    final isPermission = AccountUtils.grantEditAndDel(account);
+    final isPermission = AccountUtils.isOwner(account);
     final text = DefaultTextStyle.merge(
       style: TTextStyles.semi(fontSize: 14, color: TColors.dark_sky_blue),
       child: Text(name),

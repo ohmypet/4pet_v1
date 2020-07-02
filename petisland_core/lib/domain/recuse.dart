@@ -153,4 +153,20 @@ class Rescue extends BaseModel {
       updateAt: this.updateAt,
     );
   }
+
+  void unJoin() {
+    isJoined = false;
+    if (currentHeroes != null && currentHeroes > 0) {
+      --currentHeroes;
+    } else
+      currentHeroes = 0;
+  }
+
+  void join() {
+    isJoined = true;
+    if (currentHeroes != null && currentHeroes > 0) {
+      ++currentHeroes;
+    } else
+      currentHeroes = 1;
+  }
 }
