@@ -14,5 +14,5 @@ import 'package:flutter_template/rescue_post/widget/widget.dart';
 import 'package:petisland_core/domain/domain.dart';
 import 'package:petisland_core/petisland_core.dart';
 
-part 'rescue_creation_screen.dart';
+part 'rescue_editor_screen.dart';
 part 'rescue_detail_screen.dart';

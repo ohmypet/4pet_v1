@@ -16,7 +16,7 @@ class PostTitleWidget extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       style: theme.textTheme.bodyText1.copyWith(
         color: theme.accentColor,
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: FontWeight.w300,
         letterSpacing: 0.5,
         height: 1.4,

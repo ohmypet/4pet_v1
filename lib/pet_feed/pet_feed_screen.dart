@@ -67,8 +67,8 @@ class PetFeedScreen extends TStatelessWidget {
   void _onCreateRescue(BuildContext context) {
     navigateToScreen(
       context: context,
-      screen: RescueCreationScreen(),
-      screenName: RescueCreationScreen.name,
+      screen: RescueEditorScreen.create(),
+      screenName: RescueEditorScreen.name,
     );
   }
 }

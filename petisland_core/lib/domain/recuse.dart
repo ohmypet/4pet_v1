@@ -132,4 +132,25 @@ class Rescue extends BaseModel {
       return this.likes = likes > 0 ? likes - 1 : 0;
     }
   }
+
+  Rescue clone() {
+    return Rescue(
+      id: this.id,
+      account: this.account,
+      createAt: this.createAt,
+      createBy: this.createBy,
+      currentHeroes: this.currentHeroes,
+      description: this.description,
+      isJoined: this.isJoined,
+      isReacted: this.isReacted,
+      likes: this.likes,
+      location: this.location,
+      maxHeroes: this.maxHeroes,
+      rescueImages: this.rescueImages,
+      status: this.status,
+      title: this.title,
+      totalCoin: this.totalCoin,
+      updateAt: this.updateAt,
+    );
+  }
 }

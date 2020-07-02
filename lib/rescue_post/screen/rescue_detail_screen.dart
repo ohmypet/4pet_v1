@@ -41,7 +41,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
             preferredSize: Size.fromHeight(32),
             child: Builder(
               builder: (context) => PostDetailAppBar(
-                hasPermision: AccountUtils.grantEditAndDel(account),
+                hasPermision: true || AccountUtils.grantEditAndDel(account),
                 onTapBack: () => _onTapBack(context),
                 onSelected: (_) => _onTapSeeMore(context, _),
               ),
@@ -100,6 +100,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
         _deleteRescue(context);
         break;
       case OptionType.Edit:
+        _editRescue(context);
         break;
       default:
     }
@@ -123,7 +124,9 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
     Log.debug('SendMessage:: $message');
   }
 
-  void _handleJoinNow() {}
+  void _handleJoinNow() {
+    // TODO(tvc12): Join here
+  }
 
   Widget _buildJoinButton() {
     if (canJoin) {
@@ -182,5 +185,12 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
             )
           },
         );
+  }
+
+  void _editRescue(BuildContext context) {
+    navigateToScreen(
+      context: context,
+      screen: RescueEditorScreen.edit(rescue: widget.rescue),
+    );
   }
 }
