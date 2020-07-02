@@ -21,9 +21,9 @@ abstract class BaseTool {
     );
   }
 
-  void closeScreen(BuildContext context, String screenName) {
+  void closeScreen<T>(BuildContext context, String screenName, {T data}) {
     closeUntil(context, screenName);
-    if (Navigator.canPop(context)) Navigator.pop(context);
+    if (Navigator.canPop(context)) Navigator.pop<T>(context, data);
   }
 
   void closeUntil(BuildContext context, String screenName) {
@@ -51,14 +51,12 @@ abstract class BaseTool {
     }
   }
 
-  void showErrorSnackBar(
-      {@required BuildContext context, @required String content}) {
+  void showErrorSnackBar({@required BuildContext context, @required String content}) {
     showSnackBar(context, content, Colors.red);
   }
 
   void showSnackBarByScaffoldKey(
-      {@required GlobalKey<ScaffoldState> key,
-      @required String content}) async {
+      {@required GlobalKey<ScaffoldState> key, @required String content}) async {
     try {
       key.currentState.removeCurrentSnackBar();
       await Future<void>.delayed(const Duration(milliseconds: 150));
