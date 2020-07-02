@@ -12,7 +12,7 @@ class Rescue extends BaseModel {
   Account account;
   bool isJoined;
   bool isReacted;
-  List<RescueImage> rescueImages;
+  List<PetImage> rescueImages;
 
   Rescue({
     String id,
@@ -57,6 +57,12 @@ class Rescue extends BaseModel {
     currentHeroes = json['currentHeroes'] ?? 0;
     likes = json['likes'] ?? 0;
     isJoined = json['isJoined'] ?? false;
+
+    if (json['images'] is List) {
+      rescueImages = (json['images'] as List).map((e) => PetImage.fromJson(e)).toList();
+    } else {
+      rescueImages = [];
+    }
   }
 
   String get avatar => account?.user?.avatar?.url;
@@ -71,10 +77,10 @@ class Rescue extends BaseModel {
   String get currentHeroesAsString => currentHeroes?.toString() ?? '0';
 
   String get firstImage {
-    final RescueImage item = rescueImages
-        ?.firstWhere((rescueImage) => rescueImage.image?.url != null, orElse: () => null);
+    final PetImage item = rescueImages
+        ?.firstWhere((rescueImage) => rescueImage.url != null, orElse: () => null);
     if (item != null) {
-      return item.image.url;
+      return item.url;
     } else {
       return null;
     }

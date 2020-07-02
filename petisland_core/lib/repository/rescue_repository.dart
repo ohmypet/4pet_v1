@@ -81,11 +81,11 @@ class MockRescueRepository extends RescueRepository {
         isReacted: ran.nextBool(),
       );
 
-  List<RescueImage> get rescueImages {
+  List<PetImage> get rescueImages {
     final size = ran.nextInt(10);
     return List.generate(
       size,
-      (_) => RescueImage(id: ThinId.randomId(), image: avatar),
+      (_) => PetImage(id: ThinId.randomId(), url: avatar.url),
     );
   }
 
