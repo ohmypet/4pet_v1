@@ -34,7 +34,7 @@ class _PricePostInputState extends State<PricePostInput> {
           crossAxisAlignment: CrossAxisAlignment.start,
           direction: Axis.vertical,
           children: <Widget>[
-            _TitleWidget(title: 'Price', isRequired: false),
+            TitleWidget(title: 'Price', isRequired: false),
             UserInputWidget(
               textController,
               hintText: 'Free Now',

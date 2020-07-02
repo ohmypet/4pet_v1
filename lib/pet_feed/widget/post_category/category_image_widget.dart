@@ -15,11 +15,6 @@ class _CategoryImageWidget extends StatelessWidget {
         : _buildImageDefaultWidget(item.name);
   }
 
-  String _getImageUrl(PetImage image) {
-    final url = image?.url?.trim();
-    return url;
-  }
-
   Widget _buildImageDefaultWidget(String type) {
     final BorderRadius borderRadius =
         this.borderRadius ?? BorderRadius.circular(4);
@@ -32,6 +27,11 @@ class _CategoryImageWidget extends StatelessWidget {
       ),
       child: SvgPicture.asset(assetName),
     );
+  }
+
+  String _getImageUrl(PetImage image) {
+    final url = image?.url?.trim();
+    return url;
   }
 
   String _getSvgPath(String type) {

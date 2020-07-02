@@ -1,18 +1,12 @@
-import 'package:ddi/di.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/pet_feed/widget/widget.dart';
-import 'package:flutter_template/petisland.dart';
-import 'package:flutter_template/profile/bloc/bloc.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+part of petisland.profile.widget;
 
-class MyPostWidget extends StatefulWidget {
+class FavoritePostWidget extends StatefulWidget {
   @override
-  _MyPostWidgetState createState() => _MyPostWidgetState();
+  _FavoritePostWidgetState createState() => _FavoritePostWidgetState();
 }
 
-class _MyPostWidgetState extends State<MyPostWidget> {
-  final MyPostBloc bloc = DI.get(MyPostBloc);
+class _FavoritePostWidgetState extends State<FavoritePostWidget> {
+  final FavoritePostBloc bloc = DI.get(FavoritePostBloc);
   final RefreshController controller = RefreshController();
 
   void initState() {
@@ -22,10 +16,10 @@ class _MyPostWidgetState extends State<MyPostWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<MyPostBloc, MyPostState>(
+    return BlocListener<FavoritePostBloc, FavoritePostState>(
       bloc: bloc,
       listener: _onListChanged,
-      child: BlocBuilder<MyPostBloc, MyPostState>(
+      child: BlocBuilder<FavoritePostBloc, FavoritePostState>(
         bloc: bloc,
         condition: (_, state) => state is ReloadMyPost,
         builder: _buildUIState,
@@ -33,17 +27,15 @@ class _MyPostWidgetState extends State<MyPostWidget> {
     );
   }
 
-  Widget _buildUIState(BuildContext context, MyPostState state) {
-    if (state is ReloadMyPost) {
+  Widget _buildUIState(BuildContext context, FavoritePostState state) {
+    if (state is ReloadFavoritePost) {
       final items = state.items;
       return SmartRefresher(
-        primary: true,
         controller: controller,
         enablePullDown: true,
         enablePullUp: true,
         onRefresh: _onRefresh,
         onLoading: _onLoading,
-        physics: const ClampingScrollPhysics(),
         child: ListView.separated(
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(20),
@@ -69,8 +61,8 @@ class _MyPostWidgetState extends State<MyPostWidget> {
     bloc.retrievePost();
   }
 
-  void _onListChanged(BuildContext context, MyPostState state) {
-    if (state is! ReloadMyPost) return;
+  void _onListChanged(BuildContext context, FavoritePostState state) {
+    if (state is! ReloadFavoritePost) return;
     if (controller.isLoading) {
       controller.loadComplete();
     }

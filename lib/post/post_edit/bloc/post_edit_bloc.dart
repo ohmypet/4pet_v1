@@ -101,7 +101,7 @@ class PostEditBloc extends TBloc<PostEditEvent, PostEditState> {
     add(AddImageEvent(imagesPath));
   }
 
-  void removeImage(int index, ImageType type) {
+  void removeImage(int index, ImageSources type) {
     add(RemoveImageEvent(index, type));
   }
 }

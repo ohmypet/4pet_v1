@@ -15,7 +15,7 @@ class PostEditBody extends TStatelessWidget {
             SummaryInfoWidget(
               postEditBloc.title ?? '',
               petImage: postEditBloc.images ?? <String>[],
-              price: postEditBloc.price ?? 0,
+              money: postEditBloc.price ?? 0,
               location: postEditBloc.location,
             ),
             Expanded(
@@ -31,22 +31,18 @@ class PostEditBody extends TStatelessWidget {
                     TitlePostInput(postEditBloc),
                     DescPostInput(postEditBloc),
                     PricePostInput(postEditBloc),
-                    LocationPostInput(postEditBloc),
+                    LocationSelectorWidget(
+                      isRequired: true,
+                      selectedItem: postEditBloc.location.isNotEmpty ? postEditBloc.location : null,
+                      onSelected: (String text) {
+                        postEditBloc
+                          ..location = text
+                          ..priceChange(postEditBloc.price);
+                      },
+                    ),
                     ImagePostInput(postEditBloc),
                     PetCategoryInput(postEditBloc),
                     const SizedBox(height: 150),
-                    // Flexible(
-                    //   child: state is ExpandState
-                    //       ? Flex(
-                    //           mainAxisSize: MainAxisSize.min,
-                    //           direction: Axis.vertical,
-                    //           children: <Widget>[
-                    //             LocationPostInput(postEditBloc),
-                    //             // PhonePostInput(postEditBloc),
-                    //           ],
-                    //         )
-                    //       : ExpandWidget(postEditBloc),
-                    // )
                   ],
                 ),
               ),

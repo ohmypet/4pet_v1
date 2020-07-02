@@ -7,6 +7,9 @@ class PetFeedBloc extends TBloc<PetFeedEvent, PetFeedState> {
   Duration get delayEvent => const Duration(milliseconds: 150);
 
   @override
+  PetFeedState get initialState => LoadPostSucceed(<Item>[], true);
+
+  @override
   Stream<PetFeedState> errorToState(BaseErrorEvent event) async* {
     switch (event.runtimeType) {
       case LoadPostErrorEvent:
@@ -30,16 +33,21 @@ class PetFeedBloc extends TBloc<PetFeedEvent, PetFeedState> {
     }
   }
 
-  void _retrievePosts(_RetrievePostEvent event) {
-    postService
-        .getPosts(
-          event.offset,
-          limit: event.limit,
-          categoryType: event.categoryType,
-          petCategoryId: event.petCategoryId,
-        )
-        .then(_handleLoadPostSucceed)
-        .catchError(_handleError);
+  void reloadPosts(int offset, int limit) {
+    add(_ReloadPostEvent(offset, limit: limit));
+  }
+
+  void retrievePosts(int offset, int limit) {
+    add(_RetrievePostEvent(offset, limit: limit));
+  }
+
+  void _handleError(dynamic ex, trace) {
+    Log.error('$ex - $trace');
+    add(LoadPostErrorEvent('Get post error, try again later!'));
+  }
+
+  void _handleLoadPostSucceed(List<Item> items) {
+    add(_LoadPostSucceedEvent(items));
   }
 
   void _reloadPosts(_ReloadPostEvent event) {
@@ -54,23 +62,15 @@ class PetFeedBloc extends TBloc<PetFeedEvent, PetFeedState> {
         .catchError(_handleError);
   }
 
-  void _handleLoadPostSucceed(List<Item> items) {
-    add(_LoadPostSucceedEvent(items));
-  }
-
-  void _handleError(dynamic ex, trace) {
-    Log.error('$ex - $trace');
-    add(LoadPostErrorEvent('Get post error, try again later!'));
-  }
-
-  @override
-  PetFeedState get initialState => LoadPostSucceed(<Item>[], true);
-
-  void retrievePosts(int offset, int limit) {
-    add(_RetrievePostEvent(offset, limit: limit));
-  }
-
-  void reloadPosts(int offset, int limit) {
-    add(_ReloadPostEvent(offset, limit: limit));
+  void _retrievePosts(_RetrievePostEvent event) {
+    postService
+        .getPosts(
+          event.offset,
+          limit: event.limit,
+          categoryType: event.categoryType,
+          petCategoryId: event.petCategoryId,
+        )
+        .then(_handleLoadPostSucceed)
+        .catchError(_handleError);
   }
 }

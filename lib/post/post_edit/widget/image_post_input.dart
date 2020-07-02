@@ -26,7 +26,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
           direction: Axis.vertical,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _TitleWidget(title: 'Images'),
+            TitleWidget(title: 'Images'),
             const SizedBox(height: 5),
             BlocBuilder<PostEditBloc, PostEditState>(
               bloc: widget.bloc,
@@ -34,8 +34,11 @@ class _ImagePostInputState extends TState<ImagePostInput> {
                 return SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: _buildImageWidget(widget.bloc.postImages),
+                  child: SizedBox(
+                    height: 75,
+                    child: Row(
+                      children: _buildImageWidget(widget.bloc.postImages),
+                    ),
                   ),
                 );
               },
@@ -52,9 +55,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
   }
 
   List<Widget> _buildImageWidget(List<PostImage> postImages) {
-    List<Widget> result = <Widget>[
-      AddImagePostWidget(onPress: () => chooseImage())
-    ];
+    List<Widget> result = <Widget>[AddableWidget(onPress: () => chooseImage())];
 
     if (postImages == null || postImages.isEmpty) {
       return result;
@@ -65,7 +66,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
         result.removeLast();
       postImages.fold(0, (i, postImage) {
         result
-          ..add(ImagePostWidget(postImage, index: i, onTapRemove: _removeImage))
+          ..add(ImagePostWidget(postImage.image.url, index: i, onTapRemove: _removeImage))
           ..add(SizedBox(width: 7));
         return i + 1;
       });
@@ -96,7 +97,7 @@ class _ImagePostInputState extends TState<ImagePostInput> {
     }
   }
 
-  void _removeImage(int index, ImageType type) {
+  void _removeImage(int index, ImageSources type) {
     widget.bloc.removeImage(index, type);
   }
 }

@@ -1,14 +1,14 @@
 part of petisland.post.screen.widget;
 
-enum SeeMoreType { Edit, Delete, Report }
+enum OptionType { Edit, Delete, Click, Report }
 
 class PostDetailAppBar extends StatelessWidget {
   final VoidCallback onTapBack;
-  final ValueChanged<SeeMoreType> onTapSeeMore;
+  final ValueChanged<OptionType> onSelected;
   final bool hasPermision;
 
   const PostDetailAppBar(
-      {Key key, this.onTapBack, this.onTapSeeMore, this.hasPermision = false})
+      {Key key, this.onTapBack, this.onSelected, this.hasPermision = false})
       : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class PostDetailAppBar extends StatelessWidget {
             onPressed: _onTapBack,
             color: theme.accentColor,
           ),
-          PopupMenuButton<SeeMoreType>(
+          PopupMenuButton<OptionType>(
             itemBuilder: _buildMenu,
             onSelected: _onSelectChanged,
             icon: Icon(Icons.more_vert, color: theme.primaryColor),
@@ -34,32 +34,33 @@ class PostDetailAppBar extends StatelessWidget {
     );
   }
 
-  static final items = <MapEntry<SeeMoreType, String>>[
-    MapEntry(SeeMoreType.Edit, 'Edit'),
-    MapEntry(SeeMoreType.Delete, 'Delete'),
-    MapEntry(SeeMoreType.Report, 'Report'),
+  static final items = <MapEntry<OptionType, String>>[
+    MapEntry(OptionType.Edit, 'Edit'),
+    MapEntry(OptionType.Delete, 'Delete'),
+    MapEntry(OptionType.Report, 'Report'),
   ];
 
-  List<PopupMenuEntry<SeeMoreType>> _buildMenu(BuildContext context) {
+  List<PopupMenuEntry<OptionType>> _buildMenu(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return items.map(
       (item) {
-        bool enable = item.key != SeeMoreType.Report ? hasPermision : true;
-        return PopupMenuItem<SeeMoreType>(
+        bool enable = item.key != OptionType.Report ? hasPermision : true;
+        return PopupMenuItem<OptionType>(
           value: item.key,
           enabled: enable,
           child: Text(item.value),
           textStyle: theme.textTheme.bodyText2,
         );
       },
-    ).toList();
+    ).toList()
+      ..removeWhere((element) => !element.enabled);
   }
 
   void _onTapBack() {
     if (onTapBack != null) onTapBack();
   }
 
-  void _onSelectChanged(SeeMoreType value) {
-    if (onTapSeeMore != null) onTapSeeMore(value);
+  void _onSelectChanged(OptionType value) {
+    if (onSelected != null) onSelected(value);
   }
 }

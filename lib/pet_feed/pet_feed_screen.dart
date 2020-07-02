@@ -1,13 +1,8 @@
 part of petisland.pet_feed;
 
-class PetFeedScreen extends TStatefulWidget {
-  @override
-  _PetFeedScreenState createState() => _PetFeedScreenState();
-}
-
-class _PetFeedScreenState extends TState<PetFeedScreen> {
+class PetFeedScreen extends TStatelessWidget {
   final PetFeedController controller = DI.get(PetFeedController);
-
+  final RescueListingBloc listingBloc = DI.get(RescueListingBloc);
   @override
   Widget build(BuildContext context) {
     return NestedScrollView(
@@ -20,7 +15,11 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
             snap: true,
             title: TextLogo(),
             actions: <Widget>[
-              TCircleButton(icon: Icon(Icons.search)),
+              // TODO(tvc12): Disable search feature, open in next version
+              EnableWidget(
+                enable: false,
+                child: TCircleButton(icon: Icon(Icons.search)),
+              ),
               SizedBox(width: 7),
               TCircleButton(
                 icon: Icon(Icons.add),
@@ -28,10 +27,28 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
               ),
               SizedBox(width: 15),
             ],
-          )
+          ),
+          SliverPersistentHeader(
+            pinned: false,
+            floating: false,
+            delegate: _buildRescueHeader(context),
+          ),
+          // SliverPersistentHeader(
         ];
       },
       body: PetFeedDetailWidget(controller: controller),
+    );
+  }
+
+  SliverPersistentHeaderDelegate _buildRescueHeader(BuildContext context) {
+    return THeaderWidget(
+      minExtent: 205,
+      maxExtent: 205,
+      autoInsertSafeArea: false,
+      child: RescueListing(
+        listingBloc: listingBloc,
+        onTapCreateRescuePost: () => _onCreateRescue(context),
+      ),
     );
   }
 
@@ -44,6 +61,14 @@ class _PetFeedScreenState extends TState<PetFeedScreen> {
       context: context,
       screen: PostEditScreen.create(onSendTap: _onTapCreatePost),
       screenName: PostEditScreen.name,
+    );
+  }
+
+  void _onCreateRescue(BuildContext context) {
+    navigateToScreen(
+      context: context,
+      screen: RescueCreationScreen(),
+      screenName: RescueCreationScreen.name,
     );
   }
 }

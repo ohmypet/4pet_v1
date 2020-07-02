@@ -40,13 +40,11 @@ class TBaseCachedImageWidget extends StatelessWidget {
             placeholder: placeholder ?? (_, __) => _buildPlaceHolder(),
             errorWidget: errorWidget ?? (_, __, ___) => _buildError(),
           )
-        : errorWidget != null
-            ? errorWidget(context, null, 'url is null')
-            : _buildError();
+        : errorWidget != null ? errorWidget(context, null, 'url is null') : _buildError();
   }
 
   Widget _buildPlaceHolder() {
-    return XImageLoading(
+    return TImageLoading(
       child: Container(
         height: height,
         width: width,
@@ -66,10 +64,10 @@ class TBaseCachedImageWidget extends StatelessWidget {
   }
 }
 
-class XImageLoading extends StatelessWidget {
+class TImageLoading extends StatelessWidget {
   final Widget child;
 
-  const XImageLoading({Key key, this.child}) : super(key: key);
+  const TImageLoading({Key key, this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,10 +79,32 @@ class XImageLoading extends StatelessWidget {
   }
 }
 
+class TShimmerLoading extends StatelessWidget {
+  final BoxShape shape;
+  TShimmerLoading() : shape = BoxShape.rectangle;
+  TShimmerLoading.circle() : shape = BoxShape.circle;
+
+  @override
+  Widget build(BuildContext context) {
+    return TImageLoading(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: shape == BoxShape.rectangle ? BorderRadius.circular(5.0) : null,
+          shape: shape,
+          color: TColors.black,
+        ),
+      ),
+    );
+  }
+}
+
 class TCacheImageWidget extends StatelessWidget {
   final double width;
   final double height;
   final String url;
+  final ValueChanged<ImageProvider> onTapImage;
+  final Object heroTag;
+  final BoxFit fit;
 
   //default border radius = 4
   final BorderRadius borderRadius;
@@ -99,30 +119,50 @@ class TCacheImageWidget extends StatelessWidget {
     this.borderRadius,
     this.defaultBackgroundColor = TColors.duck_egg_blue,
     this.shape = BoxShape.rectangle,
+    this.onTapImage,
+    this.heroTag,
+    this.fit = BoxFit.cover,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (heroTag == null)
+      return _buildImage();
+    else {
+      return Hero(
+        tag: heroTag,
+        child: _buildImage(),
+      );
+    }
+  }
+
+  Widget _buildImage() {
     final BoxShape shape = this.shape ?? BoxShape.rectangle;
     BorderRadius borderRadius;
     if (shape == BoxShape.rectangle)
       borderRadius = this.borderRadius ?? BorderRadius.circular(4);
+
     return TBaseCachedImageWidget(
       url: url,
       imageBuilder: (_, ImageProvider imageProvider) {
-        return Container(
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-            image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-            borderRadius: borderRadius,
-            color: defaultBackgroundColor,
-            shape: shape,
+        return GestureDetector(
+          onTap: () {
+            if (onTapImage != null) onTapImage(imageProvider);
+          },
+          child: Container(
+            width: width,
+            height: height,
+            decoration: BoxDecoration(
+              image: DecorationImage(image: imageProvider, fit: fit),
+              borderRadius: borderRadius,
+              color: defaultBackgroundColor,
+              shape: shape,
+            ),
           ),
         );
       },
       placeholder: (_, __) {
-        return XImageLoading(
+        return TImageLoading(
           child: Container(
             width: width,
             height: height,

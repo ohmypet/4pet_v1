@@ -12,4 +12,3 @@ import 'package:flutter_template/register/register.dart';
 part 'loading_widget.dart';
 part 'login_detail_widget.dart';
 part 'petisland_button_widget.dart';
-part 'user_input_widget.dart';

@@ -27,7 +27,7 @@ class _FavoritePostScreenState extends State<FavoritePostScreen> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: FavoritePostComponent(),
+      body: FavoritePostWidget(),
     );
   }
 }

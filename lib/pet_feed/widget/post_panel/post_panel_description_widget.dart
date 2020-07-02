@@ -1,15 +1,22 @@
 part of petisland.pet_feed.widget.post_panel;
 
-class _PostPanelDescriptionWidget extends StatelessWidget {
+class PostPanelDescriptionWidget extends StatefulWidget {
   final Post item;
 
-  const _PostPanelDescriptionWidget({Key key, @required this.item})
-      : super(key: key);
+  const PostPanelDescriptionWidget({Key key, @required this.item}) : super(key: key);
+
+  @override
+  _PostPanelDescriptionWidgetState createState() => _PostPanelDescriptionWidgetState();
+}
+
+class _PostPanelDescriptionWidgetState extends State<PostPanelDescriptionWidget> {
+  bool isLock = false;
+  TWorker get worker => DI.get(TWorker);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final titleWidget = _buildTitleWidget(context, item.title);
+    final titleWidget = _buildTitleWidget(context, widget.item.title);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
@@ -27,7 +34,11 @@ class _PostPanelDescriptionWidget extends StatelessWidget {
             Flexible(child: titleWidget),
             Flexible(
               child: Theme(
-                child: PostButtonLikeWidget(item: item),
+                child: PostButtonLikeWidget(
+                  isReacted: widget.item.isReacted,
+                  likes: widget.item.getLikes(),
+                  onTapLike: _handleOnTapLike,
+                ),
                 data: theme.copyWith(
                   textTheme: theme.textTheme.copyWith(
                     headline1: theme.textTheme.headline1.copyWith(
@@ -55,5 +66,21 @@ class _PostPanelDescriptionWidget extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       child: Text(title),
     );
+  }
+
+  void _handleOnTapLike() {
+    if (isLock) return;
+    isLock = true;
+    worker.likePost(widget.item.id);
+    setState(() {
+      if (widget.item.isReacted) {
+        widget.item.unLike();
+      } else {
+        widget.item.like();
+      }
+    });
+    Future.delayed(const Duration(milliseconds: 600)).whenComplete(() {
+      isLock = false;
+    });
   }
 }

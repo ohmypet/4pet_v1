@@ -46,9 +46,8 @@ abstract class PetIslandConstants {
   static PetType getPetType(String type) {
     final String petCategory = StringUtils.normalizePetCategory(type);
     if (petCategory is String) {
-      final item = PetIslandConstants._petCategories.firstWhere(
-          (item) => petCategory.contains(item.key),
-          orElse: () => null);
+      final item = PetIslandConstants._petCategories
+          .firstWhere((item) => petCategory.contains(item.key), orElse: () => null);
       return item != null ? item.value : PetType.Other;
     } else {
       return PetType.Other;
@@ -80,11 +79,14 @@ enum PostStatus { Pending, New, Done, Expired }
 
 enum PetType { Dog, Cat, Bird, Fish, Snake, Hare, Hamster, Other }
 
+enum RescueStatus { Open, Ready, Close, Done }
+
+enum RescueAccountStatus { Joined, Blocked }
+
 const int max_image = 10;
 
 String enumToString(Object object) {
-  if (object is CategoryTypeEnum)
-    return PetIslandConstants.categoryTypes[object.index];
+  if (object is CategoryTypeEnum) return PetIslandConstants.categoryTypes[object.index];
 
   return describeEnum(object);
 }

@@ -33,26 +33,38 @@ class BasicFunctionWidget extends StatelessWidget {
   }
 
   Widget _buildChangePassword() {
-    return SettingOptionWidget(
-      title: 'Change Password',
-      onTap: onTapChangePassword,
-      icon: Icon(Icons.security),
+    // TODO(hao): Enable change password in next version
+    return EnableWidget(
+      enable: false,
+      child: SettingOptionWidget(
+        title: 'Change Password',
+        onTap: onTapChangePassword,
+        icon: Icon(Icons.security),
+      ),
     );
   }
 
   Widget _buildRating() {
-    return SettingOptionWidget(
-      title: 'Review',
-      onTap: onTapRating,
-      icon: Icon(Icons.star_half),
+    // TODO(tvc12): Enable review in the feature
+    return EnableWidget(
+      enable: false,
+      child: SettingOptionWidget(
+        title: 'Review',
+        onTap: onTapRating,
+        icon: Icon(Icons.star_half),
+      ),
     );
   }
 
   Widget _buildReport() {
-    return SettingOptionWidget(
-      title: 'Report and Suggestion',
-      onTap: onTapReport,
-      icon: Icon(Icons.info_outline),
+    // TODO(tvc12): Enable Report and Suggestion in the feature
+    return EnableWidget(
+      enable: false,
+      child: SettingOptionWidget(
+        title: 'Report and Suggestion',
+        onTap: onTapReport,
+        icon: Icon(Icons.info_outline),
+      ),
     );
   }
 

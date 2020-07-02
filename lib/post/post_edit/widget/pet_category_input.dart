@@ -21,7 +21,7 @@ class PetCategoryInput extends TStatelessWidget {
           direction: Axis.vertical,
           children: <Widget>[
             SizedBox(height: 5),
-            _TitleWidget(title: 'Pet Category', isRequired: false),
+            TitleWidget(title: 'Pet Category', isRequired: false),
             TDropDown.builder(
               initSelectedItem: categories.indexWhere(
                   (petCategory) => bloc.petCategory.id == petCategory.id),

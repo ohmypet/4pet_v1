@@ -59,7 +59,8 @@ class _CommentDescriptionWidget extends StatelessWidget {
   }
 
   Widget _buildTime(BuildContext context, DateTime time) {
-    final textTime = TimeUtils.toPm(time);
+    final textTime = TimeUtils.getTimeAgo(time);
+
     return DefaultTextStyle.merge(
       style: TTextStyles.light(fontSize: 14, color: TColors.duck_egg_blue.withAlpha(220)),
       child: Text(textTime),

@@ -1,17 +1,28 @@
 part of petisland.pet_feed.widget.post_panel;
 
-class _PanelDescriptionBar extends StatelessWidget {
-  final Panel panel;
-  final VoidCallback onTap;
+class PanelDescriptionBar extends StatelessWidget {
+  final String title;
+  final String customSubTitle;
+  final String customStringIcon;
+  final VoidCallback onTapSubTitle;
+  final bool enableSubtitle;
+  final bool showSubtitle;
 
-  const _PanelDescriptionBar({Key key, @required this.panel, this.onTap})
-      : super(key: key);
+  const PanelDescriptionBar({
+    Key key,
+    @required this.title,
+    this.onTapSubTitle,
+    this.enableSubtitle = true,
+    this.customSubTitle = 'See more',
+    this.customStringIcon = ' >>',
+    this.showSubtitle = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final String title = PetIslandConstants.getCategoryStringFromType(panel.type);
-    final Widget titleWidget = _buildTitle(context, title);
-    final Widget seeMoreWidget = _buildSeeMore(context, _onTapSeeMore);
+    final titleWidget = _buildTitle(context, title);
+    final seeMoreWidget =
+        showSubtitle == true ? _buildSubTitle(context, _onTapSeeMore) : const SizedBox();
     return Flex(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -19,23 +30,15 @@ class _PanelDescriptionBar extends StatelessWidget {
       direction: Axis.horizontal,
       children: <Widget>[
         Flexible(child: titleWidget),
-        seeMoreWidget,
+        EnableWidget(
+          child: seeMoreWidget,
+          enable: enableSubtitle,
+        ),
       ],
     );
   }
 
-  Widget _buildTitle(BuildContext context, String title) {
-    final theme = Theme.of(context);
-    final style = theme.textTheme.subtitle2.copyWith(
-      fontSize: 18,
-      color: theme.accentColor.withAlpha(220),
-      letterSpacing: 0.2,
-      fontWeight: FontWeight.w700
-    );
-    return Text(title, style: style);
-  }
-
-  Widget _buildSeeMore(BuildContext context, VoidCallback onTap) {
+  Widget _buildSubTitle(BuildContext context, VoidCallback onTap) {
     final theme = Theme.of(context);
     final style = theme.textTheme.subtitle2.copyWith(
       fontSize: 14,
@@ -48,17 +51,28 @@ class _PanelDescriptionBar extends StatelessWidget {
         text: TextSpan(
           children: [
             TextSpan(
-              text: 'See more',
+              text: this.customSubTitle,
               style: style.copyWith(decoration: TextDecoration.underline),
             ),
-            TextSpan(text: ' >>', style: style.copyWith(fontSize: 12))
+            TextSpan(text: this.customStringIcon, style: style.copyWith(fontSize: 12))
           ],
         ),
       ),
     );
   }
 
+  Widget _buildTitle(BuildContext context, String title) {
+    final theme = Theme.of(context);
+    final style = theme.textTheme.subtitle2.copyWith(
+      fontSize: 18,
+      color: theme.accentColor.withAlpha(220),
+      letterSpacing: 0.2,
+      fontWeight: FontWeight.w700,
+    );
+    return Text(title, style: style);
+  }
+
   void _onTapSeeMore() {
-    if (onTap != null) onTap();
+    if (onTapSubTitle != null) onTapSubTitle();
   }
 }

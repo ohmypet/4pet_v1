@@ -1,17 +1,10 @@
-part of petisland.pet_feed.widget.post;
+part of petisland.rescue_post.widget;
 
-enum ImageType {
-  Local,
-  Server,
-}
-
-typedef TapImage = void Function(String, ImageType);
-
-class PostPreviewWidget extends StatelessWidget {
-  final Post item;
+class PreviewRescueDetailWidget extends StatelessWidget {
+  final Rescue rescue;
   final TapImage onTapImage;
 
-  const PostPreviewWidget({Key key, @required this.item, this.onTapImage})
+  const PreviewRescueDetailWidget({Key key, @required this.rescue, this.onTapImage})
       : super(key: key);
 
   @override
@@ -20,17 +13,18 @@ class PostPreviewWidget extends StatelessWidget {
       flex: 3,
       child: Container(
         margin: const EdgeInsets.only(left: 5),
-        child: PostImageWidget(item: item, onTapImage: onTapImage),
-        alignment: Alignment.centerLeft,
+        child: PostImageWidget(imageUrl: rescue.firstImage),
+        alignment: Alignment.center,
       ),
     );
     final Widget description = Expanded(
-      child: _buildInfo(context, item),
+      child: _buildInfo(context, rescue),
       flex: 5,
     );
     return Flex(
       mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       direction: Axis.horizontal,
       children: <Widget>[
         image,
@@ -39,11 +33,10 @@ class PostPreviewWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildInfo(BuildContext context, Post item) {
+  Widget _buildInfo(BuildContext context, Rescue item) {
     final String title = item.title;
     final Account account = item.account;
-    final double price = item.price;
-    final String location = item.location;
+    final double coin = item.totalCoin;
     final DateTime time = item.createAt;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -54,13 +47,12 @@ class PostPreviewWidget extends StatelessWidget {
         direction: Axis.vertical,
         children: <Widget>[
           Flexible(flex: 3, child: PostTitleWidget(title: title)),
-          SizedBox(height: 5),
-          Flexible(child: _PostUserInfoWidget(account: account)),
-          Flexible(child: PostMoneyWidget(price: price)),
+          const SizedBox(height: 5),
+          Flexible(child: UserInfoWidget(account: account)),
           Flexible(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: PostLocationWidget(location: location),
+            child: PostMoneyWidget(
+              money: coin,
+              typeMoney: 'coins',
             ),
           ),
           Flexible(

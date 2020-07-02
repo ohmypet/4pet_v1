@@ -1,7 +1,13 @@
 part of petisland.pet_feed.widget.post;
 
 class PostWidget extends PostItemRender<Post> {
-  const PostWidget(Post item, {Key key}) : super(item, key: key);
+  final VoidCallback reRender;
+
+  const PostWidget(
+    Post item, {
+    Key key,
+    this.reRender,
+  }) : super(item, key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,7 @@ class PostWidget extends PostItemRender<Post> {
               flex: 7,
               child: InkWell(
                 onTap: () => _onTapPost(context),
-                child: PostPreviewWidget(item: item),
+                child: PreviewPostWidget(item: item),
               ),
             ),
             Expanded(
@@ -39,13 +45,21 @@ class PostWidget extends PostItemRender<Post> {
         onDeletePost: () => _removePost(context, item.id),
       ),
       screenName: PostDetailScreen.name,
-    );
+    ).whenComplete(() {
+      if (reRender != null) {
+        reRender();
+      }
+    });
   }
 
   void _removePost(BuildContext context, String id) {
     DI.get<PetFeedController>(PetFeedController).remove(id);
   }
 }
+
+// class  {
+
+// }
 
 void tlaunch(String text, {LaunchMode mode = LaunchMode.Url}) async {
   String _getPrefixByMode(LaunchMode mode) {
@@ -62,8 +76,7 @@ void tlaunch(String text, {LaunchMode mode = LaunchMode.Url}) async {
   final String prefix = _getPrefixByMode(mode);
   text = '$prefix$text';
   canLaunch(text)
-      .then((isLaunch) =>
-          isLaunch ? launch(text) : throw Exception('cannot launch'))
+      .then((isLaunch) => isLaunch ? launch(text) : throw Exception('cannot launch'))
       .catchError((ex) => Log.error(ex));
 }
 

@@ -1,11 +1,10 @@
 part of petisland.post.screen.widget;
 
 class ImageSliderWidget extends StatelessWidget {
-  final List<PostImage> postImages;
+  final List<String> images;
   final String description;
 
-  const ImageSliderWidget(
-      {Key key, @required this.postImages, @required this.description})
+  const ImageSliderWidget({Key key, @required this.images, @required this.description})
       : super(key: key);
 
   @override
@@ -22,14 +21,11 @@ class ImageSliderWidget extends StatelessWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 5),
-            itemCount: postImages.length,
+            itemCount: images.length,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (_, index) {
-              final postImage = postImages[index];
-              return AspectRatio(
-                aspectRatio: 1,
-                child: _buildImage(postImage.image.url),
-              );
+              final url = images[index];
+              return PostImageWidget(imageUrl: url);
             },
             separatorBuilder: (BuildContext context, int index) {
               return const SizedBox(width: 15);
@@ -38,11 +34,6 @@ class ImageSliderWidget extends StatelessWidget {
         )
       ],
     );
-  }
-
-  Widget _buildImage(String url) {
-    final bool isFromServer = StringUtils.isImageUrlFormat(url);
-    return isFromServer ? TCacheImageWidget(url: url) : Image.file(File(url));
   }
 }
 

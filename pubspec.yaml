@@ -1,9 +1,9 @@
 name: flutter_template
 description: A new project template with Flutter.
-version: 1.0.0+1
+version: 1.1.0
 
 environment:
-    sdk: '>=2.2.2 <3.0.0'
+    sdk: '>=2.7.0 <3.0.0'
 
 dependencies:
     flutter:
@@ -19,13 +19,17 @@ dependencies:
     shimmer: 1.1.1
     cached_network_image: 2.2.0
     flutter_money_formatter: 0.8.3
-    image_picker: 0.6.5+3
+    image_picker: 0.6.6+1
     file_picker: 1.9.0
     pull_to_refresh: 1.5.8
     flutter_svg: 0.17.4
     url_launcher: 5.4.5
     ansicolor: 1.0.2
     flutter_webview_plugin: 0.3.11
+    dropdown_search: 0.4.3
+    dashed_container: 1.0.1
+    photo_view: 0.9.2
+    typicons_flutter: 0.3.1
 
     ddi: any
     petisland_core:
@@ -35,8 +39,8 @@ dependency_overrides:
     ddi:
         path: packages/di
     flutter_money_formatter:
-      git:
-        url: git://github.com/anisalibegic/flutter_money_formatter.git
+        git:
+            url: git://github.com/anisalibegic/flutter_money_formatter.git
 
 dev_dependencies:
     flutter_driver:
@@ -47,7 +51,6 @@ dev_dependencies:
     json_serializable: 3.3.0
     pedantic: 1.9.0
     flutter_native_splash: 0.1.9
-
 
 flutter_icons:
     android: 'launcher_icon'

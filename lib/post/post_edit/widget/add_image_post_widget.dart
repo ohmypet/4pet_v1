@@ -1,26 +1,27 @@
 part of petisland.post.post_edit.widget;
 
-class AddImagePostWidget extends StatelessWidget {
+class AddableWidget extends StatelessWidget {
   final void Function() onPress;
 
-  const AddImagePostWidget({@required this.onPress, Key key}) : super(key: key);
+  const AddableWidget({this.onPress, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return GestureDetector(
       onTap: onPress,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
-        child: Container(
-          height: 100,
-          width: 100,
-          color: theme.primaryColor.withAlpha(50),
-          child: Center(
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: DashedContainer(
+            dashColor: TColors.water_melon,
+            blankLength: 5,
+            dashedLength: 5,
+            strokeWidth: 3.5,
             child: Icon(
               Icons.add,
-              color: TColors.dark_sky_blue,
-              size: 36,
+              color: TColors.water_melon,
+              size: 24,
             ),
           ),
         ),

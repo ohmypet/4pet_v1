@@ -1,41 +1,57 @@
 part of petisland.pet_feed.widget.post;
 
-class PostImageWidget extends StatelessWidget {
-  final Post item;
+class PostImageWidget extends TStatelessWidget {
+  final String imageUrl;
   final bool isSquare;
-  final TapImage onTapImage;
   final Widget imageDefault = DefaultPetImage();
+  final Object heroTag = ThinId.randomId();
+  final BoxFit fit;
+  final BoxShape shape;
+  final Color backGroundColor;
 
-  PostImageWidget(
-      {Key key, @required this.item, this.isSquare = true, this.onTapImage})
-      : super(key: key);
+  PostImageWidget({Key key, this.imageUrl, this.isSquare = true, this.fit: BoxFit.cover, this.shape, this.backGroundColor = TColors.duck_egg_blue}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final String imageUrl = getUrlImage(item.postImages);
-    final onTap = onTapImage != null
-        ? () => onTapImage(imageUrl, ImageType.Server)
-        : null;
-    final Widget image = imageUrl != null
-        ? GestureDetector(
-            child: _buildImage(imageUrl),
-            onTap: onTap,
-          )
-        : imageDefault;
+    final Widget image = imageUrl != null ? _buildImage(imageUrl, context) : imageDefault;
     return isSquare ? AspectRatio(child: image, aspectRatio: 1) : image;
   }
 
-  String getUrlImage(List<PostImage> images) {
-    final PostImage image = images
-        .firstWhere((image) => image.image.url != null, orElse: () => null);
-    return image?.image?.url;
+  Widget _buildImage(String imageUrl, BuildContext context) {
+    final bool isFromServer = StringUtils.isImageUrlFormat(imageUrl);
+    if (isFromServer) {
+      return TCacheImageWidget(
+        url: imageUrl,
+        heroTag: heroTag,
+        onTapImage: (_) => onTapImge(_, context),
+        fit: fit,
+        shape: shape,
+        defaultBackgroundColor: backGroundColor,
+      );
+    } else {
+      final imageProvider = FileImage(File(imageUrl));
+      return GestureDetector(
+        onTap: () => onTapImge(imageProvider, context),
+        child: Hero(
+          tag: heroTag,
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: fit,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
   }
 
-  Widget _buildImage(String imageUrl) {
-    final bool isFromServer = StringUtils.isImageUrlFormat(imageUrl);
-    return isFromServer
-        ? TCacheImageWidget(url: imageUrl)
-        : Image.file(File(imageUrl));
+  void onTapImge(ImageProvider provider, BuildContext context) {
+    navigateToScreen(
+      context: context,
+      screen: PreviewImage(provider, heroTag, usePhotoView: true),
+    );
   }
 }
 

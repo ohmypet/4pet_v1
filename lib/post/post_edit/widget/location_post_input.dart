@@ -33,7 +33,7 @@ class _LocationPostInputState extends TState<LocationPostInput> {
           crossAxisAlignment: CrossAxisAlignment.start,
           direction: Axis.vertical,
           children: <Widget>[
-            _TitleWidget(title: 'Location', isRequired: true),
+            TitleWidget(title: 'Location', isRequired: true),
             UserInputWidget(
               textController,
               hintText: 'Ho Chi Minh City, Viet Nam',

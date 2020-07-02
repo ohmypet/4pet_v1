@@ -31,6 +31,11 @@ class LoadPostSucceed extends PetFeedState {
   LoadPostSucceed(this.items, this.maybeRetrievePost);
 }
 
-class CreatePostSuccess extends PetFeedState {}
+class CreatePostSuccess extends PetFeedState {
+  final String message;
+
+  CreatePostSuccess(this.message);
+
+}
 
 class CreatePostError extends PetFeedState {}

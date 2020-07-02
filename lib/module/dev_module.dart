@@ -16,5 +16,7 @@ class DevModule extends AbstractModule {
     bind(NotificationBloc).to(NotificationBloc());
     bind(MyPostBloc).to(MyPostBloc());
     bind(FavoritePostBloc).to(FavoritePostBloc());
+    bind(RescueListingBloc).to(RescueListingBloc());
+    bind(CoinHistoryBloc).to(CoinHistoryBloc());
   }
 }

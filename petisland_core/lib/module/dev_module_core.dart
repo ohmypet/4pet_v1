@@ -12,7 +12,10 @@ abstract class DIKeys {
 class DevModuleCore extends AbstractModule {
   static const String normal_client = 'normal_client';
   static const String api_client = 'api_client';
+  static const String rescue_api_client = 'rescue_api_client';
   static const String api_upload_image = 'api_upload_image';
+  static const String opencagedata_api = 'opencagedata_api';
+  static const String account_service_authenticated = 'account_service_authenticated';
 
   @override
   void init() async {
@@ -21,8 +24,12 @@ class DevModuleCore extends AbstractModule {
     bind(LocalStorageService).to(await _buildLocalService());
     bind(normal_client).to(_buildClient());
     bind(api_client).to(_buildApiClient());
+    bind(rescue_api_client).to(_buildRescueApiClient());
     bind(api_upload_image).to(_buildClientUpload());
+    bind(opencagedata_api).to(_buildOpencagedataApi());
+
     bind(AccountService).to(_buildAccountService());
+    bind(account_service_authenticated).to(_buildAccountServiceAuthenticated());
     bind(DIKeys.cache_image).to(await _buildCacheImage());
     bind(ImageService).to(_buildImageService());
     bind(PetCategoryService).to(_buildPetCategoryService());
@@ -30,12 +37,18 @@ class DevModuleCore extends AbstractModule {
     bind(TagService).to(_buildTagService());
     bind(ReportService).to(_buildReportService());
     bind(NotificationService).to(_buildNotificationService());
+    bind(LocationRepository).to(_buildLocationRepository());
+    bind(LocationService).to(_buildLocationService());
+    bind(RescueRepository).to(_buildRescueRepository());
+    bind(RescueService).to(_buildRescueService());
+    bind(UserService).to(_buildUserService());
+    bind(RescueVotingRepository).to(_buidRescueVotingRepository());
+    bind(RescueVotingService).to(_buildRescueVotingService());
   }
 
   Future<LocalStorageService> _buildLocalService() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final LocalStorageRepository repository =
-        LocalStorageRepositoryImpl(preferences);
+    final LocalStorageRepository repository = LocalStorageRepositoryImpl(preferences);
     return LocalStorageServiceImpl(repository);
   }
 
@@ -69,9 +82,42 @@ class DevModuleCore extends AbstractModule {
     return HttpClient.init(dio);
   }
 
+  HttpClient _buildOpencagedataApi() {
+    final BaseOptions baseOption = BaseOptions(
+      baseUrl: Config.getOpencageHost(),
+      connectTimeout: 15000,
+      receiveTimeout: 10000,
+      headers: <String, dynamic>{
+        HttpHeaders.contentTypeHeader: Headers.formUrlEncodedContentType,
+      },
+    );
+    Dio dio = Dio(baseOption);
+    return HttpClient.init(dio);
+  }
+
   HttpClient _buildApiClient() {
     final BaseOptions baseOption = BaseOptions(
       baseUrl: Config.getString('api_host'),
+      connectTimeout: 15000,
+      receiveTimeout: 10000,
+      headers: <String, dynamic>{
+        HttpHeaders.contentTypeHeader: Headers.formUrlEncodedContentType,
+      },
+    );
+    Dio dio = Dio(baseOption);
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: _onRequest,
+        onError: (DioError ex) => ex,
+        onResponse: (Response<dynamic> reponse) => reponse,
+      ),
+    );
+    return HttpClient.init(dio);
+  }
+
+  HttpClient _buildRescueApiClient() {
+    final BaseOptions baseOption = BaseOptions(
+      baseUrl: Config.getString('rescue_api_host'),
       connectTimeout: 15000,
       receiveTimeout: 10000,
       headers: <String, dynamic>{
@@ -110,8 +156,7 @@ class DevModuleCore extends AbstractModule {
   }
 
   RequestOptions _onRequest(RequestOptions options) {
-    final LocalStorageService service =
-        get<LocalStorageService>(LocalStorageService);
+    final LocalStorageService service = get<LocalStorageService>(LocalStorageService);
     final String token = service.getToken();
     if (token is String) {
       options.headers['x-access-token'] = token;
@@ -123,6 +168,12 @@ class DevModuleCore extends AbstractModule {
 
   AccountService _buildAccountService() {
     final HttpClient client = get<HttpClient>(normal_client);
+    final AccountRepository repository = AccountReposityImpl(client);
+    return AccountServiceImpl(repository);
+  }
+
+  AccountService _buildAccountServiceAuthenticated() {
+    final HttpClient client = get<HttpClient>(api_client);
     final AccountRepository repository = AccountReposityImpl(client);
     return AccountServiceImpl(repository);
   }
@@ -161,5 +212,43 @@ class DevModuleCore extends AbstractModule {
     final HttpClient client = get<HttpClient>(api_client);
     final repository = NotificationRepositoryImpl(client);
     return NotificationServiceImpl(repository);
+  }
+
+  LocationRepository _buildLocationRepository() {
+    final HttpClient client = get<HttpClient>(opencagedata_api);
+    return OpencagedataLocationRepository(client);
+  }
+
+  LocationService _buildLocationService() {
+    final LocationRepository repository = get<LocationRepository>(LocationRepository);
+    return LocationServiceImpl(repository);
+  }
+
+  RescueRepository _buildRescueRepository() {
+    final HttpClient client = get<HttpClient>(rescue_api_client);
+
+    return RescueRepositoryImpl(client);
+  }
+
+  RescueService _buildRescueService() {
+    final RescueRepository repository = get<RescueRepository>(RescueRepository);
+
+    return RescueServiceImpl(repository);
+  }
+
+  UserService _buildUserService() {
+    final HttpClient client = get<HttpClient>(api_client);
+
+    final userRepository = UserRepositoryImpl(client);
+    return UserServiceImpl(userRepository);
+  }
+
+  RescueVotingRepository _buidRescueVotingRepository() {
+    return MockRescueVotingRepository();
+  }
+
+  RescueVotingService _buildRescueVotingService() {
+    final repository = get<RescueVotingRepository>(RescueVotingRepository);
+    return RescueVotingServiceImpl(repository);
   }
 }

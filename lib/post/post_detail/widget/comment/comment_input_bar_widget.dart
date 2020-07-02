@@ -11,8 +11,11 @@ class CommentInputBarWidget extends StatelessWidget {
     final theme = Theme.of(context);
     return AnimatedContainer(
       duration: const Duration(milliseconds: 150),
-      decoration:
-          BoxDecoration(color: TColors.white, boxShadow: TShadows.innerShadow),
+      decoration: BoxDecoration(
+        color: TColors.white,
+        boxShadow: TShadows.innerShadow,
+        borderRadius: TConstants.border_top_left,
+      ),
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Flex(
         mainAxisSize: MainAxisSize.min,
@@ -20,18 +23,21 @@ class CommentInputBarWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Opacity(
-            opacity: 0.2,
+          // TODO(tvc12): Support image in the feature
+          EnableWidget(
+            enable: false,
             child: IconButton(
-                icon: Icon(Icons.camera_alt),
-                onPressed: _onTapIcon,
-                color: theme.primaryColor),
+              icon: Icon(Icons.camera_alt),
+              onPressed: _onTapIcon,
+              color: theme.primaryColor,
+            ),
           ),
           Flexible(child: CommentInputWidget(controller: controller)),
           IconButton(
-              icon: Icon(Icons.send),
-              onPressed: () => _onTapSend(context),
-              color: theme.primaryColor),
+            icon: Icon(Icons.send),
+            onPressed: () => _onTapSend(context),
+            color: theme.primaryColor,
+          ),
         ],
       ),
     );

@@ -8,24 +8,31 @@ class ImageChoosePopup extends TStatefulWidget {
 class _ImageChoosePopupState extends TState<ImageChoosePopup> {
   @override
   Widget build(BuildContext context) {
-    return TSheets.bottomSheet(
-      context,
-      'Choose your image',
-      Flex(
-        direction: Axis.vertical,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.camera_alt),
-            title: Text('Take a photo'),
-            onTap: () => onTapCamera(),
-          ),
-          ListTile(
-            leading: Icon(Icons.image),
-            title: Text('Choose from library'),
-            onTap: () => onTapGallery(),
-          ),
-        ],
+    return Theme(
+      data: Theme.of(context).copyWith(
+        iconTheme: IconThemeData(
+          color: TColors.water_melon
+        ),
+      ),
+      child: TSheets.bottomSheet(
+        context,
+        'Choose your image',
+        Flex(
+          direction: Axis.vertical,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.camera_alt, color: TColors.water_melon),
+              title: Text('Take a photo'),
+              onTap: () => onTapCamera(),
+            ),
+            ListTile(
+              leading: Icon(Icons.image, color: TColors.water_melon),
+              title: Text('Choose from library'),
+              onTap: () => onTapGallery(),
+            ),
+          ],
+        ),
       ),
     );
   }

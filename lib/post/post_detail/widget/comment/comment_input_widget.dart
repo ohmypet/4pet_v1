@@ -10,8 +10,8 @@ class CommentInputWidget extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: TColors.text_white,
+        borderRadius: BorderRadius.circular(4),
+        color: TColors.duck_egg_blue.withAlpha(120),
       ),
       constraints: BoxConstraints(maxHeight: 150),
       padding: EdgeInsets.only(left: 10),
@@ -26,6 +26,7 @@ class CommentInputWidget extends StatelessWidget {
               textInputAction: TextInputAction.newline,
               maxLines: null,
               decoration: InputDecoration(
+                hintText: 'Write a comment...',
                 border: InputBorder.none,
                 disabledBorder: InputBorder.none,
                 enabledBorder: InputBorder.none,
@@ -35,10 +36,14 @@ class CommentInputWidget extends StatelessWidget {
               ),
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.mood),
-            onPressed: _onPressIcon,
-            color: theme.primaryColor,
+          // TODO(tvc12): Support icon in the feature
+          EnableWidget(
+            enable: false,
+            child: IconButton(
+              icon: Icon(Icons.mood),
+              onPressed: _onPressIcon,
+              color: theme.primaryColor,
+            ),
           )
         ],
       ),

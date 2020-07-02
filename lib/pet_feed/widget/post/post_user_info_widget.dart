@@ -1,13 +1,13 @@
 part of petisland.pet_feed.widget.post;
 
-class _PostUserInfoWidget extends StatelessWidget {
+class UserInfoWidget extends StatelessWidget {
   final Account account;
 
-  const _PostUserInfoWidget({Key key, this.account}) : super(key: key);
+  const UserInfoWidget({Key key, this.account}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Widget image = _buildImage(context, account?.user);
+    final Widget image = _buildImage(context, account.user?.avatar?.url);
     final Widget text = _buildTitle(context, account);
     return Flex(
       direction: Axis.horizontal,
@@ -21,13 +21,15 @@ class _PostUserInfoWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildImage(BuildContext context, User user) {
-    final url = user?.avatar?.url != null ? user.avatar.url : null;
-    final image = url != null
-        ? TCacheImageWidget(url: url, shape: BoxShape.circle)
-        : SvgPicture.asset(TAssets.user_avatar);
+  Widget _buildImage(BuildContext context, String url) {
     return AspectRatio(
-      child: image,
+      child: CircleColorWidget(
+        padding: const EdgeInsets.all(1),
+        child: AvatarWidget(
+          url: url,
+          paddingDefaultImage: const EdgeInsets.all(1),
+        ),
+      ),
       aspectRatio: 1,
     );
   }
@@ -41,8 +43,7 @@ class _PostUserInfoWidget extends StatelessWidget {
             username,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style:
-                theme.textTheme.bodyText1.copyWith(fontWeight: FontWeight.w500),
+            style: theme.textTheme.bodyText1.copyWith(fontWeight: FontWeight.w500),
           )
         : SizedBox();
   }

@@ -10,51 +10,40 @@ class ChooseAvatarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              gradient: TGradients.avatarGradient2,
-              shape: BoxShape.circle,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: SizedBox(
-                height: 150,
-                width: 150,
-                child: FittedBox(
-                  child: avatar,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-          ),
-          _buildIconCamera()
-        ],
+      child: Container(
+        width: 150,
+        height: 150,
+        child: Stack(
+          children: <Widget>[
+            avatar,
+            Align(
+              alignment: Alignment.bottomRight,
+              child: _buildIconCamera(),
+            )
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildIconCamera() {
-    return Container(
-      height: 150,
-      width: 150,
-      alignment: Alignment.bottomRight,
-      child: GestureDetector(
-        onTap: _onTapCamera,
-        child: Container(
-          decoration: BoxDecoration(
-            color: TColors.duck_egg_blue,
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: TColors.white,
-              width: 2,
-            ),
+    return GestureDetector(
+      onTap: _onTapCamera,
+      child: Container(
+        width: 36,
+        height: 36,
+        margin: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: TColors.duck_egg_blue,
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: TColors.white,
+            width: 2,
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(5),
-            child: Icon(Icons.camera_alt),
-          ),
+        ),
+        child: Icon(
+          Icons.camera_alt,
+          color: TColors.black,
         ),
       ),
     );
