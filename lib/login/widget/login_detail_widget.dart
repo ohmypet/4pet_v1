@@ -62,6 +62,21 @@ class _LoginDetailWidgetState extends TState<LoginDetailWidget> {
                       .copyWith(color: theme.accentColor),
                 ),
               ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                onTap: () => navigateToScreen(
+                  context: context,
+                  screen: ForgetPasswordScreen(),
+                  screenName: RegisterEmailScreen.name,
+                ),
+                child: Text(
+                  TConstants.text_forget_password,
+                  style: theme.textTheme.bodyText2
+                      .copyWith(color: theme.accentColor),
+                ),
+              ),
             )
           ],
         ),
