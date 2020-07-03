@@ -71,8 +71,9 @@ class _RescueCreationScreenState extends TState<RescueEditorScreen> {
   }
 
   void _handleEditRescue(BuildContext context) async {
-    final newImages =
-        editingBloc.newImages.isEmpty ? [] : await _uploadImage(editingBloc.newImages);
+    final newImages = editingBloc.newImages.isEmpty
+        ? <PetImage>[]
+        : await _uploadImage(editingBloc.newImages);
     final oldImages = editingBloc.oldImages
         .map(
           (url) => editingBloc.rescue.rescueImages
@@ -104,6 +105,7 @@ class _RescueCreationScreenState extends TState<RescueEditorScreen> {
   }
 
   void _onTapCompleted(BuildContext context) {
+    FocusScope.of(context).unfocus();
     if (!editingBloc.rescue.titleIsValid) {
       showErrorSnackBar(context: context, content: 'Title is require');
       return;
