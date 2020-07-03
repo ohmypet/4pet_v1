@@ -153,7 +153,7 @@ class MockRescueRepository extends RescueRepository {
   }
 
   @override
-  Future<Rescue> update(Rescue rescue) {
+  Future<Rescue> update(Rescue rescue, List<String> newImages, List<String> oldImages) {
     return Future.value(rescue);
   }
 
@@ -195,7 +195,7 @@ abstract class RescueRepository {
 
   Future<List<Rescue>> search(int from, int limit);
   Future<bool> unJoin(String id);
-  Future<Rescue> update(Rescue rescue);
+  Future<Rescue> update(Rescue rescue, List<String> newImages, List<String> oldImages);
 
   Future<bool> deleteComment(String rescueId, String commentId);
 
@@ -282,8 +282,15 @@ class RescueRepositoryImpl extends RescueRepository {
   }
 
   @override
-  Future<Rescue> update(Rescue rescue) {
-    throw UnimplementedError();
+  Future<Rescue> update(Rescue rescue, List<String> newImages, List<String> oldImages) {
+    final body = {
+      ...rescue.toJson(),
+      'oldImageIds': oldImages,
+      'newImageIds': newImages,
+    };
+    return client
+        .put('/rescue-service/rescue-posts', body)
+        .then((json) => Rescue.fromJson(json));
   }
 
   @override

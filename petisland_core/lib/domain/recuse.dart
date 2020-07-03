@@ -175,4 +175,12 @@ class Rescue extends BaseModel {
     } else
       currentHeroes = 1;
   }
+
+  void setValue(Rescue rescue) {
+    this.title = rescue.title;
+    this.description = rescue.description;
+    this.rescueImages = rescue.rescueImages;
+    this.location = rescue.location;
+    this.maxHeroes = rescue.maxHeroes;
+  }
 }
