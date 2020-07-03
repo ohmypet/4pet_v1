@@ -129,7 +129,10 @@ class DeleteCommentPostEvent extends WorkerEvent {
 }
 
 class LikeRescuePostEvent extends WorkerEvent {
-  final String id;
+  final String rescueId;
 
-  LikeRescuePostEvent(this.id);
+  LikeRescuePostEvent(this.rescueId);
+
+  @override
+  String toString() => '$runtimeType $rescueId';
 }

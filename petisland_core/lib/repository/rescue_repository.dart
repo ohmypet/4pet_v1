@@ -253,7 +253,7 @@ class RescueRepositoryImpl extends RescueRepository {
 
   @override
   Future<bool> like(String id) {
-    throw UnimplementedError();
+    return client.post('/rescue-service/$id/like', {}).then((value) => true);
   }
 
   @override
