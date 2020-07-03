@@ -6,6 +6,8 @@ abstract class RescueService {
   Future<bool> delete(String rescueId);
 
   Future<List<Comment>> getComments(String id);
+  Future<bool> deleteComment(String rescueId, String commentId);
+
   Future<List<RescueDonate>> getDonaters(String id);
 
   Future<List<RescueAccount>> getHeroJoined(String id);
@@ -16,6 +18,8 @@ abstract class RescueService {
   Future<List<Rescue>> search({int from = 0, int limit = 10});
 
   Future<bool> unJoin(String id);
+
+  Future<bool> addComment(String rescueId, String message);
 }
 
 class RescueServiceImpl extends RescueService {
@@ -61,5 +65,15 @@ class RescueServiceImpl extends RescueService {
   @override
   Future<bool> delete(String rescueId) {
     return repository.delete(rescueId);
+  }
+
+  @override
+  Future<bool> deleteComment(String rescueId, String commentId) {
+    return repository.deleteComment(rescueId, commentId);
+  }
+
+  @override
+  Future<bool> addComment(String rescueId, String message) {
+    return repository.addComment(rescueId, message);
   }
 }

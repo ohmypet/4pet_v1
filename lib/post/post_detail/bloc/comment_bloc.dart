@@ -6,12 +6,15 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   final String id;
 
   @protected
+  bool locked = false;
+
+  @protected
   Timer timer;
 
   CommentBloc(this.id);
 
   @override
-  Duration get delayEvent => const Duration(milliseconds: 150);
+  Duration get delayEvent => const Duration(milliseconds: 50);
 
   @override
   CommentState get initialState => CommentStateInit();
@@ -25,7 +28,10 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   Stream<CommentState> eventToState(BaseEvent event) async* {
     switch (event.runtimeType) {
       case LoadCommentEvent:
-        loadComment(event);
+        if (!locked) {
+          locked = true;
+          loadComment(event);
+        }
         break;
       case ReloadCommentUIEvent:
         yield* _reloadUI(event);
@@ -48,16 +54,20 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   @protected
   void loadComment(LoadCommentEvent event) {
     final PostService service = DI.get(PostService);
-    service.getComments(event.postId).then((items) {
-      if (items != null) {
-        if (items.isNotEmpty) {
-          comments
-            ..clear()
-            ..addAll(items);
-        }
-        add(ReloadCommentUIEvent(comments));
-      }
-    }).catchError(handleOnError);
+    service
+        .getComments(event.postId)
+        .then((items) {
+          if (items != null) {
+            if (items.isNotEmpty) {
+              comments
+                ..clear()
+                ..addAll(items);
+            }
+            add(ReloadCommentUIEvent(comments));
+          }
+        })
+        .catchError(handleOnError)
+        .whenComplete(() => locked = false);
   }
 
   @protected
@@ -82,7 +92,10 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   void startListener() {
     reload();
     if (timer?.isActive == true) timer.cancel();
-    timer = Timer.periodic(const Duration(seconds: 3), (_) => reload());
+    timer = Timer.periodic(const Duration(seconds: 3), (_) {
+      if (locked) return;
+      reload();
+    });
   }
 
   void stopListener() {
@@ -96,9 +109,9 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
   Stream<CommentState> _softAdd(SoftAddCommentEvent event) async* {
     stopListener();
     yield ScrollToBottom();
-    comments.add(event.item);
+    comments.insert(0, event.item);
     yield ReloadUIState(comments);
-    Future.delayed(const Duration(seconds: 2)).whenComplete(() => startListener());
+    Future.delayed(const Duration(seconds: 5)).whenComplete(() => startListener());
   }
 
   Stream<CommentState> _softDelete(SoftDeleteCommentEvent event) async* {
@@ -107,6 +120,6 @@ class CommentBloc extends TBloc<CommentEvent, CommentState> {
     final id = event.id;
     comments.removeWhere((item) => item.id == id);
     yield ReloadUIState(comments);
-    Future.delayed(const Duration(seconds: 2)).whenComplete(() => startListener());
+    Future.delayed(const Duration(seconds: 5)).whenComplete(() => startListener());
   }
 }

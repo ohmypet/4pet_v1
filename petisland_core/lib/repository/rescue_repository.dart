@@ -166,6 +166,18 @@ class MockRescueRepository extends RescueRepository {
   Future<Rescue> edit(Rescue id, List<String> newImages, List<String> oldImages) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<bool> deleteComment(String rescueId, String commentId) {
+    // TODO: implement deleteComment
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> addComment(String rescueId, String message) {
+    // TODO: implement addComment
+    throw UnimplementedError();
+  }
 }
 
 abstract class RescueRepository {
@@ -185,6 +197,9 @@ abstract class RescueRepository {
   Future<bool> unJoin(String id);
   Future<Rescue> update(Rescue rescue);
 
+  Future<bool> deleteComment(String rescueId, String commentId);
+
+  Future<bool> addComment(String rescueId, String message);
   // Future<List<Hero
 }
 
@@ -225,7 +240,6 @@ class RescueRepositoryImpl extends RescueRepository {
   @override
   Future<List<Rescue>> search(int from, int limit) {
     final params = {'offset': from, 'limit': limit};
-    Log.info(params);
     return client
         .get<List<dynamic>>('/rescue-service/rescue-posts', params: params)
         .then((value) => value.map((json) => Rescue.fromJson(json)).toList());
@@ -233,7 +247,10 @@ class RescueRepositoryImpl extends RescueRepository {
 
   @override
   Future<List<Comment>> getComments(String id) {
-    throw UnimplementedError();
+    final params = {'offset': 0, 'limit': 100};
+    return client
+        .get<List>('/rescue-service/$id/comments', params: params)
+        .then((value) => value.map((json) => Comment.fromRescue(json)).toList());
   }
 
   @override
@@ -267,5 +284,16 @@ class RescueRepositoryImpl extends RescueRepository {
   @override
   Future<Rescue> update(Rescue rescue) {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> deleteComment(String rescueId, String commentId) {
+    return client.delete('/rescue-service/$rescueId/$commentId').then((value) => true);
+  }
+
+  @override
+  Future<bool> addComment(String rescueId, String message) {
+    final body = {'message': message};
+    return client.post('/rescue-service/$rescueId/comment', body).then((value) => true);
   }
 }

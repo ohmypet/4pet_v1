@@ -15,7 +15,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
   Account get rescueAccount => widget.rescue.account;
   bool get isJoined => isOwner || (widget.rescue.isJoined ?? false);
   bool get canJoin => !isOwner && widget.rescue.canJoin;
-  String get id => widget.rescue.id;
+  String get rescueId => widget.rescue.id;
   final ScrollController controller = ScrollController();
   RescueHeroBloc heroBloc;
   RescueDonateBloc donateBloc;
@@ -29,9 +29,9 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
 
   void initState() {
     super.initState();
-    heroBloc = RescueHeroBloc(id)..reload();
-    donateBloc = RescueDonateBloc(id); //..reload();
-    rescueCommentBloc = RescueCommentBloc(id); //..startListener();
+    heroBloc = RescueHeroBloc(rescueId)..reload();
+    donateBloc = RescueDonateBloc(rescueId); //..reload();
+    rescueCommentBloc = RescueCommentBloc(rescueId)..startListener();
   }
 
   @override
@@ -47,6 +47,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
                 isOwner: isOwner,
                 onTapBack: () => _onTapBack(context),
                 onSelected: (_) => _onTapSeeMore(context, _),
+                showReport: false,
               ),
             ),
           ),
@@ -81,7 +82,9 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: isJoined
-                          ? CommentInputBarWidget(onTapSend: _onTapSend)
+                          ? CommentInputBarWidget(
+                              onTapSend: (_) => _onTapSend(context, _),
+                            )
                           : _buildJoinButton(context),
                     ),
                   ],
@@ -101,9 +104,11 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
 
   void _onTapSeeMore(BuildContext context, OptionType seeMoreType) {
     switch (seeMoreType) {
-      // case OptionType.Report:
-      //   _reportPost(context);
-      //   break;
+      case OptionType.Report:
+        return;
+        // TODO(tvc12): send report
+        _reportPost(context);
+        break;
       case OptionType.Delete:
         _deleteRescue(context);
         break;
@@ -117,22 +122,34 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
     }
   }
 
-  // void _reportPost(BuildContext context) {
-  //   showModalBottomSheet(
-  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-  //     context: context,
-  //     builder: (_) => KikiReportWidget(
-  //       onSendReport: _sendReport,
-  //     ),
-  //   );
-  // }
+  void _reportPost(BuildContext context) {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      context: context,
+      builder: (_) => KikiReportWidget(
+        onSendReport: _sendReport,
+      ),
+    );
+  }
 
-  // void _sendReport(ReportData value) {
-  //   Log.debug('Seleted:: $value');
-  // }
+  void _sendReport(ReportData value) {
+    Log.debug('Seleted:: $value');
+  }
 
-  void _onTapSend(String message) {
-    Log.debug('SendMessage:: $message');
+  void _onTapSend(BuildContext context, String message) {
+    Log.info('SendMessage:: $message');
+    rescueCommentBloc
+      ..softAddComment(message)
+      ..stopListener();
+    rescueService
+        .addComment(rescueId, message)
+        .catchError(
+          (ex) => this.showErrorSnackBar(
+            context: context,
+            content: TConstants.error,
+          ),
+        )
+        .whenComplete(() => rescueCommentBloc.startListener());
   }
 
   void _handleJoinNow(BuildContext context) async {
@@ -179,9 +196,17 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
       );
   }
 
-  void _handleDeleteComment(BuildContext context, String id) {
-    Log.debug('handleDeleteComment:: $id');
-    // TODO(tvc12): handle delete comment
+  void _handleDeleteComment(BuildContext context, String commentId) {
+    rescueCommentBloc.stopListener();
+    rescueService
+        .deleteComment(rescueId, commentId)
+        .catchError(
+          (ex) => this.showErrorSnackBar(
+            context: context,
+            content: TConstants.error,
+          ),
+        )
+        .whenComplete(() => rescueCommentBloc.startListener());
   }
 
   @override
