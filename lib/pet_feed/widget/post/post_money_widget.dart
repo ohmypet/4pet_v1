@@ -32,7 +32,7 @@ class PostMoneyWidget extends StatelessWidget {
 
   TextStyle _buildTextStyle(ThemeData theme) {
     return theme.textTheme.headline1.copyWith(
-      fontSize: 14,
+      fontSize: 13,
       fontWeight: FontWeight.w700,
       color: theme.primaryColor,
     );

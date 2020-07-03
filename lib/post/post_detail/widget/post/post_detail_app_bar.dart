@@ -1,15 +1,26 @@
 part of petisland.post.screen.widget;
 
-enum OptionType { Edit, Delete, Click, Report }
+enum OptionType { Edit, Delete, Leave, Report, Close, ReOpen }
 
 class PostDetailAppBar extends StatelessWidget {
   final VoidCallback onTapBack;
   final ValueChanged<OptionType> onSelected;
-  final bool hasPermision;
+  final bool isOwner;
+  final bool showReport;
+  final bool showLeave;
+  final bool showClose;
+  final bool showReOpen;
 
-  const PostDetailAppBar(
-      {Key key, this.onTapBack, this.onSelected, this.hasPermision = false})
-      : super(key: key);
+  const PostDetailAppBar({
+    Key key,
+    this.onTapBack,
+    this.onSelected,
+    this.isOwner = false,
+    this.showReport = true,
+    this.showLeave = false,
+    this.showClose = false,
+    this.showReOpen = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +46,9 @@ class PostDetailAppBar extends StatelessWidget {
   }
 
   static final items = <MapEntry<OptionType, String>>[
+    MapEntry(OptionType.Leave, 'Leave'),
+    MapEntry(OptionType.ReOpen, 'Re-open'),
+    MapEntry(OptionType.Close, 'Close'),
     MapEntry(OptionType.Edit, 'Edit'),
     MapEntry(OptionType.Delete, 'Delete'),
     MapEntry(OptionType.Report, 'Report'),
@@ -44,7 +58,8 @@ class PostDetailAppBar extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return items.map(
       (item) {
-        bool enable = item.key != OptionType.Report ? hasPermision : true;
+        bool enable = isEnable(item.key);
+
         return PopupMenuItem<OptionType>(
           value: item.key,
           enabled: enable,
@@ -62,5 +77,28 @@ class PostDetailAppBar extends StatelessWidget {
 
   void _onSelectChanged(OptionType value) {
     if (onSelected != null) onSelected(value);
+  }
+
+  bool isEnable(OptionType key) {
+    switch (key) {
+      case OptionType.Report:
+        return !isOwner && showReport; //Can't report myself!!
+        break;
+      case OptionType.Edit:
+      case OptionType.Delete:
+        return isOwner;
+        break;
+      case OptionType.Leave:
+        return !isOwner && showLeave; //Can't leave my post!!
+        break;
+      case OptionType.Close:
+        return !isOwner && showClose;
+        break;
+      case OptionType.ReOpen:
+        return !isOwner && showReOpen;
+        break;
+      default:
+        return true;
+    }
   }
 }

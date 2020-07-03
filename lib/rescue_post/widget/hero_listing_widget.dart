@@ -2,8 +2,13 @@ part of petisland.rescue_post.widget;
 
 class HeroListingWidget extends StatelessWidget {
   final RescueHeroBloc heroBloc;
+  final String maxHeroeAsString;
 
-  const HeroListingWidget({Key key, @required this.heroBloc}) : super(key: key);
+  const HeroListingWidget({
+    Key key,
+    @required this.heroBloc,
+    @required this.maxHeroeAsString,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,7 @@ class HeroListingWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 5),
-              buildTextDescription(context, 'Heroes'),
+              buildTextDescription(context, 'Heroes($maxHeroeAsString)'),
               const SizedBox(height: 2),
               Flexible(child: AccountListView(accounts: heroBloc.heroes)),
             ],

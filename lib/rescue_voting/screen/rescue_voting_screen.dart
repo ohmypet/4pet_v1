@@ -15,7 +15,7 @@ class RescueVotingScreen extends TStatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(32),
         child: PostDetailAppBar(
-          hasPermision: AccountUtils.grantEditAndDel(account),
+          isOwner: AccountUtils.isOwner(account),
           onTapBack: () => _onTapBack(context),
           onSelected: (_) => _onTapSeeMore(context, _),
         ),

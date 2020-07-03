@@ -74,18 +74,18 @@ class MockRescueRepository extends RescueRepository {
         rescueImages: rescueImages,
         title: title,
         maxHeroes: ran.nextInt(10),
-        totalCoin: ran.nextInt(15000).toDouble(),
+        totalCoin: ran.nextInt(15000),
         currentHeroes: ran.nextInt(10),
         status: RescueStatus.Open.index,
         createAt: DateTime.now(),
         isReacted: ran.nextBool(),
       );
 
-  List<RescueImage> get rescueImages {
+  List<PetImage> get rescueImages {
     final size = ran.nextInt(10);
     return List.generate(
       size,
-      (_) => RescueImage(id: ThinId.randomId(), image: avatar),
+      (_) => PetImage(id: ThinId.randomId(), url: avatar.url),
     );
   }
 
@@ -133,7 +133,7 @@ class MockRescueRepository extends RescueRepository {
 
   @override
   Future<bool> join(String id) {
-    return Future.value(true);
+    return Future.delayed(const Duration(seconds: 1), () => true);
   }
 
   @override
@@ -149,7 +149,7 @@ class MockRescueRepository extends RescueRepository {
 
   @override
   Future<bool> unJoin(String id) {
-    return Future.value(true);
+    return Future.delayed(const Duration(seconds: 1), () => true);
   }
 
   @override
@@ -169,7 +169,7 @@ class MockRescueRepository extends RescueRepository {
 }
 
 abstract class RescueRepository {
-  Future<Rescue> create(Rescue rescue, List<String> images);
+  Future<Rescue> create(Rescue rescue, List<String> imageIds);
   Future<Rescue> edit(Rescue rescue, List<String> newImages, List<String> oldImages);
   Future<bool> delete(String id);
 
@@ -195,10 +195,10 @@ class RescueRepositoryImpl extends RescueRepository {
   RescueRepositoryImpl(this.client);
 
   @override
-  Future<Rescue> create(Rescue rescue, List<String> images) {
+  Future<Rescue> create(Rescue rescue, List<String> imageIds) {
     final body = {
       ...rescue.toJson(),
-      'imagesId': images,
+      'imagesId': imageIds,
     }..removeWhere((key, value) => value == null);
 
     return client
@@ -248,7 +248,7 @@ class RescueRepositoryImpl extends RescueRepository {
 
   @override
   Future<bool> join(String id) {
-    throw UnimplementedError();
+    return client.post('/rescue-service/$id/join', {}).then((value) => true);
   }
 
   @override
@@ -258,7 +258,7 @@ class RescueRepositoryImpl extends RescueRepository {
 
   @override
   Future<bool> unJoin(String id) {
-    throw UnimplementedError();
+    return client.post('/rescue-service/$id/unjoin', {}).then((value) => true);
   }
 
   @override

@@ -226,13 +226,12 @@ class DevModuleCore extends AbstractModule {
 
   RescueRepository _buildRescueRepository() {
     final HttpClient client = get<HttpClient>(rescue_api_client);
-
+    // return MockRescueRepository();
     return RescueRepositoryImpl(client);
   }
 
   RescueService _buildRescueService() {
     final RescueRepository repository = get<RescueRepository>(RescueRepository);
-
     return RescueServiceImpl(repository);
   }
 

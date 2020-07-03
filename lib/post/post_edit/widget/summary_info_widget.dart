@@ -10,21 +10,19 @@ class SummaryInfoWidget extends TStatelessWidget {
   final int maxHeros;
   final String typeMoney;
 
-  SummaryInfoWidget(
-    this.title, {
-    this.petImage,
-    this.money,
-    this.location,
-    this.customDefaultMoney = 'Free Now',
-    this.maxHeros,
-    this.typeMoney = '\$',
-    this.customDefaultTitle = 'I want to sell ...'
-  });
+  SummaryInfoWidget(this.title,
+      {this.petImage,
+      this.money,
+      this.location,
+      this.customDefaultMoney = 'Free Now',
+      this.maxHeros,
+      this.typeMoney = '\$',
+      this.customDefaultTitle = 'I want to sell ...'});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 95,
+      height: 105,
       color: TColors.white,
       margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
       child: Flex(
