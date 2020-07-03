@@ -84,7 +84,7 @@ class NotificationBloc extends TBloc<NotificationEvent, NotificationState> {
   void startListener() {
     getNotification();
     if (timer?.isActive == true) timer.cancel();
-    timer = Timer.periodic(const Duration(seconds: 3), (_) => getNotification());
+    timer = Timer.periodic(const Duration(seconds: 5), (_) => getNotification());
   }
 
   void clear() {

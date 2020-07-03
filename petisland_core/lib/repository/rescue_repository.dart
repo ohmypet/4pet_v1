@@ -200,6 +200,8 @@ abstract class RescueRepository {
   Future<bool> deleteComment(String rescueId, String commentId);
 
   Future<bool> addComment(String rescueId, String message);
+
+  Future<Rescue> getRescue(String rescueId);
   // Future<List<Hero
 }
 
@@ -302,5 +304,12 @@ class RescueRepositoryImpl extends RescueRepository {
   Future<bool> addComment(String rescueId, String message) {
     final body = {'message': message};
     return client.post('/rescue-service/$rescueId/comment', body).then((value) => true);
+  }
+
+  @override
+  Future<Rescue> getRescue(String rescueId) {
+    return client
+        .get('/rescue-service/rescue-posts/$rescueId')
+        .then((json) => Rescue.fromJson(json));
   }
 }

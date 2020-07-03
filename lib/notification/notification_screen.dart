@@ -22,10 +22,7 @@ class _NotificationScreenState extends TState<NotificationScreen> {
       appBar: AppBar(
         title: Text(
           'Notification',
-          style: TTextStyles.bold(
-            fontSize: 18,
-            color: TColors.white
-          ),
+          style: TTextStyles.bold(fontSize: 18, color: TColors.white),
           textAlign: TextAlign.start,
         ),
         elevation: 1,
