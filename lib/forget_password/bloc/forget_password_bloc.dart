@@ -74,11 +74,15 @@ class ForgetPasswordBloc
 
   Stream<ForgetPasswordState> _handleSubmitEmail(SubmitEmail event) async* {
     try {
-      yield Loading();
-      await DI
-          .get<AccountService>(AccountService)
-          .requireForgotPasswordCode(email);
-      yield StepTwoState();
+      if (email.isNotEmpty && StringUtils.isValidEmail(email)) {
+        yield Loading();
+        await DI
+            .get<AccountService>(AccountService)
+            .requireForgotPasswordCode(email);
+        yield StepTwoState();
+      } else {
+        throw (PetApiException(message: 'Email is not valid'));
+      }
     } catch (ex, trace) {
       Log.error(ex);
       Log.error(trace);
@@ -112,7 +116,7 @@ class ForgetPasswordBloc
         );
         yield SuccessForgetPasswordState(accountAfterReset);
       } else if (!passwordIsValid) {
-        yield Error('New password is not equal repassword');
+        yield Error('New password is incorrect!');
       }
     } catch (ex, trace) {
       Log.error(ex);
