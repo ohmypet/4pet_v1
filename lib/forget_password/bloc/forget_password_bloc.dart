@@ -7,7 +7,8 @@ import 'package:petisland_core/petisland_core.dart';
 part 'forget_password_event.dart';
 part 'forget_password_state.dart';
 
-class ForgetPasswordBloc extends Bloc<ForgetPasswordEvent, ForgetPasswordState> {
+class ForgetPasswordBloc
+    extends Bloc<ForgetPasswordEvent, ForgetPasswordState> {
   String email;
   String code;
   String password;
@@ -59,24 +60,34 @@ class ForgetPasswordBloc extends Bloc<ForgetPasswordEvent, ForgetPasswordState> 
     yield StepTwoState();
   }
 
-  Stream<ForgetPasswordState> _handleTypingNewPassword(TypingNewPassword event) async* {
+  Stream<ForgetPasswordState> _handleTypingNewPassword(
+      TypingNewPassword event) async* {
     password = event.password;
     yield StepThreeState();
   }
 
-  Stream<ForgetPasswordState> _handleTypingRePassword(TypingRePassword event) async* {
+  Stream<ForgetPasswordState> _handleTypingRePassword(
+      TypingRePassword event) async* {
     rePassword = event.rePassword;
     yield StepThreeState();
   }
 
   Stream<ForgetPasswordState> _handleSubmitEmail(SubmitEmail event) async* {
     try {
-      DI.get<AccountService>(AccountService).requireForgotPasswordCode(email);
-      yield StepTwoState();
+      if (email.isNotEmpty && StringUtils.isValidEmail(email)) {
+        yield Loading();
+        await DI
+            .get<AccountService>(AccountService)
+            .requireForgotPasswordCode(email);
+        yield StepTwoState();
+      } else {
+        throw (PetApiException(message: 'Email is not valid'));
+      }
     } catch (ex, trace) {
       Log.error(ex);
       Log.error(trace);
       yield Error(_getMessageFromError(ex));
+      yield* goToStepWhenCodeError(ex);
     }
   }
 
@@ -90,7 +101,8 @@ class ForgetPasswordBloc extends Bloc<ForgetPasswordEvent, ForgetPasswordState> 
     }
   }
 
-  Stream<ForgetPasswordState> _handleSubmitNewPassword(SubmitNewPassword event) async* {
+  Stream<ForgetPasswordState> _handleSubmitNewPassword(
+      SubmitNewPassword event) async* {
     try {
       bool emailIsValid = email.trim().isNotEmpty;
       bool passwordIsValid = password == rePassword;
@@ -104,7 +116,7 @@ class ForgetPasswordBloc extends Bloc<ForgetPasswordEvent, ForgetPasswordState> 
         );
         yield SuccessForgetPasswordState(accountAfterReset);
       } else if (!passwordIsValid) {
-        yield Error('New password is not equal repassword');
+        yield Error('New password is incorrect!');
       }
     } catch (ex, trace) {
       Log.error(ex);
@@ -122,10 +134,14 @@ class ForgetPasswordBloc extends Bloc<ForgetPasswordEvent, ForgetPasswordState> 
   }
 
   Stream<ForgetPasswordState> goToStepWhenCodeError(ex) async* {
+    Log.info(ex.message);
     if (ex is PetApiException && ex.message == 'Code is incorrect') {
       yield StepTwoState();
     }
     if (ex is PetApiException && ex.message == 'Code is expired') {
+      yield StepOneState();
+    }
+    if (ex is PetApiException && ex.message == 'Email is not exists') {
       yield StepOneState();
     }
   }
