@@ -21,6 +21,15 @@ class Comment extends BaseModel {
     images = parseImages(json['images']);
   }
 
+  Comment.fromRescue(Map<String, dynamic> json) : super.fromJson(json) {
+    message = json['message'];
+    likes = json['likes'];
+    images = parseImages(json['images']);
+    if (json['account'] != null) {
+      createBy = Account.fromJson(json['account']);
+    }
+  }
+
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = super.toJson();

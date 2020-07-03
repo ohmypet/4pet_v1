@@ -28,7 +28,6 @@ part 'post_tag.dart';
 part 'recuse.dart';
 part 'report.dart';
 part 'rescue_account.dart';
-part 'rescue_comment.dart';
 part 'rescue_donate.dart';
 part 'rescue_image.dart';
 part 'rescue_voting.dart';

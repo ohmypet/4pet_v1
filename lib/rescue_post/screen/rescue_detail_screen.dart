@@ -15,7 +15,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
   Account get rescueAccount => widget.rescue.account;
   bool get isJoined => isOwner || (widget.rescue.isJoined ?? false);
   bool get canJoin => !isOwner && widget.rescue.canJoin;
-  String get id => widget.rescue.id;
+  String get rescueId => widget.rescue.id;
   final ScrollController controller = ScrollController();
   RescueHeroBloc heroBloc;
   RescueDonateBloc donateBloc;
@@ -29,9 +29,9 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
 
   void initState() {
     super.initState();
-    heroBloc = RescueHeroBloc(id)..reload();
-    donateBloc = RescueDonateBloc(id); //..reload();
-    rescueCommentBloc = RescueCommentBloc(id); //..startListener();
+    heroBloc = RescueHeroBloc(rescueId)..reload();
+    donateBloc = RescueDonateBloc(rescueId); //..reload();
+    rescueCommentBloc = RescueCommentBloc(rescueId)..startListener();
   }
 
   @override
@@ -47,6 +47,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
                 isOwner: isOwner,
                 onTapBack: () => _onTapBack(context),
                 onSelected: (_) => _onTapSeeMore(context, _),
+                showReport: false,
               ),
             ),
           ),
@@ -179,9 +180,17 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
       );
   }
 
-  void _handleDeleteComment(BuildContext context, String id) {
-    Log.debug('handleDeleteComment:: $id');
-    // TODO(tvc12): handle delete comment
+  void _handleDeleteComment(BuildContext context, String commentId) {
+    rescueCommentBloc.stopListener();
+    rescueService
+        .deleteComment(rescueId, commentId)
+        .catchError(
+          (ex) => this.showErrorSnackBar(
+            context: context,
+            content: TConstants.error,
+          ),
+        )
+        .whenComplete(() => rescueCommentBloc.startListener());
   }
 
   @override
