@@ -19,6 +19,8 @@ abstract class TConstants {
 
   static const String text_register = 'I don\'t have account? Sign Up';
 
+  static const String text_resend_code = 'Code not received? ';
+
   static const String text_forget_password = 'Forget password?';
 
   static const String text_submit_email = 'Send';

@@ -5,8 +5,10 @@ import 'package:flutter_template/login/widget/widget.dart';
 
 class SubmitCodeDetail extends StatefulWidget {
   final void Function() onSubmit;
+  final void Function() onTapResend;
   final void Function(String) onChange;
-  SubmitCodeDetail({this.onSubmit, this.onChange, Key key}) : super(key: key);
+  SubmitCodeDetail({this.onSubmit, this.onChange, this.onTapResend, Key key})
+      : super(key: key);
 
   @override
   _SubmitCodeDetailState createState() => _SubmitCodeDetailState();
@@ -29,6 +31,8 @@ class _SubmitCodeDetailState extends State<SubmitCodeDetail> {
     super.dispose();
   }
 
+  ThemeData get theme => Theme.of(context);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,6 +46,24 @@ class _SubmitCodeDetailState extends State<SubmitCodeDetail> {
           onSubmit: widget.onSubmit ?? null,
           textAlign: TextAlign.center,
           keyboardType: TextInputType.number,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              TConstants.text_resend_code,
+              style:
+                  theme.textTheme.bodyText2.copyWith(color: theme.accentColor),
+            ),
+            GestureDetector(
+              onTap: widget.onTapResend ?? null,
+              child: Text(
+                'RESEND',
+                style: theme.textTheme.bodyText2
+                    .copyWith(color: theme.primaryColor),
+              ),
+            )
+          ],
         ),
         PetIslandButtonWidget(
           text: TConstants.text_submit_code,
