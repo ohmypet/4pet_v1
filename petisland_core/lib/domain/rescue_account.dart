@@ -14,8 +14,8 @@ class RescueAccount extends BaseModel {
   }) : super(id, createAt, updateAt, createBy);
 
   RescueAccount.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
-    if (json['hero'] != null) {
-      hero = Account.fromJson(json['hero']);
+    if (json['account'] != null) {
+      hero = Account.fromJson(json['account']);
     }
     status = json['status'];
   }

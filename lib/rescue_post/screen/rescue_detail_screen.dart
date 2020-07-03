@@ -29,7 +29,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
 
   void initState() {
     super.initState();
-    heroBloc = RescueHeroBloc(id); //..reload();
+    heroBloc = RescueHeroBloc(id)..reload();
     donateBloc = RescueDonateBloc(id); //..reload();
     rescueCommentBloc = RescueCommentBloc(id); //..startListener();
   }
@@ -43,7 +43,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
             preferredSize: Size.fromHeight(32),
             child: Builder(
               builder: (context) => PostDetailAppBar(
-                showLeave: true,
+                showLeave: showLeave,
                 isOwner: isOwner,
                 onTapBack: () => _onTapBack(context),
                 onSelected: (_) => _onTapSeeMore(context, _),
@@ -140,6 +140,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
     rescueService
         .join(widget.rescue.id)
         .then((value) => widget.rescue.join())
+        .then((value) => this.heroBloc.reload())
         .catchError(
           (ex) => this.showErrorSnackBar(
             context: context,
@@ -221,6 +222,7 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
     rescueService
         .unJoin(widget.rescue.id)
         .then((value) => widget.rescue.unJoin())
+        .then((value) => this.heroBloc.reload())
         .catchError(
           (ex) => this.showErrorSnackBar(
             context: context,

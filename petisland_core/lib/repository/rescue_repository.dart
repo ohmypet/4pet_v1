@@ -243,7 +243,10 @@ class RescueRepositoryImpl extends RescueRepository {
 
   @override
   Future<List<RescueAccount>> getHeroJoined(String id) {
-    throw UnimplementedError();
+    return client.get<List>('/rescue-service/$id/heroes', params: {
+      'offset': 0,
+      'limit': 100
+    }).then((value) => value.map((json) => RescueAccount.fromJson(json)).toList());
   }
 
   @override

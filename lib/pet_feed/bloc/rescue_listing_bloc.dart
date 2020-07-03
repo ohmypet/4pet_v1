@@ -34,10 +34,10 @@ class RescueListingBloc extends TBloc<RescueListingEvent, RescueListingState> {
     final rescueService = DI.get<RescueService>(RescueService);
     final newRescuePosts =
         await rescueService.search(from: event.from, limit: event.limit);
+    if (clearOldData) rescues.clear();
     if (newRescuePosts.isEmpty) {
       yield ReloadRescueListingState(false);
     } else {
-      if (clearOldData) rescues.clear();
       rescues.addAll(newRescuePosts);
       yield ReloadRescueListingState(true);
     }
