@@ -4,10 +4,10 @@ class RescueEditorScreen extends TStatefulWidget {
   static const name = '/RescueEditorScreen';
   final Rescue rescue;
 
-  const RescueEditorScreen.edit({this.rescue, Key key}) : super(key: key);
   const RescueEditorScreen.create({Key key})
       : this.rescue = null,
         super(key: key);
+  const RescueEditorScreen.edit({this.rescue, Key key}) : super(key: key);
 
   @override
   _RescueCreationScreenState createState() => _RescueCreationScreenState();
@@ -15,18 +15,11 @@ class RescueEditorScreen extends TStatefulWidget {
 
 class _RescueCreationScreenState extends TState<RescueEditorScreen> {
   RescueEditingBloc _bloc;
-  RescueEditingBloc get editingBloc => _bloc;
   bool isLoading = false;
+  RescueEditingBloc get editingBloc => _bloc;
   ImageService get imageService => DI.get(ImageService);
-  RescueService get rescueService => DI.get(RescueService);
   RescueListingBloc get rescueListingBloc => DI.get(RescueListingBloc);
-
-  void initState() {
-    super.initState();
-    _bloc = widget.rescue != null
-        ? RescueEditingBloc.edit(widget.rescue)
-        : RescueEditingBloc.create();
-  }
+  RescueService get rescueService => DI.get(RescueService);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +34,7 @@ class _RescueCreationScreenState extends TState<RescueEditorScreen> {
             actions: <Widget>[
               Builder(
                 builder: (context) => SendWidget(
-                  onPressSend: () => _onCreateRescuePost(context),
+                  onPressSend: () => _onTapCompleted(context),
                 ),
               )
             ],
@@ -53,26 +46,14 @@ class _RescueCreationScreenState extends TState<RescueEditorScreen> {
     );
   }
 
-  void _onCreateRescuePost(BuildContext context) {
-    if (!editingBloc.rescue.titleIsValid) {
-      showErrorSnackBar(context: context, content: 'Title is require');
-      return;
-    }
-    if (!editingBloc.rescue.locatonIsValid) {
-      showErrorSnackBar(context: context, content: 'Location is require');
-      return;
-    }
-
-    setState(() {
-      isLoading = true;
-    });
-
-    if (editingBloc.mode == RescueMode.Create) {
-      createRescuePost(context);
-    }
+  void initState() {
+    super.initState();
+    _bloc = widget.rescue != null
+        ? RescueEditingBloc.edit(widget.rescue)
+        : RescueEditingBloc.create();
   }
 
-  void createRescuePost(BuildContext context) async {
+  void _handleCreateRescue(BuildContext context) async {
     final images = await _uploadImage(editingBloc.newImages);
     rescueService
         .create(editingBloc.rescue, images.map((e) => e.id).toList())
@@ -87,6 +68,64 @@ class _RescueCreationScreenState extends TState<RescueEditorScreen> {
             )
           },
         );
+  }
+
+  void _handleEditRescue(BuildContext context) async {
+    final newImages =
+        editingBloc.newImages.isEmpty ? [] : await _uploadImage(editingBloc.newImages);
+    final oldImages = editingBloc.oldImages
+        .map(
+          (url) => editingBloc.rescue.rescueImages
+              .firstWhere(
+                (element) => element.url == url,
+                orElse: () => null,
+              )
+              ?.id,
+        )
+        .toList()
+          ..removeWhere((element) => element == null);
+    rescueService
+        .update(
+          editingBloc.rescue,
+          newImages.map((e) => e.id).toList(),
+          oldImages,
+        )
+        .then((value) => this.closeScreen(context, RescueEditorScreen.name, data: value))
+        .then((value) => rescueListingBloc.refreshRescuePost())
+        .catchError(
+          (ex) => {
+            setState(() => isLoading = false),
+            showErrorSnackBar(
+              context: context,
+              content: 'Something went wrong, try again later!',
+            )
+          },
+        );
+  }
+
+  void _onTapCompleted(BuildContext context) {
+    if (!editingBloc.rescue.titleIsValid) {
+      showErrorSnackBar(context: context, content: 'Title is require');
+      return;
+    }
+    if (!editingBloc.rescue.locatonIsValid) {
+      showErrorSnackBar(context: context, content: 'Location is require');
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    switch (editingBloc.mode) {
+      case RescueMode.Create:
+        _handleCreateRescue(context);
+        break;
+      case RescueMode.Edit:
+        _handleEditRescue(context);
+        break;
+      default:
+    }
   }
 
   Future<List<PetImage>> _uploadImage(List<String> paths) {

@@ -2,7 +2,7 @@ part of petisland_core.service;
 
 abstract class RescueService {
   Future<Rescue> create(Rescue rescue, List<String> imageIds);
-  Future<Rescue> update(Rescue rescue);
+  Future<Rescue> update(Rescue rescue, List<String> newImages, List<String> oldImages);
   Future<bool> delete(String rescueId);
 
   Future<List<Comment>> getComments(String id);
@@ -60,7 +60,8 @@ class RescueServiceImpl extends RescueService {
   Future<bool> unJoin(String id) => repository.unJoin(id);
 
   @override
-  Future<Rescue> update(Rescue rescue) => repository.update(rescue);
+  Future<Rescue> update(Rescue rescue, List<String> newImages, List<String> oldImages) =>
+      repository.update(rescue, newImages, oldImages);
 
   @override
   Future<bool> delete(String rescueId) {

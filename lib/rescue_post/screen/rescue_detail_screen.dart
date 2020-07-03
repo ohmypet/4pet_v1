@@ -235,10 +235,11 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
   }
 
   void _editRescue(BuildContext context) {
+    rescueCommentBloc.stopListener();
     navigateToScreen(
       context: context,
       screen: RescueEditorScreen.edit(rescue: widget.rescue),
-    );
+    ).whenComplete(() => rescueCommentBloc.startListener());
   }
 
   void _handleLeaveRescue(BuildContext context) {
