@@ -172,6 +172,12 @@ class MockRescueRepository extends RescueRepository {
     // TODO: implement deleteComment
     throw UnimplementedError();
   }
+
+  @override
+  Future<bool> addComment(String rescueId, String message) {
+    // TODO: implement addComment
+    throw UnimplementedError();
+  }
 }
 
 abstract class RescueRepository {
@@ -193,6 +199,7 @@ abstract class RescueRepository {
 
   Future<bool> deleteComment(String rescueId, String commentId);
 
+  Future<bool> addComment(String rescueId, String message);
   // Future<List<Hero
 }
 
@@ -282,5 +289,11 @@ class RescueRepositoryImpl extends RescueRepository {
   @override
   Future<bool> deleteComment(String rescueId, String commentId) {
     return client.delete('/rescue-service/$rescueId/$commentId').then((value) => true);
+  }
+
+  @override
+  Future<bool> addComment(String rescueId, String message) {
+    final body = {'message': message};
+    return client.post('/rescue-service/$rescueId/comment', body).then((value) => true);
   }
 }

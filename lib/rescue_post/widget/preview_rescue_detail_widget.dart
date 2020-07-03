@@ -53,6 +53,7 @@ class PreviewRescueDetailWidget extends StatelessWidget {
             child: PostMoneyWidget(
               money: coin.toDouble(),
               typeMoney: 'coins',
+              title: 'Charity',
             ),
           ),
           Flexible(

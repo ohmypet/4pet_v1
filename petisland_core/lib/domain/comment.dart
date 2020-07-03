@@ -19,6 +19,8 @@ class Comment extends BaseModel {
     message = json['message'];
     likes = json['likes'];
     images = parseImages(json['images']);
+    Log.info('createdAt:: ${json["createdAt"]}');
+    Log.info('updatedAt:: ${json["updatedAt"]}');
   }
 
   Comment.fromRescue(Map<String, dynamic> json) : super.fromJson(json) {
@@ -27,6 +29,14 @@ class Comment extends BaseModel {
     images = parseImages(json['images']);
     if (json['account'] != null) {
       createBy = Account.fromJson(json['account']);
+    }
+
+    // TODO(tvc12): Becareful, because .Net use local time
+    if (json['createdAt'] != null) {
+      createAt = _parseDateTime(json['createdAt'] + 'Z');
+    }
+    if (json['updatedAt'] != null) {
+      createAt = _parseDateTime(json['updatedAt'] + 'Z');
     }
   }
 

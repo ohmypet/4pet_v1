@@ -82,7 +82,9 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: isJoined
-                          ? CommentInputBarWidget(onTapSend: _onTapSend)
+                          ? CommentInputBarWidget(
+                              onTapSend: (_) => _onTapSend(context, _),
+                            )
                           : _buildJoinButton(context),
                     ),
                   ],
@@ -102,9 +104,11 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
 
   void _onTapSeeMore(BuildContext context, OptionType seeMoreType) {
     switch (seeMoreType) {
-      // case OptionType.Report:
-      //   _reportPost(context);
-      //   break;
+      case OptionType.Report:
+        return;
+        // TODO(tvc12): send report
+        _reportPost(context);
+        break;
       case OptionType.Delete:
         _deleteRescue(context);
         break;
@@ -118,22 +122,34 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
     }
   }
 
-  // void _reportPost(BuildContext context) {
-  //   showModalBottomSheet(
-  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-  //     context: context,
-  //     builder: (_) => KikiReportWidget(
-  //       onSendReport: _sendReport,
-  //     ),
-  //   );
-  // }
+  void _reportPost(BuildContext context) {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      context: context,
+      builder: (_) => KikiReportWidget(
+        onSendReport: _sendReport,
+      ),
+    );
+  }
 
-  // void _sendReport(ReportData value) {
-  //   Log.debug('Seleted:: $value');
-  // }
+  void _sendReport(ReportData value) {
+    Log.debug('Seleted:: $value');
+  }
 
-  void _onTapSend(String message) {
-    Log.debug('SendMessage:: $message');
+  void _onTapSend(BuildContext context, String message) {
+    Log.info('SendMessage:: $message');
+    rescueCommentBloc
+      ..softAddComment(message)
+      ..stopListener();
+    rescueService
+        .addComment(rescueId, message)
+        .catchError(
+          (ex) => this.showErrorSnackBar(
+            context: context,
+            content: TConstants.error,
+          ),
+        )
+        .whenComplete(() => rescueCommentBloc.startListener());
   }
 
   void _handleJoinNow(BuildContext context) async {
