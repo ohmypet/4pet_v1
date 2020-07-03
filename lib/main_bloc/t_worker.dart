@@ -4,6 +4,7 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
   static final ImageService uploadService = DI.get<ImageService>(ImageService);
   static final PostService postService = DI.get<PostService>(PostService);
   static final ReportService reportService = DI.get(ReportService);
+  static final RescueService rescueService = DI.get(RescueService);
   final mapCallBack = <String, VoidCallback>{};
 
   @override
@@ -16,7 +17,8 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
     add(CommentPostEvent(postId, message));
   }
 
-  void createPost(PostCreateModal modal, List<String> images, {VoidCallback onCompleted}) {
+  void createPost(PostCreateModal modal, List<String> images,
+      {VoidCallback onCompleted}) {
     final id = ThinId.randomId();
     if (images?.isNotEmpty == true) {
       add(UploadImageEvent._(id: id, postModal: modal, imagesMustUpload: images));
@@ -163,8 +165,8 @@ class TWorker extends TBloc<WorkerEvent, WorkerState> {
     postService.like(event.id).catchError((_) => Log.error(_));
   }
 
-  void _likeRescuePost(BaseEvent event) {
-    // TODO(tvc12): Rescue handle like
+  void _likeRescuePost(LikeRescuePostEvent event) {
+    rescueService.like(event.rescueId);
   }
 
   void _reportPost(ReportPostEvent event) {

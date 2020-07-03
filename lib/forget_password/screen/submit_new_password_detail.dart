@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/common.dart';
+import 'package:flutter_template/common/widgets/widgets.dart';
 import 'package:flutter_template/login/widget/widget.dart';
 
 class SubmitNewPasswordDetail extends StatefulWidget {
   final void Function() onSubmit;
   final void Function(String) onNewPasswordChange;
   final void Function(String) onRePasswordChange;
-  SubmitNewPasswordDetail(
-      {this.onSubmit,
-      this.onNewPasswordChange,
-      this.onRePasswordChange,
-      Key key})
-      : super(key: key);
+  SubmitNewPasswordDetail({
+    this.onSubmit,
+    this.onNewPasswordChange,
+    this.onRePasswordChange,
+    Key key,
+  }) : super(key: key);
 
   @override
-  _SubmitNewPasswordDetailState createState() =>
-      _SubmitNewPasswordDetailState();
+  _SubmitNewPasswordDetailState createState() => _SubmitNewPasswordDetailState();
 }
 
 class _SubmitNewPasswordDetailState extends State<SubmitNewPasswordDetail> {
@@ -44,6 +44,7 @@ class _SubmitNewPasswordDetailState extends State<SubmitNewPasswordDetail> {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      shrinkWrap: true,
       children: <Widget>[
         UserInputWidget(
           newPasswordController,

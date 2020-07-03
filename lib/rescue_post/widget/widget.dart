@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_template/authentication_bloc/authentication_bloc.dart';
 import 'package:flutter_template/common/state/state.dart';
 import 'package:flutter_template/common/widgets/widgets.dart';
 import 'package:flutter_template/login/widget/widget.dart';
@@ -17,7 +18,6 @@ import 'package:flutter_template/post/post_detail/widget/widget.dart';
 import 'package:flutter_template/rescue_post/rescue.dart';
 import 'package:petisland_core/petisland_core.dart';
 import 'package:flutter_template/common/common.dart';
-
 
 part 'account_list_view.dart';
 part 'account_sponsorship_widget.dart';

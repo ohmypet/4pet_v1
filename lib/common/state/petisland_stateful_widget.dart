@@ -8,5 +8,4 @@ abstract class TStatefulWidget extends StatefulWidget {
   TState createState();
 }
 
-abstract class TState<T extends StatefulWidget> extends State<T> with BaseTool {
-}
+abstract class TState<T extends StatefulWidget> extends State<T> with BaseTool {}

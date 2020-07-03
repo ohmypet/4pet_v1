@@ -6,9 +6,10 @@ import 'package:flutter_template/forget_password/screen/submit_code_detail.dart'
 import 'package:flutter_template/forget_password/screen/submit_email_detail.dart';
 import 'package:flutter_template/forget_password/screen/submit_new_password_detail.dart';
 import 'package:flutter_template/login/widget/widget.dart';
-import 'package:flutter_template/petisland.dart';
+import 'package:petisland_core/petisland_core.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
+  static const name = '/ForgetPasswordScreen';
   ForgetPasswordScreen({Key key}) : super(key: key);
 
   @override
@@ -48,10 +49,10 @@ class _ForgetPasswordScreenState extends TState<ForgetPasswordScreen> {
           bloc: forgetBloc,
           listener: handleBlocStateChange,
           builder: (context, state) {
-            bool canSubmitEmail = forgetBloc.email.isNotEmpty &&
-                (forgetBloc.state is! ErrorStepOneState);
-            bool canSubmitCode = forgetBloc.code.isNotEmpty &&
-                (forgetBloc.state is! ErrorStepTwoState);
+            bool canSubmitEmail =
+                forgetBloc.email.isNotEmpty && (forgetBloc.state is! ErrorStepOneState);
+            bool canSubmitCode =
+                forgetBloc.code.isNotEmpty && (forgetBloc.state is! ErrorStepTwoState);
             bool canSubmitPassword = forgetBloc.password.isNotEmpty &&
                 forgetBloc.rePassword.isNotEmpty &&
                 (forgetBloc.state is! ErrorStepThreeState);
@@ -63,26 +64,30 @@ class _ForgetPasswordScreenState extends TState<ForgetPasswordScreen> {
                     physics: const NeverScrollableScrollPhysics(),
                     controller: pageController,
                     children: <Widget>[
-                      SubmitEmailDetail(
-                        onChange: (text) => forgetBloc.add(TypingEmail(text)),
-                        onSubmit: canSubmitEmail
-                            ? () => forgetBloc.add(SubmitEmail())
-                            : null,
+                      Center(
+                        child: SubmitEmailDetail(
+                          onChange: (text) => forgetBloc.add(TypingEmail(text)),
+                          onSubmit:
+                              canSubmitEmail ? () => forgetBloc.add(SubmitEmail()) : null,
+                        ),
                       ),
-                      SubmitCodeDetail(
-                        onChange: (text) => forgetBloc.add(TypingCode(text)),
-                        onSubmit: canSubmitCode
-                            ? () => forgetBloc.add(SubmitCode())
-                            : null,
+                      Center(
+                        child: SubmitCodeDetail(
+                          onChange: (text) => forgetBloc.add(TypingCode(text)),
+                          onSubmit:
+                              canSubmitCode ? () => forgetBloc.add(SubmitCode()) : null,
+                        ),
                       ),
-                      SubmitNewPasswordDetail(
-                        onNewPasswordChange: (text) =>
-                            forgetBloc.add(TypingNewPassword(text)),
-                        onRePasswordChange: (text) =>
-                            forgetBloc.add(TypingRePassword(text)),
-                        onSubmit: canSubmitPassword
-                            ? () => forgetBloc.add(SubmitNewPassword())
-                            : null,
+                      Center(
+                        child: SubmitNewPasswordDetail(
+                          onNewPasswordChange: (text) =>
+                              forgetBloc.add(TypingNewPassword(text)),
+                          onRePasswordChange: (text) =>
+                              forgetBloc.add(TypingRePassword(text)),
+                          onSubmit: canSubmitPassword
+                              ? () => forgetBloc.add(SubmitNewPassword())
+                              : null,
+                        ),
                       ),
                     ],
                   ),
@@ -92,9 +97,7 @@ class _ForgetPasswordScreenState extends TState<ForgetPasswordScreen> {
                     return BlocBuilder<ForgetPasswordBloc, ForgetPasswordState>(
                       bloc: forgetBloc,
                       builder: (_, state) {
-                        return state is Loading
-                            ? const LoadingWidget()
-                            : SizedBox();
+                        return state is Loading ? const LoadingWidget() : SizedBox();
                       },
                     );
                   },
@@ -162,8 +165,7 @@ class _ForgetPasswordScreenState extends TState<ForgetPasswordScreen> {
     }
   }
 
-  void navigateToHomeWhenSuccess(
-      BuildContext context, ForgetPasswordState state) {
+  void navigateToHomeWhenSuccess(BuildContext context, ForgetPasswordState state) {
     if (state is SuccessForgetPasswordState) {
       Navigator.of(context).pop();
     }

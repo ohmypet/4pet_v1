@@ -130,10 +130,6 @@ class _RescueListingState extends TState<RescueListing> {
     );
   }
 
-  void _handleDeleteRescue(Rescue rescue) {
-    // TODO(tvc12): Handle delete rescue
-  }
-
   void _handleOnStateChange(BuildContext context, RescueListingState state) {
     if (refreshController.isLoading) {
       refreshController.loadComplete();
@@ -146,12 +142,8 @@ class _RescueListingState extends TState<RescueListing> {
   void _handleOnTapRescuePost(Rescue rescue) {
     navigateToScreen(
       context: context,
-      // TODO: revert here
-      screen: RescueVotingScreen(
-        rescue: rescue,
-        // onDeleteRescue: _handleDeleteRescue,
-      ),
-      screenName: RescueVotingScreen.name,
+      screen: RescueDetailScreen(rescue: rescue),
+      screenName: RescueDetailScreen.name,
     ).whenComplete(() {
       setState(() {});
     });

@@ -49,12 +49,12 @@ class RescueDetailSummaryWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildImageSlider(List<RescueImage> postImages) {
+  Widget _buildImageSlider(List<PetImage> postImages) {
     return postImages?.isNotEmpty == true
         ? Container(
             height: 105,
             child: ImageSliderWidget(
-              images: rescue.rescueImages.map((e) => e.image.url).toSet().toList(),
+              images: rescue.rescueImages.map((e) => e.url).toSet().toList(),
               description: 'Images',
             ),
           )

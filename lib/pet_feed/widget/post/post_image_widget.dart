@@ -2,14 +2,21 @@ part of petisland.pet_feed.widget.post;
 
 class PostImageWidget extends TStatelessWidget {
   final String imageUrl;
+  static final Widget imageDefault = DefaultPetImage();
   final bool isSquare;
-  final Widget imageDefault = DefaultPetImage();
   final Object heroTag = ThinId.randomId();
   final BoxFit fit;
   final BoxShape shape;
   final Color backGroundColor;
 
-  PostImageWidget({Key key, this.imageUrl, this.isSquare = true, this.fit: BoxFit.cover, this.shape, this.backGroundColor = TColors.duck_egg_blue}) : super(key: key);
+  PostImageWidget(
+      {Key key,
+      this.imageUrl,
+      this.isSquare = true,
+      this.fit: BoxFit.cover,
+      this.shape,
+      this.backGroundColor = TColors.duck_egg_blue})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

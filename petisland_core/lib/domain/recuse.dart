@@ -5,14 +5,14 @@ class Rescue extends BaseModel {
   String description;
   String location;
   int status;
-  double totalCoin;
+  int totalCoin;
   int maxHeroes;
   int currentHeroes;
   int likes;
   Account account;
   bool isJoined;
   bool isReacted;
-  List<RescueImage> rescueImages;
+  List<PetImage> rescueImages;
 
   Rescue({
     String id,
@@ -53,9 +53,16 @@ class Rescue extends BaseModel {
     if (json['account'] != null) {
       account = Account.fromJson(json['account']);
     }
-    isReacted = json['is_liked'] ?? false;
+    isReacted = json['isReacted'] ?? false;
     currentHeroes = json['currentHeroes'] ?? 0;
     likes = json['likes'] ?? 0;
+    isJoined = json['isJoined'] ?? false;
+
+    if (json['images'] is List) {
+      rescueImages = (json['images'] as List).map((e) => PetImage.fromJson(e)).toList();
+    } else {
+      rescueImages = [];
+    }
   }
 
   String get avatar => account?.user?.avatar?.url;
@@ -70,10 +77,10 @@ class Rescue extends BaseModel {
   String get currentHeroesAsString => currentHeroes?.toString() ?? '0';
 
   String get firstImage {
-    final RescueImage item = rescueImages
-        ?.firstWhere((rescueImage) => rescueImage.image?.url != null, orElse: () => null);
+    final PetImage item = rescueImages
+        ?.firstWhere((rescueImage) => rescueImage.url != null, orElse: () => null);
     if (item != null) {
-      return item.image.url;
+      return item.url;
     } else {
       return null;
     }
@@ -130,5 +137,42 @@ class Rescue extends BaseModel {
       isReacted = false;
       return this.likes = likes > 0 ? likes - 1 : 0;
     }
+  }
+
+  Rescue clone() {
+    return Rescue(
+      id: this.id,
+      account: this.account,
+      createAt: this.createAt,
+      createBy: this.createBy,
+      currentHeroes: this.currentHeroes,
+      description: this.description,
+      isJoined: this.isJoined,
+      isReacted: this.isReacted,
+      likes: this.likes,
+      location: this.location,
+      maxHeroes: this.maxHeroes,
+      rescueImages: this.rescueImages,
+      status: this.status,
+      title: this.title,
+      totalCoin: this.totalCoin,
+      updateAt: this.updateAt,
+    );
+  }
+
+  void unJoin() {
+    isJoined = false;
+    if (currentHeroes != null && currentHeroes > 0) {
+      --currentHeroes;
+    } else
+      currentHeroes = 0;
+  }
+
+  void join() {
+    isJoined = true;
+    if (currentHeroes != null && currentHeroes > 0) {
+      ++currentHeroes;
+    } else
+      currentHeroes = 1;
   }
 }

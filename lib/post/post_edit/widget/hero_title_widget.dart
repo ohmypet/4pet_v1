@@ -7,7 +7,7 @@ class HeroTitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = heroes < 1 ? 'Unlimited volunteer' : 'Only $heroes volunteer';
+    final title = heroes < 1 ? 'Unlimited Heores' : 'Only $heroes Heroes';
     return Flex(
       direction: Axis.horizontal,
       children: [

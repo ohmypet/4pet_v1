@@ -27,12 +27,9 @@ class RescueHeroBloc extends TBloc<RescueHeroEvent, RescueHeroState> {
   @override
   RescueHeroState get initialState => ReloadListingState(heroes.isNotEmpty);
 
-  Stream<RescueHeroState> _handleLoadHeroEvent(
-    LoadHeroEvent event, {
-    bool clearOldData,
-  }) async* {
+  Stream<RescueHeroState> _handleLoadHeroEvent(LoadHeroEvent event) async* {
     final heroes = await service.getHeroJoined(id);
-    if (clearOldData == true) {
+    if (event.clearOldData == true) {
       this.rescueAccounts.clear();
     }
     this.rescueAccounts.addAll(heroes);
@@ -40,7 +37,7 @@ class RescueHeroBloc extends TBloc<RescueHeroEvent, RescueHeroState> {
   }
 
   void reload() {
-    add(LoadHeroEvent());
+    add(LoadHeroEvent(clearOldData: true));
   }
 
   void loadMore() {

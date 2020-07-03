@@ -13,7 +13,7 @@ abstract class TConstants {
 
   static const String hint_new_password = 'New Password';
 
-  static const String hint_re_password = 'RePassword';
+  static const String hint_re_password = 'Re-Password';
 
   static const String text_login = 'LOGIN';
 
@@ -31,6 +31,8 @@ abstract class TConstants {
   static const String join_now = 'JOIN NOW';
 
   static const String donate = 'Donate';
+
+  static const String error = 'Something went wrong, try again later!';
 
   static const border_top_left = BorderRadius.only(
     topLeft: Radius.circular(10),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/common/common.dart';
+import 'package:flutter_template/common/widgets/widgets.dart';
 import 'package:flutter_template/login/widget/widget.dart';
 
 class SubmitCodeDetail extends StatefulWidget {
@@ -31,6 +32,7 @@ class _SubmitCodeDetailState extends State<SubmitCodeDetail> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         UserInputWidget(
           codeController,
@@ -39,7 +41,7 @@ class _SubmitCodeDetailState extends State<SubmitCodeDetail> {
           hintText: TConstants.hint_code,
           onSubmit: widget.onSubmit ?? null,
           textAlign: TextAlign.center,
-          keyboardType:TextInputType.number,
+          keyboardType: TextInputType.number,
         ),
         PetIslandButtonWidget(
           text: TConstants.text_submit_code,
