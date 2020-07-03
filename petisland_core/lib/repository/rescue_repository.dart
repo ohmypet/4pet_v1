@@ -248,7 +248,7 @@ class RescueRepositoryImpl extends RescueRepository {
 
   @override
   Future<bool> join(String id) {
-    throw UnimplementedError();
+    return client.post('/rescue-service/$id/join', {}).then((value) => true);
   }
 
   @override
@@ -258,7 +258,7 @@ class RescueRepositoryImpl extends RescueRepository {
 
   @override
   Future<bool> unJoin(String id) {
-    throw UnimplementedError();
+    return client.post('/rescue-service/$id/unjoin', {}).then((value) => true);
   }
 
   @override

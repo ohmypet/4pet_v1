@@ -11,7 +11,7 @@ class RescueCreationDetailWidget extends TStatefulWidget {
 
 class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget> {
   final String defaultTitle = 'Can you help my kitten ...';
-  final List<String> numberHeros = ['Unlimited volunteer'];
+  final List<String> numberHeros = ['Unlimited Heores'];
 
   final titleEdittingController = TextEditingController();
   final descriptionEdittingController = TextEditingController();
@@ -57,7 +57,7 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
   void initState() {
     super.initState();
     for (int i = 1; i < 10; ++i) {
-      numberHeros.add('$i volunteer');
+      numberHeros.add('$i Heroes');
     }
     if (isEditMode) {
       titleEdittingController.text = editingBloc.rescue.title ?? '';
@@ -172,7 +172,7 @@ class _RescueCreationDetailWidgetState extends TState<RescueCreationDetailWidget
 
   Widget _buildVolunteer() {
     return DropDownInputWidget(
-      title: 'Volunteer',
+      title: 'Heroes',
       initSelectedItem: editingBloc.rescue.maxHeroes,
       data: numberHeros,
       onSelectedChanged: (heroes) => editingBloc.rescue.maxHeroes = heroes,

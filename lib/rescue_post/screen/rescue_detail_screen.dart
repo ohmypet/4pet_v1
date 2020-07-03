@@ -12,9 +12,9 @@ class RescueDetailScreen extends StatefulWidget {
 }
 
 class _RescueDetailScreenState extends TState<RescueDetailScreen> {
-  Account get account => widget.rescue.account;
-  bool get isJoined => widget.rescue.isJoined ?? false;
-  bool get canJoin => widget.rescue.canJoin;
+  Account get rescueAccount => widget.rescue.account;
+  bool get isJoined => isOwner || (widget.rescue.isJoined ?? false);
+  bool get canJoin => !isOwner && widget.rescue.canJoin;
   String get id => widget.rescue.id;
   final ScrollController controller = ScrollController();
   RescueHeroBloc heroBloc;
@@ -22,14 +22,16 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
   RescueCommentBloc rescueCommentBloc;
   RescueService get rescueService => DI.get(RescueService);
   RescueListingBloc get listingBloc => DI.get(RescueListingBloc);
+  bool get isOwner => AccountUtils.isOwner(rescueAccount);
+  bool get showLeave => widget.rescue.isJoined ?? false;
 
   bool isLoading = false;
 
   void initState() {
     super.initState();
-    heroBloc = RescueHeroBloc(id)..reload();
-    donateBloc = RescueDonateBloc(id)..reload();
-    rescueCommentBloc = RescueCommentBloc(id)..startListener();
+    heroBloc = RescueHeroBloc(id); //..reload();
+    donateBloc = RescueDonateBloc(id); //..reload();
+    rescueCommentBloc = RescueCommentBloc(id); //..startListener();
   }
 
   @override
@@ -41,8 +43,8 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
             preferredSize: Size.fromHeight(32),
             child: Builder(
               builder: (context) => PostDetailAppBar(
-                showLeave: !canJoin,
-                isOwner: AccountUtils.isOwner(account),
+                showLeave: true,
+                isOwner: isOwner,
                 onTapBack: () => _onTapBack(context),
                 onSelected: (_) => _onTapSeeMore(context, _),
               ),
@@ -134,7 +136,6 @@ class _RescueDetailScreenState extends TState<RescueDetailScreen> {
   }
 
   void _handleJoinNow(BuildContext context) async {
-    // TODO(tvc12): Join here
     setState(() => isLoading = true);
     rescueService
         .join(widget.rescue.id)
