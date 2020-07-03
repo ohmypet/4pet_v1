@@ -74,6 +74,7 @@ class _ForgetPasswordScreenState extends TState<ForgetPasswordScreen> {
                       Center(
                         child: SubmitCodeDetail(
                           onChange: (text) => forgetBloc.add(TypingCode(text)),
+                          onTapResend: ()=> canSubmitEmail ? () => forgetBloc.add(SubmitEmail()) : null,
                           onSubmit:
                               canSubmitCode ? () => forgetBloc.add(SubmitCode()) : null,
                         ),
