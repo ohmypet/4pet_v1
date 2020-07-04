@@ -5,7 +5,8 @@ class PostLoadingScreen extends StatefulWidget {
   final String id;
   final String type;
 
-  const PostLoadingScreen({Key key, @required this.id, this.type}) : super(key: key);
+  const PostLoadingScreen({Key key, @required this.id, @required this.type})
+      : super(key: key);
 
   @override
   _PostLoadingScreenState createState() => _PostLoadingScreenState();
@@ -45,12 +46,12 @@ class _PostLoadingScreenState extends State<PostLoadingScreen> {
   }
 
   void loadData() {
-    switch (widget.type.toUpperCase()) {
-      case 'post':
+    switch (widget.type.toLowerCase()) {
+      case 'rescue':
         rescueService.getRescue(widget.id).then(_navigateRescue).catchError(_handleError);
         break;
 
-      case 'rescue':
+      case 'post':
         postService.getPost(widget.id).then(_navigatePost).catchError(_handleError);
         break;
       default:

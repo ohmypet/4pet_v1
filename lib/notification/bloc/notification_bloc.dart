@@ -5,6 +5,8 @@ class NotificationBloc extends TBloc<NotificationEvent, NotificationState> {
   final List<PetNotification> notifications = [];
   final int limit = 15;
   @protected
+  bool isLocked = false;
+  @protected
   Timer timer;
 
   @protected
@@ -25,7 +27,10 @@ class NotificationBloc extends TBloc<NotificationEvent, NotificationState> {
         _reloadNotification(event);
         break;
       case RetrieveNotificationEvent:
-        _retrieveNotification(event);
+        if (!isLocked) {
+          isLocked = true;
+          _retrieveNotification(event);
+        }
         break;
       case ReadNotification:
         stopListener();
@@ -67,7 +72,8 @@ class NotificationBloc extends TBloc<NotificationEvent, NotificationState> {
     service
         .getNotifications(offset: event.offset, limit: event.limit)
         .then(updateNotifications)
-        .catchError((ex) => Log.error(ex));
+        .catchError((ex) => Log.error(ex))
+        .whenComplete(() => isLocked = false);
   }
 
   @override

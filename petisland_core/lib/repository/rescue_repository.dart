@@ -178,6 +178,12 @@ class MockRescueRepository extends RescueRepository {
     // TODO: implement addComment
     throw UnimplementedError();
   }
+
+  @override
+  Future<Rescue> getRescue(String rescueId) {
+    // TODO: implement getRescue
+    throw UnimplementedError();
+  }
 }
 
 abstract class RescueRepository {
