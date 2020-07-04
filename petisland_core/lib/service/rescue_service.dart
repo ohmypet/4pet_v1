@@ -20,6 +20,8 @@ abstract class RescueService {
   Future<bool> unJoin(String id);
 
   Future<bool> addComment(String rescueId, String message);
+
+  Future<Rescue> getRescue(String rescueId);
 }
 
 class RescueServiceImpl extends RescueService {
@@ -76,5 +78,10 @@ class RescueServiceImpl extends RescueService {
   @override
   Future<bool> addComment(String rescueId, String message) {
     return repository.addComment(rescueId, message);
+  }
+
+  @override
+  Future<Rescue> getRescue(String rescueId) {
+    return repository.getRescue(rescueId);
   }
 }

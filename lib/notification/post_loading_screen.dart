@@ -3,21 +3,23 @@ part of petisland.notification;
 class PostLoadingScreen extends StatefulWidget {
   static const String name = '/PostLoadingScreen';
   final String id;
+  final String type;
 
-  const PostLoadingScreen({Key key, @required this.id}) : super(key: key);
+  const PostLoadingScreen({Key key, @required this.id, @required this.type})
+      : super(key: key);
 
   @override
   _PostLoadingScreenState createState() => _PostLoadingScreenState();
 }
 
 class _PostLoadingScreenState extends State<PostLoadingScreen> {
-  final PostService service = DI.get(PostService);
+  PostService get postService => DI.get(PostService);
+  RescueService get rescueService => DI.get(RescueService);
 
   @override
   void initState() {
     super.initState();
-
-    service.getPost(widget.id).then(_handleResult).catchError(_handleError);
+    loadData();
   }
 
   @override
@@ -30,7 +32,7 @@ class _PostLoadingScreenState extends State<PostLoadingScreen> {
     Navigator.pop<PopResult>(context, PopResult.Failure);
   }
 
-  FutureOr _handleResult(Post value) {
+  FutureOr _navigatePost(Post value) {
     Navigator.pushReplacement(
       context,
       TPageRoute(
@@ -39,6 +41,29 @@ class _PostLoadingScreenState extends State<PostLoadingScreen> {
           onDeletePost: () {},
         ),
         settings: RouteSettings(name: PostDetailScreen.name),
+      ),
+    );
+  }
+
+  void loadData() {
+    switch (widget.type.toLowerCase()) {
+      case 'rescue':
+        rescueService.getRescue(widget.id).then(_navigateRescue).catchError(_handleError);
+        break;
+
+      case 'post':
+        postService.getPost(widget.id).then(_navigatePost).catchError(_handleError);
+        break;
+      default:
+    }
+  }
+
+  FutureOr _navigateRescue(Rescue value) {
+    Navigator.pushReplacement(
+      context,
+      TPageRoute(
+        builder: (_) => RescueDetailScreen(rescue: value),
+        settings: RouteSettings(name: RescueDetailScreen.name),
       ),
     );
   }

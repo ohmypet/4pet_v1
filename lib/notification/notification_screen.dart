@@ -22,10 +22,7 @@ class _NotificationScreenState extends TState<NotificationScreen> {
       appBar: AppBar(
         title: Text(
           'Notification',
-          style: TTextStyles.bold(
-            fontSize: 18,
-            color: TColors.white
-          ),
+          style: TTextStyles.bold(fontSize: 18, color: TColors.white),
           textAlign: TextAlign.start,
         ),
         elevation: 1,
@@ -111,6 +108,7 @@ class _NotificationScreenState extends TState<NotificationScreen> {
 
   void _onTap(PetNotification notification) async {
     // if (!notification.isRead)
+    Log.info('PetNotification:: ${notification.type.id} ${notification.type.name}');
     bloc.readNotification(notification.id);
     setState(() {
       notification.isRead = true;
@@ -118,7 +116,10 @@ class _NotificationScreenState extends TState<NotificationScreen> {
     bloc.stopListener();
     final PopResult data = await navigateToScreen<PopResult>(
       context: context,
-      screen: PostLoadingScreen(id: notification.type.id),
+      screen: PostLoadingScreen(
+        id: notification.type.id,
+        type: notification.type.name,
+      ),
       screenName: PostLoadingScreen.name,
     );
     if (data == PopResult.Failure) {
