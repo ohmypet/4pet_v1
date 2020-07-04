@@ -3,11 +3,14 @@ part of petisland.rescue_post.sceen;
 class RescueEditorScreen extends TStatefulWidget {
   static const name = '/RescueEditorScreen';
   final Rescue rescue;
-
+  final bool isEdit;
   const RescueEditorScreen.create({Key key})
       : this.rescue = null,
+        isEdit = false,
         super(key: key);
-  const RescueEditorScreen.edit({this.rescue, Key key}) : super(key: key);
+  const RescueEditorScreen.edit({this.rescue, Key key})
+      : isEdit = true,
+        super(key: key);
 
   @override
   _RescueCreationScreenState createState() => _RescueCreationScreenState();
@@ -23,7 +26,7 @@ class _RescueCreationScreenState extends TState<RescueEditorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final title = 'Create Rescue Post';
+    final title = widget.isEdit ? 'Edit Rescue Post' : 'Create Rescue Post';
     return Stack(
       children: [
         Scaffold(
@@ -54,9 +57,9 @@ class _RescueCreationScreenState extends TState<RescueEditorScreen> {
   }
 
   void _handleCreateRescue(BuildContext context) async {
-    final images = await _uploadImage(editingBloc.newImages);
-    rescueService
-        .create(editingBloc.rescue, images.map((e) => e.id).toList())
+    _uploadImage(editingBloc.newImages)
+        .then((images) =>
+            rescueService.create(editingBloc.rescue, images.map((e) => e.id).toList()))
         .then((value) => rescueListingBloc.refreshRescuePost())
         .then((value) => this.closeScreen(context, RescueEditorScreen.name))
         .catchError(
