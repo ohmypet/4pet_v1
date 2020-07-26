@@ -17,8 +17,7 @@ abstract class TAssets {
   static String get post_default_image_avatar =>
       '$iconPath/kitty/kitty_${random.nextInt(50) + 1}.svg';
 
-  static final String user_avatar =
-      '$iconPath/kitty/kitty_${random.nextInt(50) + 1}.svg';
+  static final String user_avatar = '$iconPath/kitty/kitty_${random.nextInt(50) + 1}.svg';
   static const String logout = '$iconPath/logout.svg';
   static const String moon = '$iconPath/moon.svg';
   static const String note = '$iconPath/note.svg';
