@@ -10,7 +10,7 @@ class TextLogo extends StatelessWidget {
           style: TTextStyles.normal(fontSize: 24, color: TColors.water_melon),
         ),
         TextSpan(
-          text: 'et',
+          text: 'ET',
           style: TTextStyles.normal(fontSize: 24, color: TColors.scarlet_gum),
         ),
       ]),
