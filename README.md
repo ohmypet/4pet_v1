@@ -1,8 +1,9 @@
 # 4pet
 
 The mobile application for 4PET - The social network for your pet.
-
-<img src="./docs/images/welcome-img.png" width="317" height="449"/>
+<p align="center">
+  <img src="./docs/images/welcome-img.png" width="317" height="449" style="text-align:center"/>
+</b>
 
 ## Quick start
 
@@ -24,27 +25,37 @@ flutter run
 
 + Safe, reliable, and independent pet trading place.
 
-![](./docs/images/home_page.gif)
+<p align="center">
+  <img src="./docs/images/home_page.gif" width="300" height="616"/>
+</p>
 
 ### Pet Rescue
 
 + Rescue pet in case of danger and support finding a new home for it
 
-![](./docs/images/rescue.gif)
+<p align="center">
+  <img src="./docs/images/rescue.gif" width="300" height="616"/>
+</p>
 
 ### Notification
 
-![](./docs/images/notification.gif)
+<p align="center">
+  <img src="./docs/images/notification.gif" width="300" height="616"/>
+</p>
 
 ### Chat with your friend
 
-![](./docs/images/chat.gif)
+<p align="center">
+  <img src="./docs/images/chat.gif" width="300" height="616"/>
+</p>
 
 ### Profile
 
 + Upload photos or videos of happy moments with your pet.
 
-![](./docs/images/profile.gif)
+<p align="center">
+  <img src="./docs/images/profile.gif" width="300" height="616"/>
+</p>
 
 ## Contributors
 
