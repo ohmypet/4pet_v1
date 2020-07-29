@@ -2,12 +2,14 @@
 
 The mobile application for 4PET - The social network for your pet.
 
+<img src="./docs/images/welcome-img.png" width="317" height="449"/>
+
 ## Quick start
 
 - Get packages from **pub** for Flutter app:
 
 ```bash
-flutter packages get
+flutter pub get
 ```
 
 - Run project:
@@ -15,6 +17,34 @@ flutter packages get
 ```bash
 flutter run
 ```
+
+## Features
+
+### Pet market
+
++ Safe, reliable, and independent pet trading place.
+
+![](./docs/images/home_page.gif)
+
+### Pet Rescue
+
++ Rescue pet in case of danger and support finding a new home for it
+
+![](./docs/images/rescue.gif)
+
+### Notification
+
+![](./docs/images/notification.gif)
+
+### Chat with your friend
+
+![](./docs/images/chat.gif)
+
+### Profile
+
++ Upload photos or videos of happy moments with your pet.
+
+![](./docs/images/profile.gif)
 
 ## Contributors
 
