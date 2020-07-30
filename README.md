@@ -45,9 +45,9 @@ Building a new currency based on the Blockchain.
 
 | Pet market 	|  Pet Rescue 	| Notification 	|
 |:----------:	|:-----------:	|:------------:	|
-|      <img src="./docs/images/home_page.gif" width="300" height="616"/>      	|        <img src="./docs/images/rescue.gif" width="300" height="616"/>     	|        <img src="./docs/images/notification.gif" width="300" height="616"/>      	|
+|      <img src="./docs/images/home_page.gif" mheight="616"/>      	|        <img src="./docs/images/rescue.gif" max-height="616"/>     	|        <img src="./docs/images/notification.gif" max-height="616"/>      	|
 |  **Chat**  	| **Profile** 	|       **More screens**       	|
-|      <img src="./docs/images/chat.gif" width="300" height="616"/>     	|       <img src="./docs/images/profile.gif" width="300" height="616"/>      	|        <a href="https://drive.google.com/drive/folders/1-ZCvQmeQXp8jvPDIbtCM2066beBKG2jm?usp=sharing"><img alt="google play" height="40" src="docs/images/play.png" /></a>&#32;<a href="https://drive.google.com/drive/folders/1-ZCvQmeQXp8jvPDIbtCM2066beBKG2jm?usp=sharing"><img alt="google play" height="40" src="docs/images/appstore.png" /></a>      	|
+|      <img src="./docs/images/chat.gif" max-height="616"/>     	|       <img src="./docs/images/profile.gif" mheight="616"/>      	|        <a href="https://drive.google.com/drive/folders/1-ZCvQmeQXp8jvPDIbtCM2066beBKG2jm?usp=sharing"><img alt="google play" height="40" src="docs/images/play.png" /></a>&#32;<a href="https://drive.google.com/drive/folders/1-ZCvQmeQXp8jvPDIbtCM2066beBKG2jm?usp=sharing"><img alt="google play" height="40" src="docs/images/appstore.png" /></a>      	|
 
 <h2 id="team">🤝Team</h2>
 
